@@ -1,0 +1,8 @@
+wget -O ~/.tmux.conf https://www.dropbox.com/s/63qt81n43sibxap/.tmux.conf 
+wget -O ~/.config/fish/config.fish https://www.dropbox.com/s/lepk5gjtrmz125w/config.fish 
+wget -O ~/.vimrc https://www.dropbox.com/s/5r78t00zdc5x3u8/.vimrc 
+wget -O ~/.vim https://www.dropbox.com/sh/2z8u7way6nj3w6l/Xgs6lMpvYQ 
+mv ~/.mozilla/firefox/*.default ~/.mozilla/firefox/profile.old
+wget -O ~/.mozilla/firefox/profile.default https://www.dropbox.com/sh/yofuh8b6fn8jkm1/hf9oraQF6y 
+echo -e' [General]\nStartWithLastProfile=1\n\n[Profile0]\nName=Chad\nIsRelative=1\nPath= profile.default\nDefault=2/n' > ~/.mozilla/firefox/profiles.ini
+clear
