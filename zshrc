@@ -98,7 +98,10 @@ alias gl='git pull'
 alias g='git'
 alias gp='git push'
 alias gc='git commit -v'
-alias gcm='git commit -vm'
+alias gm='git commit -vm'
+alias gpom='git push origin master'
+alias glom='git push origin master'
+
 alias zshrc='vim ~/.zshrc'
 
 alias grep='grep --color'
