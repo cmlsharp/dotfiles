@@ -11,6 +11,7 @@ bindkey -v
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/core_perl:/home/chad/.gem/ruby/2.1.0/bin:/home/chad/bin"
 export EDITOR="vim"
 export BROWSER="/home/chad/.local/share/firefox/firefox"
+export MOUNT="/mnt/NAS"
 
 #Aliases
 alias wftop='sudo iftop -i wlp3s0'
@@ -28,9 +29,9 @@ alias rollback='sudo rollback'
 alias snp='sudo snp'
 alias nfs='sudo mount -t nfs mmfab-server:/mnt/MMFAB/ /mnt/NAS'
 alias unfs='sudo umount /mnt/NAS'
-export MOUNT="/mnt/NAS/Chad"
+alias sfs='sshfs chad@mmfab-server:/mnt/MMFAB /mnt/SSHFS'
+alias usfs='fusermount -u /mnt/SSHFS'
 alias dc='cd'
-alias e='exit'
 alias z='source ~/.zshrc'
 alias pg='ps -ef | grep --color'
 alias svim='sudo -E vim'
@@ -38,6 +39,7 @@ alias dfh='btrfs filesystem df / && btrfs filesystem df /home'
 alias /='cd /'
 alias vi='vim'
 alias ivm='vim'
+alias e='exit'
 alias q='exit'
 alias ZZ='exit'
 
