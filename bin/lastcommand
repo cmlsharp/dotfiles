@@ -1,2 +1,0 @@
-#!/bin/bash
-lastcommand=$(history | tail -n 1 | awk '{print $2}| bash'
