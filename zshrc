@@ -29,7 +29,7 @@ alias rollback='sudo rollback'
 alias snp='sudo snp'
 alias nfs='sudo mount -t nfs mmfab-server:/mnt/MMFAB/ /mnt/NAS'
 alias unfs='sudo umount /mnt/NAS'
-alias sfs='sshfs chad@mmfab-server:/mnt/MMFAB /mnt/SSHFS'
+alias sfs='sshfs chad@mmfab-server:/mnt/MMFAB ~/Cloud/sshfs'
 alias usfs='fusermount -u /mnt/SSHFS'
 alias dc='cd'
 alias z='source ~/.zshrc'
@@ -241,7 +241,6 @@ alias youtube='web_search duckduckgo \!yt'
 alias map='web_search duckduckgo \!m'
 alias image='web_search duckduckgo \!i'
 alias ducky='web_search duckduckgo \!'
-source /usr/share/doc/pkgfile/command-not-found.zsh
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 #Extract function
 
