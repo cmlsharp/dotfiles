@@ -15,13 +15,10 @@ export MOUNT="/mnt/NAS"
 
 #Aliases
 alias wftop='sudo iftop -i wlp3s0'
-alias tc1='truecrypt --fs-options=users,uid=$(id -u),gid=$(id -g),fmask=0113,dmask=0002 --mount /home/chad/public/crypt.tc"" /home/chad/public/crypt'
-alias utc='truecrypt -t -d'
-alias wspeed='speedometer -r wlp3s0 -t wlp3s0' 
 alias c='clear'
 alias vimrc='vim /home/chad/.vimrc'
 alias chkupd='checkupdates'
-alias m="mpd ~/.config/mpd/mpd.conf"
+alias m="mpd ~/.dotfiles/mpd/mpd.conf"
 alias n="ncmpcpp"
 alias pacupg='sudo snp pacman -Syu'
 alias yaupg='sudo snp yaourt -Syua'
@@ -41,7 +38,9 @@ alias ivm='vim'
 alias e='exit'
 alias q='exit'
 alias ZZ='exit'
-alias crashplan='ssh -f -L 4200:localhost:4243 crashplan@192.168.1.1 -N -v -v && CrashPlanDesktop'
+alias crashplan='ssh -f -L 4200:localhost:4243 crashplan@192.168.1.1 -N > /dev/null  && CrashPlanDesktop'
+alias cp='acp -g'
+alias mv='amv -g'
 
 alias pacin='sudo pacman -S'
 alias pacins='sudo pacman -U'
