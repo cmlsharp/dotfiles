@@ -8,7 +8,7 @@ setopt completealiases
 setopt HIST_IGNORE_DUPS
 bindkey -v
 [[ -z "$TMUX" ]] && exec tmux
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/core_perl:/home/chad/.gem/ruby/2.1.0/bin:/home/chad/bin"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/core_perl:/home/chad/.gem/ruby/2.1.0/bin:/home/chad/bin:/usr/local/scripts"
 export EDITOR="vim"
 export BROWSER="/home/chad/.local/share/firefox/firefox"
 export MOUNT="/mnt/NAS"
@@ -24,10 +24,10 @@ alias pacupg='sudo snp pacman -Syu'
 alias yaupg='sudo snp yaourt -Syua'
 alias rollback='sudo rollback'
 alias snp='sudo snp'
-alias nfs='sudo mount -t nfs mmfab-server:/mnt/MMFAB/ /mnt/NAS'
-alias unfs='sudo umount /mnt/NAS'
+alias nfs='mount ~/Cloud/nfs'
+alias unfs='umount ~/Cloud/nfs'
 alias sfs='sshfs chad@mmfab-server:/mnt/MMFAB ~/Cloud/sshfs'
-alias usfs='fusermount -u /mnt/SSHFS'
+alias usfs='fusermount -u ~/Cloud/sshfs'
 alias dc='cd'
 alias z='source ~/.zshrc'
 alias pg='ps -ef | grep --color'
