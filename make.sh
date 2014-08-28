@@ -9,7 +9,7 @@
 dir=~/.dotfiles # dotfiles directory
 olddir=~/.dotfiles_old # old dotfiles backup directory
 files="zshrc vimrc tmux.conf vimperatorrc" # list of files/folders to symlink in homedir
-
+multilibline=$(grep -n "#\[multilib\]" /etc/pacman.conf | cut -d ':' -f1)
 ##########
 
 # create dotfiles_old in homedir
@@ -38,7 +38,13 @@ cp $dir/mpd.conf ~/.config/mpd/mpd.conf
 echo "Do you want to install your previous packages?"
 read answer
 case $answer in 
-    ""|[Yy]|[Yy][Ee][Ss]) sudo pacman -S --needed $(comm -12 <(pacman -Slq|sort) <(sort $dir/pacman_pkgs))
+    ""|[Yy]|[Yy][Ee][Ss]) sudo sed -i "$multilibline,$(( $multilibline + 1 ))s/#//" 
+        echo -e "[infinality-bundle]\nServer = http://bohoomil.com/repo/$arch\n\n[infinality-bundle-multilib]\nServer = http://bohoomil.com/repo/multilib/$arch\n\n[pipelight]\nServer = http://repos.fds-team.de/stable/arch/$arch" | sudo tee -a /etc/pacman.conf
+        for key in 962DDE58 E49CC0415DC2D5CA; do
+            sudo pacman-key -r $key
+            sudo pacman-key --lsign $key
+        done
+        sudo pacman -Syy --needed $(comm -12 <(pacman -Slq|sort) <(sort $dir/pacman_pkgs))
         ;;
     [Nn]|[Nn][Oo]) exit 0
         ;;
