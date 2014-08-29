@@ -102,11 +102,6 @@ alias gc='git commit -v'
 alias gm='git commit -vm'
 alias gpom='git push origin master'
 alias glom='git push origin master'
-function gsend {
-git add $1
-git commit -vm "$2"
-git push origin master
-}
 
 alias zshrc='vim ~/.zshrc'
 
