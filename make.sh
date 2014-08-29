@@ -33,7 +33,7 @@ done
 echo "Setting up mpd for user $(whoami)"
 mkdir -p ~/.config/mpd/playlists
 touch ~/.config/mpd/{database,log,pid,state,sticker,sql}
-cp $dir/mpd.conf ~/.config/mpd/mpd.conf
+printf "db_file            \"~/.config/mpd/database\"\nlog_file           \"~/.config/mpd/log\"\n\nmusic_directory    \"~/Music\"\nplaylist_directory \"~/.config/mpd/playlists\"\npid_file           \"~/.config/mpd/pid\"\nstate_file         \"~/.config/mpd/state\"\nsticker_file       \"~/.config/mpd/sticker.sql\""" > ~/.config/mpd/mpd.conf
 
 echo "Do you want to install your previous packages?"
 read answer
@@ -48,17 +48,17 @@ case $answer in
         ;;
     [Nn]|[Nn][Oo]) exit 0
         ;;
-    *) echo "Sorry, that's not an acceptable response"
+    *) echo "Sorry, that is not an acceptable response"
         ;;
 esac
 
 
 echo "Do you want to install AUR packages as well? [y/N]"
 case $answer in 
-    [Yy]|[Yy][Ee][Ss]) yaourt -S --needed $(comm -13 <(pacman -Slq|sort) <(sort $dir/aur_pkgs))
+    [Yy]|[Yy][Ee][Ss]) yaourt -S --needed $(cat $dir/aur_pkgs))
         ;;
     ""|[Nn]|[Nn][Oo])  exit 0 
         ;;
-    *) echo "Sorry, that's not an acceptable response"
+    *) echo "Sorry, that is not an acceptable response"
         ;;
 esac
