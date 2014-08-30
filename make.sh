@@ -3,7 +3,7 @@
 dir=~/.dotfiles # dotfiles directory
 olddir=~/.dotfiles_old # old dotfiles backup directory
 files="zshrc vimrc tmux.conf vimperatorrc" # list of files/folders to symlink in homedir
-multilibline=$(grep -n "#\[multilib\]" /etc/pacman.conf | cut -d ':' -f1)
+
 
 # create dotfiles_old in homedir
 echo -n "Creating $olddir for backup of any existing dotfiles in ~ ..."
@@ -31,8 +31,13 @@ printf "db_file            \"~/.config/mpd/database\"\nlog_file           \"~/.c
 echo "Do you want to install your previous packages?"
 read answer
 case $answer in 
-    ""|[Yy]|[Yy][Ee][Ss]) sudo sed -i "$multilibline,$(( $multilibline + 1 ))s/#//" /etc/pacman.conf # Uncomments multilib repo in /etc/pacman.conf
-        echo -e "[infinality-bundle]\nServer = http://bohoomil.com/repo/$arch\n\n[infinality-bundle-multilib]\nServer = http://bohoomil.com/repo/multilib/$arch\n\n[pipelight]\nServer = http://repos.fds-team.de/stable/arch/$arch" | sudo tee -a /etc/pacman.conf # Adds Adds infinality, 
+    ""|[Yy]|[Yy][Ee][Ss]) 
+        if grep -q "#\[multilib\]" /etc/pacman.conf; then
+            echo "Activating multilib repo"
+            multilibline=$(grep -n "#\[multilib\]" /etc/pacman.conf | cut -d ':' -f1)
+            sudo sed -i "$multilibline,$(( $multilibline + 1 ))s/#//" /etc/pacman.conf # Uncomments multilib repo in /etc/pacman.conf
+        fi
+        echo -e "[infinality-bundle]\nServer = http://bohoomil.com/repo/$arch\n\n[infinality-bundle-multilib]\nServer = http://bohoomil.com/repo/multilib/$arch\n\n[pipelight]\nServer = http://repos.fds-team.de/stable/arch/$arch" | sudo tee -a /etc/pacman.conf # Adds infinality, infinality-multilib and pipelight repos to /etc/pacman.conf
         for key in 962DDE58 E49CC0415DC2D5CA; do
             sudo pacman-key -r $key
             sudo pacman-key --lsign $key
@@ -66,7 +71,7 @@ case $answer in
             rm  -rf ./package-query.tar.gz ./yaourt.tar.gz ./package-query ./yaourt
             echo "Done"
         fi
-        yaourt -S --needed $(cat $dir/aur_pkgs))
+        yaourt -S --needed $(cat $dir/aur_pkgs)
         ;;
     ""|[Nn]|[Nn][Oo])  exit 0 
         ;;
