@@ -45,7 +45,6 @@ cairomm
 cantarell-fonts
 caribou
 cdparanoia
-cdrkit
 celt
 check
 cheese
@@ -588,7 +587,6 @@ mplayer
 msmtp
 msmtp-mta
 mtdev
-mtools
 mtpfs
 mtr
 mumble
@@ -664,7 +662,6 @@ pygtk
 python
 python-cairo
 python-crypto
-python-dbus
 python-dbus-common
 python-distutils-extra
 python-ecdsa
@@ -746,7 +743,6 @@ startup-notification
 sudo
 sushi
 sysfsutils
-syslinux
 systemd
 systemd-sysvcompat
 t1lib
