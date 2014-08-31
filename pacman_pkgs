@@ -11,6 +11,7 @@ alsa-utils
 apache
 apr
 apr-util
+arch-install-scripts
 archey3
 archlinux-keyring
 aria2
