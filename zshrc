@@ -11,7 +11,6 @@ bindkey -v
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/core_perl:/home/chad/.gem/ruby/2.1.0/bin:/home/chad/bin:/usr/local/scripts"
 export EDITOR="vim"
 export BROWSER="/home/chad/.local/share/firefox/firefox"
-export MOUNT="/mnt/NAS"
 
 #Aliases
 alias wftop='sudo iftop -i wlp3s0'
@@ -39,16 +38,25 @@ alias e='exit'
 alias q='exit'
 alias ZZ='exit'
 alias crashplan='ssh -f -L 4200:localhost:4243 crashplan@192.168.1.1 -N > /dev/null  && CrashPlanDesktop'
-alias cp='acp -g'
-alias mv='amv -g'
 
-alias pacin='sudo pacman -S'
-alias pacins='sudo pacman -U'
+if whereis acp > /dev/null && whereis amv > /dev/null; then
+    alias cp='acp -g'
+    alias mv='amv -g'
+fi
+chkpkgdump(){if whereis pkgdump; then pkgdump; else echo -e "\npkgdump script not found"; fi}
+
+pacin(){sudo pacman -S $@; chkpkgdump}
+pacins(){sudo pacman -U $@; chkpkgdump}
+pacre(){sudo pacman -R $@; chkpkgdump}
+pacrem(){sudo pacman -Rns $@; chkpkgdump}
+
+yain(){yaourt -S $@; chkpkgdump}
+yare(){yaourt -R $@; chkpkgdump}
+yarem(){yaourt -Rns $@; chkpkgdump}
+
 alias pacupd="sudo pacman -Sy && sudo abs"
 alias pacinsd='sudo pacman -S --asdeps'
 alias paclf='pacman -Ql'
-alias pacre='sudo pacman -R'
-alias pacrem='sudo pacman -Rns'
 alias pacrep='pacman -Si'
 alias pacreps='pacman -Ss'
 alias pacloc='pacman -Qi'
@@ -68,10 +76,6 @@ alias pacdown='sudo pacman -Sw'
 
 alias yaconf='yaourt -C'
 alias yasu='yaourt --sucre'
-alias yain='yaourt -S'
-alias yains='yaourt -U'
-alias yare='yaourt -R'
-alias yarem='yaourt -Rns'
 alias yarep='yaourt -Si'
 alias yareps='yaourt -Ss'
 alias yaloc='yaourt -Qi'
