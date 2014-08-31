@@ -862,6 +862,8 @@ yelp-xsl
 zeitgeist
 zenity
 zip
+zita-alsa-pcmi
+zita-resampler
 zlib
 zsh
 zsh-syntax-highlighting
