@@ -88,6 +88,7 @@ dmxproto
 dnssec-anchors
 docbook-xml
 docbook-xsl
+dosfstools
 e2fsprogs
 elfutils
 empathy
@@ -630,6 +631,7 @@ pam
 pambase
 pango
 pangomm
+parted
 patch
 pavucontrol
 pciutils
