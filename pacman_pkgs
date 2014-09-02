@@ -69,6 +69,7 @@ cpio
 cracklib
 cronie
 cryptsetup
+cups-filters
 cups-pk-helper
 curl
 damageproto
@@ -121,6 +122,8 @@ fluidsynth
 folks
 fontconfig-infinality-ultimate
 fontsproto
+foomatic-db
+foomatic-db-engine
 freetype2-infinality-ultimate
 fribidi
 fuse
@@ -223,6 +226,7 @@ gzip
 harfbuzz
 harfbuzz-icu
 hicolor-icon-theme
+hplip
 hspell
 hunspell
 hwids
@@ -605,6 +609,7 @@ nemo
 nemo-fileroller
 nemo-share
 neon
+net-snmp
 net-tools
 netctl
 nettle
@@ -688,6 +693,7 @@ python2-xdg
 qca
 qca-ossl
 qjson
+qpdf
 qrencode
 qt4
 qt5-base
