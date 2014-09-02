@@ -665,9 +665,11 @@ pulseaudio-alsa
 pygobject-devel
 pygobject2-devel
 pygtk
+pyqt4-common
 python
 python-cairo
 python-crypto
+python-dbus
 python-dbus-common
 python-distutils-extra
 python-ecdsa
@@ -675,7 +677,9 @@ python-gobject
 python-paramiko
 python-pip
 python-psutil
+python-pyqt4
 python-setuptools
+python-sip
 python-xdg
 python2
 python2-atspi
@@ -735,6 +739,7 @@ sg3_utils
 shadow
 shared-color-targets
 shared-mime-info
+sip
 slang
 smbclient
 smplayer
