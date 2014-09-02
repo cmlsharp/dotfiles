@@ -9,6 +9,7 @@ alsa-plugins
 alsa-tools
 alsa-utils
 apache
+appmenu-qt
 apr
 apr-util
 arch-install-scripts
@@ -376,6 +377,7 @@ libcups
 libdaemon
 libdatrie
 libdbus
+libdbusmenu-qt
 libdca
 libdmx
 libdrm
