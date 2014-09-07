@@ -355,6 +355,7 @@ if has('vim_starting')
 endif
 call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
+NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'vim-scripts/matchit.zip'
 NeoBundle 'vim-scripts/Gundo'
