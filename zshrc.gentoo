@@ -19,8 +19,6 @@ alias vimrc='vim /home/chad/.vimrc'
 alias chkupd='checkupdates'
 alias m="mpd ~/.dotfiles/mpd/mpd.conf"
 alias n="ncmpcpp"
-alias pacupg='sudo snp pacman -Syu'
-alias yaupg='sudo snp yaourt -Syua'
 alias rollback='sudo rollback'
 alias snp='sudo snp'
 alias nfs='mount ~/Cloud/nfs'
@@ -51,7 +49,7 @@ alias emclean='sudo emerge -av --depclean'
 alias emsearch='emerge --search'
 alias emdesc='sudo emerge --descsearch'
 alias emsyn='sudo emerge --sync'
-alias emupg="sudo emerge --sync && sudo emerge -uNDav @world"
+alias emupg="sudo emerge --sync && sudo snp emerge -uNDav @world"
 alias empret='sudo emerge --pretend' 
 efiles(){sudo equery files $1; less}
 alias emrebuild=' sudo emerge --update --deep --newuse @world'
