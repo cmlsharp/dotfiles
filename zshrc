@@ -39,7 +39,7 @@ alias q='exit'
 alias ZZ='exit'
 alias crashplan='ssh -f -L 4200:localhost:4243 crashplan@192.168.1.1 -N > /dev/null  && CrashPlanDesktop'
 
-if whereis acp > /dev/null && whereis amv > /dev/null; then
+if whatis acp > /dev/null 2>&1 && whereis amv > /dev/null 2>&1; then
     alias cp='acp -g'
     alias mv='amv -g'
 fi
