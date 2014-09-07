@@ -1,4 +1,3 @@
-#test
 PROMPT="λ %~/ " 
 #ZSH options
 autoload -U compinit promptinit
