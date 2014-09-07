@@ -17,7 +17,7 @@ alias wftop='sudo iftop -i wlp3s0'
 alias c='clear'
 alias vimrc='vim /home/chad/.vimrc'
 alias chkupd='checkupdates'
-alias m="mpd ~/.dotfiles/mpd/mpd.conf"
+alias m="mpd ~/.config/mpd/mpd.conf"
 alias n="ncmpcpp"
 alias pacupg='sudo snp pacman -Syu'
 alias yaupg='sudo snp yaourt -Syua'
@@ -39,20 +39,19 @@ alias q='exit'
 alias ZZ='exit'
 alias crashplan='ssh -f -L 4200:localhost:4243 crashplan@192.168.1.1 -N > /dev/null  && CrashPlanDesktop'
 
-if whereis acp > /dev/null && whereis amv > /dev/null; then
+if whatis acp > /dev/null 2>&1 && whatis amv > /dev/null 2>&1; then
     alias cp='acp -g'
     alias mv='amv -g'
 fi
-chkpkgdump(){if whereis pkgdump; then pkgdump; else echo -e "\npkgdump script not found"; fi}
 
-pacin(){sudo pacman -S $@; chkpkgdump}
-pacins(){sudo pacman -U $@; chkpkgdump}
-pacre(){sudo pacman -R $@; chkpkgdump}
-pacrem(){sudo pacman -Rns $@; chkpkgdump}
+pacin(){sudo pacman -S $@ && pkgdump}
+pacins(){sudo pacman -U $@ && pkgdump}
+pacre(){sudo pacman -R $@ && chkpkgdump}
+pacrem(){sudo pacman -Rns $@ && chkpkgdump}
 
-yain(){yaourt -S $@; chkpkgdump}
-yare(){yaourt -R $@; chkpkgdump}
-yarem(){yaourt -Rns $@; chkpkgdump}
+yain(){yaourt -S $@ && pkgdump}
+yare(){yaourt -R $@ && pkgdump}
+yarem(){yaourt -Rns $@ && pkgdump}
 
 alias pacupd="sudo pacman -Sy && sudo abs"
 alias pacinsd='sudo pacman -S --asdeps'
