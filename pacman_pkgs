@@ -210,7 +210,17 @@ gst-plugins-base-libs
 gst-plugins-good
 gstreamer
 gstreamer0.10
+gstreamer0.10-bad
+gstreamer0.10-bad-plugins
 gstreamer0.10-base
+gstreamer0.10-base-plugins
+gstreamer0.10-ffmpeg
+gstreamer0.10-good
+gstreamer0.10-good-plugins
+gstreamer0.10-python
+gstreamer0.10-ugly
+gstreamer0.10-ugly-plugins
+gstreamer0.10-vaapi
 gtk-doc
 gtk-engine-murrine
 gtk-update-icon-cache
@@ -264,6 +274,7 @@ kbproto
 keyutils
 kmod
 krb5
+ladspa
 lame
 lcms2
 ldb
@@ -275,6 +286,7 @@ lib32-alsa-plugins
 lib32-attr
 lib32-bzip2
 lib32-cairo-infinality-ultimate
+lib32-cdparanoia
 lib32-curl
 lib32-e2fsprogs
 lib32-elfutils
@@ -289,6 +301,9 @@ lib32-glibc
 lib32-glu
 lib32-gmp
 lib32-gnutls
+lib32-gstreamer0.10
+lib32-gstreamer0.10-base
+lib32-gstreamer0.10-base-plugins
 lib32-harfbuzz
 lib32-icu
 lib32-intel-dri
@@ -314,9 +329,11 @@ lib32-libsm
 lib32-libsndfile
 lib32-libssh2
 lib32-libtasn1
+lib32-libtheora
 lib32-libtiff
 lib32-libtxc_dxtn
 lib32-libvdpau
+lib32-libvisual
 lib32-libvorbis
 lib32-libx11
 lib32-libxau
@@ -327,6 +344,7 @@ lib32-libxdamage
 lib32-libxdmcp
 lib32-libxext
 lib32-libxfixes
+lib32-libxft
 lib32-libxi
 lib32-libxml2
 lib32-libxrandr
@@ -334,6 +352,7 @@ lib32-libxrender
 lib32-libxshmfence
 lib32-libxslt
 lib32-libxtst
+lib32-libxv
 lib32-libxxf86vm
 lib32-llvm-libs
 lib32-mesa
@@ -341,7 +360,9 @@ lib32-mesa-libgl
 lib32-ncurses
 lib32-nettle
 lib32-openssl
+lib32-orc
 lib32-p11-kit
+lib32-pango
 lib32-pcre
 lib32-pixman
 lib32-readline
@@ -366,6 +387,7 @@ libcanberra
 libcanberra-pulse
 libcap
 libcap-ng
+libcdaudio
 libcddb
 libcdio
 libcdio-paranoia
@@ -379,6 +401,7 @@ libdaemon
 libdatrie
 libdbus
 libdbusmenu-qt
+libdc1394
 libdca
 libdmx
 libdrm
@@ -428,6 +451,7 @@ libksba
 liblastfm
 libldap
 liblqr
+liblrdf
 libltdl
 libmad
 libmatroska
@@ -477,6 +501,7 @@ libsasl
 libseccomp
 libsecret
 libshout
+libsidplay
 libsigc++
 libsm
 libsndfile
@@ -599,6 +624,7 @@ mtpfs
 mtr
 mumble
 musescore
+musicbrainz
 mutagen
 mutt
 mutter
