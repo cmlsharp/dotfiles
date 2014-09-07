@@ -51,6 +51,7 @@ celt
 check
 cheese
 chromaprint
+chromium
 cifs-utils
 cinnamon-desktop
 cinnamon-translations
@@ -93,6 +94,7 @@ dnssec-anchors
 docbook-xml
 docbook-xsl
 dosfstools
+dotconf
 e2fsprogs
 elfutils
 empathy
@@ -773,10 +775,12 @@ slang
 smbclient
 smplayer
 snapper
+snappy
 sound-theme-freedesktop
 soundtouch
 source-highlight
 spandsp
+speech-dispatcher
 speex
 sqlite
 sshfs
