@@ -1,3 +1,4 @@
+#test
 PROMPT="λ %~/ " 
 #ZSH options
 autoload -U compinit promptinit
@@ -39,18 +40,10 @@ alias q='exit'
 alias ZZ='exit'
 alias crashplan='ssh -f -L 4200:localhost:4243 crashplan@192.168.1.1 -N > /dev/null  && CrashPlanDesktop'
 
-<<<<<<< HEAD
-if whatis acp > /dev/null 2>&1 && whatis amv > /dev/null 2>&1; then
-    alias cp='acp -g'
-    alias mv='amv -g'
-fi
-=======
 if whatis acp > /dev/null 2>&1 && whereis amv > /dev/null 2>&1; then
     alias cp='acp -g'
     alias mv='amv -g'
 fi
-chkpkgdump(){if whereis pkgdump > /dev/null; then pkgdump; else echo -e "\n\npkgdump script not found"; fi}
->>>>>>> aff7b54fa04e13618b8d2122a2aa380ec6af7ffa
 
 pacin(){sudo pacman -S $@ && pkgdump}
 pacins(){sudo pacman -U $@ && pkgdump}
