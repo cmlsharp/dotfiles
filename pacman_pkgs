@@ -193,6 +193,7 @@ gnupg
 gnutls
 go
 gobject-introspection
+gparted
 gpgme
 gpick
 gpm
@@ -228,6 +229,7 @@ gtk-engine-murrine
 gtk-update-icon-cache
 gtk2
 gtk3
+gtkmm
 gtkmm3
 gtksourceview3
 guake
