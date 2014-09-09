@@ -622,6 +622,7 @@ mplayer
 msmtp
 msmtp-mta
 mtdev
+mtools
 mtpfs
 mtr
 mumble
@@ -788,6 +789,7 @@ startup-notification
 sudo
 sushi
 sysfsutils
+syslinux
 systemd
 systemd-sysvcompat
 t1lib
@@ -813,6 +815,7 @@ ttf-inconsolata
 ttf-ubuntu-font-family
 tzdata
 udisks2
+unetbootin
 unrar
 unzip
 upower
