@@ -55,6 +55,7 @@ chromium
 cifs-utils
 cinnamon-desktop
 cinnamon-translations
+clang
 clementine
 cloog
 clucene
@@ -194,6 +195,7 @@ gnutls
 go
 gobject-introspection
 gparted
+gperf
 gpgme
 gpick
 gpm
@@ -590,6 +592,7 @@ linux
 linux-api-headers
 linux-firmware
 lirc-utils
+llvm
 llvm-libs
 logrotate
 lpsolve
@@ -651,6 +654,7 @@ network-manager-applet
 networkmanager
 nfs-utils
 nfsidmap
+ninja
 nodejs
 nspr
 nss
@@ -769,6 +773,7 @@ sdl
 sdl_image
 seahorse
 sed
+serf
 sg3_utils
 shadow
 shared-color-targets
@@ -788,6 +793,7 @@ speex
 sqlite
 sshfs
 startup-notification
+subversion
 sudo
 sushi
 sysfsutils
@@ -909,6 +915,7 @@ xterm
 xvidcore
 xz
 yajl
+yasm
 yelp
 yelp-xsl
 zeitgeist
