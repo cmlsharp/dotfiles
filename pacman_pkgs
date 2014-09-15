@@ -793,6 +793,7 @@ speex
 sqlite
 sshfs
 startup-notification
+stow
 subversion
 sudo
 sushi
