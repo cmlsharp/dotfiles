@@ -96,6 +96,7 @@ docbook-xml
 docbook-xsl
 dosfstools
 dotconf
+dwb
 e2fsprogs
 elfutils
 empathy
@@ -844,6 +845,7 @@ vte3
 wavpack
 wayland
 webkitgtk
+webkitgtk2
 webrtc-audio-processing
 weechat
 wget
