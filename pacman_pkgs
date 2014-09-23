@@ -40,7 +40,10 @@ btrfs-progs
 bzip2
 c-ares
 ca-certificates
+ca-certificates-cacert
 ca-certificates-java
+ca-certificates-mozilla
+ca-certificates-utils
 cabextract
 cairo-infinality-ultimate
 cairomm
@@ -293,7 +296,6 @@ lib32-alsa-plugins
 lib32-attr
 lib32-bzip2
 lib32-cairo-infinality-ultimate
-lib32-cdparanoia
 lib32-curl
 lib32-e2fsprogs
 lib32-elfutils
@@ -308,9 +310,6 @@ lib32-glibc
 lib32-glu
 lib32-gmp
 lib32-gnutls
-lib32-gstreamer0.10
-lib32-gstreamer0.10-base
-lib32-gstreamer0.10-base-plugins
 lib32-harfbuzz
 lib32-icu
 lib32-intel-dri
@@ -336,11 +335,9 @@ lib32-libsm
 lib32-libsndfile
 lib32-libssh2
 lib32-libtasn1
-lib32-libtheora
 lib32-libtiff
 lib32-libtxc_dxtn
 lib32-libvdpau
-lib32-libvisual
 lib32-libvorbis
 lib32-libx11
 lib32-libxau
@@ -367,7 +364,6 @@ lib32-mesa-libgl
 lib32-ncurses
 lib32-nettle
 lib32-openssl
-lib32-orc
 lib32-p11-kit
 lib32-pango
 lib32-pcre
