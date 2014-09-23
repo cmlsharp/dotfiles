@@ -1,4 +1,8 @@
-PROMPT="λ %~/ " 
+if (( EUID == 0 )); then
+    PROMPT="[%n@%m %~]%# "
+else
+    PROMPT="λ %~/ " 
+fi
 #ZSH options
 autoload -U compinit promptinit
 promptinit
@@ -20,7 +24,7 @@ alias chkupd='checkupdates'
 alias m="mpd ~/.config/mpd/mpd.conf"
 alias n="ncmpcpp"
 alias pacupg='sudo snp pacman -Syu'
-alias yaupg='sudo snp yaourt -Syua'
+alias yaupg='sudo snp yaourt --sucre'
 alias rollback='sudo rollback'
 alias snp='sudo snp'
 alias nfs='mount ~/Cloud/nfs'
@@ -46,8 +50,8 @@ fi
 
 pacin(){sudo pacman -S $@ && pkgdump}
 pacins(){sudo pacman -U $@ && pkgdump}
-pacre(){sudo pacman -R $@ && chkpkgdump}
-pacrem(){sudo pacman -Rns $@ && chkpkgdump}
+pacre(){sudo pacman -R $@ && pkgdump}
+pacrem(){sudo pacman -Rns $@ && pkgdump}
 
 yain(){yaourt -S $@ && pkgdump}
 yare(){yaourt -R $@ && pkgdump}
@@ -72,7 +76,6 @@ alias pacremc='sudo pacman -Rnsc'
 alias pacc='sudo pacman -Sc'
 alias paccc='sudo pacman -Scc'
 alias pacdown='sudo pacman -Sw'
-
 alias yaconf='yaourt -C'
 alias yasu='yaourt --sucre'
 alias yarep='yaourt -Si'
@@ -104,7 +107,7 @@ alias gp='git push'
 alias gc='git commit -v'
 alias gm='git commit -vm'
 alias gpom='git push origin master'
-alias glom='git push origin master'
+alias glom='git pull origin master'
 
 alias zshrc='vim ~/.zshrc'
 
