@@ -466,6 +466,7 @@ libmediaart
 libmm-glib
 libmms
 libmng
+libmnl
 libmodplug
 libmp4v2
 libmpc
@@ -479,6 +480,7 @@ libmygpo-qt
 libnautilus-extension
 libndp
 libnewt
+libnftnl
 libnice
 libnl
 libnm-glib
@@ -656,6 +658,7 @@ network-manager-applet
 networkmanager
 nfs-utils
 nfsidmap
+nftables
 ninja
 nodejs
 nspr
