@@ -762,6 +762,7 @@ reiserfsprogs
 renderproto
 rest
 rpcbind
+rpmextract
 rsync
 rtkit
 rtmpdump
