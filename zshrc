@@ -99,6 +99,7 @@ alias ldot='ls -ld .*'
 alias lS='ls -1FSsh'
 alias lart='ls -1FcArt'
 alias lrt='ls -1Fcrt'
+alias sl='ls'
 
 alias ga='git add'
 alias gl='git pull'
