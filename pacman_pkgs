@@ -727,7 +727,6 @@ python2-beaker
 python2-cairo
 python2-crypto
 python2-dbus
-python2-feedparser
 python2-gconf
 python2-gobject
 python2-gobject2
