@@ -246,6 +246,7 @@ gvim
 gzip
 harfbuzz
 harfbuzz-icu
+help2man
 hicolor-icon-theme
 hplip
 hspell
@@ -683,6 +684,7 @@ pcmciautils
 pcre
 perl
 perl-error
+perl-locale-gettext
 perl-xml-parser
 pinentry
 pipelight
@@ -725,6 +727,7 @@ python2-beaker
 python2-cairo
 python2-crypto
 python2-dbus
+python2-feedparser
 python2-gconf
 python2-gobject
 python2-gobject2
