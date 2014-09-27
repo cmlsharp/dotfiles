@@ -60,6 +60,7 @@ cinnamon-desktop
 cinnamon-translations
 clang
 clementine
+cln
 cloog
 clucene
 clutter
@@ -179,6 +180,7 @@ gnome-icon-theme-extras
 gnome-icon-theme-symbolic
 gnome-keyring
 gnome-menus
+gnome-mime-data
 gnome-online-accounts
 gnome-screenshot
 gnome-session
@@ -192,6 +194,7 @@ gnome-themes-standard
 gnome-tweak-tool
 gnome-user-docs
 gnome-user-share
+gnome-vfs
 gnome-video-effects
 gnupg
 gnutls
@@ -384,6 +387,7 @@ libatasmart
 libatomic_ops
 libavc1394
 libbluray
+libbonobo
 libbsd
 libcaca
 libcanberra
@@ -428,6 +432,8 @@ libgdm
 libgee
 libglade
 libgme
+libgnome
+libgnome-data
 libgnome-keyring
 libgnomekbd
 libgpg-error
@@ -442,6 +448,7 @@ libibus
 libical
 libice
 libid3tag
+libidl2
 libidn
 libiec61883
 libimobiledevice
@@ -496,6 +503,7 @@ libpng12
 libproxy
 libpulse
 libpwquality
+libqalculate
 libraw1394
 libreoffice-fresh
 librevenge
@@ -667,6 +675,7 @@ openresolv
 openssh
 openssl
 opus
+orbit2
 orc
 p11-kit
 p7zip
@@ -734,6 +743,7 @@ python2-mako
 python2-markupsafe
 python2-notify
 python2-xdg
+qalculate-gtk
 qca
 qca-ossl
 qjson
