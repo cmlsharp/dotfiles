@@ -246,6 +246,7 @@ gucharmap
 guile
 gvfs
 gvfs-mtp
+gvfs-smb
 gvim
 gzip
 harfbuzz
