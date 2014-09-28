@@ -41,21 +41,22 @@ alias ivm='vim'
 alias e='exit'
 alias q='exit'
 alias ZZ='exit'
-alias crashplan='ssh -f -L 4200:localhost:4243 crashplan@192.168.1.1 -N > /dev/null  && CrashPlanDesktop'
+alias crashplan='ssh -f -L 4200:localhost:4243 chad@192.168.1.1 -N > /dev/null  && CrashPlanDesktop'
+alias open='xdg-open'
 
 if whatis acp > /dev/null 2>&1 && whereis amv > /dev/null 2>&1; then
     alias cp='acp -g'
     alias mv='amv -g'
 fi
 
-pacin(){sudo pacman -S $@ && pkgdump}
-pacins(){sudo pacman -U $@ && pkgdump}
-pacre(){sudo pacman -R $@ && pkgdump}
-pacrem(){sudo pacman -Rns $@ && pkgdump}
+pacin(){sudo pacman -S $@; pkgdump}
+pacins(){sudo pacman -U $@; pkgdump}
+pacre(){sudo pacman -R $@; pkgdump}
+pacrem(){sudo pacman -Rns $@; pkgdump}
 
-yain(){yaourt -S $@ && pkgdump}
-yare(){yaourt -R $@ && pkgdump}
-yarem(){yaourt -Rns $@ && pkgdump}
+yain(){yaourt -S $@;  pkgdump}
+yare(){yaourt -R $@; pkgdump}
+yarem(){yaourt -Rns $@; pkgdump}
 
 alias pacupd="sudo pacman -Sy && sudo abs"
 alias pacinsd='sudo pacman -S --asdeps'
