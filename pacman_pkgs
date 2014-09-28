@@ -58,6 +58,7 @@ chromium
 cifs-utils
 cinnamon-desktop
 cinnamon-translations
+cjs
 clang
 clementine
 cln
@@ -280,6 +281,7 @@ jre7-openjdk
 jre7-openjdk-headless
 js
 js17
+js185
 json-c
 json-glib
 kbd
@@ -403,6 +405,7 @@ libchamplain
 libcl
 libconfig
 libcroco
+libcryptui
 libcups
 libdaemon
 libdatrie
@@ -652,6 +655,8 @@ ncdu
 ncurses
 nemo
 nemo-fileroller
+nemo-preview
+nemo-seahorse
 nemo-share
 neon
 net-snmp
@@ -785,6 +790,7 @@ scrot
 sdl
 sdl_image
 seahorse
+seahorse-nautilus
 sed
 serf
 sg3_utils
