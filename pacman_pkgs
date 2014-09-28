@@ -609,6 +609,7 @@ logrotate
 lpsolve
 lsb-release
 lua
+lua51
 lvm2
 lzo
 lzop
@@ -705,6 +706,7 @@ pinentry
 pipelight
 pixman
 pkg-config
+podofo
 polkit
 poppler
 poppler-glib
@@ -786,6 +788,7 @@ samba
 sbc
 schroedinger
 screenfetch
+scribus
 scrnsaverproto
 scrot
 sdl
