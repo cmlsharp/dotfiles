@@ -8,8 +8,7 @@ autoload -U compinit promptinit
 promptinit
 compinit -i
 zstyle ':completion:*' menu select
-setopt completealiases
-setopt HIST_IGNORE_DUPS
+setopt completealiases AUTO_CD HIST_IGNORE_DUPS
 bindkey -v
 [[ -z "$TMUX" ]] && exec tmux
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/core_perl:/home/chad/.gem/ruby/2.1.0/bin:/home/chad/bin:/usr/local/scripts"
@@ -117,12 +116,6 @@ alias grep='grep --color'
 alias sgrep='grep -R -n -H -C 5 --exclude-dir={.git,.svn,CVS} '
 
 alias t='tail -f'
-
-
-alias ..='cd ../'
-alias ...='cd ../../'
-alias ....='cd ../../../'
-alias .....='cd ../../../../'
 
 alias -g H='| head'
 alias -g T='| tail'
