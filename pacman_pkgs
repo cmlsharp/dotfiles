@@ -843,7 +843,9 @@ totem-plparser
 traceroute
 tracker
 ttf-dejavu
+ttf-freefont
 ttf-inconsolata
+ttf-liberation
 ttf-ubuntu-font-family
 tzdata
 udisks2
