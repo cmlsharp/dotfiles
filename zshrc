@@ -10,6 +10,9 @@ compinit -i
 zstyle ':completion:*' menu select
 setopt completealiases AUTO_CD HIST_IGNORE_DUPS
 bindkey -v
+bindkey -M viins 'jj' vi-cmd-mode
+bindkey '^R' history-incremental-search-backward
+bindkey -M vicmd '?' history-incremental-search-backward
 [[ -z "$TMUX" ]] && exec tmux
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/core_perl:/home/chad/.gem/ruby/2.1.0/bin:/home/chad/bin:/usr/local/scripts"
 export EDITOR="vim"
@@ -163,7 +166,6 @@ if [ ${ZSH_VERSION//\./} -ge 420 ]; then
 fi
 
 zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
-bindkey -M viins 'jj' vi-cmd-mode
 
 #systemd
 user_commands=(
