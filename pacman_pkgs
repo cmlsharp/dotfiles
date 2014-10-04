@@ -622,7 +622,6 @@ man-db
 man-pages
 mate-desktop
 mate-terminal
-mc
 mcpp
 mdadm
 mediainfo
@@ -867,7 +866,6 @@ v4l-utils
 vala
 vi
 videoproto
-vifm
 vim-runtime
 vino
 vlc
