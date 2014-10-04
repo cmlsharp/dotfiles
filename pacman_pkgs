@@ -265,7 +265,6 @@ imlib2
 inetutils
 iniparser
 inputproto
-intel-dri
 intltool
 iproute2
 iptables
@@ -318,7 +317,6 @@ lib32-gmp
 lib32-gnutls
 lib32-harfbuzz
 lib32-icu
-lib32-intel-dri
 lib32-json-c
 lib32-keyutils
 lib32-krb5
@@ -366,6 +364,7 @@ lib32-libxv
 lib32-libxxf86vm
 lib32-llvm-libs
 lib32-mesa
+lib32-mesa-dri
 lib32-mesa-libgl
 lib32-ncurses
 lib32-nettle
@@ -497,6 +496,7 @@ liboauth
 libodfgen
 libofa
 libogg
+libomxil-bellagio
 libpaper
 libpciaccess
 libpeas
@@ -622,6 +622,7 @@ mate-terminal
 mcpp
 mdadm
 mesa
+mesa-dri
 mesa-libgl
 mime-types
 mjpegtools
