@@ -470,6 +470,7 @@ libltdl
 libmad
 libmatroska
 libmediaart
+libmediainfo
 libmm-glib
 libmms
 libmng
@@ -598,6 +599,7 @@ libxvmc
 libxxf86dga
 libxxf86vm
 libyaml
+libzen
 licenses
 links
 linux
@@ -622,6 +624,7 @@ mate-desktop
 mate-terminal
 mcpp
 mdadm
+mediainfo
 mesa
 mesa-dri
 mesa-libgl
