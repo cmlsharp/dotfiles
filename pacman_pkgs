@@ -754,6 +754,7 @@ python2-gobject
 python2-gobject2
 python2-mako
 python2-markupsafe
+python2-mpd
 python2-notify
 python2-xdg
 qalculate-gtk
@@ -813,6 +814,7 @@ smbclient
 smplayer
 snapper
 snappy
+sonata
 sound-theme-freedesktop
 soundtouch
 source-highlight
