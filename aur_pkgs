@@ -19,6 +19,7 @@ lib32-gstreamer0.10-base-plugins
 lib32-libtheora
 lib32-libvisual
 lib32-orc
+libgee06
 libqxt
 libreoffice-flat-icon-set
 menulibre
@@ -52,6 +53,7 @@ serman
 ssx
 tox-git
 ttf-ms-fonts
+varka-bzr
 venom-git
 xdg-su
 yaourt

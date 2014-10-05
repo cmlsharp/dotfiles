@@ -39,6 +39,7 @@ boost
 boost-libs
 btrfs-progs
 bzip2
+bzr
 c-ares
 ca-certificates
 ca-certificates-cacert
