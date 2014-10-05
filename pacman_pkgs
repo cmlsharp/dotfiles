@@ -254,6 +254,7 @@ harfbuzz
 harfbuzz-icu
 help2man
 hicolor-icon-theme
+highlight
 hplip
 hspell
 hunspell
@@ -872,6 +873,7 @@ vlc
 vte
 vte-common
 vte3
+w3m
 wavpack
 wayland
 webkitgtk
