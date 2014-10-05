@@ -23,10 +23,19 @@ for file in $files; do
     ln -s $dir/$file ~/.$file
 done
 #Extra stuff
-echo "Setting up mpd for user $(whoami)"
+echo -n "Setting up mpd for user $(whoami)... "
+{
 mkdir -p ~/.config/mpd/playlists
 touch ~/.config/mpd/{database,log,pid,state,sticker,sql}
 printf "db_file            \"~/.config/mpd/database\"\nlog_file           \"~/.config/mpd/log\"\n\nmusic_directory    \"~/Music\"\nplaylist_directory \"~/.config/mpd/playlists\"\npid_file           \"~/.config/mpd/pid\"\nstate_file         \"~/.config/mpd/state\"\nsticker_file       \"~/.config/mpd/sticker.sql\"" > ~/.config/mpd/mpd.conf
+} && echo "Done" || echo "Failed"
+
+echo -n "Setting up ranger... "
+{
+ranger --copy-config=all > /dev/null
+rm ~/.config/ranger/commands.py
+ln -s $dir/commands.py ~/.config/ranger/commands.py
+} && echo "Done" || echo "Failed"
 
 echo "Do you want to install your previous packages?"
 read answer
