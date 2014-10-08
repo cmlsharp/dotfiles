@@ -835,6 +835,7 @@ t1lib
 taglib
 talloc
 tar
+tcl
 tdb
 telepathy-farstream
 telepathy-glib
@@ -843,6 +844,7 @@ telepathy-mission-control
 tevent
 texinfo
 thin-provisioning-tools
+tk
 tmux
 tor
 totem
