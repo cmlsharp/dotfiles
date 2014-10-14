@@ -101,9 +101,12 @@ lib32-xz
 lib32-zlib
 libqxt
 libreoffice-flat-icon-set
+lua-messagepack
 menulibre
+msgpack-git-neovim
 ncmpcpp-git
 nemo-python-git
+neovim-git
 nodejs-bower
 nodejs-grunt-cli
 numix-circle-icon-theme-git

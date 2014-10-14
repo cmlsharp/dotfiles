@@ -469,6 +469,7 @@ libusb-compat
 libusbmuxd
 libutempter
 libutil-linux
+libuv
 libva
 libvdpau
 libvisio
@@ -532,7 +533,10 @@ logrotate
 lpsolve
 lsb-release
 lua
+lua-bitop
+lua-lpeg
 lua51
+luajit
 lvm2
 lzo
 lzop
