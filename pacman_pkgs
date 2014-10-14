@@ -42,7 +42,6 @@ bzip2
 c-ares
 ca-certificates
 ca-certificates-cacert
-ca-certificates-java
 ca-certificates-mozilla
 ca-certificates-utils
 cabextract
@@ -277,10 +276,8 @@ iso-codes
 jack
 jansson
 jasper
-jdk7-openjdk
+java-runtime-common
 jfsutils
-jre7-openjdk
-jre7-openjdk-headless
 js
 js17
 js185

@@ -1,7 +1,6 @@
 advcp
 bcrypt
 command-not-found
-crashplan
 finalterm-git
 firejail
 gmtp
@@ -11,8 +10,6 @@ htop-vi
 imagewriter
 insync
 insync-nemo
-ipscan
-java-common
 lastpass-pocket
 lib32-acl
 lib32-alsa-lib
