@@ -263,6 +263,7 @@ hwids
 hyphen
 iana-etc
 icu
+iftop
 imagemagick
 imlib2
 inetutils
@@ -420,6 +421,7 @@ libofa
 libogg
 libomxil-bellagio
 libpaper
+libpcap
 libpciaccess
 libpeas
 libpipeline
