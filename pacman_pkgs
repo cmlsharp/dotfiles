@@ -9,7 +9,6 @@ alsa-plugins
 alsa-tools
 alsa-utils
 apache
-apache-ant
 appmenu-qt
 apr
 apr-util
@@ -281,12 +280,9 @@ iso-codes
 jack
 jansson
 jasper
-java-environment-common
 java-runtime-common
-jdk8-openjdk
 jfsutils
 jre7-openjdk-headless
-jre8-openjdk
 jre8-openjdk-headless
 js
 js17
