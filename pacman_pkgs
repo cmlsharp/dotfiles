@@ -37,7 +37,6 @@ bison
 bluez
 boost
 boost-libs
-bridge-utils
 btrfs-progs
 bzip2
 c-ares
@@ -101,7 +100,6 @@ dmxproto
 dnssec-anchors
 docbook-xml
 docbook-xsl
-docker
 dosfstools
 dotconf
 dwb
