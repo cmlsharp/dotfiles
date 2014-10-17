@@ -3,6 +3,7 @@ aalib
 abs
 accountsservice
 acl
+adwaita-icon-theme
 alacarte
 alsa-lib
 alsa-plugins
@@ -586,7 +587,6 @@ musicbrainz
 mutagen
 mutt
 mutter
-mutter-wayland
 mx
 nano
 nautilus
