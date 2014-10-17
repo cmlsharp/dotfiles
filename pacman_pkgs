@@ -862,6 +862,7 @@ xorg-mkfontscale
 xorg-server
 xorg-server-common
 xorg-server-utils
+xorg-server-xwayland
 xorg-sessreg
 xorg-setxkbmap
 xorg-twm
