@@ -131,7 +131,6 @@ filesystem
 findutils
 fixesproto
 flac
-flashplugin
 flex
 fluidsynth
 folks
@@ -570,7 +569,6 @@ mlocate
 mobile-broadband-provider-info
 mod_dnssd
 mousetweaks
-mozilla-common
 mpd
 mpfr
 mpg123
