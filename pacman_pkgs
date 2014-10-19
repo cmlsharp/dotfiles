@@ -80,6 +80,7 @@ colord-gtk
 compositeproto
 coreutils
 cpio
+cpupower
 cracklib
 cronie
 cryptsetup
