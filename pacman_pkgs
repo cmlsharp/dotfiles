@@ -3,6 +3,7 @@ aalib
 abs
 accountsservice
 acl
+acpid
 adwaita-icon-theme
 alacarte
 alsa-lib
@@ -37,6 +38,7 @@ bc
 binutils
 bison
 bluez
+bluez-utils
 boost
 boost-libs
 bridge-utils
