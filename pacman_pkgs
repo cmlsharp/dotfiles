@@ -145,9 +145,11 @@ fontsproto
 foomatic-db
 foomatic-db-engine
 freetype2-infinality-ultimate
+frei0r-plugins
 fribidi
 fuse
 gamin
+gavl
 gawk
 gc
 gcc
@@ -211,6 +213,7 @@ gnupg
 gnutls
 go
 gobject-introspection
+goocanvas1
 gparted
 gperf
 gpgme
@@ -248,6 +251,7 @@ gtk-engine-murrine
 gtk-update-icon-cache
 gtk2
 gtk3
+gtkglext
 gtkmm
 gtkmm3
 gtksourceview3
@@ -275,11 +279,13 @@ i7z
 iana-etc
 icu
 iftop
+ilmbase
 imagemagick
 imlib2
 inetutils
 iniparser
 inputproto
+intel-tbb
 intltool
 iproute2
 iptables
@@ -309,6 +315,7 @@ kmod
 krb5
 ladspa
 lame
+lcms
 lcms2
 ldb
 ldns
@@ -576,6 +583,8 @@ mjpegtools
 mkinitcpio
 mkinitcpio-busybox
 mlocate
+mlt
+mlt-python-bindings
 mobile-broadband-provider-info
 mod_dnssd
 mousetweaks
@@ -624,8 +633,11 @@ nss
 ntfs-3g
 numix-themes
 opencore-amr
+opencv
+openexr
 openjpeg
 openresolv
+openshot
 openssh
 openssl
 opus
@@ -640,6 +652,7 @@ pam
 pambase
 pango
 pangomm
+pangox-compat
 parted
 patch
 pavucontrol
@@ -671,6 +684,7 @@ pulseaudio
 pulseaudio-alsa
 pygobject-devel
 pygobject2-devel
+pygoocanvas
 pygtk
 pyqt4-common
 python
@@ -697,9 +711,11 @@ python2-dbus
 python2-gconf
 python2-gobject
 python2-gobject2
+python2-httplib2
 python2-mako
 python2-markupsafe
 python2-notify
+python2-pillow
 python2-xdg
 qalculate-gtk
 qca
@@ -766,6 +782,7 @@ snappy
 sound-theme-freedesktop
 soundtouch
 source-highlight
+sox
 spandsp
 speech-dispatcher
 speex
@@ -819,6 +836,7 @@ util-linux
 v4l-utils
 vala
 vi
+vid.stab
 videoproto
 vim-runtime
 vino
@@ -864,6 +882,7 @@ xf86vidmodeproto
 xfce4-terminal
 xfconf
 xfsprogs
+xine-lib
 xineramaproto
 xkeyboard-config
 xmlto
