@@ -39,7 +39,6 @@ bc
 binutils
 bison
 blackarch-keyring
-blas
 bluez
 bluez-utils
 boost
@@ -208,7 +207,6 @@ gnome-user-docs
 gnome-user-share
 gnome-vfs
 gnome-video-effects
-gnonlin
 gnupg
 gnutls
 go
@@ -228,12 +226,10 @@ gsasl
 gsettings-desktop-schemas
 gsfonts
 gsm
-gst-editing-services
 gst-plugins-bad
 gst-plugins-base
 gst-plugins-base-libs
 gst-plugins-good
-gst-python
 gstreamer
 gstreamer0.10
 gstreamer0.10-bad
@@ -313,7 +309,6 @@ kmod
 krb5
 ladspa
 lame
-lapack
 lcms2
 ldb
 ldns
@@ -657,7 +652,6 @@ perl-locale-gettext
 perl-xml-parser
 pinentry
 pipelight
-pitivi
 pixman
 pkg-config
 podofo
@@ -706,7 +700,6 @@ python2-gobject2
 python2-mako
 python2-markupsafe
 python2-notify
-python2-numpy
 python2-xdg
 qalculate-gtk
 qca
