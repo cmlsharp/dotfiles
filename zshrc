@@ -26,7 +26,7 @@ alias chkupd='checkupdates'
 alias m="mpd ~/.config/mpd/mpd.conf"
 alias n="ncmpcpp"
 alias pacupg='sudo snp pacman -Syu'
-alias yaupg='sudo snp yaourt --sucre'
+alias yaupg='sudo snp sudo -u chad yaourt --sucre'
 alias rollback='sudo rollback'
 alias snp='sudo snp'
 alias nfs='mount ~/Cloud/nfs'
@@ -37,7 +37,6 @@ alias dc='cd'
 alias z='source ~/.zshrc'
 alias pg='ps -ef | grep --color'
 alias svim='sudo -E vim'
-alias /='cd /'
 alias vi='vim'
 alias ivm='vim'
 alias e='exit'
@@ -46,7 +45,7 @@ alias ZZ='exit'
 alias crashplan='ssh -f -L 4200:localhost:4243 chad@192.168.1.1 -N > /dev/null  && CrashPlanDesktop'
 alias open='xdg-open'
 
-if whatis acp > /dev/null 2>&1 && whereis amv > /dev/null 2>&1; then
+if [[ -f /usr/bin/acp && /usr/bin/amv ]]; then
     alias cp='acp -g'
     alias mv='amv -g'
 fi
@@ -55,10 +54,11 @@ pacin(){sudo pacman -S $@; pkgdump}
 pacins(){sudo pacman -U $@; pkgdump}
 pacre(){sudo pacman -R $@; pkgdump}
 pacrem(){sudo pacman -Rns $@; pkgdump}
-
+pacremc(){sudo pacman -Rnsc $@; pkgdump}
 yain(){yaourt -S $@;  pkgdump}
 yare(){yaourt -R $@; pkgdump}
 yarem(){yaourt -Rns $@; pkgdump}
+yaremc(){yaourt -Rnsc $@; pkgdump}
 
 alias pacupd="sudo pacman -Sy && sudo abs"
 alias pacinsd='sudo pacman -S --asdeps'
@@ -68,17 +68,16 @@ alias pacreps='pacman -Ss'
 alias pacloc='pacman -Qi'
 alias paclocs='pacman -Qs'
 alias pacmir='sudo pacman -Syy'
-alias paclo='sudo pacman -Qdt'
-alias pacrmorphans='sudo pacman -Rs (pacman -Qtdq)'
-alias pacro="pacman -Qtdq > /dev/null && sudo pacman -Rns \$(pacman -Qtdq | sed -e ':a;N;$!ba;s/\n/ /g')"
+alias paclo='pacman -Qdt'
+alias pacro='sudo pacman -Rs $(pacman -Qtdq)'
 alias pacunlock="sudo rm /var/lib/pacman/db.lck"
 alias paclock="sudo touch /var/lib/pacman/db.lck"
 alias pacupga='sudo pacman -Syu && sudo abs'
 alias pacaur='pacman -Qm'
-alias pacremc='sudo pacman -Rnsc'
 alias pacc='sudo pacman -Sc'
 alias paccc='sudo pacman -Scc'
 alias pacdown='sudo pacman -Sw'
+
 alias yaconf='yaourt -C'
 alias yasu='yaourt --sucre'
 alias yarep='yaourt -Si'
@@ -89,8 +88,6 @@ alias yalst='yaourt -Qe'
 alias yaorph='yaourt -Qtd'
 alias yaupga='sudo yaourt -Syua && sudo abs'
 alias yamir='yaourt -Syy'
-alias yasug='yaourt -Syua  --sucre'
-alias yaremc='yaourt -Rnsc'
 
 alias ls='ls --color'
 alias l='ls -lFh'  
@@ -181,7 +178,7 @@ for c in $user_commands; do; alias sc-$c="systemctl $c"; done
 for c in $sudo_commands; do; alias sc-$c="sudo systemctl $c"; done
 alias sc-dr='sudo systemctl daemon-reload'
 snapper_commands=(
-rollback create delete undochange list
+rollback create delete undochange list cleanup
 )
 for i in $snapper_commands; do; alias snp-$i="sudo snapper $i"; done
 #Web search
