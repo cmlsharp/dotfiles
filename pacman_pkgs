@@ -37,6 +37,7 @@ bash
 bc
 binutils
 bison
+blackarch-keyring
 bluez
 bluez-utils
 boost
@@ -628,6 +629,7 @@ orbit2
 orc
 p11-kit
 p7zip
+package-query
 pacman
 pacman-mirrorlist
 pam
@@ -725,6 +727,9 @@ rsync
 rtkit
 rtmpdump
 ruby
+ruby-json
+ruby-multi_json
+ruby-yard
 run-parts
 s-nail
 samba
@@ -891,6 +896,7 @@ xterm
 xvidcore
 xz
 yajl
+yaourt
 yasm
 yelp
 yelp-xsl

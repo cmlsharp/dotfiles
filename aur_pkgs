@@ -113,7 +113,6 @@ nodejs-grunt-cli
 numix-circle-icon-theme-git
 numix-icon-theme-git
 openssl098
-package-query
 pacmanxg4-bin
 popcorntime-git
 reditr
@@ -122,15 +121,12 @@ ruby-compass-alpha
 ruby-compass-core
 ruby-compass-import-once
 ruby-ffi
-ruby-json
 ruby-listen-1.1
 ruby-maruku
-ruby-multi_json
 ruby-rb-fsevent
 ruby-rb-inotify
 ruby-rb-kqueue
 ruby-sass
-ruby-yard
 screencloud-git
 serman
 ssx
@@ -139,4 +135,3 @@ ttf-ms-fonts
 venom-git
 xdg-su
 yacy
-yaourt
