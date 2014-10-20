@@ -662,6 +662,7 @@ popt
 portaudio
 postgresql
 postgresql-libs
+prelink
 procps-ng
 protobuf
 psmisc
