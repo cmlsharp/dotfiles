@@ -5,6 +5,7 @@ accountsservice
 acl
 acpid
 adwaita-icon-theme
+aircrack-ng
 alacarte
 alsa-lib
 alsa-plugins
@@ -136,6 +137,7 @@ findutils
 fixesproto
 flac
 flex
+fltk
 fluidsynth
 folks
 fontconfig-infinality-ultimate
@@ -284,6 +286,7 @@ iptables
 iputils
 isl
 iso-codes
+iw
 jack
 jansson
 jasper
@@ -567,6 +570,7 @@ mediainfo
 mesa
 mesa-dri
 mesa-libgl
+metasploit
 mime-types
 mjpegtools
 mkinitcpio
@@ -656,6 +660,7 @@ poppler
 poppler-glib
 popt
 portaudio
+postgresql
 postgresql-libs
 procps-ng
 protobuf
@@ -730,6 +735,8 @@ ruby
 ruby-json
 ruby-multi_json
 ruby-yard
+ruby1.9
+ruby1.9-bundler
 run-parts
 s-nail
 samba
@@ -785,6 +792,7 @@ telepathy-mission-control
 tevent
 texinfo
 thin-provisioning-tools
+tigervnc
 tk
 tmux
 tor
