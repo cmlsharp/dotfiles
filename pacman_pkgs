@@ -104,6 +104,7 @@ dialog
 diffutils
 dirmngr
 djvulibre
+dkms
 dmxproto
 dnssec-anchors
 docbook-xml
@@ -552,6 +553,7 @@ links
 linux
 linux-api-headers
 linux-firmware
+linux-headers
 lirc-utils
 llvm
 llvm-libs
