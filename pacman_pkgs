@@ -118,7 +118,6 @@ dotconf
 dwb
 e2fsprogs
 elfutils
-empathy
 enca
 enchant
 eog
@@ -130,7 +129,6 @@ expat
 faac
 faad2
 fakeroot
-farstream
 ffmpeg
 ffmpeg-compat
 fftw
@@ -434,7 +432,6 @@ libcddb
 libcdio
 libcdio-paranoia
 libcdr
-libchamplain
 libcl
 libconfig
 libcroco
@@ -522,7 +519,6 @@ libnautilus-extension
 libndp
 libnewt
 libnftnl
-libnice
 libnl
 libnm-glib
 libnm-gtk
@@ -902,7 +898,6 @@ talloc
 tar
 tcl
 tdb
-telepathy-farstream
 telepathy-glib
 telepathy-logger
 telepathy-mission-control
