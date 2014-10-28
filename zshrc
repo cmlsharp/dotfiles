@@ -235,7 +235,6 @@ alias youtube='web_search duckduckgo \!yt'
 alias map='web_search duckduckgo \!m'
 alias image='web_search duckduckgo \!i'
 alias ducky='web_search duckduckgo \!'
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 #Extract function
 
 function extract() {
@@ -325,3 +324,6 @@ cat $1 | cowsay
 function catthink(){
 cat $1 | cowthink
 }
+for i in ~/.zsh_plugins/*.zsh; do
+    source $i
+done
