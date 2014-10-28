@@ -21,8 +21,11 @@ lib32-gstreamer0.10-base-plugins
 lib32-libtheora
 lib32-libvisual
 lib32-orc
+libindicator-gtk2
+libindicator-gtk3
 libqxt
 libreoffice-flat-icon-set
+lightdm-pantheon-greeter
 lua-messagepack
 menulibre
 msgpack-git-neovim
