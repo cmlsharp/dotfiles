@@ -636,6 +636,7 @@ libzeitgeist
 libzen
 licenses
 lightdm
+lightdm-gtk3-greeter
 links
 linux
 linux-api-headers
