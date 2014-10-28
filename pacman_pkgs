@@ -33,6 +33,7 @@ audiofile
 autoconf
 automake
 avahi
+bamf
 baobab
 bash
 bc
@@ -439,6 +440,8 @@ libcups
 libdaemon
 libdatrie
 libdbus
+libdbusmenu-glib
+libdbusmenu-gtk3
 libdbusmenu-qt
 libdc1394
 libdca
@@ -592,6 +595,7 @@ libwacom
 libwbclient
 libwebp
 libwnck
+libwnck3
 libwpd
 libwpg
 libwps
@@ -759,6 +763,7 @@ pipelight
 pixman
 pkg-config
 pkgfile
+plank
 podofo
 polkit
 poppler
