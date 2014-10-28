@@ -632,6 +632,7 @@ libxvmc
 libxxf86dga
 libxxf86vm
 libyaml
+libzeitgeist
 libzen
 licenses
 links
@@ -666,6 +667,7 @@ mesa
 mesa-dri
 mesa-libgl
 metasploit
+midori
 mime-types
 mjpegtools
 mkinitcpio
