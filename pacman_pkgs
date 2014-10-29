@@ -21,6 +21,7 @@ archey3
 archlinux-keyring
 aria2
 arj
+asciidoc
 aspell
 at-spi2-atk
 at-spi2-core
@@ -45,7 +46,6 @@ bluez-utils
 boost
 boost-libs
 bridge-utils
-btrfs-progs
 bzip2
 c-ares
 ca-certificates
