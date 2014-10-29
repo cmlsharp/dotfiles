@@ -46,7 +46,6 @@ bluez-utils
 boost
 boost-libs
 bridge-utils
-btrfs-progs
 bzip2
 c-ares
 ca-certificates
