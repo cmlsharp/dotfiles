@@ -143,6 +143,7 @@ findutils
 fish
 fixesproto
 flac
+flashplugin
 flex
 fltk
 fluidsynth
@@ -697,6 +698,7 @@ mlt-python-bindings
 mobile-broadband-provider-info
 mod_dnssd
 mousetweaks
+mozilla-common
 mpd
 mpfr
 mpg123
