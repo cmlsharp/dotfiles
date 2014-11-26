@@ -42,7 +42,6 @@ binutils
 bison
 bluez
 bluez-libs
-bluez-utils
 boost
 boost-libs
 bridge-utils
