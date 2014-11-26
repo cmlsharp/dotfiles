@@ -1,3 +1,5 @@
+0ad
+0ad-data
 a52dec
 aalib
 abs
@@ -117,6 +119,7 @@ elfutils
 empathy
 enca
 enchant
+enet
 eog
 epiphany
 ethtool
@@ -177,6 +180,7 @@ glib-networking
 glib2
 glibc
 glibmm
+gloox
 glu
 gmime
 gmp
@@ -682,6 +686,7 @@ mesa-dri
 mesa-libgl
 midori
 mime-types
+miniupnpc
 mjpegtools
 mkinitcpio
 mkinitcpio-busybox
@@ -737,6 +742,7 @@ nss
 ntfs-3g
 numactl
 numix-themes
+openal
 opencore-amr
 opencv
 openexr
