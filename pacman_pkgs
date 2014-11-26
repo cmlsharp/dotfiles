@@ -173,6 +173,7 @@ giblib
 giflib
 git
 gjs
+gksu
 glew
 glib-networking
 glib2
@@ -202,6 +203,7 @@ gnome-keyring
 gnome-menus
 gnome-mime-data
 gnome-online-accounts
+gnome-python
 gnome-screenshot
 gnome-session
 gnome-settings-daemon
@@ -414,6 +416,7 @@ lib32-zlib
 libaio
 libao
 libarchive
+libart-lgpl
 libass
 libassuan
 libasyncns
@@ -422,6 +425,7 @@ libatomic_ops
 libavc1394
 libbluray
 libbonobo
+libbonoboui
 libbsd
 libcaca
 libcacard
@@ -467,12 +471,15 @@ libgcrypt
 libgdata
 libgdm
 libgee
+libgksu
 libglade
 libgme
 libgnome
 libgnome-data
 libgnome-keyring
+libgnomecanvas
 libgnomekbd
+libgnomeui
 libgpg-error
 libgpod
 libgsf
@@ -786,6 +793,7 @@ pygobject-devel
 pygobject2-devel
 pygoocanvas
 pygtk
+pyorbit
 pyqt4-common
 python
 python-cairo
@@ -805,13 +813,17 @@ python-xdg
 python2
 python2-atspi
 python2-beaker
+python2-bonobo
 python2-cairo
 python2-crypto
 python2-dbus
 python2-gconf
+python2-gnomecanvas
+python2-gnomevfs
 python2-gobject
 python2-gobject2
 python2-httplib2
+python2-libgnome
 python2-mako
 python2-markupsafe
 python2-notify
