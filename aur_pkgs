@@ -6,6 +6,7 @@ htop-vi
 imagewriter
 insync
 insync-nemo
+laptop-mode-tools
 lib32-cdparanoia
 lib32-gstreamer0.10
 lib32-libtheora
@@ -18,6 +19,8 @@ numix-circle-icon-theme-git
 numix-icon-theme-git
 package-query
 popcorntime-bin
+preload
 screencloud-git
 system-config-lvm
+yacy
 yaourt
