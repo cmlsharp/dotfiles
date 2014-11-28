@@ -30,3 +30,5 @@ spl-utils-git
 system-config-lvm
 yacy
 yaourt
+zfs-git
+zfs-utils-git
