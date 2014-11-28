@@ -25,6 +25,7 @@ popcorntime-bin
 preload
 rtl8812au_asus-dkms
 screencloud-git
+spl-git
 spl-utils-git
 system-config-lvm
 yacy
