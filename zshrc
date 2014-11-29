@@ -13,6 +13,11 @@ bindkey -v
 bindkey -M viins 'jj' vi-cmd-mode
 bindkey '^R' history-incremental-search-backward
 bindkey -M vicmd '?' history-incremental-search-backward
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
+HISTFILE=~/.zhistory
+HISTSIZE=500
+SAVEHIST=1000
 [[ -z "$TMUX" ]] && exec tmux
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/core_perl:/home/chad/.gem/ruby/2.1.0/bin:/home/chad/bin:/usr/local/scripts"
 export EDITOR="vim"
@@ -88,6 +93,8 @@ alias yalst='yaourt -Qe'
 alias yaorph='yaourt -Qtd'
 alias yaupga='sudo yaourt -Syua && sudo abs'
 alias yamir='yaourt -Syy'
+
+alias smount='sudo mount'
 
 alias ls='ls --color'
 alias l='ls -lFh'  
@@ -177,10 +184,7 @@ sudo_commands=(
 for c in $user_commands; do; alias sc-$c="systemctl $c"; done
 for c in $sudo_commands; do; alias sc-$c="sudo systemctl $c"; done
 alias sc-dr='sudo systemctl daemon-reload'
-snapper_commands=(
-rollback create delete undochange list cleanup
-)
-for i in $snapper_commands; do; alias snp-$i="sudo snapper $i"; done
+alias snpr='sudo snapper'
 #Web search
 function web_search() {
 
