@@ -1,5 +1,6 @@
 advcp
 blackarch-keyring
+bropages
 command-not-found
 crashplan
 firejail
@@ -27,6 +28,7 @@ ruby-commander
 ruby-json_pure
 ruby-netrc
 ruby-rest-client
+ruby-smart_colored
 screencloud-git
 spl-git
 spl-utils-git
