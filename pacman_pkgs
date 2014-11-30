@@ -261,6 +261,7 @@ gstreamer0.10-python
 gstreamer0.10-ugly
 gstreamer0.10-ugly-plugins
 gstreamer0.10-vaapi
+gthumb
 gtk-doc
 gtk-engine-murrine
 gtk-update-icon-cache
