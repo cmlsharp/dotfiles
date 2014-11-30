@@ -869,6 +869,8 @@ rsync
 rtkit
 rtmpdump
 ruby
+ruby-highline
+ruby-mime-types
 run-parts
 s-nail
 samba

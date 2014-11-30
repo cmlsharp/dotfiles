@@ -23,6 +23,10 @@ package-query
 popcorntime-bin
 preload
 rtl8812au_asus-dkms
+ruby-commander
+ruby-json_pure
+ruby-netrc
+ruby-rest-client
 screencloud-git
 spl-git
 spl-utils-git
