@@ -30,7 +30,6 @@ alias vimrc='vim /home/chad/.vimrc'
 alias chkupd='checkupdates'
 alias m="mpd ~/.config/mpd/mpd.conf"
 alias n="ncmpcpp"
-alias pacupg='sudo snp pacman -Syu'
 alias yaupg='sudo snp sudo -u chad yaourt --sucre'
 alias rollback='sudo rollback'
 alias snp='sudo snp'
@@ -54,47 +53,65 @@ if [[ -f /usr/bin/acp && /usr/bin/amv ]]; then
     alias cp='acp -g'
     alias mv='amv -g'
 fi
-
-pacin(){sudo pacman -S $@; pkgdump}
-pacins(){sudo pacman -U $@; pkgdump}
-pacre(){sudo pacman -R $@; pkgdump}
-pacrem(){sudo pacman -Rns $@; pkgdump}
-pacremc(){sudo pacman -Rnsc $@; pkgdump}
-yain(){yaourt -S $@;  pkgdump}
-yare(){yaourt -R $@; pkgdump}
-yarem(){yaourt -Rns $@; pkgdump}
-yaremc(){yaourt -Rnsc $@; pkgdump}
-
-alias pacupd="sudo pacman -Sy && sudo abs"
-alias pacinsd='sudo pacman -S --asdeps'
-alias paclf='pacman -Ql'
-alias pacrep='pacman -Si'
-alias pacreps='pacman -Ss'
-alias pacloc='pacman -Qi'
-alias paclocs='pacman -Qs'
-alias pacmir='sudo pacman -Syy'
-alias paclo='pacman -Qdt'
-alias pacro='sudo pacman -Rs $(pacman -Qtdq)'
-alias pacunlock="sudo rm /var/lib/pacman/db.lck"
-alias paclock="sudo touch /var/lib/pacman/db.lck"
-alias pacupga='sudo pacman -Syu && sudo abs'
-alias pacaur='pacman -Qm'
-alias pacc='sudo pacman -Sc'
-alias paccc='sudo pacman -Scc'
-alias pacdown='sudo pacman -Sw'
-
-alias yaconf='yaourt -C'
-alias yasu='yaourt --sucre'
-alias yarep='yaourt -Si'
-alias yareps='yaourt -Ss'
-alias yaloc='yaourt -Qi'
-alias yalocs='yaourt -Qs'
-alias yalst='yaourt -Qe'
-alias yaorph='yaourt -Qtd'
-alias yaupga='sudo yaourt -Syua && sudo abs'
-alias yamir='yaourt -Syy'
+if [[ -f /usr/bin/pacman ]]; then
+    pacin(){sudo pacman -S $@; pkgdump}
+    pacins(){sudo pacman -U $@; pkgdump}
+    pacre(){sudo pacman -R $@; pkgdump}
+    pacrem(){sudo pacman -Rns $@; pkgdump}
+    pacremc(){sudo pacman -Rnsc $@; pkgdump}
+    yain(){yaourt -S $@;  pkgdump}
+    yare(){yaourt -R $@; pkgdump}
+    yarem(){yaourt -Rns $@; pkgdump}
+    yaremc(){yaourt -Rnsc $@; pkgdump}
+    
+    alias pacupd="sudo pacman -Sy && sudo abs"
+    alias pacinsd='sudo pacman -S --asdeps'
+    alias paclf='pacman -Ql'
+    alias pacrep='pacman -Si'
+    alias pacreps='pacman -Ss'
+    alias pacloc='pacman -Qi'
+    alias paclocs='pacman -Qs'
+    alias pacmir='sudo pacman -Syy'
+    alias paclo='pacman -Qdt'
+    alias pacro='sudo pacman -Rs $(pacman -Qtdq)'
+    alias pacunlock="sudo rm /var/lib/pacman/db.lck"
+    alias paclock="sudo touch /var/lib/pacman/db.lck"
+    alias pacupga='sudo pacman -Syu && sudo abs'
+    alias pacaur='pacman -Qm'
+    alias pacc='sudo pacman -Sc'
+    alias paccc='sudo pacman -Scc'
+    alias pacdown='sudo pacman -Sw'
+    
+    alias yaconf='yaourt -C'
+    alias yasu='yaourt --sucre'
+    alias yarep='yaourt -Si'
+    alias yareps='yaourt -Ss'
+    alias yaloc='yaourt -Qi'
+    alias yalocs='yaourt -Qs'
+    alias yalst='yaourt -Qe'
+    alias yaorph='yaourt -Qtd'
+    alias yaupga='sudo yaourt -Syua && sudo abs'
+    alias yamir='yaourt -Syy'
+elif [[ -f /usr/bin/emerge ]]; then
+    alias emin='sudo emerge --ask --autounmask-write'
+    alias emre='sudo emerge -C'
+    alias emrem='sudo emerge -cav'
+    alias emclean='sudo emerge -av --depclean'
+    alias emsearch='emerge --search'
+    alias emdesc='sudo emerge --descsearch'
+    alias emsyn='sudo emerge --sync'
+    alias emupg="sudo emerge --sync && sudo emerge -uNDav @world && sudo revdep-rebuild"
+    alias empret='sudo emerge --pretend' 
+    efiles(){sudo equery files $1 | less}
+    alias emrebuild=' sudo emerge --update --deep --newuse @world'
+    alias confs='sudo dispatch-conf'
+    alias euse='sudo euse'
+    alias es='sudo eselect'
+    alias esl='eselect list'
+fi
 
 alias smount='sudo mount'
+bmount(){sudo mount -o compress=lzo,autodefrag,subvol=$1 /dev/mapper/lvmvol-mainvol $2}
 
 alias ls='ls --color'
 alias l='ls -lFh'  
@@ -312,15 +329,6 @@ function extract() {
 
 alias x=extract
 
-#catimg
-
-function catimg() {
-  if [[ -x  `which convert` ]]; then
-    zsh ~/.catimg/catimg.sh $@
-  else
-    echo "catimg need convert (ImageMagick) to work)"
-  fi
-}
 function catsay(){
 cat $1 | cowsay
 }
