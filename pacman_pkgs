@@ -129,6 +129,7 @@ evince
 evolution-data-server
 exempi
 exiv2
+exo
 expat
 faac
 faad2
@@ -933,6 +934,7 @@ telepathy-mission-control
 tevent
 texinfo
 thin-provisioning-tools
+thunar
 tigervnc
 tk
 tmux
