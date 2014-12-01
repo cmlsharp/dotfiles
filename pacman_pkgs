@@ -741,6 +741,7 @@ netctl
 nettle
 network-manager-applet
 networkmanager
+networkmanager-openvpn
 nfs-utils
 nfsidmap
 nftables
@@ -762,6 +763,7 @@ openresolv
 openshot
 openssh
 openssl
+openvpn
 opus
 orbit2
 orc
