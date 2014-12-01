@@ -118,6 +118,7 @@ dotconf
 dwb
 e2fsprogs
 elfutils
+emacs
 empathy
 enca
 enchant
@@ -167,6 +168,7 @@ gcc-multilib
 gcolor2
 gconf
 gcr
+gd
 gdbm
 gdk-pixbuf2
 gdm
@@ -549,6 +551,7 @@ libofa
 libogg
 libomxil-bellagio
 libosinfo
+libotf
 libpaper
 libpcap
 libpciaccess
@@ -677,6 +680,8 @@ lvm2
 lz4
 lzo
 lzop
+m17n-db
+m17n-lib
 m4
 make
 man-db
