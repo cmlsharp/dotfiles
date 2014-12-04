@@ -275,6 +275,7 @@ gtkglext
 gtkmm
 gtkmm3
 gtksourceview3
+gtkspell
 guake
 gucharmap
 guile
@@ -839,6 +840,7 @@ python2-gnomecanvas
 python2-gnomevfs
 python2-gobject
 python2-gobject2
+python2-gtkspell
 python2-httplib2
 python2-libgnome
 python2-mako
