@@ -357,6 +357,7 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'scrooloose/syntastic'
 NeoBundle 'vim-scripts/matchit.zip'
 NeoBundle 'vim-scripts/Gundo'
 NeoBundle 'vim-scripts/bufexplorer.zip'
@@ -393,3 +394,4 @@ augroup END " }
 nnoremap <F2> :BufExplorerVerticalSplit<CR>
 nnoremap <F3> :reg <CR>
 inoremap jj <Esc>
+nnoremap ; :
