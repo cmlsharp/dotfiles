@@ -127,6 +127,7 @@ eog
 epiphany
 ethtool
 evince
+evolution
 evolution-data-server
 exempi
 exiv2
@@ -273,10 +274,12 @@ gtk-vnc
 gtk2
 gtk3
 gtkglext
+gtkhtml4
 gtkmm
 gtkmm3
 gtksourceview3
 gtkspell
+gtkspell3
 guake
 gucharmap
 guile
@@ -562,6 +565,7 @@ libpipeline
 libplist
 libpng
 libproxy
+libpst
 libpulse
 libpwquality
 libqalculate
@@ -658,6 +662,7 @@ libxvmc
 libxxf86dga
 libxxf86vm
 libyaml
+libytnef
 libzeitgeist
 libzen
 licenses
