@@ -73,7 +73,6 @@ cinnamon-desktop
 cinnamon-translations
 cjs
 clang
-claws-mail
 clementine
 cln
 clucene
@@ -84,7 +83,6 @@ cmake
 cogl
 colord
 colord-gtk
-compface
 compositeproto
 coreutils
 cowsay
@@ -474,7 +472,6 @@ libebml
 libedit
 libepoxy
 libetonyek
-libetpan
 libevdev
 libevent
 libexif
