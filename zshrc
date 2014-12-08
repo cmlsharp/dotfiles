@@ -47,7 +47,7 @@ alias e='exit'
 alias q='exit'
 alias ZZ='exit'
 alias crashplan='ssh -f -L 4200:localhost:4243 chad@192.168.1.1 -N > /dev/null  && CrashPlanDesktop'
-alias open='xdg-open'
+open(){gvfs-open $@ > /dev/null}
 
 if [[ -f /usr/bin/acp && /usr/bin/amv ]]; then
     alias cp='acp -g'
@@ -113,7 +113,7 @@ fi
 alias smount='sudo mount'
 bmount(){sudo mount -o compress=lzo,autodefrag,subvol=$1 /dev/mapper/lvmvol-mainvol $2}
 
-alias ls='ls --color'
+alias ls='ls --color -U'
 alias l='ls -lFh'  
 alias la='ls -lAFh' 
 alias lr='ls -tRFh'  
@@ -136,6 +136,7 @@ alias glom='git pull origin master'
 
 alias zshrc='vim ~/.zshrc'
 
+bdf(){if [[ $# != 1 ]]; then echo "bdf requires one argument";else echo -en "$(btrfs fi df $1 | head -n1 | awk -F= '{print $2}' | awk -F, '{print $1}')" && echo " used out of $(df -h $1 | tail -n1 | awk '{print $2"iB"}')\n";fi}
 alias grep='grep --color'
 alias sgrep='grep -R -n -H -C 5 --exclude-dir={.git,.svn,CVS} '
 
