@@ -800,7 +800,6 @@ perl-error
 perl-locale-gettext
 perl-xml-parser
 pinentry
-pipelight
 pixman
 pkg-config
 pkgfile
