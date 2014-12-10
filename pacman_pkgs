@@ -155,6 +155,7 @@ fltk
 fluidsynth
 folks
 fontconfig-infinality-ultimate
+fontforge
 fontsproto
 foomatic-db
 foomatic-db-engine
@@ -588,6 +589,7 @@ libsndfile
 libsodium
 libsoup
 libspectre
+libspiro
 libsrtp
 libssh2
 libsystemd
@@ -602,6 +604,7 @@ libtirpc
 libtool
 libtracker-sparql
 libtxc_dxtn
+libunicodenames
 libunique
 libunistring
 libupnp
@@ -647,6 +650,7 @@ libxinerama
 libxkbcommon
 libxkbcommon-x11
 libxkbfile
+libxkbui
 libxklavier
 libxml2
 libxmu
@@ -856,6 +860,7 @@ python2-mako
 python2-markupsafe
 python2-notify
 python2-pillow
+python2-pyinotify
 python2-pyqt4
 python2-sip
 python2-six
@@ -938,6 +943,7 @@ subversion
 sudo
 sushi
 syncthing
+syncthing-gtk
 sysfsutils
 syslinux
 systemd
@@ -1082,6 +1088,7 @@ yelp-xsl
 youtube-dl
 zeitgeist
 zenity
+zeromq
 zim
 zip
 zita-alsa-pcmi
