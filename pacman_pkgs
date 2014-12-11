@@ -52,7 +52,6 @@ bzip2
 c-ares
 ca-certificates
 ca-certificates-cacert
-ca-certificates-java
 ca-certificates-mozilla
 ca-certificates-utils
 cabextract
