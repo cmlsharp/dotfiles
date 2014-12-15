@@ -501,6 +501,7 @@ libgpod
 libgsf
 libgssglue
 libgtop
+libguess
 libgusb
 libgweather
 libgxps
@@ -523,7 +524,6 @@ liblastfm
 libldap
 liblqr
 liblrdf
-libltdl
 libmad
 libmatroska
 libmediaart
@@ -723,6 +723,7 @@ mpd
 mpfr
 mpg123
 mplayer
+mpv
 msmtp
 msmtp-mta
 mtdev
