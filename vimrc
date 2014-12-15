@@ -395,3 +395,4 @@ nnoremap <F2> :BufExplorerVerticalSplit<CR>
 nnoremap <F3> :reg <CR>
 inoremap jj <Esc>
 nnoremap ; :
+au BufRead /tmp/mutt-* set tw=72
