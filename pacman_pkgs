@@ -956,6 +956,7 @@ talloc
 tar
 tcl
 tcpdump
+tcsh
 tdb
 telepathy-farstream
 telepathy-glib
