@@ -94,6 +94,7 @@ cups
 cups-filters
 cups-pk-helper
 curl
+cyrus-sasl
 damageproto
 db
 dbus
