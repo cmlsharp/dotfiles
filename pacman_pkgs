@@ -36,6 +36,7 @@ audiofile
 autoconf
 automake
 avahi
+babl
 baobab
 bash
 bc
@@ -179,12 +180,14 @@ gdbm
 gdk-pixbuf2
 gdm
 gedit
+gegl
 geoclue2
 geocode-glib
 gettext
 ghostscript
 giblib
 giflib
+gimp
 git
 gjs
 gksu
@@ -630,6 +633,7 @@ libvpx
 libwacom
 libwbclient
 libwebp
+libwmf
 libwnck
 libwnck3
 libwpd
