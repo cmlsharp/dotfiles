@@ -293,6 +293,7 @@ guake
 gucharmap
 guile
 gvfs
+gvfs-afc
 gvfs-mtp
 gvfs-smb
 gvim
