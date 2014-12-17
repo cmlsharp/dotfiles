@@ -535,6 +535,7 @@ liblrdf
 libmad
 libmariadbclient
 libmatroska
+libmcrypt
 libmediaart
 libmediainfo
 libmm-glib
@@ -718,6 +719,7 @@ mediainfo
 mesa
 mesa-dri
 mesa-libgl
+mhash
 midori
 mime-types
 miniupnpc
@@ -951,6 +953,7 @@ spice-gtk3
 sqlite
 sshfs
 startup-notification
+steghide
 stow
 subversion
 sudo
