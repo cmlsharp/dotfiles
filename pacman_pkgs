@@ -117,6 +117,7 @@ docbook-xml
 docbook-xsl
 dosfstools
 dotconf
+doxygen
 dwb
 e2fsprogs
 elfutils
@@ -326,6 +327,7 @@ jasper
 java-environment-common
 java-runtime-common
 jdk7-openjdk
+jemalloc
 jfsutils
 jre7-openjdk
 jre7-openjdk-headless
@@ -527,6 +529,7 @@ libldap
 liblqr
 liblrdf
 libmad
+libmariadbclient
 libmatroska
 libmediaart
 libmediainfo
@@ -700,6 +703,8 @@ m4
 make
 man-db
 man-pages
+mariadb
+mariadb-clients
 mate-desktop
 mate-terminal
 mcpp
@@ -988,6 +993,7 @@ tzdata
 udisks2
 unace
 unetbootin
+unixodbc
 unrar
 unzip
 upower
