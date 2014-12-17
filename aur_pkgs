@@ -25,6 +25,7 @@ nemo-python-git
 numix-circle-icon-theme-git
 numix-icon-theme-git
 package-query
+pacmanxg4-bin
 popcorntime-bin
 preload
 rtl8812au_asus-dkms
@@ -34,6 +35,7 @@ ruby-netrc
 ruby-rest-client
 ruby-smart_colored
 screencloud-git
+ssx
 system-config-lvm
 ttf-ms-fonts
 yacy
