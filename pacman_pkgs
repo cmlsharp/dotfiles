@@ -102,6 +102,7 @@ damageproto
 db
 dbus
 dbus-glib
+dcfldd
 dconf
 desktop-file-utils
 device-mapper
