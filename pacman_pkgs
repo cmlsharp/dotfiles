@@ -613,7 +613,6 @@ libtiff
 libtiger
 libtirpc
 libtool
-libtorrent
 libtracker-sparql
 libtxc_dxtn
 libunicodenames
@@ -916,7 +915,6 @@ rpmextract
 rsync
 rtkit
 rtmpdump
-rtorrent
 ruby
 ruby-highline
 ruby-mime-types
@@ -1070,7 +1068,6 @@ xfsprogs
 xine-lib
 xineramaproto
 xkeyboard-config
-xmlrpc-c
 xmlto
 xorg-bdftopcf
 xorg-font-util
