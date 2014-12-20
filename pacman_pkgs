@@ -618,6 +618,7 @@ libtxc_dxtn
 libunicodenames
 libunique
 libunistring
+libunwind
 libupnp
 libusb
 libusb-compat
@@ -1032,6 +1033,7 @@ webkitgtk
 webkitgtk2
 webrtc-audio-processing
 weechat
+weston
 wget
 which
 wildmidi
