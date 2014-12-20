@@ -994,6 +994,7 @@ totem-plparser
 traceroute
 tracker
 transmission-cli
+transmission-gtk
 ttf-dejavu
 ttf-droid
 ttf-freefont
