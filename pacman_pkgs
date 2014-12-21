@@ -857,6 +857,7 @@ python-dbus-common
 python-distutils-extra
 python-ecdsa
 python-gobject
+python-html2text
 python-paramiko
 python-pip
 python-psutil
