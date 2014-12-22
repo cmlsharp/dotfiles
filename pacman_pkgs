@@ -821,6 +821,7 @@ pcmciautils
 pcre
 perl
 perl-error
+perl-lchown
 perl-locale-gettext
 perl-xml-parser
 pinentry
@@ -931,6 +932,7 @@ renderproto
 rest
 rpcbind
 rpmextract
+rsnapshot
 rsync
 rtkit
 rtmpdump
