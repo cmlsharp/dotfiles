@@ -821,10 +821,7 @@ pcmciautils
 pcre
 perl
 perl-error
-perl-io-socket-ssl
 perl-locale-gettext
-perl-net-ssleay
-perl-uri
 perl-xml-parser
 pinentry
 pipelight
