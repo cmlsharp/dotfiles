@@ -827,6 +827,7 @@ pinentry
 pipelight
 pixman
 pkg-config
+pkgbuild-introspection
 pkgfile
 podofo
 polkit
