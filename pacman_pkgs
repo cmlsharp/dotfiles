@@ -264,6 +264,7 @@ gsasl
 gsettings-desktop-schemas
 gsfonts
 gsm
+gst-libav
 gst-plugins-bad
 gst-plugins-base
 gst-plugins-base-libs
