@@ -96,7 +96,6 @@ cronie
 cryptsetup
 cups
 cups-filters
-cups-pdf
 cups-pk-helper
 curl
 cyrus-sasl
