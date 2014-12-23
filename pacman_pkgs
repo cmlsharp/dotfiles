@@ -351,7 +351,6 @@ json-c
 json-glib
 kbd
 kbproto
-keepass
 keyutils
 kmod
 krb5
@@ -502,7 +501,6 @@ libfontenc
 libftdi-compat
 libgcrypt
 libgdata
-libgdiplus
 libgdm
 libgee
 libgksu
@@ -744,7 +742,6 @@ mlt
 mlt-python-bindings
 mobile-broadband-provider-info
 mod_dnssd
-mono
 mousetweaks
 mozilla-common
 mpd
