@@ -195,12 +195,6 @@ jre7-openjdk
 jre7-openjdk-headless
 jre8-openjdk-headless
 js185
-kdeplasma-addons-frameworks
-kinfocenter
-kmenuedit
-ksysguard
-kwin
-kwrited
 ladspa
 lcms
 less
@@ -336,7 +330,6 @@ mdadm
 mediainfo
 mercurial
 midori
-milou
 mime-types
 mlocate
 mlt
@@ -383,7 +376,6 @@ openexr
 openshot
 openssh
 orbit2
-oxygen
 oxygen-gtk2
 oxygen-gtk3
 p7zip
@@ -401,15 +393,10 @@ pipelight
 pkg-config
 pkgbuild-introspection
 pkgfile
-plasma-desktop
-plasma-nm
-plasma-workspace
-plasma-workspace-wallpapers
 podofo
 portaudio
 postgresql
 postgresql-libs
-powerdevil
 prelink
 procps-ng
 protobuf
@@ -501,7 +488,6 @@ sysfsutils
 syslinux
 systemd-sysvcompat
 systemd-ui
-systemsettings
 tar
 tcl
 tcpdump
