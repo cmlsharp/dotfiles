@@ -1,7 +1,15 @@
-if (( EUID == 0 )); then
-    PROMPT="[%n@%m %~]%# "
-else
+if (( EUID == 1000 )); then
     PROMPT="λ %~/ " 
+    if [[ -z $DISPLAY ]]; then
+        PROMPT="[%n@%m %~]%# "
+        if [[ ! $(ls /tmp | grep "ssh-") ]] ; then
+            echo -n "Unlock ssh keys? [Y/n] "
+            read input
+            case $input in ""|[Yy]|[Yy][Ee][Ss]) eval $(ssh-agent); ssh-add ~/.ssh/{id_github,id_rsa} ;; esac
+        fi
+    fi
+else
+    PROMPT="[%n@%m %~]%# "
 fi
 #ZSH options
 autoload -U compinit promptinit
@@ -25,6 +33,7 @@ export BROWSER="/home/chad/.local/share/firefox/firefox"
 
 #Aliases
 alias wftop='sudo iftop -i wlp3s0'
+alias yt='mpv --ytdl $(xclip -o)'
 alias c='clear'
 alias vimrc='vim /home/chad/.vimrc'
 alias chkupd='checkupdates'
@@ -46,8 +55,11 @@ alias ivm='vim'
 alias e='exit'
 alias q='exit'
 alias ZZ='exit'
+gcco(){gcc -o ${1} ${1}.c}
+rev(){ echo "r$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"}
 alias crashplan='ssh -f -L 4200:localhost:4243 chad@192.168.1.1 -N > /dev/null  && CrashPlanDesktop'
-open(){gvfs-open $@ > /dev/null}
+fj(){firejail -c $@ 2> /dev/null}
+open(){gvfs-open $@ &> /dev/null}
 
 if [[ -f /usr/bin/acp && /usr/bin/amv ]]; then
     alias cp='acp -g'
@@ -112,6 +124,8 @@ fi
 
 alias smount='sudo mount'
 bmount(){sudo mount -o compress=lzo,autodefrag,subvol=$1 /dev/mapper/lvmvol-mainvol $2}
+alias nsmount='sudo mount -o compress=lzo,autodefrag /dev/mapper/lvmvol-mainvol'
+alias ksp='ksuperkey'
 
 alias ls='ls --color -U'
 alias l='ls -lFh'  
@@ -151,6 +165,7 @@ alias -g CA="2>&1 | cat -A"
 alias -g NE="2> /dev/null"
 alias -g NUL="> /dev/null 2>&1"
 alias edit='vim'
+
 
 alias dud='du --max-depth=1 -h'
 alias duf='du -sh *'
