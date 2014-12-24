@@ -3,7 +3,6 @@ aurvote
 bcrypt
 blackarch-keyring
 bropages
-chromium-pepper-flash
 command-not-found
 crashplan
 firejail
@@ -18,14 +17,9 @@ insync-nemo
 laptop-mode-tools
 lib32-cdparanoia
 lib32-gstreamer0.10
-lib32-libtheora
-lib32-libvisual
-libqxt
 masterpdfeditor
 menulibre
-nemo-python-git
 numix-circle-icon-theme-git
-numix-icon-theme-git
 package-query
 pacmanxg4-bin
 pacupg
@@ -33,13 +27,7 @@ popcorntime-bin
 preload
 qbittorrent
 rtl8812au_asus-dkms
-ruby-commander
-ruby-json_pure
-ruby-netrc
-ruby-rest-client
-ruby-smart_colored
 screencloud-git
-ssx
 system-config-lvm
 tomb
 tomb-kdf
