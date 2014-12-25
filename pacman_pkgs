@@ -63,6 +63,7 @@ dia
 dialog
 diffutils
 dkms
+dmenu
 dmxproto
 docbook-xml
 docbook-xsl
@@ -77,6 +78,7 @@ epiphany
 evince
 evolution
 fakeroot
+feh
 ffmpeg-compat
 file
 file-roller
@@ -176,6 +178,9 @@ hdparm
 help2man
 hplip
 hunspell-en
+i3-wm
+i3lock
+i3status
 i7z
 iftop
 ilmbase
@@ -454,6 +459,7 @@ reiserfsprogs
 rpcbind
 rpmextract
 rsync
+rxvt-unicode
 s-nail
 samba
 screenfetch
