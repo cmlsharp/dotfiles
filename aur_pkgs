@@ -3,6 +3,7 @@ aurvote
 bcrypt
 blackarch-keyring
 bropages
+bspwm
 command-not-found
 crashplan
 firejail
@@ -28,6 +29,7 @@ preload
 qbittorrent
 rtl8812au_asus-dkms
 screencloud-git
+sxhkd
 system-config-lvm
 tomb
 tomb-kdf
