@@ -4,7 +4,6 @@ bar-aint-recursive
 bcrypt
 blackarch-keyring
 bropages
-bspwm
 command-not-found
 crashplan
 firejail
@@ -30,13 +29,10 @@ preload
 qbittorrent
 rtl8812au_asus-dkms
 screencloud-git
-sutils-git
-sxhkd
 system-config-lvm
 tomb
 tomb-kdf
 tor-browser-en
 ttf-ms-fonts
-xtitle-git
 yacy
 yaourt
