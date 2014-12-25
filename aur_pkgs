@@ -1,5 +1,6 @@
 advcp
 aurvote
+bar-aint-recursive
 bcrypt
 blackarch-keyring
 bropages
@@ -29,11 +30,13 @@ preload
 qbittorrent
 rtl8812au_asus-dkms
 screencloud-git
+sutils-git
 sxhkd
 system-config-lvm
 tomb
 tomb-kdf
 tor-browser-en
 ttf-ms-fonts
+xtitle-git
 yacy
 yaourt
