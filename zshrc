@@ -2,7 +2,7 @@ if (( EUID == 1000 )); then
     PROMPT="λ %~/ " 
     if [[ -z $DISPLAY ]]; then
         PROMPT="[%n@%m %~]%# "
-        if [[ ! $(ls /tmp | grep "ssh-") ]] ; then
+        if [[ ! $(ls /tmp | grep "ssh-") && -z $TMUX ]] ; then
             echo -n "Unlock ssh keys? [Y/n] "
             read input
             case $input in ""|[Yy]|[Yy][Ee][Ss]) eval $(ssh-agent); ssh-add ~/.ssh/{id_github,id_rsa} ;; esac
@@ -60,11 +60,14 @@ rev(){ echo "r$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"}
 alias crashplan='ssh -f -L 4200:localhost:4243 chad@192.168.1.1 -N > /dev/null  && CrashPlanDesktop'
 fj(){firejail -c $@ 2> /dev/null}
 open(){gvfs-open $@ &> /dev/null}
+export TERMINAL=mate-terminal
 
-if [[ -f /usr/bin/acp && /usr/bin/amv ]]; then
-    alias cp='acp -g'
-    alias mv='amv -g'
-fi
+for i in mv cp; do
+    if [[ $(which a${i}) ]]; then
+        alias $i="a${i} -g"
+    fi
+done
+
 if [[ -f /usr/bin/pacman ]]; then
     pacin(){sudo pacman -S $@; pkgdump}
     pacins(){sudo pacman -U $@; pkgdump}
@@ -76,6 +79,7 @@ if [[ -f /usr/bin/pacman ]]; then
     yarem(){yaourt -Rns $@; pkgdump}
     yaremc(){yaourt -Rnsc $@; pkgdump}
     
+    alias pacdown='sudo pacman -Sw'
     alias pacupd="sudo pacman -Sy && sudo abs"
     alias pacinsd='sudo pacman -S --asdeps'
     alias paclf='pacman -Ql'
@@ -207,7 +211,7 @@ zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f
 #systemd
 user_commands=(
   list-units is-active status show help list-unit-files
-  is-enabled list-jobs show-environment)
+  is-enabled list-jobs show-environment reboot)
 
 sudo_commands=(
   start stop reload restart try-restart suspend isolate kill
