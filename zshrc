@@ -1,4 +1,8 @@
-if (( EUID == 1000 )); then
+[[ -z "$TMUX" ]] && exec tmux
+
+##Prompt
+user=chad
+if (( EUID == $(id -u $user) )); then
     PROMPT="%(?,Ω,ω) %~/ "
     if [[ ! $(ls /tmp | grep "ssh-") && -z $TMUX ]] ; then
         echo -n "Unlock ssh keys? [Y/n] "
@@ -14,12 +18,11 @@ if [[ -z $DISPLAY ]]; then
 fi
 RPROMPT="%B%(?..%?)%b"
 
-#ZSH options
+##ZSH options
 autoload -U compinit promptinit
 promptinit
 compinit -i
-zstyle ':completion:*' menu select
-setopt completealiases auto_cd append_history share_history histignorealldups histignorespace extended_glob longlistjobs nonomatch notify hash_list_all completeinword nohup auto_pushd pushd_ignore_dups nobeep noglobdots noshwordsplit unset nohashdirs correct
+setopt completealiases auto_cd append_history share_history histignorealldups histignorespace extended_glob longlistjobs nonomatch notify hash_list_all completeinword nohup auto_pushd pushd_ignore_dups nobeep noglobdots noshwordsplit nohashdirs
 REPORTTIME=5
 watch=(notme root)
 bindkey -v
@@ -31,10 +34,12 @@ bindkey -M vicmd 'j' history-substring-search-down
 HISTFILE=~/.zsh_history
 HISTSIZE=500
 SAVEHIST=1000
-[[ -z "$TMUX" ]] && exec tmux
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/core_perl:/home/chad/.gem/ruby/2.1.0/bin:/home/chad/bin:/usr/local/scripts"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/core_perl:/home/chad/bin:/usr/local/scripts"
 export EDITOR="vim"
 export BROWSER="/home/chad/.local/share/firefox/firefox"
+
+##Completion optios
+# Most are stolen from grml-zsh-config
 zstyle ':completion:*:approximate:'    max-errors 'reply=( $((($#PREFIX+$#SUFFIX)/3 )) numeric )'
 # start menu completion only if it could find no unambiguous initial string
 zstyle ':completion:*:correct:*'       insert-unambiguous true
@@ -83,8 +88,10 @@ zstyle ':completion:*:sudo:*' command-path /usr/local/sbin \
                                            /usr/bin 
 # provide .. as a completion
 zstyle ':completion:*' special-dirs ..
+zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
+zstyle ':completion:*' menu select
 
-#Aliases
+##Aliases
 alias wftop='sudo iftop -i wlp3s0'
 alias yt='mpv --ytdl $(xclip -o)'
 alias c='clear'
@@ -113,7 +120,7 @@ rev(){ echo "r$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"}
 alias crashplan='ssh -f -L 4200:localhost:4243 chad@192.168.1.1 -N > /dev/null  && CrashPlanDesktop'
 fj(){firejail -c $@ 2> /dev/null}
 open(){gvfs-open $@ &> /dev/null}
-export TERMINAL=mate-terminal
+export TERM=screen-256color
 
 for i in mv cp; do
     if [[ $(which a${i}) ]]; then
@@ -181,7 +188,7 @@ fi
 
 alias smount='sudo mount'
 bmount(){sudo mount -o compress=lzo,autodefrag,subvol=$1 /dev/mapper/lvmvol-mainvol $2}
-alias nsmount='sudo mount -o compress=lzo,autodefrag /dev/mapper/lvmvol-mainvol'
+alias fmount='sudo mount -o compress=lzo,autodefrag /dev/mapper/lvmvol-mainvol'
 alias ksp='ksuperkey'
 
 alias ls='ls --color -U'
@@ -233,33 +240,6 @@ alias h='history'
 alias hgrep="fc -El 0 | grep"
 alias p='ps -ef'
 alias sortnr='sort -n -r'
-if [ ${ZSH_VERSION//\./} -ge 420 ]; then
-  _browser_fts=(htm html de org net com at cx nl se dk dk php)
-  for ft in $_browser_fts ; do alias -s $ft=$BROWSER ; done
-
-  _editor_fts=(cpp cxx cc c hh h inl asc txt TXT tex)
-  for ft in $_editor_fts ; do alias -s $ft=$EDITOR ; done
-
-  _image_fts=(jpg jpeg png gif mng tiff tif xpm)
-  for ft in $_image_fts ; do alias -s $ft=$XIVIEWER; done
-
-  _media_fts=(ape avi flv mkv mov mp3 mpeg mpg ogg ogm rm wav webm)
-  for ft in $_media_fts ; do alias -s $ft=mplayer ; done
-
-  alias -s pdf=acroread
-  alias -s ps=gv
-  alias -s dvi=xdvi
-  alias -s chm=xchm
-  alias -s djvu=djview
-
-  alias -s zip="unzip -l"
-  alias -s rar="unrar l"
-  alias -s tar="tar tf"
-  alias -s tar.gz="echo "
-  alias -s ace="unace l"
-fi
-
-zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
 
 #systemd
 user_commands=(
@@ -275,50 +255,63 @@ for c in $user_commands; do; alias sc-$c="systemctl $c"; done
 for c in $sudo_commands; do; alias sc-$c="sudo systemctl $c"; done
 alias sc-dr='sudo systemctl daemon-reload'
 alias snpr='sudo snapper'
-#Web search
-function web_search() {
 
-  # get the open command
-  local open_cmd
-  if [[ $(uname -s) == 'Darwin' ]]; then
-    open_cmd='open'
-  else
-    open_cmd='xdg-open'
-  fi
+##Functions
 
-  # check whether the search engine is supported
-  if [[ ! $1 =~ '(google|bing|yahoo|duckduckgo)' ]];
-  then
-    echo "Search engine $1 not supported."
-    return 1
-  fi
-
-  local url="http://www.$1.com"
-
-  # no keyword provided, simply open the search engine homepage
-  if [[ $# -le 1 ]]; then
-    $open_cmd "$url"
-    return
-  fi
-  if [[ $1 == 'duckduckgo' ]]; then
-  #slightly different search syntax for DDG
-    url="${url}/?q="
-  else
-    url="${url}/search?q="
-  fi
-  shift   # shift out $1
-
-  while [[ $# -gt 0 ]]; do
-    url="${url}$1+"
-    shift
-  done
-
-  url="${url%?}" # remove the last '+'
+#Web Search
+web_search(){
+    # get the open command
+    local open_cmd
+    if [[ $(uname -s) == 'Darwin' ]]; then
+      open_cmd='open'
+    else
+      open_cmd='xdg-open'
+    fi
   
-  $open_cmd "$url"
+    # check whether the search engine is supported
+    if [[ ! $1 =~ '(google|bing|yahoo|duckduckgo)' ]];
+    then
+      echo "Search engine $1 not supported."
+      return 1
+    fi
+  
+    local url="http://www.$1.com"
+  
+    # no keyword provided, simply open the search engine homepage
+    if [[ $# -le 1 ]]; then
+      $open_cmd "$url"
+      return
+    fi
+    if [[ $1 == 'duckduckgo' ]]; then
+    #slightly different search syntax for DDG
+      url="${url}/?q="
+    else
+      url="${url}/search?q="
+    fi
+    shift   # shift out $1
+  
+    while [[ $# -gt 0 ]]; do
+      url="${url}$1+"
+      shift
+    done
+  
+    url="${url%?}" # remove the last '+'
+    
+    $open_cmd "$url"
 }
 
+alias bing='web_search bing'
+alias google='web_search google'
+alias yahoo='web_search yahoo'
+alias ddg='web_search duckduckgo'
+alias wiki='web_search duckduckgo \!w'
+alias news='web_search duckduckgo \!n'
+alias youtube='web_search duckduckgo \!yt'
+alias map='web_search duckduckgo \!m'
+alias image='web_search duckduckgo \!i'
+alias ducky='web_search duckduckgo \!'
 
+#Make alias with 'sudo' infront of it (stolen from grml-zsh-config)
 salias() {
     emulate -L zsh
     local only=0 ; local multi=0
@@ -356,18 +349,8 @@ salias() {
 
     return 0
 }
-alias bing='web_search bing'
-alias google='web_search google'
-alias yahoo='web_search yahoo'
-alias ddg='web_search duckduckgo'
-alias wiki='web_search duckduckgo \!w'
-alias news='web_search duckduckgo \!n'
-alias youtube='web_search duckduckgo \!yt'
-alias map='web_search duckduckgo \!m'
-alias image='web_search duckduckgo \!i'
-alias ducky='web_search duckduckgo \!'
-#Extract function
 
+#Extract
 function extract() {
   local remove_archive
   local success
@@ -446,6 +429,8 @@ cat $1 | cowsay
 function catthink(){
 cat $1 | cowthink
 }
+
+##Plugins
 for i in ~/.zsh_plugins/*.zsh; do
     source $i
 done
