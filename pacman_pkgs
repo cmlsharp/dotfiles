@@ -399,6 +399,7 @@ pipelight
 pkg-config
 pkgbuild-introspection
 pkgfile
+pkgstats
 podofo
 portaudio
 postgresql
