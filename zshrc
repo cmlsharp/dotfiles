@@ -1,16 +1,19 @@
 if (( EUID == 1000 )); then
-    PROMPT="%B%F{red}%(?..%? )%f%bλ %~/ "
-    if [[ -z $DISPLAY ]]; then
-        PROMPT="%B%F{red}%(?..%? )%f%b[%B%F{blue}%n%f%b@%m %B%40<..<%~%<< %b] %# "
-        if [[ ! $(ls /tmp | grep "ssh-") && -z $TMUX ]] ; then
-            echo -n "Unlock ssh keys? [Y/n] "
-            read input
-            case $input in ""|[Yy]|[Yy][Ee][Ss]) eval $(ssh-agent); ssh-add ~/.ssh/{id_github,id_rsa} ;; esac
-        fi
+    PROMPT="%(?,Ω,ω) %~/ "
+    if [[ ! $(ls /tmp | grep "ssh-") && -z $TMUX ]] ; then
+        echo -n "Unlock ssh keys? [Y/n] "
+        read input
+        case $input in ""|[Yy]|[Yy][Ee][Ss]) eval $(ssh-agent); ssh-add ~/.ssh/{id_github,id_rsa} ;; esac
     fi
 else
-    PROMPT="%B%F{red}%(?..%? )%f%b[%B%F{blue}%n%f%b@%m %B%40<..<%~%<< %b] %# "
+    PROMPT="[%B%F{blue}%n%f%b@%m %B%40<..<%~%<< %b] %# "
 fi
+
+if [[ -z $DISPLAY ]]; then
+    PROMPT="[%B%(?,%F{blue},%F{red})%n%f%b@%m %B%40<..<%~%<< %b] %# "
+fi
+RPROMPT="%B%(?..%?)%b"
+
 #ZSH options
 autoload -U compinit promptinit
 promptinit
