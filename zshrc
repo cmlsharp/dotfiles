@@ -1,7 +1,7 @@
 if (( EUID == 1000 )); then
-    PROMPT="λ %~/ " 
+    PROMPT="%B%F{red}%(?..%? )%f%bλ %~/ "
     if [[ -z $DISPLAY ]]; then
-        PROMPT="[%n@%m %~]%# "
+        PROMPT="%B%F{red}%(?..%? )%f%b[%B%F{blue}%n%f%b@%m %B%40<..<%~%<< %b] %# "
         if [[ ! $(ls /tmp | grep "ssh-") && -z $TMUX ]] ; then
             echo -n "Unlock ssh keys? [Y/n] "
             read input
@@ -9,27 +9,77 @@ if (( EUID == 1000 )); then
         fi
     fi
 else
-    PROMPT="[%n@%m %~]%# "
+    PROMPT="%B%F{red}%(?..%? )%f%b[%B%F{blue}%n%f%b@%m %B%40<..<%~%<< %b] %# "
 fi
 #ZSH options
 autoload -U compinit promptinit
 promptinit
 compinit -i
 zstyle ':completion:*' menu select
-setopt completealiases AUTO_CD HIST_IGNORE_DUPS
+setopt completealiases auto_cd append_history share_history histignorealldups histignorespace extended_glob longlistjobs nonomatch notify hash_list_all completeinword nohup auto_pushd pushd_ignore_dups nobeep noglobdots noshwordsplit unset nohashdirs correct
+REPORTTIME=5
+watch=(notme root)
 bindkey -v
 bindkey -M viins 'jj' vi-cmd-mode
 bindkey '^R' history-incremental-search-backward
 bindkey -M vicmd '?' history-incremental-search-backward
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
-HISTFILE=~/.zhistory
+HISTFILE=~/.zsh_history
 HISTSIZE=500
 SAVEHIST=1000
 [[ -z "$TMUX" ]] && exec tmux
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/core_perl:/home/chad/.gem/ruby/2.1.0/bin:/home/chad/bin:/usr/local/scripts"
 export EDITOR="vim"
 export BROWSER="/home/chad/.local/share/firefox/firefox"
+zstyle ':completion:*:approximate:'    max-errors 'reply=( $((($#PREFIX+$#SUFFIX)/3 )) numeric )'
+# start menu completion only if it could find no unambiguous initial string
+zstyle ':completion:*:correct:*'       insert-unambiguous true
+zstyle ':completion:*:corrections'     format $'%{\e[0;31m%}%d (errors: %e)%{\e[0m%}'
+zstyle ':completion:*:correct:*'       original true
+# activate color-completion
+zstyle ':completion:*:default'         list-colors ${(s.:.)LS_COLORS}
+zstyle ':completion:*:descriptions'    format $'%{\e[0;31m%}completing %B%d%b%{\e[0m%}'
+zstyle ':completion:*:*:cd:*:directory-stack' menu yes select
+zstyle ':completion:*:expand:*'        tag-order all-expansions
+zstyle ':completion:*:history-words'   list false
+zstyle ':completion:*:history-words'   menu yes
+zstyle ':completion:*:history-words'   remove-all-dups yes
+zstyle ':completion:*:history-words'   stop yes
+# match uppercase from lowercase
+zstyle ':completion:*'                 matcher-list 'm:{a-z}={A-Z}'
+zstyle ':completion:*:matches'         group 'yes'
+zstyle ':completion:*'                 group-name ''
+zstyle ':completion:*:messages'        format '%d'
+zstyle ':completion:*:options'         auto-description '%d'
+zstyle ':completion:*:options'         description 'yes'
+# on processes completion complete all user processes
+zstyle ':completion:*:processes'       command 'ps -au$USER'
+# offer indexes before parameters in subscripts
+zstyle ':completion:*:*:-subscript-:*' tag-order indexes parameters
+# provide verbose completion information
+zstyle ':completion:*'                 verbose true
+zstyle ':completion:*:-command-:*:'    verbose false
+# set format for warnings
+zstyle ':completion:*:warnings'        format $'%{\e[0;31m%}No matches for:%{\e[0m%} %d'
+# define files to ignore for zcompile
+zstyle ':completion:*:*:zcompile:*'    ignored-patterns '(*~|*.zwc)'
+zstyle ':completion:correct:'          prompt 'correct to: %e'
+# Ignore completion functions for commands you don't have:
+zstyle ':completion::(^approximate*):*:functions' ignored-patterns '_*'
+# Provide more processes in completion of programs like killall:
+zstyle ':completion:*:processes-names' command 'ps c -u ${USER} -o command | uniq'
+# complete manual by their section
+zstyle ':completion:*:manuals'    separate-sections true
+zstyle ':completion:*:manuals.*'  insert-sections   true
+zstyle ':completion:*:man:*'      menu yes select
+# Search path for sudo completion
+zstyle ':completion:*:sudo:*' command-path /usr/local/sbin \
+                                           /usr/local/bin  \
+                                           /usr/sbin       \
+                                           /usr/bin 
+# provide .. as a completion
+zstyle ':completion:*' special-dirs ..
 
 #Aliases
 alias wftop='sudo iftop -i wlp3s0'
@@ -266,6 +316,43 @@ function web_search() {
 }
 
 
+salias() {
+    emulate -L zsh
+    local only=0 ; local multi=0
+    local key val
+    while [[ $1 == -* ]] ; do
+        case $1 in
+            (-o) only=1 ;;
+            (-a) multi=1 ;;
+            (--) shift ; break ;;
+            (-h)
+                printf 'usage: salias [-h|-o|-a] <alias-expression>\n'
+                printf '  -h      shows this help text.\n'
+                printf '  -a      replace '\'' ; '\'' sequences with '\'' ; sudo '\''.\n'
+                printf '          be careful using this option.\n'
+                printf '  -o      only sets an alias if a preceding sudo would be needed.\n'
+                return 0
+                ;;
+            (*) printf "unkown option: '%s'\n" "$1" ; return 1 ;;
+        esac
+        shift
+    done
+
+    if (( ${#argv} > 1 )) ; then
+        printf 'Too many arguments %s\n' "${#argv}"
+        return 1
+    fi
+
+    key="${1%%\=*}" ;  val="${1#*\=}"
+    if (( EUID == 0 )) && (( only == 0 )); then
+        alias -- "${key}=${val}"
+    elif (( EUID > 0 )) ; then
+        (( multi > 0 )) && val="${val// ; / ; sudo }"
+        alias -- "${key}=sudo ${val}"
+    fi
+
+    return 0
+}
 alias bing='web_search bing'
 alias google='web_search google'
 alias yahoo='web_search yahoo'
