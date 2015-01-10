@@ -6,6 +6,7 @@ bcrypt
 blackarch-keyring
 bropages
 command-not-found
+cower
 crashplan
 evopedia
 firejail
@@ -26,6 +27,7 @@ libgcrypt15
 masterpdfeditor
 menulibre
 numix-circle-icon-theme-git
+pacaur
 package-query
 pacmanxg4-bin
 pacupg
