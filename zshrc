@@ -1,4 +1,9 @@
+##Pre stuff
+#Make sure tmux is running
 [[ -z "$TMUX" ]] && exec tmux
+
+#Give command line programs full access to CTRL combinations
+stty -ixon
 
 ##Prompt
 user=chad
@@ -99,8 +104,6 @@ alias vimrc='vim /home/chad/.vimrc'
 alias chkupd='checkupdates'
 alias m="mpd ~/.config/mpd/mpd.conf"
 alias n="ncmpcpp"
-alias yaupg='sudo snp sudo -u chad yaourt --sucre'
-alias rollback='sudo rollback'
 alias snp='sudo snp'
 alias nfs='mount ~/Cloud/nfs'
 alias unfs='umount ~/Cloud/nfs'
@@ -117,6 +120,7 @@ alias q='exit'
 alias ZZ='exit'
 gcco(){gcc -o ${1} ${1}.c}
 rev(){ echo "r$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"}
+aur(){ if [[ -d /tmp/scratch ]]; then rm -rf /tmp/scratch; fi; mkdir /tmp/scratch; cp ~/bin/pacupg/PKGBUILD /tmp/scratch; cd /tmp/scratch; makepkg; rm -rf "bin" "src" "pkg" "pacupg*"; mkaurball; echo "Done"; firefox https://aur.archlinux.org/submit/ }
 alias crashplan='ssh -f -L 4200:localhost:4243 chad@192.168.1.1 -N > /dev/null  && CrashPlanDesktop'
 fj(){firejail -c $@ 2> /dev/null}
 open(){gvfs-open $@ &> /dev/null}
@@ -134,10 +138,10 @@ if [[ -f /usr/bin/pacman ]]; then
     pacre(){sudo pacman -R $@; pkgdump}
     pacrem(){sudo pacman -Rns $@; pkgdump}
     pacremc(){sudo pacman -Rnsc $@; pkgdump}
-    yain(){yaourt -S $@;  pkgdump}
-    yare(){yaourt -R $@; pkgdump}
-    yarem(){yaourt -Rns $@; pkgdump}
-    yaremc(){yaourt -Rnsc $@; pkgdump}
+    aurin(){pacaur -S $@;  pkgdump}
+    aurre(){pacaur -R $@; pkgdump}
+    aurrem(){pacaur -Rns $@; pkgdump}
+    aurremc(){pacaur -Rnsc $@; pkgdump}
     
     alias pacdown='sudo pacman -Sw'
     alias pacupd="sudo pacman -Sy && sudo abs"
@@ -153,21 +157,20 @@ if [[ -f /usr/bin/pacman ]]; then
     alias pacunlock="sudo rm /var/lib/pacman/db.lck"
     alias paclock="sudo touch /var/lib/pacman/db.lck"
     alias pacupga='sudo pacman -Syu && sudo abs'
-    alias pacaur='pacman -Qm'
     alias pacc='sudo pacman -Sc'
     alias paccc='sudo pacman -Scc'
     alias pacdown='sudo pacman -Sw'
     
     alias yaconf='yaourt -C'
-    alias yasu='yaourt --sucre'
-    alias yarep='yaourt -Si'
-    alias yareps='yaourt -Ss'
-    alias yaloc='yaourt -Qi'
-    alias yalocs='yaourt -Qs'
-    alias yalst='yaourt -Qe'
-    alias yaorph='yaourt -Qtd'
-    alias yaupga='sudo yaourt -Syua && sudo abs'
-    alias yamir='yaourt -Syy'
+    alias aursu='pacaur -Syua --noconfirm'
+    alias aurrep='pacaur -Si'
+    alias aurreps='pacaur -Ss'
+    alias aurloc='pacaur -Qi'
+    alias aurlocs='pacaur -Qs'
+    alias aurlst='pacaur -Qe'
+    alias aurorph='pacaur -Qtd'
+    alias aurupga='sudo pacaur -Syua && sudo abs'
+    alias aurmir='pacaur -Syy'
 elif [[ -f /usr/bin/emerge ]]; then
     alias emin='sudo emerge --ask --autounmask-write'
     alias emre='sudo emerge -C'
@@ -191,7 +194,7 @@ bmount(){sudo mount -o compress=lzo,autodefrag,subvol=$1 /dev/mapper/lvmvol-main
 alias fmount='sudo mount -o compress=lzo,autodefrag /dev/mapper/lvmvol-mainvol'
 alias ksp='ksuperkey'
 
-alias ls='ls --color -U'
+alias ls='ls --color -UF'
 alias l='ls -lFh'  
 alias la='ls -lAFh' 
 alias lr='ls -tRFh'  
