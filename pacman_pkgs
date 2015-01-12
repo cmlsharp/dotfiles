@@ -31,6 +31,7 @@ bluez-libs
 bluez-utils
 boost
 bridge-utils
+bsd-games
 bzip2
 c-ares
 cabextract
