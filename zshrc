@@ -1,5 +1,10 @@
 ##Pre stuff
 #Make sure tmux is running
+if which fortune > /dev/null && which cowsay > /dev/null; then
+    echo
+    fortune | cowthink
+    echo
+fi
 [[ -z "$TMUX" ]] && exec tmux
 
 #Give command line programs full access to CTRL combinations
@@ -120,7 +125,6 @@ alias q='exit'
 alias ZZ='exit'
 gcco(){gcc -o ${1} ${1}.c}
 rev(){ echo "r$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"}
-aur(){ if [[ -d /tmp/scratch ]]; then rm -rf /tmp/scratch; fi; mkdir /tmp/scratch; cp ~/bin/pacupg/PKGBUILD /tmp/scratch; cd /tmp/scratch; makepkg; rm -rf "bin" "src" "pkg" "pacupg*"; mkaurball; echo "Done"; firefox https://aur.archlinux.org/submit/ }
 alias crashplan='ssh -f -L 4200:localhost:4243 chad@192.168.1.1 -N > /dev/null  && CrashPlanDesktop'
 fj(){firejail -c $@ 2> /dev/null}
 open(){gvfs-open $@ &> /dev/null}
@@ -160,17 +164,21 @@ if [[ -f /usr/bin/pacman ]]; then
     alias pacc='sudo pacman -Sc'
     alias paccc='sudo pacman -Scc'
     alias pacdown='sudo pacman -Sw'
+    alias pacfile='pacman -Ql'
     
     alias yaconf='yaourt -C'
-    alias aursu='pacaur -Syua --noconfirm'
+    alias aursu='pacaur -Syu --noconfirm'
     alias aurrep='pacaur -Si'
     alias aurreps='pacaur -Ss'
     alias aurloc='pacaur -Qi'
     alias aurlocs='pacaur -Qs'
     alias aurlst='pacaur -Qe'
     alias aurorph='pacaur -Qtd'
-    alias aurupga='sudo pacaur -Syua && sudo abs'
+    alias aurupga='sudo pacaur -Syu && sudo abs'
     alias aurmir='pacaur -Syy'
+    alias aurmake='pacaur -Sw'
+    alias aurcheck='pacaur -k'
+    alias aurclean='pacaur -cc'
 elif [[ -f /usr/bin/emerge ]]; then
     alias emin='sudo emerge --ask --autounmask-write'
     alias emre='sudo emerge -C'
