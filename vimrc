@@ -349,8 +349,8 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugins 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set nocompatible
 if has('vim_starting')
-   set nocompatible 
    set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 call neobundle#begin(expand('~/.vim/bundle/'))
@@ -395,4 +395,17 @@ nnoremap <F2> :BufExplorerVerticalSplit<CR>
 nnoremap <F3> :reg <CR>
 inoremap jj <Esc>
 nnoremap ; :
-au BufRead /tmp/mutt-* set tw=72
+"au BufRead /tmp/mutt* set tw=72 
+"au BufRead /tmp/mutt* set spell
+nnoremap <C-c> :q!<CR>
+nnoremap <C-s> :w<CR>
+augroup MUTT
+    au!
+    au FileType mail set spell
+    au FileType mail set textwidth=72
+    au FileType mail set formatoptions+=aw
+    au FileType mail set noautoindent
+augroup END
+if has("gui_running")
+   colo desert
+endif
