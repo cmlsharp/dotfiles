@@ -26,7 +26,6 @@ bash
 bc
 binutils
 bison
-blackarch-keyring
 bluez-firmware
 bluez-libs
 bluez-utils
@@ -400,7 +399,6 @@ oxygen
 oxygen-gtk2
 oxygen-gtk3
 p7zip
-package-query
 pacman
 pacmatic
 pangox-compat
@@ -529,7 +527,6 @@ thunderbird
 tk
 tmux
 tor
-tor-browser-en
 totem
 traceroute
 tracker
@@ -595,7 +592,6 @@ xorg-xprop
 xsel
 xterm
 yajl
-yaourt
 yasm
 yelp
 youtube-dl

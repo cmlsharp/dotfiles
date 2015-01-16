@@ -3,6 +3,7 @@ atom-editor-bin
 aurvote
 bar-aint-recursive
 bcrypt
+blackarch-keyring
 bropages
 command-not-found
 cower
@@ -29,6 +30,7 @@ menulibre
 numix-circle-icon-theme-git
 open-dyslexic-fonts
 pacaur
+package-query
 pacmanxg4-bin
 pacupg
 popcorntime-bin
@@ -41,5 +43,7 @@ system-config-lvm
 termsyn
 tomb
 tomb-kdf
+tor-browser-en
 ttf-ms-fonts
 yacy
+yaourt
