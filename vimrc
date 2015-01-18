@@ -372,9 +372,12 @@ NeoBundleCheck
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Other Stuff 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set relativenumber
+autocmd InsertEnter * :set number
+autocmd InsertEnter * :set norelativenumber
+autocmd InsertLeave * :set relativenumber
+autocmd InsertLeave * :set nonumber
 nnoremap <F5> :GundoToggle<CR>
-set number
-"set relativenumber
 autocmd vimenter * if !argc() | NERDTree | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 map <C-n> :NERDTreeToggle<CR>
@@ -395,8 +398,6 @@ nnoremap <F2> :BufExplorerVerticalSplit<CR>
 nnoremap <F3> :reg <CR>
 inoremap jj <Esc>
 nnoremap ; :
-"au BufRead /tmp/mutt* set tw=72 
-"au BufRead /tmp/mutt* set spell
 nnoremap <C-c> :q!<CR>
 nnoremap <C-s> :w<CR>
 augroup MUTT
@@ -408,4 +409,7 @@ augroup MUTT
 augroup END
 if has("gui_running")
    colo desert
+endif
+if has('nvim')
+runtime! python_setup.vim
 endif
