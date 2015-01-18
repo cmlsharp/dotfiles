@@ -1,11 +1,9 @@
 ##Pre stuff
-#Make sure tmux is running
 if which fortune > /dev/null && which cowsay > /dev/null; then
     echo
     fortune | cowthink
     echo
 fi
-[[ -z "$TMUX" ]] && exec tmux
 
 #Give command line programs full access to CTRL combinations
 stty -ixon
@@ -14,10 +12,11 @@ stty -ixon
 user=chad
 if (( EUID == $(id -u $user) )); then
     PROMPT="%(?,Ω,ω) %~/ "
-    if [[ ! $(ls /tmp | grep "ssh-") && -z $TMUX ]] ; then
-        echo -n "Unlock ssh keys? [Y/n] "
+    if [[ -z $(ls /tmp | grep "ssh-") && -z $TMUX ]] ; then
+        echo -n "Unlock ssh key? [Y/n] "
         read input
-        case $input in ""|[Yy]|[Yy][Ee][Ss]) eval $(ssh-agent); ssh-add ~/.ssh/{id_github,id_rsa} ;; esac
+        case $input in ""|[Yy]|[Yy][Ee][Ss]) eval $(ssh-agent); ssh-add ~/.ssh/id_rsa ;; esac
+
     fi
 else
     PROMPT="[%B%F{blue}%n%f%b@%m %B%40<..<%~%<< %b] %# "
@@ -28,6 +27,8 @@ if [[ -z $DISPLAY ]]; then
 fi
 RPROMPT="%B%(?..%?)%b"
 
+#Make sure tmux is running
+[[ -z "$TMUX" ]] && exec tmux
 ##ZSH options
 autoload -U compinit promptinit
 promptinit
@@ -44,9 +45,9 @@ bindkey -M vicmd 'j' history-substring-search-down
 HISTFILE=~/.zsh_history
 HISTSIZE=500
 SAVEHIST=1000
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/core_perl:/home/chad/bin:/usr/local/scripts"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/core_perl:/home/chad/bin:/usr/local/scripts:/home/chad/.gem/ruby/2.2.0"
 export EDITOR="vim"
-export BROWSER="/home/chad/.local/share/firefox/firefox"
+export BROWSER="firefox-aurora"
 
 ##Completion optios
 # Most are stolen from grml-zsh-config
@@ -111,9 +112,6 @@ alias m="mpd ~/.config/mpd/mpd.conf"
 alias n="ncmpcpp"
 alias snp='sudo snp'
 alias nfs='mount ~/Cloud/nfs'
-alias unfs='umount ~/Cloud/nfs'
-alias sfs='sshfs chad@mmfab-server:/mnt/MMFAB ~/Cloud/sshfs'
-alias usfs='fusermount -u ~/Cloud/sshfs'
 alias dc='cd'
 alias z='source ~/.zshrc'
 alias pg='ps -ef | grep --color'
@@ -123,18 +121,18 @@ alias ivm='vim'
 alias e='exit'
 alias q='exit'
 alias ZZ='exit'
+alias pacupg-dev='~/bin/pacupg/pacupg'
 gcco(){gcc -o ${1} ${1}.c}
 rev(){ echo "r$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"}
 alias crashplan='ssh -f -L 4200:localhost:4243 chad@192.168.1.1 -N > /dev/null  && CrashPlanDesktop'
 fj(){firejail -c $@ 2> /dev/null}
 open(){gvfs-open $@ &> /dev/null}
 export TERM=screen-256color
+alias firefox='dbus-launch firefox-aurora'
 
 for i in mv cp; do
-    if [[ $(which a${i}) ]]; then
-        alias $i="a${i} -g"
-    fi
-done
+    which a${i} > /dev/null && alias $i="a${i} -g"
+done > /dev/null
 
 if [[ -f /usr/bin/pacman ]]; then
     pacin(){sudo pacman -S $@; pkgdump}
