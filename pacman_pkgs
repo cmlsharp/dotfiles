@@ -513,7 +513,6 @@ subversion
 sudo
 sushi
 syncthing
-syncthing-gtk
 sysfsutils
 syslinux
 systemd-sysvcompat
