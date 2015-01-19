@@ -427,6 +427,7 @@ prelink
 procps-ng
 protobuf
 psmisc
+pyalpm
 pygobject2-devel
 pygoocanvas
 pygtk
