@@ -103,8 +103,8 @@ zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f
 zstyle ':completion:*' menu select
 
 ##Aliases
+ips(){echo -e "LAN IP: $(ip route get 8.8.8.8 | awk -F'src ' '!/cache/{print $2}')\nWAN IP: $(curl -s ipv4.icanhazip.com)"}
 alias wftop='sudo iftop -i wlp3s0'
-alias yt='mpv --ytdl $(xclip -o)'
 alias c='clear'
 alias vimrc='vim /home/chad/.vimrc'
 alias chkupd='checkupdates'
@@ -121,10 +121,10 @@ alias ivm='vim'
 alias e='exit'
 alias q='exit'
 alias ZZ='exit'
-alias pacupg-dev='~/bin/pacupg/pacupg'
+alias -g pacupg-dev='~/bin/pacupg/pacupg'
 gcco(){gcc -o ${1} ${1}.c}
 rev(){ echo "r$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"}
-alias crashplan='ssh -f -L 4200:localhost:4243 chad@192.168.1.1 -N > /dev/null  && CrashPlanDesktop'
+alias crashplan='ssh -f -L 4200:localhost:4243 crashplan@192.168.1.1 -N > /dev/null  && CrashPlanDesktop'
 fj(){firejail -c $@ 2> /dev/null}
 open(){gvfs-open $@ &> /dev/null}
 export TERM=screen-256color
