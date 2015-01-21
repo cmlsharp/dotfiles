@@ -592,6 +592,7 @@ xorg-xauth
 xorg-xdpyinfo
 xorg-xinit
 xorg-xprop
+xscreensaver
 xsel
 xterm
 yajl
