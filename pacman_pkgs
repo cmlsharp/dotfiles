@@ -328,7 +328,7 @@ lightdm
 links
 linux
 linux-headers
-lirc-utils
+lirc
 llvm
 logrotate
 lsb-release
