@@ -333,6 +333,7 @@ lirc-utils
 llvm
 logrotate
 lsb-release
+lsof
 lua-bitop
 lua-lpeg
 lua51
