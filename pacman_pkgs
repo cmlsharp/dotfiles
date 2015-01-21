@@ -333,7 +333,6 @@ lirc-utils
 llvm
 logrotate
 lsb-release
-lsof
 lua-bitop
 lua-lpeg
 lua51
@@ -592,7 +591,6 @@ xorg-xauth
 xorg-xdpyinfo
 xorg-xinit
 xorg-xprop
-xscreensaver
 xsel
 xterm
 yajl
