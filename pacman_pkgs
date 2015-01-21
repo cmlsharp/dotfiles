@@ -88,6 +88,7 @@ findutils
 fish
 flex
 fltk
+fluxbox
 fontconfig-infinality-ultimate
 foomatic-db
 foomatic-db-engine
@@ -590,6 +591,7 @@ xorg-xauth
 xorg-xdpyinfo
 xorg-xinit
 xorg-xprop
+xscreensaver
 xsel
 xterm
 yajl
