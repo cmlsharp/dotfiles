@@ -182,6 +182,7 @@ help2man
 hexchat
 hplip
 hunspell-en
+hyphen-en
 i3-wm
 i3lock
 i3status
@@ -299,6 +300,7 @@ libmpdclient
 libmpeg2
 libmtp
 libmygpo-qt
+libmythes
 libnftnl
 libosinfo
 libpcap
@@ -370,6 +372,7 @@ mutagen
 mutt
 mutter
 mx
+mythes-en
 nano
 nautilus
 ncdu
