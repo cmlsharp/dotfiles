@@ -220,6 +220,8 @@ alias g='git'
 alias gp='git push'
 alias gc='git commit -v'
 alias gm='git commit -vm'
+alias gs='git status'
+alias gd='git diff'
 alias gpom='git push origin master'
 alias glom='git pull origin master'
 
