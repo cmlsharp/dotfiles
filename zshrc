@@ -1,9 +1,9 @@
 ##Pre stuff
-if which fortune > /dev/null && which cowsay > /dev/null; then
-    echo
-    fortune | cowthink
-    echo
-fi
+#if which fortune > /dev/null && which cowthink > /dev/null; then
+    #echo
+    #fortune | cowthink
+    #echo
+#fi
 
 #Give command line programs full access to CTRL combinations
 stty -ixon
@@ -122,6 +122,7 @@ alias e='exit'
 alias q='exit'
 alias ZZ='exit'
 alias -g pacupg-dev='~/bin/pacupg/pacupg'
+alias tarcheck='ssh chad@192.168.1.3 cat /usr/local/scripts/date.log'
 gcco(){gcc -o ${1} ${1}.c}
 rev(){ echo "r$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"}
 alias crashplan='ssh -f -L 4200:localhost:4243 crashplan@192.168.1.1 -N > /dev/null  && CrashPlanDesktop'
@@ -158,7 +159,7 @@ if [[ -f /usr/bin/pacman ]]; then
     alias pacro='sudo pacman -Rs $(pacman -Qtdq)'
     alias pacunlock="sudo rm /var/lib/pacman/db.lck"
     alias paclock="sudo touch /var/lib/pacman/db.lck"
-    alias pacupga='sudo pacman -Syu && sudo abs'
+    alias pacupga='pacupg && sudo abs'
     alias pacc='sudo pacman -Sc'
     alias paccc='sudo pacman -Scc'
     alias pacdown='sudo pacman -Sw'
@@ -172,11 +173,12 @@ if [[ -f /usr/bin/pacman ]]; then
     alias aurlocs='pacaur -Qs'
     alias aurlst='pacaur -Qe'
     alias aurorph='pacaur -Qtd'
-    alias aurupga='sudo pacaur -Syu && sudo abs'
+    alias aurupga='pacupg -a && sudo abs'
     alias aurmir='pacaur -Syy'
     alias aurmake='pacaur -Sw'
     alias aurcheck='pacaur -k'
     alias aurclean='pacaur -cc'
+    alias aurup='aurploader -k -a -l ~/.config/aurploader'
 elif [[ -f /usr/bin/emerge ]]; then
     alias emin='sudo emerge --ask --autounmask-write'
     alias emre='sudo emerge -C'
@@ -200,12 +202,12 @@ bmount(){sudo mount -o compress=lzo,autodefrag,subvol=$1 /dev/mapper/lvmvol-main
 alias fmount='sudo mount -o compress=lzo,autodefrag /dev/mapper/lvmvol-mainvol'
 alias ksp='ksuperkey'
 
-alias ls='ls --color -UF'
-alias l='ls -lFh'  
+alias ls='ls --color -F --group-directories-first'
+alias l='ls -lh'  
+alias ll='ls -lh'
 alias la='ls -lAFh' 
 alias lr='ls -tRFh'  
 alias lt='ls -ltFh'   
-alias ll='ls -l'      
 alias ldot='ls -ld .*'
 alias lS='ls -1FSsh'
 alias lart='ls -1FcArt'
