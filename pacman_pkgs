@@ -382,6 +382,7 @@ nemo-share
 net-snmp
 net-tools
 netctl
+networkmanager
 networkmanager-openvpn
 nfs-utils
 nfsidmap
