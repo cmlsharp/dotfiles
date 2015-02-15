@@ -5,6 +5,7 @@ bar-aint-recursive
 bcrypt
 blackarch-keyring
 bropages
+checkbashisms
 command-not-found
 cower
 crashplan
