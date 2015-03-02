@@ -69,6 +69,7 @@ diffutils
 dkms
 dmenu
 dmxproto
+dnsutils
 docbook-xml
 docbook-xsl
 dosfstools
