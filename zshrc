@@ -33,7 +33,7 @@ RPROMPT="%B%(?..%?)%b"
 autoload -U compinit promptinit
 promptinit
 compinit -i
-setopt completealiases auto_cd append_history share_history histignorealldups histignorespace extended_glob longlistjobs nonomatch notify hash_list_all completeinword nohup auto_pushd pushd_ignore_dups nobeep noglobdots noshwordsplit nohashdirs
+setopt completealiases auto_cd append_history share_history histignorealldups histignorespace extended_glob longlistjobs nonomatch notify hash_list_all completeinword nohup auto_pushd pushd_ignore_dups nobeep noglobdots noshwordsplit nohashdirs inc_append_history
 REPORTTIME=5
 watch=(notme root)
 bindkey -v
@@ -47,7 +47,7 @@ HISTSIZE=500
 SAVEHIST=1000
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/core_perl:/home/chad/bin:/usr/local/scripts:/home/chad/.gem/ruby/2.2.0"
 export EDITOR="vim"
-export BROWSER="firefox-aurora"
+export BROWSER="firefox-nightly"
 
 ##Completion optios
 # Most are stolen from grml-zsh-config
@@ -102,6 +102,42 @@ zstyle ':completion:*' special-dirs ..
 zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
 zstyle ':completion:*' menu select
 
+INSERT_PROMPT="white"
+COMMAND_PROMPT="#D64937"
+
+# helper for setting color including all kinds of terminals
+set_prompt_color() {
+    if [[ $TERM = "linux" ]]; then
+       # nothing
+    elif [[ $TMUX != '' ]]; then
+        printf '\033Ptmux;\033\033]12;%b\007\033\\' "$1"
+    else
+        echo -ne "\033]12;$1\007"
+    fi
+}
+
+# change cursor color basing on vi mode
+zle-keymap-select () {
+    if [ $KEYMAP = vicmd ]; then
+        set_prompt_color $COMMAND_PROMPT
+    else
+        set_prompt_color $INSERT_PROMPT
+    fi
+}
+
+zle-line-finish() {
+    set_prompt_color $INSERT_PROMPT
+}
+
+zle-line-init () {
+    zle -K viins
+    set_prompt_color $INSERT_PROMPT
+}
+
+zle -N zle-keymap-select
+zle -N zle-line-init
+zle -N zle-line-finish
+
 ##Aliases
 ips(){echo -e "LAN IP: $(ip route get 8.8.8.8 | awk -F'src ' '!/cache/{print $2}')\nWAN IP: $(curl -s ipv4.icanhazip.com)"}
 alias wftop='sudo iftop -i wlp3s0'
@@ -121,13 +157,33 @@ alias ivm='vim'
 alias e='exit'
 alias q='exit'
 alias ZZ='exit'
+alias rmall='rm -rf -- *'
 alias -g pacupg-dev='~/bin/pacupg/pacupg'
-alias tarcheck='ssh chad@192.168.1.3 cat /usr/local/scripts/date.log'
+alias ytau='youtube-dl --extract-audio --audio-format'
+
+alias tarcheck='ssh mmfab-server -l root jexec 3 tarsnap --list-archives --keyfile /root/tarsnap.key | sort 2>/dev/null || ssh mmfab-server-away -l root jexec 3 tarsnap --list-archives --keyfile /root/tarsnap.key | sort'
+alias snapnum='echo $(($(snapper list | wc -l)-3))'
+for i in fuck damnit please; do
+    alias $i='source /home/chad/.zshrc;fc -ln -1; sudo -E $(fc -ln -1)'
+done
 gcco(){gcc -o ${1} ${1}.c}
 rev(){ echo "r$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"}
-alias crashplan='ssh -f -L 4200:localhost:4243 crashplan@192.168.1.1 -N > /dev/null  && CrashPlanDesktop'
 fj(){firejail -c $@ 2> /dev/null}
 open(){gvfs-open $@ &> /dev/null}
+gt() {
+    to="${1}";
+    text=$(echo "${*}" | sed -e "s/^.. //" -e "s/[\"'<>]//g");
+    res=$(wget -U "Mozilla/5.0" -qO - "http://translate.google.com/translate_a/t?client=t&text="${text}"&sl=auto&tl=${to}" | sed 's/\[\[\[\"//' | cut -d \" -f 1);
+     echo "${res}";
+}    
+up() {
+    local dest=".." 
+    local limit=${1:-1} 
+    for ((i=2 ; i <= limit ; i++)); do 
+         dest=$dest/..
+    done 
+    cd $dest
+} 
 export TERM=screen-256color
 alias firefox='dbus-launch firefox-aurora'
 

@@ -363,7 +363,6 @@ NeoBundle 'vim-scripts/Gundo'
 NeoBundle 'vim-scripts/bufexplorer.zip'
 NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/vimproc.vim'
 call neobundle#end()
 filetype plugin indent on
 NeoBundleCheck
