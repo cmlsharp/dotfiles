@@ -1,0 +1,4 @@
+text/html;                      links %s; nametemplate=%s.html
+text/html;                      links -dump %s; nametemplate=%s.html; copiousoutput
+application/*;                  mkdir -p /tmp/mutt \; cp %s /tmp/mutt \; xdg-open /tmp/mutt/$(basename %s) &
+image/*;                        mkdir -p /tmp/mutt \; cp %s /tmp/mutt \; xdg-open /tmp/mutt/$(basename %s) &

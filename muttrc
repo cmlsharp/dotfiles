@@ -1,0 +1,112 @@
+## General options
+source "gpg2 -dq $HOME/.mypw.gpg |" #Decrypt encrypted password variables
+set imap_check_subscribed
+set imap_keepalive = 300
+unset imap_passive
+set mail_check = 60
+set mbox_type=Maildir
+bind pager K  previous-line
+bind pager J next-line
+auto_view text/html
+macro index,pager <f3> '<sync-mailbox><enter-command>source ~/.mutt/gmail1<enter><change-folder>!<enter>'
+macro index,pager <f4> '<sync-mailbox><enter-command>source ~/.mutt/gmail2<enter><change-folder>!<enter>'
+macro index,pager <f2> '<sync-mailbox><enter-command>source ~/.mutt/riseup<enter><change-folder>!<enter>'
+set query_command="abook --mutt-query '%s'"
+macro generic,index,pager \ca "<shell-escape>abook<return>" "launch abook"
+macro index,pager A "<pipe-message>abook --add-email<return>" "add the sender address to abook"
+bind index,pager X previous-page
+bind index,pager x next-page
+macro index,pager Z \$q "Save and quit"
+set mark_old = no
+folder-hook . `rm -f /tmp/mutt/*`
+set header_cache = "~/.mutt_cache/headers"
+set message_cachedir = "~/.mutt_cache/messages"
+#PGP settings
+set pgp_use_gpg_agent = yes
+set pgp_sign_as = 108D84DC
+set pgp_timeout = 3600
+set crypt_autosign = yes
+set crypt_replyencrypt = yes
+bind compose p pgp-menu
+macro compose Y pfy "Send mail without PGP"
+macro compose I piy "Send mail with inline PGP"
+set pgp_auto_decode = yes
+source /etc/Muttrc.gpg.dist
+
+# Default color definitions
+color normal     white         default
+color hdrdefault green         default
+color quoted	 green         default
+color quoted1    yellow        default
+color quoted2    red           default
+color signature  cyan          default
+color indicator  brightyellow  red
+color error      brightred     default
+color status	 brightwhite   blue
+color tree	 brightmagenta default
+color tilde	 blue          default
+color attachment brightyellow  default
+color markers	 brightred     default
+color message    white         default
+color search     brightwhite   magenta
+color bold       brightyellow  default
+
+# Colors for items in the reader
+color header brightyellow default "^(From|Subject):"
+color header brightcyan   default ^To:
+color header brightcyan   default ^Cc:
+mono  header bold                 "^(From|Subject):"
+
+# regular new messages
+color index brightwhite        green   "~N"
+# regular tagged messages
+#color index yellow        default "~p !~N !~T !~F !~P"
+#color index brightyellow  white   "~p ~N !~T !~F !~P"
+#color index yellow        cyan    "~p ~T !~F !~P"
+#color index yellow        red     "~p ~F !~P"
+# messages from me
+#color index green         default "~P !~N !~T !~F"
+#color index green         white   "~P ~N !~T !~F"
+#color index green         cyan    "~P ~T !~F"
+#color index green         red     "~P ~F"
+# URLs
+color body brightyellow default "([a-z][a-z0-9+-]*://(((([a-z0-9_.!~*'();:&=+$,-]|%[0-9a-f][0-9a-f])*@)?((([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?|[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)(:[0-9]+)?)|([a-z0-9_.!~*'()$,;:@&=+-]|%[0-9a-f][0-9a-f])+)(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?(#([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?|(www|ftp)\\.(([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?(:[0-9]+)?(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?(#([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?)[^].,:;!)? \t\r\n<>\"]"
+
+# email addresses
+color body brightmagenta default "((@(([0-9a-z-]+\\.)*[0-9a-z-]+\\.?|#[0-9]+|\\[[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\]),)*@(([0-9a-z-]+\\.)*[0-9a-z-]+\\.?|#[0-9]+|\\[[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\]):)?[0-9a-z_.+%$-]+@(([0-9a-z-]+\\.)*[0-9a-z-]+\\.?|#[0-9]+|\\[[0-2]?[0-9]?[0-9]\\.[0-2]?[0-9]?[0-9]\\.[0-2]?[0-9]?[0-9]\\.[0-2]?[0-9]?[0-9]\\])"
+
+# PGP messages
+color  body            brightyellow    default "^gpg: Good signature .*"
+color  body            white           default "^gpg: "
+color  body            brightwhite     red     "^gpg: BAD signature from.*"
+mono   body            bold                    "^gpg: Good signature"
+mono   body            bold                    "^gpg: BAD signature from.*"
+
+# Various smilies and the like
+color body brightwhite default "<[Gg]>"                            # <g>
+color body brightwhite default "<[Bb][Gg]>"                        # <bg>
+color body brightwhite default " [;:]-*[})>{(<|]"                  # :-) etc...
+# *bold*
+color body brightblue  default "(^|[[:space:][:punct:]])\\*[^*]+\\*([[:space:][:punct:]]|$)"
+mono  body bold                "(^|[[:space:][:punct:]])\\*[^*]+\\*([[:space:][:punct:]]|$)"
+# _underline_
+color body brightblue  default "(^|[[:space:][:punct:]])_[^_]+_([[:space:][:punct:]]|$)"
+mono  body underline           "(^|[[:space:][:punct:]])_[^_]+_([[:space:][:punct:]]|$)"
+# /italic/  (Sometimes gets directory names)
+color body brightblue  default "(^|[[:space:][:punct:]])/[^/]+/([[:space:][:punct:]]|$)"
+#mono  body underline           "(^|[[:space:][:punct:]])/[^/]+/([[:space:][:punct:]]|$)"
+
+# Border lines.
+color body blue default "( *[-+=#*~_]){6,}"
+
+
+
+source "~/.mutt/gmail1"
+
+source "~/.mutt/gmail2"
+
+## Cub Gmail
+
+## Riseup email
+source "~/.mutt/riseup"
+folder-hook $folder 'source ~/.mutt/riseup'
