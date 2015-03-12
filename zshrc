@@ -151,7 +151,7 @@ alias nfs='mount ~/Cloud/nfs'
 alias dc='cd'
 alias z='source ~/.zshrc'
 alias pg='ps -ef | grep --color'
-alias svim='sudo -E vim'
+alias svim='sudoedit'
 alias vi='vim'
 alias ivm='vim'
 alias e='exit'
@@ -160,7 +160,7 @@ alias ZZ='exit'
 alias rmall='rm -rf -- *'
 alias -g pacupg-dev='~/bin/pacupg/pacupg'
 alias ytau='youtube-dl --extract-audio --audio-format'
-
+nport(){nmap -p $1 --open -sV "$(echo "$(ip route get 8.8.8.8 | awk -F'src ' '!/cache/{print $2}' | tr -d ' ')/$2")"}
 alias tarcheck='ssh mmfab-server -l root jexec 3 tarsnap --list-archives --keyfile /root/tarsnap.key | sort 2>/dev/null || ssh mmfab-server-away -l root jexec 3 tarsnap --list-archives --keyfile /root/tarsnap.key | sort'
 alias snapnum='echo $(($(snapper list | wc -l)-3))'
 for i in fuck damnit please; do
