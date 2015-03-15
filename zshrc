@@ -1,11 +1,11 @@
 ##Pre stuff
-#if which fortune > /dev/null && which cowthink > /dev/null; then
-    #echo
-    #fortune | cowthink
-    #echo
-#fi
-
-#Give command line programs full access to CTRL combinations
+autoload -U compinit promptinit colors && colors
+autoload -Uz vcs_info
+setopt completealiases auto_cd append_history share_history histignorealldups histignorespace extended_glob longlistjobs nonomatch notify hash_list_all completeinword nohup auto_pushd pushd_ignore_dups nobeep noglobdots noshwordsplit nohashdirs inc_append_history prompt_subst
+precmd(){
+    vcs_info
+}
+zstyle ':vcs_info:git*' actionformats "%b "
 stty -ixon
 
 ##Prompt
@@ -30,10 +30,9 @@ RPROMPT="%B%(?..%?)%b"
 #Make sure tmux is running
 [[ -z "$TMUX" ]] && exec tmux
 ##ZSH options
-autoload -U compinit promptinit
+
 promptinit
 compinit -i
-setopt completealiases auto_cd append_history share_history histignorealldups histignorespace extended_glob longlistjobs nonomatch notify hash_list_all completeinword nohup auto_pushd pushd_ignore_dups nobeep noglobdots noshwordsplit nohashdirs inc_append_history
 REPORTTIME=5
 watch=(notme root)
 bindkey -v
@@ -498,6 +497,28 @@ cat $1 | cowsay
 function catthink(){
 cat $1 | cowthink
 }
+mkaur(){
+    local scriptdir=~/bin
+    local aurpkgdir=~/aur-packages
+    local auropts
+    local filelist
+    while [[ $(head -c1 <<<$1) == "-" ]]; do
+        auropts+=" $1"
+        shift
+    done
+    local fulldir="$aurpkgdir/$1"
+    if [[ ! -d "$fulldir" ]]; then
+        echo "$fulldir does not exist"
+        return 1
+    else
+        cd "$fulldir"
+    fi
+    for file in "${fulldir}"/*; do
+        filelist+=" $file"
+    done
+    eval "$scriptdir/mkaur $auropts $filelist"
+}
+
 
 ##Plugins
 for i in ~/.zsh_plugins/*.zsh; do
