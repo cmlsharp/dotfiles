@@ -1,11 +1,4 @@
 ##Pre stuff
-autoload -U compinit promptinit colors && colors
-autoload -Uz vcs_info
-setopt completealiases auto_cd append_history share_history histignorealldups histignorespace extended_glob longlistjobs nonomatch notify hash_list_all completeinword nohup auto_pushd pushd_ignore_dups nobeep noglobdots noshwordsplit nohashdirs inc_append_history prompt_subst
-precmd(){
-    vcs_info
-}
-zstyle ':vcs_info:git*' actionformats "%b "
 stty -ixon
 
 ##Prompt
@@ -30,7 +23,8 @@ RPROMPT="%B%(?..%?)%b"
 #Make sure tmux is running
 [[ -z "$TMUX" ]] && exec tmux
 ##ZSH options
-
+autoload -U compinit promptinit colors && colors
+setopt completealiases auto_cd append_history share_history histignorealldups histignorespace extended_glob longlistjobs nonomatch notify hash_list_all completeinword nohup auto_pushd pushd_ignore_dups nobeep noglobdots noshwordsplit nohashdirs inc_append_history prompt_subst
 promptinit
 compinit -i
 REPORTTIME=5
