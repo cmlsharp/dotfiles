@@ -1,38 +1,40 @@
 ## General options
-source "gpg2 -dq $HOME/.mypw.gpg |" #Decrypt encrypted password variables
 set imap_check_subscribed
 set imap_keepalive = 300
-unset imap_passive
 set mail_check = 60
 set mbox_type=Maildir
+set query_command="abook --mutt-query '%s'"
+set mark_old = no
+set header_cache = "~/.mutt_cache/headers"
+set message_cachedir = "~/.mutt_cache/messages"
+unset imap_passive
+auto_view text/html
+folder-hook . `rm -f /tmp/mutt/*`
+# Keybindings
 bind pager K  previous-line
 bind pager J next-line
-auto_view text/html
+bind index,pager X previous-page
+bind index,pager x next-page
+bind index G last-entry
+bind attach <return> view-mailcap
+bind compose p pgp-menu
+macro compose Y pfy "Send mail without PGP"
+macro compose I pipey "Send mail with inline PGP"
+macro generic,index,pager \ca "<shell-escape>abook<return>" "launch abook"
+macro index,pager A "<pipe-message>abook --add-email<return>" "add the sender address to abook"
+macro index,pager Z \$q "Save and quit"
 macro index,pager <f3> '<sync-mailbox><enter-command>source ~/.mutt/gmail1<enter><change-folder>!<enter>'
 macro index,pager <f4> '<sync-mailbox><enter-command>source ~/.mutt/gmail2<enter><change-folder>!<enter>'
 macro index,pager <f2> '<sync-mailbox><enter-command>source ~/.mutt/riseup<enter><change-folder>!<enter>'
-set query_command="abook --mutt-query '%s'"
-macro generic,index,pager \ca "<shell-escape>abook<return>" "launch abook"
-macro index,pager A "<pipe-message>abook --add-email<return>" "add the sender address to abook"
-bind index,pager X previous-page
-bind index,pager x next-page
-macro index,pager Z \$q "Save and quit"
-set mark_old = no
-folder-hook . `rm -f /tmp/mutt/*`
-set header_cache = "~/.mutt_cache/headers"
-set message_cachedir = "~/.mutt_cache/messages"
-#PGP settings
+# PGP options
+source "gpg2 -dq $HOME/.mypw.gpg |" #Decrypt encrypted password variables
 set pgp_use_gpg_agent = yes
 set pgp_sign_as = 108D84DC
 set pgp_timeout = 3600
 set crypt_autosign = yes
 set crypt_replyencrypt = yes
-bind compose p pgp-menu
-macro compose Y pfy "Send mail without PGP"
-macro compose I piy "Send mail with inline PGP"
 set pgp_auto_decode = yes
 source /etc/Muttrc.gpg.dist
-
 # Default color definitions
 color normal     white         default
 color hdrdefault green         default
@@ -59,16 +61,6 @@ mono  header bold                 "^(From|Subject):"
 
 # regular new messages
 color index brightwhite        green   "~N"
-# regular tagged messages
-#color index yellow        default "~p !~N !~T !~F !~P"
-#color index brightyellow  white   "~p ~N !~T !~F !~P"
-#color index yellow        cyan    "~p ~T !~F !~P"
-#color index yellow        red     "~p ~F !~P"
-# messages from me
-#color index green         default "~P !~N !~T !~F"
-#color index green         white   "~P ~N !~T !~F"
-#color index green         cyan    "~P ~T !~F"
-#color index green         red     "~P ~F"
 # URLs
 color body brightyellow default "([a-z][a-z0-9+-]*://(((([a-z0-9_.!~*'();:&=+$,-]|%[0-9a-f][0-9a-f])*@)?((([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?|[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)(:[0-9]+)?)|([a-z0-9_.!~*'()$,;:@&=+-]|%[0-9a-f][0-9a-f])+)(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?(#([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?|(www|ftp)\\.(([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?(:[0-9]+)?(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?(#([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?)[^].,:;!)? \t\r\n<>\"]"
 
@@ -103,10 +95,10 @@ color body blue default "( *[-+=#*~_]){6,}"
 
 source "~/.mutt/gmail1"
 
-source "~/.mutt/gmail2"
-
 ## Cub Gmail
 
 ## Riseup email
 source "~/.mutt/riseup"
 folder-hook $folder 'source ~/.mutt/riseup'
+
+source "~/.mutt/gmail2"
