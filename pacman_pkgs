@@ -336,6 +336,7 @@ lightdm
 links
 linux
 linux-headers
+linux-lts
 lirc
 llvm
 logrotate
@@ -377,7 +378,6 @@ mumble
 musescore
 musicbrainz
 mutagen
-mutt
 mutter
 mx
 mythes-en
