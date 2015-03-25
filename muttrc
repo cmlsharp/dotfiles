@@ -1,5 +1,4 @@
 ## General options
-set imap_check_subscribed
 set imap_keepalive = 300
 set mail_check = 60
 set mbox_type=Maildir
@@ -7,20 +6,42 @@ set query_command="abook --mutt-query '%s'"
 set mark_old = no
 set header_cache = "~/.mutt_cache/headers"
 set message_cachedir = "~/.mutt_cache/messages"
+set certificate_file="~/.mutt_cache/certs"
+set delete = yes
+set edit_headers = yes
+set include = yes
+set abort_nosubject = no
 unset imap_passive
 auto_view text/html
 folder-hook . `rm -f /tmp/mutt/*`
+# Threads
+set sort="threads"
+set strict_threads=yes
+unset collapse_unread
+bind index - collapse-thread
+bind index _ collapse-all
+# Sidebar -- IMPORTANT:  REQUIRES mutt-sidebar patch
+set sidebar_visible = yes
+set sidebar_width=38
+set sidebar_shortpath = yes
+set sidebar_sort = yes
+macro index b '<enter-command>toggle sidebar_visible<enter><refresh>'
+macro pager b '<enter-command>toggle sidebar_visible<enter><redraw-screen>'
+bind index K sidebar-prev
+bind index J sidebar-next
+bind index L sidebar-open
 # Keybindings
 bind pager K  previous-line
 bind pager J next-line
 bind index,pager X previous-page
 bind index,pager x next-page
 bind index G last-entry
-bind attach <return> view-mailcap
+bind index I imap-fetch-mail
 bind compose p pgp-menu
 macro compose Y pfy "Send mail without PGP"
 macro compose I pipey "Send mail with inline PGP"
 macro generic,index,pager \ca "<shell-escape>abook<return>" "launch abook"
+macro index S "\cc =[Gmail]/" "Switch to gmail"
 macro index,pager A "<pipe-message>abook --add-email<return>" "add the sender address to abook"
 macro index,pager Z \$q "Save and quit"
 macro index,pager <f3> '<sync-mailbox><enter-command>source ~/.mutt/gmail1<enter><change-folder>!<enter>'
@@ -95,10 +116,10 @@ color body blue default "( *[-+=#*~_]){6,}"
 
 source "~/.mutt/gmail1"
 
-## Cub Gmail
-
 ## Riseup email
 source "~/.mutt/riseup"
 folder-hook $folder 'source ~/.mutt/riseup'
+
+## Cub Gmail
 
 source "~/.mutt/gmail2"
