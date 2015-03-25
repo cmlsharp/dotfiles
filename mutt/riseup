@@ -1,6 +1,6 @@
 set imap_user=crossroads1112@riseup.net
 set imap_pass=$my_pw_riseup
-set folder = imaps://crossroads1112@mail.riseup.net/
+set folder = imaps://crossroads1112@imap.riseup.net/
 set spoolfile = +INBOX
 set postponed = +Drafts
 set record = +Sent
