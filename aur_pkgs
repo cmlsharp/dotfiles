@@ -39,6 +39,7 @@ mutt-sidebar
 numix-circle-icon-theme-git
 ocenaudio
 open-dyslexic-fonts
+oxygen-gtk3
 pacaur
 package-query
 pacmanxg4-bin
@@ -47,7 +48,6 @@ popcorntime-bin
 preload
 python2-nemo
 python3-aur
-rtl8812au_asus-dkms
 screencloud
 specy
 sshrc

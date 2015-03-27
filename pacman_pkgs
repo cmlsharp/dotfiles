@@ -334,8 +334,6 @@ libzen
 licenses
 lightdm
 links
-linux
-linux-headers
 linux-lts
 lirc
 llvm
@@ -414,7 +412,6 @@ openssh
 orbit2
 oxygen
 oxygen-gtk2
-oxygen-gtk3
 p7zip
 pacman
 pacmatic
