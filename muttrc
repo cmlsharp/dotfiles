@@ -11,7 +11,6 @@ set delete = yes
 set edit_headers = yes
 set include = yes
 set abort_nosubject = no
-unset imap_passive
 auto_view text/html
 folder-hook . `rm -f /tmp/mutt/*`
 # Threads
@@ -40,7 +39,7 @@ bind index I imap-fetch-mail
 bind compose p pgp-menu
 macro compose Y pfy "Send mail without PGP"
 macro compose I pipey "Send mail with inline PGP"
-macro generic,index,pager \ca "<shell-escape>abook<return>" "launch abook"
+macro generic,index,pager \cb "<shell-escape>abook<return>" "launch abook"
 macro index S "\cc =[Gmail]/" "Switch to gmail"
 macro index,pager A "<pipe-message>abook --add-email<return>" "add the sender address to abook"
 macro index,pager Z \$q "Save and quit"
@@ -116,10 +115,10 @@ color body blue default "( *[-+=#*~_]){6,}"
 
 source "~/.mutt/gmail1"
 
-## Riseup email
-source "~/.mutt/riseup"
-folder-hook $folder 'source ~/.mutt/riseup'
-
 ## Cub Gmail
 
 source "~/.mutt/gmail2"
+
+## Riseup email
+source "~/.mutt/riseup"
+folder-hook $folder 'source ~/.mutt/riseup'

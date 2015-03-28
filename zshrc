@@ -1,3 +1,4 @@
+[[ $- != *i* ]] && return
 ##Pre stuff
 stty -ixon
 
@@ -21,7 +22,7 @@ fi
 RPROMPT="%B%(?..%?)%b"
 
 #Make sure tmux is running
-[[ -z "$TMUX" ]] && exec tmux
+#[[ -z "$TMUX" ]] && exec tmux
 ##ZSH options
 autoload -U compinit promptinit colors && colors
 setopt completealiases auto_cd append_history share_history histignorealldups histignorespace extended_glob longlistjobs nonomatch notify hash_list_all completeinword nohup auto_pushd pushd_ignore_dups nobeep noglobdots noshwordsplit nohashdirs inc_append_history prompt_subst
@@ -95,41 +96,7 @@ zstyle ':completion:*' special-dirs ..
 zstyle -e ':completion:*:(ssh|scp|sftp|rsh|rsync):hosts' hosts 'reply=(${=${${(f)"$(cat {/etc/ssh_,~/.ssh/known_}hosts(|2)(N) /dev/null)"}%%[# ]*}//,/ })'
 zstyle ':completion:*' menu select
 
-INSERT_PROMPT="white"
-COMMAND_PROMPT="#D64937"
 
-# helper for setting color including all kinds of terminals
-set_prompt_color() {
-    if [[ $TERM = "linux" ]]; then
-       # nothing
-    elif [[ $TMUX != '' ]]; then
-        printf '\033Ptmux;\033\033]12;%b\007\033\\' "$1"
-    else
-        echo -ne "\033]12;$1\007"
-    fi
-}
-
-# change cursor color basing on vi mode
-zle-keymap-select () {
-    if [ $KEYMAP = vicmd ]; then
-        set_prompt_color $COMMAND_PROMPT
-    else
-        set_prompt_color $INSERT_PROMPT
-    fi
-}
-
-zle-line-finish() {
-    set_prompt_color $INSERT_PROMPT
-}
-
-zle-line-init () {
-    zle -K viins
-    set_prompt_color $INSERT_PROMPT
-}
-
-zle -N zle-keymap-select
-zle -N zle-line-init
-zle -N zle-line-finish
 
 ##Aliases
 ips(){echo -e "LAN IP: $(ip route get 8.8.8.8 | awk -F'src ' '!/cache/{print $2}')\nWAN IP: $(curl -s ipv4.icanhazip.com)"}
