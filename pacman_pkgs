@@ -425,6 +425,7 @@ pcmciautils
 perl
 perl-locale-gettext
 perl-xml-parser
+pidgin
 pipelight
 pkg-config
 pkgbuild-introspection
