@@ -1,5 +1,6 @@
 0ad
 a52dec
+abook
 abs
 acpi
 acpid
@@ -26,6 +27,7 @@ bash
 bc
 binutils
 bison
+blackarch-keyring
 bluez-firmware
 bluez-libs
 bluez-utils
@@ -58,6 +60,7 @@ cups
 cups-filters
 cyrus-sasl
 dcfldd
+ddrescue
 device-mapper
 devilspie
 dfc
@@ -101,6 +104,8 @@ frei0r-plugins
 gamin
 gavl
 gawk
+gcc
+gcc-libs
 gcolor2
 gconf-editor
 gdm
@@ -147,6 +152,7 @@ goocanvas1
 gparted
 gperf
 gpick
+gptfdisk
 granite
 grep
 grilo-plugins
@@ -186,6 +192,7 @@ help2man
 hexchat
 hplip
 hunspell-en
+hydra
 hyphen-en
 i3-wm
 i3lock
@@ -200,6 +207,7 @@ iniparser
 intel-tbb
 intltool
 iproute2
+ipscan
 iputils
 iw
 java-environment-common
@@ -335,7 +343,7 @@ licenses
 lightdm
 links
 linux
-linux-lts
+linux-headers
 lirc
 llvm
 logrotate
@@ -501,6 +509,7 @@ reiserfsprogs
 rpcbind
 rpmextract
 rsync
+ruby-json_pure
 s-nail
 samba
 screenfetch
@@ -616,6 +625,7 @@ xscreensaver
 xsel
 xterm
 yajl
+yaourt
 yasm
 yelp
 youtube-dl
