@@ -70,7 +70,6 @@ dia
 dialog
 diffutils
 dkms
-dmenu
 dmxproto
 dnsutils
 docbook-xml
@@ -194,9 +193,6 @@ hplip
 hunspell-en
 hydra
 hyphen-en
-i3-wm
-i3lock
-i3status
 i7z
 icedtea-web
 iftop
