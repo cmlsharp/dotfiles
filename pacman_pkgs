@@ -272,6 +272,7 @@ lib32-p11-kit
 lib32-pango
 lib32-pixman
 lib32-readline
+libaacs
 libao
 libbonobo
 libcacard
