@@ -337,7 +337,6 @@ libxxf86dga
 libzeitgeist
 libzen
 licenses
-lightdm
 links
 linux
 linux-headers
@@ -513,6 +512,7 @@ scribus
 scrnsaverproto
 scrot
 scrypt
+sddm
 sdl_image
 seabios
 seahorse
