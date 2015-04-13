@@ -135,6 +135,7 @@ gnome-session
 gnome-settings-daemon
 gnome-shell
 gnome-shell-extensions
+gnome-software
 gnome-system-log
 gnome-system-monitor
 gnome-terminal
