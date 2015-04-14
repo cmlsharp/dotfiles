@@ -202,6 +202,7 @@ inetutils
 iniparser
 intel-tbb
 intltool
+iperf
 iproute2
 ipscan
 iputils
