@@ -434,6 +434,7 @@ perl
 perl-locale-gettext
 perl-xml-parser
 pidgin
+pidgin-otr
 pipelight
 pkg-config
 pkgbuild-introspection
