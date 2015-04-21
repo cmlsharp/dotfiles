@@ -27,7 +27,6 @@ bash
 bc
 binutils
 bison
-blackarch-keyring
 bluez-firmware
 bluez-libs
 bluez-utils
@@ -74,6 +73,7 @@ dmxproto
 dnsutils
 docbook-xml
 docbook-xsl
+docker
 dosfstools
 dotconf
 dwb
@@ -192,7 +192,6 @@ help2man
 hexchat
 hplip
 hunspell-en
-hydra
 hyphen-en
 i7z
 icedtea-web
@@ -205,7 +204,6 @@ intel-tbb
 intltool
 iperf
 iproute2
-ipscan
 iputils
 iw
 java-environment-common
@@ -363,7 +361,6 @@ mate-terminal
 mdadm
 mediainfo
 mercurial
-metasploit
 midori
 milou
 mime-types
@@ -511,7 +508,6 @@ reiserfsprogs
 rpcbind
 rpmextract
 rsync
-ruby-json_pure
 s-nail
 samba
 screenfetch
@@ -628,7 +624,6 @@ xscreensaver
 xsel
 xterm
 yajl
-yaourt
 yasm
 yelp
 youtube-dl

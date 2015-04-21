@@ -2,6 +2,7 @@ advcp
 atom-editor-bin
 aurupload
 bar-aint-recursive
+blackarch-keyring
 bropages
 command-not-found
 cower
@@ -14,8 +15,10 @@ go-for-it-git
 grub-btrfs
 grub-customizer
 htop-vi
+hydra
 imagewriter
 insync
+ipscan
 laptop-mode-tools
 libbdplus
 libqxt
@@ -23,6 +26,7 @@ libreoffice-flat-icon-set
 makemkv
 masterpdfeditor
 menulibre
+metasploit
 numix-circle-icon-theme-git
 numix-themes-git
 pacaur
@@ -32,6 +36,7 @@ preload
 python3-aur
 ruby-commander
 ruby-highline
+ruby-json_pure
 ruby-netrc
 ruby-rest-client
 ruby-smart_colored
@@ -42,3 +47,4 @@ todotxt
 ttf-ms-fonts
 vi
 yacy
+yaourt
