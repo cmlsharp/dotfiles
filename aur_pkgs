@@ -7,6 +7,7 @@ bropages
 command-not-found
 cower
 cryptsetup-nuke-keys
+debootstrap
 dropbox
 firejail
 flux
