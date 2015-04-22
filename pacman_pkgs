@@ -401,6 +401,7 @@ nemo-share
 net-snmp
 net-tools
 netctl
+nethogs
 networkmanager
 networkmanager-openvpn
 nfs-utils
