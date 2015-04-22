@@ -550,6 +550,7 @@ systemd-sysvcompat
 systemd-ui
 systemsettings
 tar
+tarsnap
 tcl
 tcpdump
 terminator
