@@ -430,6 +430,7 @@ pciutils
 pcmciautils
 perl
 perl-locale-gettext
+perl-net-dbus
 perl-xml-parser
 pidgin
 pidgin-otr
