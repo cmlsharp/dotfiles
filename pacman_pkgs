@@ -196,6 +196,9 @@ hexchat
 hplip
 hunspell-en
 hyphen-en
+i3-wm
+i3lock
+i3status
 i7z
 icedtea-web
 iftop
@@ -218,7 +221,6 @@ jre7-openjdk-headless
 jre8-openjdk-headless
 js185
 kcm-touchpad-frameworks
-kde-gtk-config
 kdebase-dolphin
 kdeplasma-addons-frameworks
 kdesdk-dolphin-plugins
@@ -502,6 +504,7 @@ qt4
 qt5-base
 qt5-script
 qtchooser
+qtcurve-qt5
 qtscriptgenerator
 qtwebkit
 quazip
