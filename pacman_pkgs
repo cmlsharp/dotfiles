@@ -616,7 +616,6 @@ xf86-input-mouse
 xf86-input-synaptics
 xf86-video-intel
 xf86dgaproto
-xfce4-panel
 xfconf
 xfsprogs
 xine-lib
