@@ -117,7 +117,7 @@ set smarttab
 
 " 1 tab == 4 spaces
 set shiftwidth=4
-set tabstop=4
+set softtabstop=4
 
 " Linebreak on 500 characters
 set lbr
