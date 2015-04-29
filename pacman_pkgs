@@ -502,6 +502,7 @@ qt4
 qt5-base
 qt5-script
 qtchooser
+qtcurve-qt5
 qtscriptgenerator
 qtwebkit
 quazip
