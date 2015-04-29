@@ -39,9 +39,9 @@ bindkey -M vicmd 'j' history-substring-search-down
 HISTFILE=~/.zsh_history
 HISTSIZE=500
 SAVEHIST=1000
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:/usr/bin/core_perl:/home/chad/bin:/usr/local/scripts:/home/chad/.gem/ruby/2.2.0"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:$HOME/bin:/usr/bin/core_perl:/usr/local/scripts:/home/chad/.gem/ruby/2.2.0/bin"
 export EDITOR="vim"
-export BROWSER="firefox-nightly"
+export BROWSER="firefox"
 
 ##Completion optios
 # Most are stolen from grml-zsh-config
@@ -118,10 +118,12 @@ alias e='exit'
 alias q='exit'
 alias ZZ='exit'
 alias rmall='rm -rf -- *'
+alias addto='todo.sh a $(date "+%Y-%m-%d)'
+alias todo='todo.sh'
 alias -g pacupg-dev='~/bin/pacupg/pacupg'
 alias ytau='youtube-dl --extract-audio --audio-format'
 nport(){nmap -p $1 --open -sV "$(echo "$(ip route get 8.8.8.8 | awk -F'src ' '!/cache/{print $2}' | tr -d ' ')/$2")"}
-alias tarcheck='ssh mmfab-server -l root jexec 3 tarsnap --list-archives --keyfile /root/tarsnap.key | sort 2>/dev/null || ssh mmfab-server-away -l root jexec 3 tarsnap --list-archives --keyfile /root/tarsnap.key | sort'
+alias tarcheck='ssh mmfab-server -l root jexec 4 tarsnap --list-archives --keyfile /root/tarsnap.key | sort 2>/dev/null || ssh mmfab-server-away -l root jexec 3 tarsnap --list-archives --keyfile /root/tarsnap.key | sort'
 alias snapnum='echo $(($(snapper list | wc -l)-3))'
 for i in fuck damnit please; do
     alias $i='source /home/chad/.zshrc;fc -ln -1; sudo -E $(fc -ln -1)'
@@ -130,6 +132,9 @@ gcco(){gcc -o ${1} ${1}.c}
 rev(){ echo "r$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"}
 fj(){firejail -c $@ 2> /dev/null}
 open(){gvfs-open $@ &> /dev/null}
+ddp () {
+	sudo dd if="$1" | pv -s $(du "$1" | awk '{print $1}') | sudo dd of="$2"
+}
 gt() {
     to="${1}";
     text=$(echo "${*}" | sed -e "s/^.. //" -e "s/[\"'<>]//g");
@@ -145,7 +150,6 @@ up() {
     cd $dest
 } 
 export TERM=screen-256color
-alias firefox='dbus-launch firefox-aurora'
 
 for i in mv cp; do
     which a${i} > /dev/null && alias $i="a${i} -g"
@@ -214,8 +218,9 @@ elif [[ -f /usr/bin/emerge ]]; then
 fi
 
 alias smount='sudo mount'
-bmount(){sudo mount -o compress=lzo,autodefrag,subvol=$1 /dev/mapper/lvmvol-mainvol $2}
-alias fmount='sudo mount -o compress=lzo,autodefrag /dev/mapper/lvmvol-mainvol'
+bmount(){sudo mount -o compress=lzo,autodefrag,ssd,discard,space_cache,noatime,subvol=$1 /dev/mapper/cryptroot $2}
+alias fmount='sudo mount -o compress=lzo,autodefrag,ssd,discard,space_cache,noatime /dev/mapper/cryptroot'
+alias bootmnt='sudo mount -o compress=lzo,autodefrag,space_cache,noatime'
 alias ksp='ksuperkey'
 
 alias ls='ls --color -F --group-directories-first'
@@ -257,6 +262,7 @@ alias -g LL="2>&1 | less"
 alias -g CA="2>&1 | cat -A"
 alias -g NE="2> /dev/null"
 alias -g NUL="> /dev/null 2>&1"
+alias DATE='$(date "+%Y-%m-%d")'
 alias edit='vim'
 
 
@@ -471,8 +477,6 @@ mkaur(){
     if [[ ! -d "$fulldir" ]]; then
         echo "$fulldir does not exist"
         return 1
-    else
-        cd "$fulldir"
     fi
     for file in "${fulldir}"/*; do
         filelist+=" $file"
