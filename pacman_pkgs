@@ -69,6 +69,7 @@ dhcpcd
 dialog
 diffutils
 dkms
+dmenu
 dmxproto
 dnsutils
 docbook-xml
@@ -109,6 +110,7 @@ gcc
 gcc-libs
 gconf-editor
 gdm
+gdmap
 gedit
 gettext
 giblib
@@ -312,7 +314,6 @@ libmediainfo
 libmng
 libmnl
 libmpcdec
-libmpdclient
 libmpeg2
 libmtp
 libmygpo-qt
@@ -350,6 +351,7 @@ lirc
 llvm
 logrotate
 lsb-release
+lsof
 lua-bitop
 lua-lpeg
 lua51
@@ -374,8 +376,6 @@ mlt-python-bindings
 moreutils
 most
 mousetweaks
-mpc
-mpd
 mplayer
 mpv
 msmtp
@@ -391,16 +391,11 @@ mutter
 mx
 mythes-en
 nano
-nautilus
-nautilus-open-terminal
-nautilus-share
 ncdu
-ncmpcpp
 nemo
 nemo-fileroller
 nemo-preview
 nemo-python
-nemo-seahorse
 nemo-share
 net-snmp
 net-tools
@@ -524,9 +519,9 @@ scrot
 scrypt
 sddm
 sdl_image
+sdparm
 seabios
 seahorse
-seahorse-nautilus
 sed
 serf
 sg3_utils
@@ -537,9 +532,9 @@ smplayer
 snapper
 snappy
 sni-qt
-sonata
 source-highlight
 sox
+spacefm
 speech-dispatcher
 spice
 spice-gtk3
@@ -547,6 +542,7 @@ srcpac
 sshfs
 steghide
 stow
+stress
 subversion
 sudo
 sushi
@@ -577,6 +573,8 @@ ttf-freefont
 ttf-inconsolata
 ttf-liberation
 ttf-ubuntu-font-family
+udevil
+udisks
 unace
 unetbootin
 unrar
