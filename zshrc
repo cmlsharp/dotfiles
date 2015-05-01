@@ -179,7 +179,7 @@ if [[ -f /usr/bin/pacman ]]; then
     alias pacro='sudo pacman -Rs $(pacman -Qtdq)'
     alias pacunlock="sudo rm /var/lib/pacman/db.lck"
     alias paclock="sudo touch /var/lib/pacman/db.lck"
-    alias pacupga='pacupg && sudo abs'
+    alias pacupga='pacupg -a; sudo abs'
     alias pacc='sudo pacman -Sc'
     alias paccc='sudo pacman -Scc'
     alias pacdown='sudo pacman -Sw'
