@@ -371,11 +371,12 @@ NeoBundleCheck
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Other Stuff 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set relativenumber
-autocmd InsertEnter * :set number
-autocmd InsertEnter * :set norelativenumber
-autocmd InsertLeave * :set relativenumber
-autocmd InsertLeave * :set nonumber
+"set relativenumber
+"autocmd InsertEnter * :set number
+"autocmd InsertEnter * :set norelativenumber
+"autocmd InsertLeave * :set relativenumber
+"autocmd InsertLeave * :set nonumber
+set number
 nnoremap <F5> :GundoToggle<CR>
 autocmd vimenter * if !argc() | NERDTree | endif
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
