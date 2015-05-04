@@ -77,6 +77,7 @@ docbook-xsl
 docker
 dosfstools
 dotconf
+dstat
 dwb
 e2fsprogs
 easytag
@@ -222,9 +223,8 @@ jre7-openjdk
 jre7-openjdk-headless
 jre8-openjdk-headless
 js185
-kcm-touchpad-frameworks
 kdebase-dolphin
-kdeplasma-addons-frameworks
+kdeplasma-addons
 kdesdk-dolphin-plugins
 kinfocenter
 kmenuedit
@@ -393,6 +393,9 @@ mx
 mythes-en
 nano
 nautilus
+nautilus-actions
+nautilus-open-terminal
+nautilus-share
 ncdu
 nemo
 nemo-fileroller
@@ -483,6 +486,7 @@ python2-gtkspell
 python2-httplib2
 python2-mako
 python2-markupsafe
+python2-nautilus
 python2-notify
 python2-paramiko
 python2-pillow
@@ -524,6 +528,7 @@ sdl_image
 sdparm
 seabios
 seahorse
+seahorse-nautilus
 sed
 serf
 sg3_utils
