@@ -123,6 +123,7 @@ gloobus-preview
 gmtp
 gnome-backgrounds
 gnome-boxes
+gnome-builder
 gnome-calculator
 gnome-common
 gnome-contacts
@@ -199,9 +200,6 @@ hplip
 hub
 hunspell-en
 hyphen-en
-i3-wm
-i3lock
-i3status
 i7z
 icedtea-web
 iftop
@@ -546,6 +544,7 @@ speech-dispatcher
 spice
 spice-gtk3
 srcpac
+srm
 sshfs
 steghide
 stow
