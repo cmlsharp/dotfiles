@@ -1,7 +1,7 @@
 [[ $- != *i* ]] && return
 ##Pre stuff
 stty -ixon
-
+[[ -f /etc/updates.txt ]] && head -n1 /etc/updates.txt && echo
 ##Prompt
 user=chad
 if (( EUID == $(id -u $user) )); then
@@ -39,9 +39,13 @@ bindkey -M vicmd 'j' history-substring-search-down
 HISTFILE=~/.zsh_history
 HISTSIZE=500
 SAVEHIST=1000
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:$HOME/bin:/usr/bin/core_perl:/usr/local/scripts:/home/chad/.gem/ruby/2.2.0/bin"
-export EDITOR="vim"
-export BROWSER="firefox"
+if [[ -L /bin ]]; then
+    export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:$HOME/bin:/usr/bin/core_perl:/usr/local/scripts:$HOME/.gem/ruby/2.2.0/bin"
+else
+    export PATH="/bin:/sbin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:$HOME/bin:/usr/bin/core_perl:/usr/local/scripts"
+fi
+which vim > /dev/null 2>&1 && export EDITOR="vim" || export EDITOR="vi"
+which firefox > /dev/null 2>&1 && export BROWSER="firefox"
 
 ##Completion optios
 # Most are stolen from grml-zsh-config
@@ -152,70 +156,94 @@ up() {
 export TERM=screen-256color
 
 for i in mv cp; do
-    which a${i} > /dev/null && alias $i="a${i} -g"
+    which a${i} > /dev/null 2>&1 && alias $i="a${i} -g"
 done > /dev/null
 
-if [[ -f /usr/bin/pacman ]]; then
-    pacin(){sudo pacman -S $@; pkgdump}
-    pacins(){sudo pacman -U $@; pkgdump}
-    pacre(){sudo pacman -R $@; pkgdump}
-    pacrem(){sudo pacman -Rns $@; pkgdump}
-    pacremc(){sudo pacman -Rnsc $@; pkgdump}
-    aurin(){pacaur -S $@;  pkgdump}
-    aurre(){pacaur -R $@; pkgdump}
-    aurrem(){pacaur -Rns $@; pkgdump}
-    aurremc(){pacaur -Rnsc $@; pkgdump}
-    
-    alias pacdown='sudo pacman -Sw'
-    alias pacupd="sudo pacman -Sy && sudo abs"
-    alias pacinsd='sudo pacman -S --asdeps'
-    alias paclf='pacman -Ql'
-    alias pacrep='pacman -Si'
-    alias pacreps='pacman -Ss'
-    alias pacloc='pacman -Qi'
-    alias paclocs='pacman -Qs'
-    alias pacmir='sudo pacman -Syy'
-    alias paclo='pacman -Qdt'
-    alias pacro='sudo pacman -Rs $(pacman -Qtdq)'
-    alias pacunlock="sudo rm /var/lib/pacman/db.lck"
-    alias paclock="sudo touch /var/lib/pacman/db.lck"
-    alias pacupga='pacupg -a; sudo abs'
-    alias pacc='sudo pacman -Sc'
-    alias paccc='sudo pacman -Scc'
-    alias pacdown='sudo pacman -Sw'
-    alias pacfile='pacman -Ql'
-    
-    alias yaconf='yaourt -C'
-    alias aursu='pacaur -Syu --noconfirm'
-    alias aurrep='pacaur -Si'
-    alias aurreps='pacaur -Ss'
-    alias aurloc='pacaur -Qi'
-    alias aurlocs='pacaur -Qs'
-    alias aurlst='pacaur -Qe'
-    alias aurorph='pacaur -Qtd'
-    alias aurupga='pacupg -a && sudo abs'
-    alias aurmir='pacaur -Syy'
-    alias aurmake='pacaur -Sw'
-    alias aurcheck='pacaur -k'
-    alias aurclean='pacaur -cc'
-    alias aurup='aurploader -k -a -l ~/.config/aurploader'
-elif [[ -f /usr/bin/emerge ]]; then
-    alias emin='sudo emerge --ask --autounmask-write'
-    alias emre='sudo emerge -C'
-    alias emrem='sudo emerge -cav'
-    alias emclean='sudo emerge -av --depclean'
-    alias emsearch='emerge --search'
-    alias emdesc='sudo emerge --descsearch'
-    alias emsyn='sudo emerge --sync'
-    alias emupg="sudo emerge --sync && sudo emerge -uNDav @world && sudo revdep-rebuild"
-    alias empret='sudo emerge --pretend' 
-    efiles(){sudo equery files $1 | less}
-    alias emrebuild=' sudo emerge --update --deep --newuse @world'
-    alias confs='sudo dispatch-conf'
-    alias euse='sudo euse'
-    alias es='sudo eselect'
-    alias esl='eselect list'
-fi
+command grep '^DISTRIB_ID=' /etc/lsb-release | source /dev/stdin
+distro=$(echo $DISTRIB_ID | awk '{print tolower($0)}')
+unset DISTRIB_ID
+case "$distro" in 
+    arch) 
+        pacin(){sudo pacman -S $@; pkgdump}
+        pacins(){sudo pacman -U $@; pkgdump}
+        pacre(){sudo pacman -R $@; pkgdump}
+        pacrem(){sudo pacman -Rns $@; pkgdump}
+        pacremc(){sudo pacman -Rnsc $@; pkgdump}
+        aurin(){pacaur -S $@;  pkgdump}
+        aurre(){pacaur -R $@; pkgdump}
+        aurrem(){pacaur -Rns $@; pkgdump}
+        aurremc(){pacaur -Rnsc $@; pkgdump}
+        
+        alias pacdown='sudo pacman -Sw'
+        alias pacupd="sudo pacman -Sy && sudo abs"
+        alias pacinsd='sudo pacman -S --asdeps'
+        alias paclf='pacman -Ql'
+        alias pacrep='pacman -Si'
+        alias pacreps='pacman -Ss'
+        alias pacloc='pacman -Qi'
+        alias paclocs='pacman -Qs'
+        alias pacmir='sudo pacman -Syy'
+        alias paclo='pacman -Qdt'
+        alias pacro='sudo pacman -Rs $(pacman -Qtdq)'
+        alias pacunlock="sudo rm /var/lib/pacman/db.lck"
+        alias paclock="sudo touch /var/lib/pacman/db.lck"
+        alias pacupga='pacupg -a; sudo abs'
+        alias pacc='sudo pacman -Sc'
+        alias paccc='sudo pacman -Scc'
+        alias pacdown='sudo pacman -Sw'
+        alias pacfile='pacman -Ql'
+        
+        alias yaconf='yaourt -C'
+        alias aursu='pacaur -Syu --noconfirm'
+        alias aurrep='pacaur -Si'
+        alias aurreps='pacaur -Ss'
+        alias aurloc='pacaur -Qi'
+        alias aurlocs='pacaur -Qs'
+        alias aurlst='pacaur -Qe'
+        alias aurorph='pacaur -Qtd'
+        alias aurupga='pacupg -a && sudo abs'
+        alias aurmir='pacaur -Syy'
+        alias aurmake='pacaur -Sw'
+        alias aurcheck='pacaur -k'
+        alias aurclean='pacaur -cc'
+        alias aurup='aurploader -k -a -l ~/.config/aurploader'
+        ;;
+    gentoo)
+        alias emin='sudo emerge --ask --autounmask-write'
+        alias emre='sudo emerge -C'
+        alias emrem='sudo emerge -cav'
+        alias emclean='sudo emerge -av --depclean'
+        alias emsearch='emerge --search'
+        alias emdesc='sudo emerge --descsearch'
+        alias emsyn='sudo emerge --sync'
+        alias emupg="sudo emerge --sync && sudo emerge -uNDav @world && sudo revdep-rebuild"
+        alias empret='sudo emerge --pretend' 
+        efiles(){sudo equery files $1 | less}
+        alias emrebuild=' sudo emerge --update --deep --newuse @world'
+        alias confs='sudo dispatch-conf'
+        alias euse='sudo euse'
+        alias es='sudo eselect'
+        alias esl='eselect list'
+        ;;
+    ubuntu|debian)
+        alias aptin='sudo apt-get install'
+        alias aptins='dpkg -i'
+        alias aptre='sudo apt-get remove'
+        aptrem(){sudo apt-get purge "$@" && sudo apt-get autoremove}
+        alias aptupd='sudo apt-get update'
+        alias aptupg='sudo apt-get updgrade'
+        alias aptdupg='sudo apt-get dist-upgrade'
+        alias aptfupg='sudo apt-get update && sudo apt-get dist-upgrade'
+        alias aptrep='apt-cache show'
+        alias aptreps='apt-cache search'
+        aptlocs(){dpkg -l "*${1}*" | for i in "$@"; do shift; [[ $# > 0 ]] && grep --nocolor -i "$1" || break; done}
+        alias aptlf='dpkg -L'
+        alias aptclean='sudo apt-get clean'
+        alias aptro='sudo apt-get autoremove'
+        alias aptaddrep='sudo add-apt-repository'
+
+        ;;
+esac
 
 alias smount='sudo mount'
 bmount(){sudo mount -o compress=lzo,autodefrag,ssd,discard,space_cache,noatime,subvol=$1 /dev/mapper/cryptroot $2}
@@ -243,6 +271,9 @@ alias gc='git commit -v'
 alias gm='git commit -vm'
 alias gs='git status'
 alias gd='git diff'
+alias gfp='git format-patch'
+alias gch='git checkout'
+alias gb='git branch'
 alias gpom='git push origin master'
 alias glom='git pull origin master'
 
@@ -482,6 +513,7 @@ mkaur(){
         filelist+=" $file"
     done
     eval "$scriptdir/mkaur $auropts $filelist"
+
 }
 
 
