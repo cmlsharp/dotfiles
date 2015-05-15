@@ -31,6 +31,7 @@ bluez-firmware
 bluez-libs
 bluez-utils
 boost
+brasero
 bridge-utils
 bsd-games
 bzip2
@@ -74,7 +75,6 @@ dmxproto
 dnsutils
 docbook-xml
 docbook-xsl
-docker
 dosfstools
 dotconf
 dstat
@@ -125,6 +125,7 @@ gnome-backgrounds
 gnome-boxes
 gnome-builder
 gnome-calculator
+gnome-chess
 gnome-common
 gnome-contacts
 gnome-control-center
@@ -151,6 +152,7 @@ gnome-tweak-tool
 gnome-user-docs
 gnome-user-share
 gnome-vfs
+gnuchess
 gnumeric
 go
 goocanvas1
