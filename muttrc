@@ -37,6 +37,7 @@ bind index,pager x next-page
 bind index G last-entry
 bind index I imap-fetch-mail
 bind compose p pgp-menu
+bind index u next-unread
 macro compose Y pfy "Send mail without PGP"
 macro compose I pipey "Send mail with inline PGP"
 macro generic,index,pager \cb "<shell-escape>abook<return>" "launch abook"

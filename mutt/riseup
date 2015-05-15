@@ -4,7 +4,6 @@ set folder = imaps://crossroads1112@mail.riseup.net/
 set spoolfile = +INBOX
 set postponed = +Drafts
 set record = +Sent
-set imap_passive=yes
 
 ## Send options.
 set smtp_url=smtps://crossroads1112:$my_pw_riseup@mail.riseup.net:465
@@ -16,4 +15,4 @@ set ssl_force_tls = yes
 set ssl_starttls = no
 
 ## Hook -- IMPORTANT!
-account-hook $folder "set imap_user=crossroads1112@riseup.net imap_pass="$my_pw_riseup"
+account-hook *riseup.com "set imap_user=crossroads1112@riseup.net"
