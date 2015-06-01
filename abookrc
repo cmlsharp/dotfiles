@@ -1,0 +1,2 @@
+set www_command=w3m
+set add_email_prevent_duplicates=true
