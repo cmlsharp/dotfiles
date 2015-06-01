@@ -20,7 +20,7 @@ if [[ -z $DISPLAY ]]; then
     PROMPT="[%B%(?,%F{blue},%F{red})%n%f%b@%m %B%40<..<%~%<< %b] %# "
 fi
 RPROMPT="%B%(?..%?)%b"
-
+pgrep mpd &>/dev/null || mpd &>/dev/null
 #Make sure tmux is running
 #[[ -z "$TMUX" ]] && exec tmux
 ##ZSH options
@@ -37,8 +37,8 @@ bindkey -M vicmd '?' history-incremental-search-backward
 bindkey -M vicmd 'k' history-substring-search-up
 bindkey -M vicmd 'j' history-substring-search-down
 HISTFILE=~/.zsh_history
-HISTSIZE=500
-SAVEHIST=1000
+HISTSIZE=5000
+SAVEHIST=5000
 if [[ -L /bin ]]; then
     export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:$HOME/bin:/usr/bin/core_perl:/usr/local/scripts:$HOME/.gem/ruby/2.2.0/bin"
 else
@@ -127,11 +127,25 @@ alias todo='todo.sh'
 alias -g pacupg-dev='~/bin/pacupg/pacupg'
 alias ytau='youtube-dl --extract-audio --audio-format'
 nport(){nmap -p $1 --open -sV "$(echo "$(ip route get 8.8.8.8 | awk -F'src ' '!/cache/{print $2}' | tr -d ' ')/$2")"}
-alias tarcheck='ssh mmfab-server -l root jexec 4 tarsnap --list-archives --keyfile /root/tarsnap.key | sort 2>/dev/null || ssh mmfab-server-away -l root jexec 3 tarsnap --list-archives --keyfile /root/tarsnap.key | sort'
+alias tarcheck='ssh mmfab-server -l root jexec 3 tarsnap --list-archives --keyfile /root/tarsnap.key | sort 2>/dev/null || ssh mmfab-server-away -l root jexec 3 tarsnap --list-archives --keyfile /root/tarsnap.key | sort'
 alias snapnum='echo $(($(snapper list | wc -l)-3))'
 for i in fuck damnit please; do
-    alias $i='source /home/chad/.zshrc;fc -ln -1; sudo -E $(fc -ln -1)'
+    alias $i='source ~/.zshrc;fc -ln -1; sudo -E $(fc -ln -1)'
 done
+rman(){
+  local count=0
+  while true; do 
+      count=$(($count+1))
+      command=$(command ls -1 /usr/bin | sort -R | head -n1); 
+      if [[ "$(man -k "${command}" 2>&1 | awk -F': ' '{print $2}')" != "nothing appropriate." ]] &>/dev/null; then
+          man "$command"
+          break 
+      elif (($count == 5)); then
+          echo "Five failed attempts at finding a suitable command. Aborting."
+          break
+      fi
+  done 
+}
 gcco(){gcc -o ${1} ${1}.c}
 rev(){ echo "r$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"}
 fj(){firejail -c $@ 2> /dev/null}
@@ -141,9 +155,9 @@ ddp () {
 }
 gt() {
     to="${1}";
-    text=$(echo "${*}" | sed -e "s/^.. //" -e "s/[\"'<>]//g");
-    res=$(wget -U "Mozilla/5.0" -qO - "http://translate.google.com/translate_a/t?client=t&text="${text}"&sl=auto&tl=${to}" | sed 's/\[\[\[\"//' | cut -d \" -f 1);
-     echo "${res}";
+    shift
+    text=$(echo "${@}" | sed -e "s/^.. //" -e "s/[\"'<>]//g");
+    wget -U "Mozilla/5.0" -qO - "http://translate.google.com/#auto/${to}/${text}" 
 }    
 up() {
     local dest=".." 
@@ -236,12 +250,11 @@ case "$distro" in
         alias aptfupg='sudo apt-get update && sudo apt-get dist-upgrade'
         alias aptrep='apt-cache show'
         alias aptreps='apt-cache search'
-        aptlocs(){dpkg -l "*${1}*" | for i in "$@"; do shift; [[ $# > 0 ]] && grep --nocolor -i "$1" || break; done}
+        aptlocs(){dpkg -l "*${1}*" | for i in "$@"; do shift; (( $# > 0 )) && command grep  -i "$1" || break; done}
         alias aptlf='dpkg -L'
         alias aptclean='sudo apt-get clean'
         alias aptro='sudo apt-get autoremove'
         alias aptaddrep='sudo add-apt-repository'
-
         ;;
 esac
 
@@ -308,18 +321,27 @@ alias p='ps -ef'
 alias sortnr='sort -n -r'
 
 #systemd
-user_commands=(
+sys_user_commands=(
   list-units is-active status show help list-unit-files
   is-enabled list-jobs show-environment reboot)
 
-sudo_commands=(
+sys_sudo_commands=(
   start stop reload restart try-restart suspend isolate kill
   reset-failed enable disable reenable preset mask unmask
   link load cancel set-environment unset-environment)
 
-for c in $user_commands; do; alias sc-$c="systemctl $c"; done
-for c in $sudo_commands; do; alias sc-$c="sudo systemctl $c"; done
+for c in $sys_user_commands; do; alias sc-$c="systemctl $c"; done
+for c in $sys_sudo_commands; do; alias sc-$c="sudo systemctl $c"; done
 alias sc-dr='sudo systemctl daemon-reload'
+mac_user_commands=(
+    list-images image-status show-image list-transfers list
+    status show)
+mac_sudo_commands=(
+    start login enable disable poweroff reboot terminate kill copy-to
+    copy-from bind clone rename read-only remove pull-tar pull-raw 
+    pull-dkr cancel-transfer)
+for d in $mac_user_commands; do alias mc-$d="machinectl $d"; done
+for d in $mac_sudo_commands; do alias mc-$d="sudo machinectl $d"; done
 alias snpr='sudo snapper'
 
 ##Functions
