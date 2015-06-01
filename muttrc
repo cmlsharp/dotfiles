@@ -24,8 +24,8 @@ set sidebar_visible = yes
 set sidebar_width=38
 set sidebar_shortpath = yes
 set sidebar_sort = yes
-macro index b '<enter-command>toggle sidebar_visible<enter><refresh>'
-macro pager b '<enter-command>toggle sidebar_visible<enter><redraw-screen>'
+macro index B '<enter-command>toggle sidebar_visible<enter><refresh>'
+macro pager B '<enter-command>toggle sidebar_visible<enter><redraw-screen>'
 bind index K sidebar-prev
 bind index J sidebar-next
 bind index L sidebar-open
@@ -37,16 +37,18 @@ bind index,pager x next-page
 bind index G last-entry
 bind index I imap-fetch-mail
 bind compose p pgp-menu
-bind index u next-unread
+bind index \cN next-unread
+bind index \cP previous-unread
+bind editor <Tab> complete-query
 macro compose Y pfy "Send mail without PGP"
 macro compose I pipey "Send mail with inline PGP"
-macro generic,index,pager \cb "<shell-escape>abook<return>" "launch abook"
+macro generic,index,pager \cb "<shell-escape>abook<return><redraw-screen>" "launch abook"
 macro index S "\cc =[Gmail]/" "Switch to gmail"
 macro index,pager A "<pipe-message>abook --add-email<return>" "add the sender address to abook"
 macro index,pager Z \$q "Save and quit"
 macro index,pager <f3> '<sync-mailbox><enter-command>source ~/.mutt/gmail1<enter><change-folder>!<enter>'
-macro index,pager <f4> '<sync-mailbox><enter-command>source ~/.mutt/gmail2<enter><change-folder>!<enter>'
-macro index,pager <f2> '<sync-mailbox><enter-command>source ~/.mutt/riseup<enter><change-folder>!<enter>'
+macro index,pager <f2> '<sync-mailbox><enter-command>source ~/.mutt/gmail2<enter><change-folder>!<enter>'
+macro index,pager <f4> '<sync-mailbox><enter-command>source ~/.mutt/riseup<enter><change-folder>!<enter>'
 # PGP options
 source "gpg2 -dq $HOME/.mypw.gpg |" #Decrypt encrypted password variables
 set pgp_use_gpg_agent = yes
@@ -117,12 +119,11 @@ color body blue default "( *[-+=#*~_]){6,}"
 source "~/.mutt/gmail1"
 folder-hook $folder 'source ~/.mutt/gmail1'
 
+## Cub Gmail
+
 ## Riseup email
 source "~/.mutt/riseup"
 folder-hook $folder 'source ~/.mutt/riseup'
 
 source "~/.mutt/gmail2"
 folder-hook $folder 'source ~/.mutt/gmail2'
-
-## Cub Gmail
-
