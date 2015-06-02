@@ -1,7 +1,6 @@
 dir=~/.dotfiles # dotfiles directory
 olddir=~/.dotfiles_old # old dotfiles backup directory
 lnfiles="zshrc vimrc tmux.conf vimperatorrc zsh_plugins mailcap mutt muttrc" # list of files/folders to symlink in homedir
-mvfiles="vim"
 bold(){
     echo "$(tput bold)$@$(tput sgr0)"
 }
@@ -23,7 +22,7 @@ for lnfile in $lnfiles; do
     bold "Creating symlink to $lnfile in home directory."
     ln -s $dir/$lnfile ~/.$lnfile
 done
-for mvfile in $mvfiles; do
-    bold "Moving $mvfile from $dir/$mvfile to ~/.$mvfile"
-    mv "$dir/mvfile" "~/.$mvfile"
-done
+
+[[ -d ~/.vim ]] && rm -rf ~/.vim
+mkdir -p ~/.vim/bundle/neobundle.vim
+git clone https://github.com/Shougo/neobundle.vim.git ~/.vim/bundle/neobundle.vim
