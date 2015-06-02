@@ -111,6 +111,7 @@ alias chkupd='checkupdates'
 alias m="mpd ~/.config/mpd/mpd.conf"
 alias n="ncmpcpp"
 alias snp='sudo snp'
+alias mstat='dstat -tcmnd --top-cpu'
 alias nfs='mount ~/Cloud/nfs'
 alias dc='cd'
 alias z='source ~/.zshrc'
