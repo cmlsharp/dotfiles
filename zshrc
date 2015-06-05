@@ -125,6 +125,8 @@ alias ZZ='exit'
 alias rmall='rm -rf -- *'
 alias addto='todo.sh a $(date "+%Y-%m-%d)'
 alias todo='todo.sh'
+alias treset='sudo modprobe -r psmouse; sudo modprobe psmouse'
+alias info='info --vi-keys'
 alias -g pacupg-dev='~/bin/pacupg/pacupg'
 alias ytau='youtube-dl --extract-audio --audio-format'
 nport(){nmap -p $1 --open -sV "$(echo "$(ip route get 8.8.8.8 | awk -F'src ' '!/cache/{print $2}' | tr -d ' ')/$2")"}
