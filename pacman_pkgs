@@ -372,6 +372,7 @@ mlocate
 mlt
 mlt-python-bindings
 moreutils
+mosh
 most
 mousetweaks
 mpc
@@ -539,7 +540,6 @@ sni-qt
 sonata
 source-highlight
 sox
-spacefm
 speech-dispatcher
 spice
 spice-gtk3
@@ -567,6 +567,7 @@ terminus-font
 texinfo
 thunar
 thunderbird
+tilda
 tk
 tmux
 tor
@@ -617,8 +618,8 @@ xclip
 xdg-user-dirs-gtk
 xdotool
 xf86-input-keyboard
-xf86-input-libinput
 xf86-input-mouse
+xf86-input-synaptics
 xf86-video-intel
 xf86dgaproto
 xfconf
@@ -644,5 +645,6 @@ youtube-dl
 zim
 zip
 zsh
+zsh-completions
 zsh-syntax-highlighting
 zvbi
