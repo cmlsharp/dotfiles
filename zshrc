@@ -1,17 +1,16 @@
 [[ $- != *i* ]] && return
 ##Pre stuff
+if [ -f "${HOME}/.gpg-agent-info" ]; then
+  . "${HOME}/.gpg-agent-info"
+  export GPG_AGENT_INFO
+  export SSH_AUTH_SOCK
+fi
 stty -ixon
 [[ -f /etc/updates.txt ]] && head -n1 /etc/updates.txt && echo
 ##Prompt
 user=chad
 if (( EUID == $(id -u $user) )); then
     PROMPT="%(?,Ω,ω) %~/ "
-    if [[ -z $(ls /tmp | grep "ssh-") && -z $TMUX ]] ; then
-        echo -n "Unlock ssh key? [Y/n] "
-        read input
-        case $input in ""|[Yy]|[Yy][Ee][Ss]) eval $(ssh-agent); ssh-add ~/.ssh/id_rsa ;; esac
-
-    fi
 else
     PROMPT="[%B%F{blue}%n%f%b@%m %B%40<..<%~%<< %b] %# "
 fi
@@ -46,6 +45,7 @@ else
 fi
 which vim > /dev/null 2>&1 && export EDITOR="vim" || export EDITOR="vi"
 which firefox > /dev/null 2>&1 && export BROWSER="firefox"
+
 
 ##Completion optios
 # Most are stolen from grml-zsh-config
@@ -111,7 +111,7 @@ alias chkupd='checkupdates'
 alias m="mpd ~/.config/mpd/mpd.conf"
 alias n="ncmpcpp"
 alias snp='sudo snp'
-alias mstat='dstat -tcmnd --top-cpu'
+alias mstat='dstat -tcmnd --top-cpu --top-mem'
 alias nfs='mount ~/Cloud/nfs'
 alias dc='cd'
 alias z='source ~/.zshrc'
@@ -325,7 +325,7 @@ alias sortnr='sort -n -r'
 
 #systemd
 sys_user_commands=(
-  list-units is-active status show help list-unit-files
+  list-units is-active status show help list-dependencies list-unit-files
   is-enabled list-jobs show-environment reboot)
 
 sys_sudo_commands=(

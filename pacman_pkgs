@@ -15,6 +15,7 @@ archey3
 aria2
 asciidoc
 aspell-en
+at
 atool
 audacity
 audiofile
@@ -23,12 +24,11 @@ automake
 banner
 baobab
 bash
+bash-completion
 bc
 binutils
 bison
 bluez-firmware
-bluez-libs
-bluez-utils
 boost
 brasero
 bridge-utils
@@ -203,6 +203,7 @@ hexchat
 hplip
 hub
 hunspell-en
+hydra
 hyphen-en
 i7z
 icedtea-web
@@ -452,6 +453,7 @@ prelink
 procps-ng
 protobuf
 psmisc
+pulseaudio-bluetooth
 pv
 pyalpm
 pygobject2-devel
@@ -642,6 +644,8 @@ yajl
 yasm
 yelp
 youtube-dl
+yubikey-neo-manager
+yubikey-personalization-gui
 zim
 zip
 zsh

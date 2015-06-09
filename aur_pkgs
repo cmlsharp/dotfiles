@@ -5,6 +5,7 @@ atom-editor-bin
 aurupload
 automake-1.12
 bar-aint-recursive
+bluez-git
 bropages
 chromium-pepper-flash
 chromium-widevine
@@ -22,7 +23,6 @@ go-for-it-git
 grub-btrfs
 grub-customizer
 htop-vi
-hydra
 imagewriter
 ipscan
 krop
