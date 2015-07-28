@@ -26,6 +26,7 @@ baobab
 bash
 bash-completion
 bc
+bind-tools
 binutils
 bison
 bluez-firmware
@@ -59,6 +60,7 @@ cronie
 cups
 cups-filters
 cyrus-sasl
+dash
 dcfldd
 dconf-editor
 ddrescue
@@ -73,7 +75,6 @@ diffutils
 dkms
 dmenu
 dmxproto
-dnsutils
 docbook-xml
 docbook-xsl
 dosfstools
@@ -88,11 +89,11 @@ eog
 epiphany
 evince
 fakeroot
-feh
 ffmpeg-compat
 file
 file-roller
 filesystem
+filezilla
 findutils
 firefox
 fish
@@ -110,6 +111,7 @@ gavl
 gawk
 gcc
 gcc-libs
+gcolor2
 gconf-editor
 gdm
 gdmap
@@ -187,7 +189,6 @@ gtk-vnc
 gtk2
 gtkglext
 gtkmm
-gtkpod
 gtkspell
 guake
 gucharmap
@@ -217,6 +218,8 @@ intltool
 iperf
 iproute2
 iputils
+ipython
+ipython2
 iw
 java-environment-common
 java-runtime-common
@@ -284,10 +287,9 @@ libao
 libbonobo
 libcacard
 libcdaudio
-libcl
 libconfig
 libcryptui
-libdbusmenu-qt
+libdbusmenu-qt4
 libdc1394
 libdmx
 libdvbpsi
@@ -335,7 +337,6 @@ libuv
 libvirt
 libvirt-glib
 libwnck
-libxfce4ui
 libxfce4util
 libxss
 libxxf86dga
@@ -362,8 +363,6 @@ m4
 make
 man-db
 man-pages
-mate-desktop
-mate-terminal
 mdadm
 mediainfo
 mercurial
@@ -417,6 +416,7 @@ nmap
 nodejs
 ntfs-3g
 numactl
+ocl-icd
 opencv
 openexr
 openshot
@@ -441,6 +441,7 @@ pidgin
 pidgin-otr
 pipelight
 pkg-config
+pkgbuild-introspection
 pkgfile
 pkgstats
 playonlinux
@@ -501,6 +502,7 @@ qpdf
 qrencode
 qt4
 qt5-base
+qt5-multimedia
 qt5-script
 qtchooser
 qtcurve-qt5
@@ -558,6 +560,7 @@ sushi
 syncthing
 sysfsutils
 syslinux
+system-config-printer
 systemd-sysvcompat
 systemd-ui
 tar
@@ -567,8 +570,6 @@ tcpdump
 terminator
 terminus-font
 texinfo
-thunar
-thunderbird
 tilda
 tk
 tmux
@@ -588,6 +589,7 @@ udisks
 unace
 unetbootin
 unrar
+upower
 usbmuxd
 usbredir
 usbutils
@@ -620,11 +622,11 @@ xclip
 xdg-user-dirs-gtk
 xdotool
 xf86-input-keyboard
+xf86-input-libinput
 xf86-input-mouse
 xf86-input-synaptics
 xf86-video-intel
 xf86dgaproto
-xfconf
 xfsprogs
 xine-lib
 xmlto

@@ -85,10 +85,8 @@ colorscheme slate
 set background=dark
 
 " Set extra options when running in GUI mode
-"if has("gui_running")
-    "set guioptions-=T set guioptions+=e set t_Co=256
-    "set guitablabel=%M\ %t
-"endif
+if has("gui_running")
+endif
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
@@ -358,10 +356,16 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/syntastic'
+NeoBundle 'andrewle/vim-autoclose'
 NeoBundle 'vim-scripts/matchit.zip'
+NeoBundle 'Valloric/YouCompleteMe'
+NeoBundle 'vim-scripts/Colour-Sampler-Pack'
+NeoBundle 'vim-scripts/pydoc.vim'
 NeoBundle 'vim-scripts/Gundo'
+NeoBundle 'vim-scripts/vim-colorscheme-switcher'
 NeoBundle 'vim-scripts/bufexplorer.zip'
-NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'xolox/vim-misc'
+NeoBundle 'nvie/vim-flake8'
 call neobundle#end()
 filetype plugin indent on
 NeoBundleCheck
@@ -378,7 +382,6 @@ NeoBundleCheck
 set number
 nnoremap <F5> :GundoToggle<CR>
 autocmd vimenter * if !argc() | NERDTree | endif
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 map <C-n> :NERDTreeToggle<CR>
 nnoremap <C-J> <C-W><C-J>
 nnoremap <C-K> <C-W><C-K>
@@ -406,9 +409,12 @@ augroup MUTT
     au FileType mail set formatoptions+=aw
     au FileType mail set noautoindent
 augroup END
-if has("gui_running")
-   colo desert
-endif
 if has('nvim')
 runtime! python_setup.vim
 endif
+nmap <Esc> <Esc>
+nnoremap <Leader>d :Pydoc 
+unmap <F3>
+autocmd FileType python map <buffer> <Leader>x :call Flake8()<CR>
+nnoremap <buffer> <leader>2 :w<CR>:exec '!python2' shellescape(@%, 1)<CR>
+nnoremap <buffer> <leader>3 :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
