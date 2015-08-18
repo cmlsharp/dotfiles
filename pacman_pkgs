@@ -31,6 +31,7 @@ binutils
 bison
 bluez-firmware
 boost
+bpython
 brasero
 bridge-utils
 bsd-games
@@ -95,7 +96,6 @@ file-roller
 filesystem
 filezilla
 findutils
-firefox
 fish
 flashplugin
 flex
@@ -113,6 +113,7 @@ gcc
 gcc-libs
 gcolor2
 gconf-editor
+gdb
 gdm
 gdmap
 gedit
@@ -351,6 +352,7 @@ llvm
 logrotate
 lsb-release
 lsof
+ltrace
 lua-lpeg
 lua51
 lua52-bitop
@@ -490,6 +492,7 @@ python2-nautilus
 python2-notify
 python2-paramiko
 python2-pillow
+python2-pip
 python2-pyqt4
 python2-xdg
 qalculate-gtk
@@ -508,7 +511,7 @@ qtchooser
 qtcurve-qt5
 qtscriptgenerator
 qtwebkit
-quazip
+quazip-qt4
 ranger
 rarian
 reflector
@@ -595,6 +598,7 @@ usbredir
 usbutils
 util-linux
 vala
+valgrind
 vde2
 vi
 vid.stab
@@ -608,6 +612,7 @@ weechat
 weston
 wget
 which
+whois
 wine
 wine-compholio
 wireless_tools
@@ -624,7 +629,6 @@ xdotool
 xf86-input-keyboard
 xf86-input-libinput
 xf86-input-mouse
-xf86-input-synaptics
 xf86-video-intel
 xf86dgaproto
 xfsprogs
