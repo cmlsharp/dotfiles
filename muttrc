@@ -30,16 +30,16 @@ bind index K sidebar-prev
 bind index J sidebar-next
 bind index L sidebar-open
 # Keybindings
+bind editor <Tab> complete-query
 bind pager K  previous-line
 bind pager J next-line
 bind index,pager X previous-page
 bind index,pager x next-page
 bind index G last-entry
 bind index I imap-fetch-mail
-bind compose p pgp-menu
 bind index \cN next-unread
 bind index \cP previous-unread
-bind editor <Tab> complete-query
+bind compose p pgp-menu
 macro compose Y pfy "Send mail without PGP"
 macro compose I pipey "Send mail with inline PGP"
 macro generic,index,pager \cb "<shell-escape>abook<return><redraw-screen>" "launch abook"
@@ -49,10 +49,11 @@ macro index,pager Z \$q "Save and quit"
 macro index,pager <f3> '<sync-mailbox><enter-command>source ~/.mutt/gmail1<enter><change-folder>!<enter>'
 macro index,pager <f2> '<sync-mailbox><enter-command>source ~/.mutt/gmail2<enter><change-folder>!<enter>'
 macro index,pager <f4> '<sync-mailbox><enter-command>source ~/.mutt/riseup<enter><change-folder>!<enter>'
+macro pager M v/text/html<Enter>mq "Open html with mailcap"
 # PGP options
 source "gpg2 -dq $HOME/.mypw.gpg |" #Decrypt encrypted password variables
 set pgp_use_gpg_agent = yes
-set pgp_sign_as = 108D84DC
+set pgp_sign_as = "0x0E317A6140804CCD"
 set pgp_timeout = 3600
 set crypt_autosign = yes
 set crypt_replyencrypt = yes

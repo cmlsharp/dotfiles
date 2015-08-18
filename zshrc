@@ -6,7 +6,7 @@ if [ -f "${HOME}/.gpg-agent-info" ]; then
   export SSH_AUTH_SOCK
 fi
 stty -ixon
-[[ -f /etc/updates.txt ]] && head -n1 /etc/updates.txt && echo
+[[ -f /etc/updates.txt ]] && { head -n1 /etc/updates.txt; echo; }
 ##Prompt
 user=chad
 if (( EUID == $(id -u $user) )); then
@@ -43,7 +43,11 @@ if [[ -L /bin ]]; then
 else
     export PATH="/bin:/sbin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:$HOME/bin:/usr/bin/core_perl:/usr/local/scripts"
 fi
-which vim > /dev/null 2>&1 && export EDITOR="vim" || export EDITOR="vi"
+if which vim &> /dev/null; then
+    export EDITOR="vim"
+else 
+    export EDITOR="vi"
+fi
 which firefox > /dev/null 2>&1 && export BROWSER="firefox"
 
 
@@ -117,7 +121,6 @@ alias dc='cd'
 alias z='source ~/.zshrc'
 alias pg='ps -ef | grep --color'
 alias svim='sudoedit'
-alias vi='vim'
 alias ivm='vim'
 alias e='exit'
 alias q='exit'
@@ -152,16 +155,23 @@ rman(){
 gcco(){gcc -o ${1} ${1}.c}
 rev(){ echo "r$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"}
 fj(){firejail -c $@ 2> /dev/null}
-open(){gvfs-open $@ &> /dev/null}
+open(){
+    if (($# > 0)); then 
+        for arg in $@; do
+            if [[ -e "$arg" ]]; then
+                gvfs-open "$arg" &> /dev/null
+            else
+                echo "Argument '$arg' does not exist"
+            fi
+        done
+    else
+        echo "At least one argument required"
+        return 1
+    fi
+}
 ddp () {
 	sudo dd if="$1" | pv -s $(du "$1" | awk '{print $1}') | sudo dd of="$2"
 }
-gt() {
-    to="${1}";
-    shift
-    text=$(echo "${@}" | sed -e "s/^.. //" -e "s/[\"'<>]//g");
-    wget -U "Mozilla/5.0" -qO - "http://translate.google.com/#auto/${to}/${text}" 
-}    
 up() {
     local dest=".." 
     local limit=${1:-1} 
@@ -171,6 +181,8 @@ up() {
     cd $dest
 } 
 export TERM=screen-256color
+export CC=clang
+export CFLAGS='-g -Wall -Wextra -lm -std=c99'
 
 for i in mv cp; do
     which a${i} > /dev/null 2>&1 && alias $i="a${i} -g"
