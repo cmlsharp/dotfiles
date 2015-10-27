@@ -21,7 +21,7 @@ fi
 RPROMPT="%B%(?..%?)%b"
 pgrep mpd &>/dev/null || mpd &>/dev/null
 #Make sure tmux is running
-[[ -z "$TMUX" ]] && exec tmux
+#[[ -z "$TMUX" ]] && exec tmux
 ##ZSH options
 autoload -U compinit promptinit colors && colors
 setopt completealiases auto_cd append_history share_history histignorealldups histignorespace extended_glob longlistjobs nonomatch notify hash_list_all completeinword nohup auto_pushd pushd_ignore_dups nobeep noglobdots noshwordsplit nohashdirs inc_append_history prompt_subst

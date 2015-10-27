@@ -81,11 +81,14 @@ set tm=500
 " Enable syntax highlighting
 syntax enable
 
-colorscheme slate 
 set background=dark
 
 " Set extra options when running in GUI mode
 if has("gui_running")
+    set go=aAcig
+    nnoremap <expr> ZZ (getline(1) ==# '' && 1 == line('$') ? 'ZZ' : ':w<CR>:bdelete<CR>')
+    nnoremap <expr> ZQ (getline(1) ==# '' && 1 == line('$') ? 'ZZ' : ':bdelete<CR>')
+
 endif
 
 " Set utf8 as standard encoding and en_US as the standard language
@@ -358,7 +361,7 @@ NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/syntastic'
 "NeoBundle 'andrewle/vim-autoclose'
 NeoBundle 'vim-scripts/matchit.zip'
-NeoBundle 'Valloric/YouCompleteMe'
+"NeoBundle 'Valloric/YouCompleteMe'
 NeoBundle 'vim-scripts/Colour-Sampler-Pack'
 NeoBundle 'vim-scripts/pydoc.vim'
 NeoBundle 'vim-scripts/Gundo'
@@ -366,6 +369,7 @@ NeoBundle 'vim-scripts/vim-colorscheme-switcher'
 NeoBundle 'vim-scripts/bufexplorer.zip'
 NeoBundle 'xolox/vim-misc'
 NeoBundle 'nvie/vim-flake8'
+NeoBundle 'wting/rust.vim'
 call neobundle#end()
 filetype plugin indent on
 NeoBundleCheck
@@ -409,12 +413,12 @@ augroup MUTT
     au FileType mail set formatoptions+=aw
     au FileType mail set noautoindent
 augroup END
-if has('nvim')
-runtime! python_setup.vim
-endif
-nmap <Esc> <Esc>
 nnoremap <Leader>d :Pydoc 
-unmap <F3>
+au FileType c set textwidth=79
 autocmd FileType python map <buffer> <Leader>x :call Flake8()<CR>
 nnoremap <buffer> <leader>2 :w<CR>:exec '!python2' shellescape(@%, 1)<CR>
 nnoremap <buffer> <leader>3 :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+let g:ycm_global_ycm_extra_conf = "~/.ycm_extra_conf.py"
+let g:ycm_filetype_whitelist = { '*': 1 }
+set cursorline
+colo Mustang
