@@ -350,26 +350,33 @@ endfunction
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugins 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set nocompatible
 if has('vim_starting')
-   set runtimepath+=~/.vim/bundle/neobundle.vim/
+set nocompatible
 endif
+   set runtimepath+=~/.vim/bundle/neobundle.vim/
 call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/syntastic'
-"NeoBundle 'andrewle/vim-autoclose'
-NeoBundle 'vim-scripts/matchit.zip'
-"NeoBundle 'Valloric/YouCompleteMe'
+NeoBundle 'benekastah/neomake'
+NeoBundle 'eagletmt/ghcmod-vim'
+NeoBundle 'Shougo/vimproc.vim'
 NeoBundle 'vim-scripts/Colour-Sampler-Pack'
-NeoBundle 'vim-scripts/pydoc.vim'
-NeoBundle 'vim-scripts/Gundo'
-NeoBundle 'vim-scripts/vim-colorscheme-switcher'
 NeoBundle 'vim-scripts/bufexplorer.zip'
+NeoBundle 'simnalamburt/vim-mundo'
 NeoBundle 'xolox/vim-misc'
+" Python
+NeoBundle 'vim-scripts/pydoc.vim'
 NeoBundle 'nvie/vim-flake8'
+" Rust
 NeoBundle 'wting/rust.vim'
+" Haskell
+NeoBundle 'neovimhaskell/haskell-vim'
+
+"NeoBundle 'vim-scripts/matchit.zip'
+"NeoBundle 'Valloric/YouCompleteMe'
+"NeoBundle 'vim-scripts/vim-colorscheme-switcher'
 call neobundle#end()
 filetype plugin indent on
 NeoBundleCheck
@@ -387,24 +394,19 @@ set number
 nnoremap <F5> :GundoToggle<CR>
 autocmd vimenter * if !argc() | NERDTree | endif
 map <C-n> :NERDTreeToggle<CR>
-nnoremap <C-J> <C-W><C-J>
-nnoremap <C-K> <C-W><C-K>
-nnoremap <C-L> <C-W><C-L>
-nnoremap <C-H> <C-W><C-H>
 set splitbelow
 set splitright
 nnoremap <silent> <Leader>/ :nohlsearch<CR>
 nnoremap Q <nop>
 set showbreak=↪
-augroup reload_vimrc " {
-    autocmd!
-    autocmd BufWritePost /home/chad/.vimrc source /home/chad/.vimrc
+"augroup reload_vimrc " {
+    "autocmd!
+    "autocmd BufWritePost /home/chad/.vimrc source /home/chad/.vimrc
 augroup END " }
 nnoremap <F2> :BufExplorerVerticalSplit<CR>
 nnoremap <F3> :reg <CR>
-inoremap jj <Esc>
+inoremap jk <Esc>
 nnoremap ; :
-nnoremap <C-c> :q!<CR>
 nnoremap <C-s> :w<CR>
 augroup MUTT
     au!
@@ -418,7 +420,17 @@ au FileType c set textwidth=79
 autocmd FileType python map <buffer> <Leader>x :call Flake8()<CR>
 nnoremap <buffer> <leader>2 :w<CR>:exec '!python2' shellescape(@%, 1)<CR>
 nnoremap <buffer> <leader>3 :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
-let g:ycm_global_ycm_extra_conf = "~/.ycm_extra_conf.py"
+let g:ycm_global_ycm_extra_conf = "/home/chad/.ycm_extra_conf.py"
 let g:ycm_filetype_whitelist = { '*': 1 }
 set cursorline
 colo Mustang
+nnoremap <A-h> <C-w>h
+nnoremap <A-j> <C-w>j
+nnoremap <A-l> <C-w>l
+nnoremap <A-k> <C-w>k
+if has("nvim") 
+    tnoremap <A-h> <C-\><C-n><C-w>h
+    tnoremap <A-j> <C-\><C-n><C-w>j
+    tnoremap <A-k> <C-\><C-n><C-w>k
+    tnoremap <A-l> <C-\><C-n><C-w>l
+endif

@@ -39,11 +39,14 @@ HISTFILE=~/.zsh_history
 HISTSIZE=5000
 SAVEHIST=5000
 if [[ -L /bin ]]; then
-    export PATH="/usr/local/sbin:/usr/local/bin:/usr/bin:$HOME/bin:/usr/bin/core_perl:/usr/local/scripts:$HOME/.gem/ruby/2.2.0/bin"
+    export PATH="$HOME/.cabal/bin:$HOME/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:$HOME/bin:/usr/bin/core_perl:/usr/local/scripts:$HOME/.gem/ruby/2.2.0/bin"
 else
-    export PATH="/bin:/sbin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:$HOME/bin:/usr/bin/core_perl:/usr/local/scripts"
+    export PATH="$HOME/.cabal/bin:$HOME/.cargo/bin:/bin:/sbin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:$HOME/bin:/usr/bin/core_perl:/usr/local/scripts"
 fi
-if which vim &> /dev/null; then
+
+if type nvim &> /dev/null; then
+    export EDITOR="nvim"
+elif type vim &> /dev/null; then
     export EDITOR="vim"
 else 
     export EDITOR="vi"
@@ -114,6 +117,7 @@ alias vimrc='vim /home/chad/.vimrc'
 alias chkupd='checkupdates'
 alias m="mpd ~/.config/mpd/mpd.conf"
 alias n="ncmpcpp"
+alias vim="nvim"
 alias snp='sudo snp'
 alias mstat='dstat -tcmnd --top-cpu --top-mem'
 alias nfs='mount ~/Cloud/nfs'
@@ -347,7 +351,7 @@ alias gb='git branch'
 alias gpom='git push origin master'
 alias glom='git pull origin master'
 
-alias zshrc='vim ~/.zshrc'
+alias zshrc='$EDITOR ~/.zshrc'
 
 bdf(){if [[ $# != 1 ]]; then echo "bdf requires one argument";else echo -en "$(btrfs fi df $1 | head -n1 | awk -F= '{print $2}' | awk -F, '{print $1}')" && echo " used out of $(df -h $1 | tail -n1 | awk '{print $2"iB"}')\n";fi}
 alias grep='grep --color'
@@ -364,7 +368,7 @@ alias -g CA="2>&1 | cat -A"
 alias -g NE="2> /dev/null"
 alias -g NUL="> /dev/null 2>&1"
 alias DATE='$(date "+%Y-%m-%d")'
-alias edit='vim'
+alias edit='$EDITOR'
 
 
 alias dud='du --max-depth=1 -h'
