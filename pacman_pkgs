@@ -98,7 +98,6 @@ gnome-themes-standard
 gnome-tweak-tool
 gnome-weather
 gparted
-gpick
 grep
 groff
 grub
@@ -121,7 +120,9 @@ gvfs-mtp
 gvfs-smb
 gvim
 gzip
+haskell-parsec
 haveged
+hexchat
 hicolor-icon-theme
 hplip
 hunspell-en
