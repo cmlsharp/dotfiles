@@ -3,6 +3,11 @@ abook
 accountsservice
 acpid
 alsa-utils
+antergos-gnome-defaults-list
+antergos-keyring
+antergos-mirrorlist
+antergos-wallpapers
+antergos-welcome
 arch-firefox-search
 arch-install-scripts
 astyle
@@ -18,6 +23,7 @@ binutils
 bison
 bluez-utils
 brasero
+broadcom-wl
 btrfs-progs
 bzip2
 bzr
@@ -84,6 +90,7 @@ gnome-maps
 gnome-music
 gnome-screenshot
 gnome-shell
+gnome-shell-extension-dash-to-dock
 gnome-shell-extensions
 gnome-sound-recorder
 gnome-system-monitor
@@ -96,6 +103,7 @@ gpick
 grep
 groff
 grub
+grub2-theme-antergos
 gsfonts
 gst-libav
 gst-plugins-bad
@@ -175,6 +183,9 @@ nilfs-utils
 noto-fonts
 noto-fonts-emoji
 ntfs-3g
+numix-frost-themes
+numix-icon-theme
+numix-icon-theme-square
 opensc
 openssh
 orca
@@ -247,6 +258,7 @@ usbutils
 util-linux
 valgrind-multilib
 vi
+vivaldi
 vlc
 w3m
 wget
@@ -306,6 +318,7 @@ xorg-xwininfo
 xorg-xwud
 xscreensaver
 xsel
+yaourt
 yasm
 youtube-dl
 yubikey-personalization
