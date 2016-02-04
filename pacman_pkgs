@@ -149,7 +149,6 @@ libtxc_dxtn
 libusb-compat
 libva-intel-driver
 licenses
-linux
 linux-headers
 logrotate
 lsb-release
