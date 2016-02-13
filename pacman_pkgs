@@ -3,11 +3,6 @@ abook
 accountsservice
 acpid
 alsa-utils
-antergos-gnome-defaults-list
-antergos-keyring
-antergos-mirrorlist
-antergos-wallpapers
-antergos-welcome
 arch-firefox-search
 arch-install-scripts
 astyle
@@ -23,12 +18,10 @@ binutils
 bison
 bluez-utils
 brasero
-broadcom-wl
 btrfs-progs
 bzip2
 bzr
 cabal-install
-cairo-infinality-ultimate
 ccache
 cdrkit
 chromium
@@ -64,11 +57,7 @@ firefox
 fish
 flashplugin
 flex
-fontconfig-infinality-ultimate
-freetype2-infinality-ultimate
 gawk
-gcc-go-multilib
-gcc-multilib
 gcolor2
 gdb
 gdm
@@ -91,7 +80,6 @@ gnome-maps
 gnome-music
 gnome-screenshot
 gnome-shell
-gnome-shell-extension-dash-to-dock
 gnome-shell-extensions
 gnome-sound-recorder
 gnome-system-monitor
@@ -104,7 +92,6 @@ gpick
 grep
 groff
 grub
-grub2-theme-antergos
 gsfonts
 gst-libav
 gst-plugins-bad
@@ -137,11 +124,6 @@ ipw2200-fw
 irssi
 jfsutils
 less
-lib32-cairo-infinality-ultimate
-lib32-fontconfig-infinality-ultimate
-lib32-freetype2-infinality-ultimate
-lib32-mesa
-lib32-mesa-libgl
 libdvdcss
 libgnomeui
 libreoffice-fresh
@@ -184,9 +166,6 @@ nilfs-utils
 noto-fonts
 noto-fonts-emoji
 ntfs-3g
-numix-frost-themes
-numix-icon-theme
-numix-icon-theme-square
 opensc
 openssh
 orca
@@ -234,7 +213,6 @@ snapper
 sox
 splix
 sshfs
-steam
 sudo
 sysfsutils
 system-config-printer
@@ -259,9 +237,7 @@ upower
 usb_modeswitch
 usbutils
 util-linux
-valgrind-multilib
 vi
-vivaldi
 vlc
 w3m
 wget
@@ -321,7 +297,6 @@ xorg-xwininfo
 xorg-xwud
 xscreensaver
 xsel
-yaourt
 yasm
 youtube-dl
 yubikey-personalization
