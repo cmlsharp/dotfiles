@@ -47,7 +47,7 @@ evince
 exfat-utils
 f2fs-tools
 fakeroot
-ffmpeg-compat
+ffmpeg0.10
 ffmpegthumbnailer
 file
 file-roller
