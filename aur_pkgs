@@ -4,8 +4,6 @@ aura-bin
 cairo-infinality-ultimate
 fontconfig-infinality-ultimate
 freetype2-infinality-ultimate
-gcc-go-multilib
-gcc-multilib
 google-chrome
 google-talkplugin
 htop-vim-git
@@ -15,10 +13,9 @@ j8-git
 lib32-cairo-infinality-ultimate
 lib32-fontconfig-infinality-ultimate
 lib32-freetype2-infinality-ultimate
-lib32-mesa
-lib32-mesa-libgl
 menulibre
 mutt-sidebar
+pacaur
 pacupg
 picoc-git
 pipelight
@@ -27,10 +24,8 @@ rust-nightly-bin
 rustfmt-git
 screencloud
 spotify-beta
-steam
 tlocate
 tmuxinator
-valgrind-multilib
 vim-youcompleteme-git
 vivaldi-ffmpeg-codecs
 vscode-bin

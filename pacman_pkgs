@@ -64,6 +64,8 @@ fish
 flashplugin
 flex
 gawk
+gcc-go-multilib
+gcc-multilib
 gcolor2
 gdb
 gdm
@@ -132,6 +134,8 @@ ipw2200-fw
 irssi
 jfsutils
 less
+lib32-mesa
+lib32-mesa-libgl
 libdvdcss
 libgnomeui
 libreoffice-still
@@ -225,6 +229,7 @@ snapper
 sox
 splix
 sshfs
+steam
 sudo
 sysfsutils
 system-config-printer
@@ -249,6 +254,7 @@ upower
 usb_modeswitch
 usbutils
 util-linux
+valgrind-multilib
 vi
 vivaldi
 vlc
