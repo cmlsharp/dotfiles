@@ -28,6 +28,7 @@ btrfs-progs
 bzip2
 bzr
 cabal-install
+cairo-infinality-ultimate
 ccache
 cdrkit
 chromium
@@ -63,6 +64,8 @@ firefox
 fish
 flashplugin
 flex
+fontconfig-infinality-ultimate
+freetype2-infinality-ultimate
 gawk
 gcc-go-multilib
 gcc-multilib
@@ -134,6 +137,9 @@ ipw2200-fw
 irssi
 jfsutils
 less
+lib32-cairo-infinality-ultimate
+lib32-fontconfig-infinality-ultimate
+lib32-freetype2-infinality-ultimate
 lib32-mesa
 lib32-mesa-libgl
 libdvdcss
@@ -194,6 +200,7 @@ pcmciautils
 pcsclite
 perl
 pidgin
+pipelight
 pkg-config
 pkgbuild-introspection
 pkgfile
