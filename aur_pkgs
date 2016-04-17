@@ -16,6 +16,5 @@ rustfmt-git
 screencloud
 tlocate
 tmuxinator
-vim-youcompleteme-git
 ycm-generator-git
 yubico-piv-tool
