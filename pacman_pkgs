@@ -144,6 +144,9 @@ lib32-alsa-plugins
 lib32-cairo-infinality-ultimate
 lib32-fontconfig-infinality-ultimate
 lib32-freetype2-infinality-ultimate
+lib32-gtk2
+lib32-libpulse
+lib32-libxtst
 lib32-mesa
 lib32-mesa-libgl
 libdvdcss
