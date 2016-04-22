@@ -140,6 +140,7 @@ irssi
 jfsutils
 jq
 less
+lib32-alsa-plugins
 lib32-cairo-infinality-ultimate
 lib32-fontconfig-infinality-ultimate
 lib32-freetype2-infinality-ultimate
