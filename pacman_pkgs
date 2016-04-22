@@ -208,6 +208,7 @@ pkgfile
 polari
 procps-ng
 psmisc
+pulseaudio
 pulseaudio-alsa
 pulseaudio-bluetooth
 python-neovim
