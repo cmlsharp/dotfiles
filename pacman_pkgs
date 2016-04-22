@@ -274,6 +274,7 @@ words
 wpa_actiond
 xclip
 xdg-user-dirs-gtk
+xf86-input-libinput
 xf86-input-synaptics
 xf86-video-fbdev
 xf86-video-intel
