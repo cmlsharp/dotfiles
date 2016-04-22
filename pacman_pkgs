@@ -156,6 +156,7 @@ libva-intel-driver
 licenses
 linux
 linux-headers
+linux-lts
 logrotate
 lsb-release
 lsof
