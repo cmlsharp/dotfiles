@@ -18,5 +18,6 @@ screencloud
 startupmanager
 tlocate
 tmuxinator
+tomb
 ycm-generator-git
 yubico-piv-tool
