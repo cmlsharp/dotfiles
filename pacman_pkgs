@@ -149,6 +149,7 @@ lib32-gtk2
 lib32-libpulse
 lib32-libxtst
 lib32-mesa
+lib32-mesa-libgl
 libdvdcss
 libgnomeui
 libreoffice-fresh
