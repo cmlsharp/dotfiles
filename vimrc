@@ -86,6 +86,7 @@ set background=dark
 " Set extra options when running in GUI mode
 if has("gui_running")
     set go=aAcig
+    set guifont=Inconsolata\ 9 
     nnoremap <expr> ZZ (getline(1) ==# '' && 1 == line('$') ? 'ZZ' : ':w<CR>:bdelete<CR>')
     nnoremap <expr> ZQ (getline(1) ==# '' && 1 == line('$') ? 'ZZ' : ':bdelete<CR>')
 
@@ -357,7 +358,6 @@ endif
 call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 NeoBundle 'scrooloose/nerdcommenter'
-NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'benekastah/neomake'
 NeoBundle 'eagletmt/ghcmod-vim'
@@ -392,8 +392,6 @@ NeoBundleCheck
 "autocmd InsertLeave * :set nonumber
 set number
 nnoremap <F5> :GundoToggle<CR>
-autocmd vimenter * if !argc() | NERDTree | endif
-map <C-n> :NERDTreeToggle<CR>
 set splitbelow
 set splitright
 nnoremap <silent> <Leader>/ :nohlsearch<CR>
@@ -422,15 +420,20 @@ nnoremap <buffer> <leader>2 :w<CR>:exec '!python2' shellescape(@%, 1)<CR>
 nnoremap <buffer> <leader>3 :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
 let g:ycm_global_ycm_extra_conf = "/home/chad/.ycm_extra_conf.py"
 let g:ycm_filetype_whitelist = { '*': 1 }
-set cursorline
 colo Mustang
 nnoremap <A-h> <C-w>h
 nnoremap <A-j> <C-w>j
 nnoremap <A-l> <C-w>l
 nnoremap <A-k> <C-w>k
+nnoremap <Leader>bn :bnext<CR>
+nnoremap <Leader>bp :bprev<CR>
 if has("nvim") 
     tnoremap <A-h> <C-\><C-n><C-w>h
     tnoremap <A-j> <C-\><C-n><C-w>j
     tnoremap <A-k> <C-\><C-n><C-w>k
     tnoremap <A-l> <C-\><C-n><C-w>l
 endif
+
+augroup HASKELL
+    au FileType haskell set sts=2
+augroup END

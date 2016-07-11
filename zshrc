@@ -218,6 +218,11 @@ lib(){
     return 0;
 }
 
+fix-steam() {
+   find ~/.local/share/Steam/ \( -name "libgcc_s.so*" -o -name "libstdc++.so*" -o -name "libxcb.so*" -o -name "libgpg-error.so*" \) -print -delete 
+   find ~/.steam/root/ \( -name "libgcc_s.so*" -o -name "libstdc++.so*" -o -name "libxcb.so*" -o -name "libgpg-error.so*" \) -print -delete
+}
+
 up() {
     local dest=".." 
     local limit=${1:-1} 
