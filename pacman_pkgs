@@ -29,6 +29,7 @@ bzip2
 bzr
 cabal-install
 cairo-infinality-ultimate
+cargo
 ccache
 cdrkit
 chromium
