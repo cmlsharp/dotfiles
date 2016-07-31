@@ -29,7 +29,6 @@ bzip2
 bzr
 cabal-install
 cairo-infinality-ultimate
-cargo
 ccache
 cdrkit
 chromium
@@ -240,7 +239,6 @@ reflector
 reiserfsprogs
 rfkill
 rsync
-rust
 s-nail
 seahorse
 sed
