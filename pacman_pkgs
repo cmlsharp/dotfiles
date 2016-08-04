@@ -223,6 +223,7 @@ psmisc
 pulseaudio
 pulseaudio-alsa
 pulseaudio-bluetooth
+pv
 python-neovim
 python-pillow
 python-pyqt4
