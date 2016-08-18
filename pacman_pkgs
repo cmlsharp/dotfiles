@@ -227,6 +227,7 @@ pv
 python-neovim
 python-pillow
 python-pyqt4
+python-pyqt5
 python-pysmbc
 python-reportlab
 python2-gtkspell
