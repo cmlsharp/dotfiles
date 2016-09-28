@@ -163,6 +163,7 @@ libusb-compat
 libva-intel-driver
 licenses
 linux
+linux-docs
 linux-headers
 linux-lts-docs
 linux-lts-headers
