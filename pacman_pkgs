@@ -235,6 +235,7 @@ python-pyqt4
 python-pyqt5
 python-pysmbc
 python-reportlab
+python2-docutils
 python2-gtkspell
 python2-neovim
 python2-pexpect
