@@ -30,7 +30,7 @@ compinit -i
 REPORTTIME=5
 watch=(notme root)
 bindkey -v
-bindkey -M viins 'jj' vi-cmd-mode
+bindkey -M viins 'jk' vi-cmd-mode
 bindkey '^R' history-incremental-search-backward
 bindkey -M vicmd '?' history-incremental-search-backward
 bindkey -M vicmd 'k' history-substring-search-up
@@ -286,7 +286,7 @@ case "$distro" in
         alias aurmake='pacaur -Sw'
         alias aurcheck='pacaur -k'
         alias aurclean='pacaur -cc'
-        alias aurup='aurploader -k -a -l ~/.config/aurploader'
+        export ABSROOT="/home/chad/.abs"
         ;;
     gentoo)
         alias emin='sudo emerge --ask --autounmask-write'
@@ -325,9 +325,6 @@ case "$distro" in
 esac
 
 alias smount='sudo mount'
-bmount(){sudo mount -o compress=lzo,autodefrag,ssd,discard,space_cache,noatime,subvol=$1 /dev/mapper/cryptroot $2}
-alias fmount='sudo mount -o compress=lzo,autodefrag,ssd,discard,space_cache,noatime /dev/mapper/cryptroot'
-alias bootmnt='sudo mount -o compress=lzo,autodefrag,space_cache,noatime'
 alias ksp='ksuperkey'
 
 alias ls='ls --color -F --group-directories-first'
@@ -577,12 +574,13 @@ function extract() {
 alias x=extract
 
 function catsay(){
-cat $1 | cowsay
+    cat $1 | cowsay
 }
 
 function catthink(){
-cat $1 | cowthink
+    cat $1 | cowthink
 }
+
 mkaur(){
     local scriptdir=~/bin
     local aurpkgdir=~/aur-packages
