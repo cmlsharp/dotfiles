@@ -164,7 +164,6 @@ licenses
 linux
 linux-docs
 linux-headers
-linux-lts-headers
 logrotate
 lsb-release
 lsof
