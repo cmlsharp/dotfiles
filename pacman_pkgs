@@ -18,7 +18,6 @@ b43-fwcutter
 baobab
 bash
 bash-completion
-bijiben
 bind-tools
 binutils
 bison
@@ -245,6 +244,7 @@ reflector
 reiserfsprogs
 rfkill
 rsync
+rustup
 s-nail
 seahorse
 sed
