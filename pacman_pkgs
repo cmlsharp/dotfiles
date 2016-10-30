@@ -282,6 +282,7 @@ upower
 usb_modeswitch
 usbutils
 util-linux
+valgrind
 vi
 virtualbox
 vlc
