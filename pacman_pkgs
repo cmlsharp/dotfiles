@@ -245,6 +245,7 @@ reiserfsprogs
 rfkill
 rsync
 rust-racer
+rustfmt
 rustup
 s-nail
 seahorse
