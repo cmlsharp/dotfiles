@@ -240,6 +240,7 @@ python2-gtkspell
 python2-neovim
 python2-pexpect
 qalculate-gtk
+qemu
 qt5-multimedia
 qt5-x11extras
 ranger
