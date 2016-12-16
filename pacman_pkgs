@@ -233,6 +233,7 @@ pulseaudio-bluetooth
 pv
 python-neovim
 python-pillow
+python-pip
 python-pyqt4
 python-pyqt5
 python-pysmbc
