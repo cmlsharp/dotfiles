@@ -241,7 +241,6 @@ python2-docutils
 python2-gtkspell
 python2-neovim
 python2-pexpect
-python2-pip
 qalculate-gtk
 qemu
 qt5-multimedia
