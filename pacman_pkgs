@@ -262,6 +262,7 @@ seahorse
 sed
 shadow
 simple-scan
+smartmontools
 smplayer
 snapper
 sox
