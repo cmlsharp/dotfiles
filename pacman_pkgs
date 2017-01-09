@@ -156,6 +156,7 @@ lib32-gtk2
 lib32-libgudev
 lib32-libnm-glib
 lib32-libpulse
+lib32-libudev0-shim
 lib32-libusb
 lib32-libxtst
 lib32-mesa
