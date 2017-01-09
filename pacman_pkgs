@@ -156,6 +156,7 @@ lib32-libpulse
 lib32-libxtst
 lib32-mesa
 lib32-mesa-libgl
+lib32-openal
 libdvdcss
 libgnomeui
 libisoburn
