@@ -286,6 +286,7 @@ systemd-sysvcompat
 tar
 tcsh
 texinfo
+texlive-bin
 thunar
 time
 tk
