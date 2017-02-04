@@ -31,7 +31,6 @@ bzr
 cabal-install
 cairo-infinality-ultimate
 ccache
-cdrkit
 chromium
 cinnamon
 cmake
@@ -58,7 +57,6 @@ evince
 exfat-utils
 f2fs-tools
 fakeroot
-ffmpeg0.10
 ffmpegthumbnailer
 file
 file-roller
@@ -117,11 +115,6 @@ gst-plugins-base
 gst-plugins-good
 gst-plugins-ugly
 gstreamer-vaapi
-gstreamer0.10-bad-plugins
-gstreamer0.10-base-plugins
-gstreamer0.10-ffmpeg
-gstreamer0.10-good-plugins
-gstreamer0.10-ugly-plugins
 gthumb
 guake
 gummi
@@ -164,7 +157,6 @@ lib32-mesa
 lib32-mesa-libgl
 lib32-openal
 libdvdcss
-libgnomeui
 libisoburn
 libreoffice-fresh
 libtool
@@ -219,6 +211,7 @@ opensc
 openssh
 orca
 os-prober
+pacaur
 pacman
 pandoc
 patch
@@ -249,7 +242,6 @@ python-pyqt5
 python-pysmbc
 python-reportlab
 python2-docutils
-python2-gtkspell
 python2-neovim
 python2-pexpect
 python2-pip
