@@ -36,6 +36,7 @@ cinnamon
 cmake
 cmatrix
 coreutils
+cppcheck
 cpupower
 crda
 cronie
