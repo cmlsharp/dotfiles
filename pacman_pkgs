@@ -43,6 +43,7 @@ cronie
 cryptsetup
 cups
 cups-pk-helper
+ddd
 device-mapper
 dhcpcd
 diffutils
