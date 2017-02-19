@@ -264,6 +264,7 @@ ripgrep
 rsync
 rust-racer
 rustfmt
+rustup
 s-nail
 sdl2_gfx
 seahorse
