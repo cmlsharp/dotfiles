@@ -33,6 +33,7 @@ cabal-install
 cairo-infinality-ultimate
 ccache
 cdrtools
+certbot
 chromium
 cinnamon
 cmake
