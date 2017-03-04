@@ -10,7 +10,6 @@ antergos-keyring
 antergos-mirrorlist
 antergos-wallpapers
 antergos-welcome
-arch-firefox-search
 arch-install-scripts
 aspell-es
 astyle
@@ -67,7 +66,6 @@ file
 file-roller
 filesystem
 findutils
-firefox
 fish
 flashplugin
 flex
