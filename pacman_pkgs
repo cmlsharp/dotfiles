@@ -30,7 +30,6 @@ btrfs-progs
 bzip2
 bzr
 cabal-install
-cairo-infinality-ultimate
 ccache
 cdrtools
 chromium
@@ -70,8 +69,6 @@ fish
 flashplugin
 flex
 fluidsynth
-fontconfig-infinality-ultimate
-freetype2-infinality-ultimate
 gawk
 gcc-multilib
 gcolor2
@@ -145,11 +142,8 @@ jq
 kile
 less
 lib32-alsa-plugins
-lib32-cairo-infinality-ultimate
 lib32-curl
 lib32-dbus-glib
-lib32-fontconfig-infinality-ultimate
-lib32-freetype2-infinality-ultimate
 lib32-gtk2
 lib32-libgudev
 lib32-libnm-glib
