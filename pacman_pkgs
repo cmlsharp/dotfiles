@@ -267,6 +267,7 @@ rustup
 s-nail
 sdl2_gfx
 sdl_gfx
+sdl_ttf
 seahorse
 sed
 shadow
