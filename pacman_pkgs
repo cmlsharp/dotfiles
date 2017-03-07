@@ -266,6 +266,7 @@ rustfmt
 rustup
 s-nail
 sdl2_gfx
+sdl2_ttf
 sdl_gfx
 seahorse
 sed
