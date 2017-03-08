@@ -53,6 +53,7 @@ dmraid
 dos2unix
 dosfstools
 e2fsprogs
+emscripten
 eog
 epiphany
 espeak
