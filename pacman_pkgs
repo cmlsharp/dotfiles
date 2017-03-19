@@ -154,7 +154,6 @@ lib32-libudev0-shim
 lib32-libusb
 lib32-libxtst
 lib32-mesa
-lib32-mesa-libgl
 lib32-openal
 libdvdcss
 libisoburn
