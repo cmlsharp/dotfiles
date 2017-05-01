@@ -220,6 +220,7 @@ pavucontrol
 pciutils
 pcmciautils
 pcsclite
+peek
 perf
 perl
 pidgin
