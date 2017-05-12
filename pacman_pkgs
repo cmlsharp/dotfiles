@@ -333,7 +333,6 @@ xorg-luit
 xorg-mkfontdir
 xorg-mkfontscale
 xorg-server
-xorg-server-utils
 xorg-sessreg
 xorg-setxkbmap
 xorg-smproxy
