@@ -249,6 +249,7 @@ python2-gtkspellcheck
 python2-neovim
 python2-pexpect
 python2-pip
+python2-termcolor
 qalculate-gtk
 qemu
 qt5-multimedia
