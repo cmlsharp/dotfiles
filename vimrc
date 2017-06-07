@@ -5,8 +5,7 @@
 set history=700
 
 " Enable filetype plugins
-filetype plugin on
-filetype indent on
+filetype plugin indent on
 
 " Set to auto read when a file is changed from the outside
 set autoread
@@ -19,10 +18,30 @@ let g:mapleader = ","
 " Fast saving
 nmap <leader>w :w!<cr>
 
+" Disable ex mode
+nnoremap Q <nop>
+
+" THE MOST IMPORTANT BINDING
+inoremap jk <Esc>
+
+" Should be default, but better safe than sorry
+if &compatible
+    set nocompatible
+endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Line numbers
+set number
+
+" Regular numbers in insert mode, relative numbers in normal mode
+"set relativenumber
+"autocmd InsertEnter * :set number
+"autocmd InsertEnter * :set norelativenumber
+"autocmd InsertLeave * :set relativenumber
+"autocmd InsertLeave * :set nonumber
+
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
 
@@ -74,10 +93,13 @@ set novisualbell
 set t_vb=
 set tm=500
 
-
+" Make splitting the window behave like you'd expect it to
+set splitbelow
+set splitright
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Enable syntax highlighting
 syntax enable
 
@@ -104,9 +126,15 @@ set ffs=unix,dos,mac
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Turn backup off, since most stuff is in SVN, git et.c anyway...
 set nobackup
-set nowb
-set noswapfile
+set nowritebackup
 
+" Enable swaps and undo files though
+set swapfile
+set undofile
+
+" Make sure these exist
+set directory=~/.vim/swp//
+set undodir=~/.vim/undo//
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
@@ -124,6 +152,9 @@ set softtabstop=4
 " Linebreak on 500 characters
 set lbr
 set tw=500
+
+" Set linebreak character
+set showbreak=↪
 
 set ai "Auto indent
 set si "Smart indent
@@ -146,13 +177,27 @@ vnoremap <silent> # :call VisualSelection('b')<CR>
 map j gj
 map k gk
 
-" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-"map <space> /
-"map <c-space> ?
+" Remap VIM 0 to first non-blank character
+map 0 ^
 
-" Disable highlight when <leader><cr> is pressed
-map <silent> <leader><cr> :noh<cr>
-map <C-l> <C-W>l
+",/ disables turns off the highlighting after you've done a search
+nnoremap <silent> <Leader>/ :nohlsearch<CR>
+
+" Navigate between windows with ALT + hjkl
+if has("nvim") 
+    map <A-h> <C-\><C-n><C-w>h
+    map <A-j> <C-\><C-n><C-w>j
+    map <A-k> <C-\><C-n><C-w>k
+    map <A-l> <C-\><C-n><C-w>l
+else 
+    map <A-l> <C-W>l
+    map <A-j> <C-W>j
+    map <A-h> <C-W>h
+    map <A-k> <C-W>k
+endif
+
+" Open Exporer
+map <leader>e :Explore<cr>
 
 " Close the current buffer
 map <leader>bd :Bclose<cr>
@@ -173,6 +218,12 @@ map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 " Switch CWD to the directory of the open buffer
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
+" Move a line of text using Ctrl + [jk]
+nmap <C-j> mz:m+<cr>`z
+nmap <C-k> mz:m-2<cr>`z
+vmap <C-j> :m'>+<cr>`<my`>mzgv`yo`z
+vmap <C-k> :m'<-2<cr>`>my`<mzgv`yo`z
+
 " Specify the behavior when switching between buffers 
 try
   set switchbuf=useopen,usetab,newtab
@@ -185,6 +236,7 @@ autocmd BufReadPost *
      \ if line("'\"") > 0 && line("'\"") <= line("$") |
      \   exe "normal! g`\"" |
      \ endif
+
 " Remember info about open buffers on close
 set viminfo^=%
 
@@ -198,81 +250,6 @@ set laststatus=2
 " Format the status line
 set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Editing mappings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Remap VIM 0 to first non-blank character
-map 0 ^
-
-" Move a line of text using ALT+[jk] or Comamnd+[jk] on mac
-nmap <M-j> mz:m+<cr>`z
-nmap <M-k> mz:m-2<cr>`z
-vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
-
-if has("mac") || has("macunix")
-  nmap <D-j> <M-j>
-  nmap <D-k> <M-k>
-  vmap <D-j> <M-j>
-  vmap <D-k> <M-k>
-endif
-
-" Delete trailing white space on save, useful for Python and CoffeeScript ;)
-func! DeleteTrailingWS()
-  exe "normal mz"
-  %s/\s\+$//ge
-  exe "normal `z"
-endfunc
-autocmd BufWrite *.py :call DeleteTrailingWS()
-autocmd BufWrite *.coffee :call DeleteTrailingWS()
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => vimgrep searching and cope displaying
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" When you press gv you vimgrep after the selected text
-vnoremap <silent> gv :call VisualSelection('gv')<CR>
-
-" Open vimgrep and put the cursor in the right position
-map <leader>g :vimgrep // **/*.<left><left><left><left><left><left><left>
-
-" Vimgreps in the current file
-map <leader><space> :vimgrep // <C-R>%<C-A><right><right><right><right><right><right><right><right><right>
-
-" When you press <leader>r you can search and replace the selected text
-vnoremap <silent> <leader>r :call VisualSelection('replace')<CR>
-
-" Do :help cope if you are unsure what cope is. It's super useful!
-"
-" When you search with vimgrep, display your results in cope by doing:
-"   <leader>cc
-"
-" To go to the next search result do:
-"   <leader>n
-"
-" To go to the previous search results do:
-"   <leader>p
-"
-"map <leader>cc :botright cope<cr>
-"map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
-"map <leader>n :cn<cr>
-"map <leader>p :cp<cr>
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Spell checking
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Pressing ,ss will toggle and untoggle spell checking
-map <leader>ss :setlocal spell!<cr>
-
-" Shortcuts using <leader>
-map <leader>sn ]s
-map <leader>sp [s
-map <leader>sa zg
-map <leader>s? z=
-
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Misc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -285,7 +262,9 @@ map <leader>q :e ~/buffer<cr>
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
 
-
+" Useful keybindings for moving between buffers
+nnoremap <Leader>bn :bnext<CR>
+nnoremap <Leader>bp :bprev<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
@@ -322,8 +301,9 @@ endfunction
 function! HasPaste()
     if &paste
         return 'PASTE MODE  '
-    en
-    return ''
+    else 
+        return ''
+    endif
 endfunction
 
 " Don't close window, when deleting a buffer
@@ -348,92 +328,115 @@ function! <SID>BufcloseCloseIt()
 endfunction
 
 
+" Delete trailing white space on save, useful for Python and CoffeeScript ;)
+func! DeleteTrailingWS()
+  exe "normal mz"
+  %s/\s\+$//ge
+  exe "normal `z"
+endfunc
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugins 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-if has('vim_starting')
-set nocompatible
-endif
-   set runtimepath+=~/.vim/bundle/neobundle.vim/
+set runtimepath+=~/.vim/bundle/neobundle.vim/
 call neobundle#begin(expand('~/.vim/bundle/'))
+
+" General
 NeoBundleFetch 'Shougo/neobundle.vim'
+NeoBundle 'Shougo/vimproc.vim', {
+\ 'build' : {
+\     'windows' : 'tools\\update-dll-mingw',
+\     'cygwin' : 'make -f make_cygwin.mak',
+\     'mac' : 'make',
+\     'linux' : 'make',
+\     'unix' : 'gmake',
+\    },
+\ }
 NeoBundle 'scrooloose/nerdcommenter'
-NeoBundle 'scrooloose/syntastic'
-NeoBundle 'benekastah/neomake'
-NeoBundle 'eagletmt/ghcmod-vim'
-NeoBundle 'Shougo/vimproc.vim'
 NeoBundle 'vim-scripts/Colour-Sampler-Pack'
 NeoBundle 'vim-scripts/bufexplorer.zip'
 NeoBundle 'simnalamburt/vim-mundo'
 NeoBundle 'xolox/vim-misc'
+
+" C/C++
+NeoBundle 'benekastah/neomake'
+NeoBundle 'vim-scripts/Conque-GDB'
+
 " Python
 NeoBundle 'vim-scripts/pydoc.vim'
 NeoBundle 'nvie/vim-flake8'
+
 " Rust
 NeoBundle 'wting/rust.vim'
+
 " Haskell
+NeoBundle 'eagletmt/ghcmod-vim'
 NeoBundle 'neovimhaskell/haskell-vim'
 
-"NeoBundle 'vim-scripts/matchit.zip'
-"NeoBundle 'Valloric/YouCompleteMe'
-"NeoBundle 'vim-scripts/vim-colorscheme-switcher'
+" LaTeX
+NeoBundle 'xuhdev/vim-latex-live-preview'
+
+" Multilang
+NeoBundle 'Valloric/YouCompleteMe'
+NeoBundle 'scrooloose/syntastic'
+
 call neobundle#end()
 filetype plugin indent on
 NeoBundleCheck
 
+nnoremap <F5> :GundoToggle<CR>
+nnoremap <F2> :BufExplorerVerticalSplit<CR>
+
+try 
+    colo Mustang
+catch
+    colo slate
+endtry
+
+let g:livepreview_previewer = 'evince'
+
+let g:ConqueTerm_Color = 2
+let g:ConqueTerm_CloseOnEnd = 1
+let g:ConqueTermStartMessages = 0
+
+let g:ycm_python_binary_path = '/usr/bin/python3'
+let g:ycm_rust_src_path = $RUST_SRC_PATH
+
+let g:ycm_global_ycm_extra_conf = "/home/chad/.ycm_extra_conf.py"
+let g:ycm_filetype_whitelist = { '*': 1 }
+let g:ycm_confirm_extra_conf = 0
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Other Stuff 
+" => Language Specific
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"set relativenumber
-"autocmd InsertEnter * :set number
-"autocmd InsertEnter * :set norelativenumber
-"autocmd InsertLeave * :set relativenumber
-"autocmd InsertLeave * :set nonumber
-set number
-nnoremap <F5> :GundoToggle<CR>
-set splitbelow
-set splitright
-nnoremap <silent> <Leader>/ :nohlsearch<CR>
-nnoremap Q <nop>
-set showbreak=↪
-"augroup reload_vimrc " {
-    "autocmd!
-    "autocmd BufWritePost /home/chad/.vimrc source /home/chad/.vimrc
-augroup END " }
-nnoremap <F2> :BufExplorerVerticalSplit<CR>
-nnoremap <F3> :reg <CR>
-inoremap jk <Esc>
-nnoremap ; :
-nnoremap <C-s> :w<CR>
-augroup MUTT
+augroup PYTHON
+    au!
+    au FileType python nnoremap <buffer> <leader>2 :w<CR>:exec '!python2' shellescape(@%, 1)<CR>
+    au FileType python nnoremap <buffer> <leader>3 :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+    au BufWrite *.py :call DeleteTrailingWS()
+
+    " Plugins
+    au FileType python nnoremap <Leader>d :Pydoc 
+    au FileType python map <buffer> <Leader>x :call Flake8()<CR>
+augroup END
+
+
+augroup MAIL
     au!
     au FileType mail set spell
     au FileType mail set textwidth=72
     au FileType mail set formatoptions+=aw
     au FileType mail set noautoindent
 augroup END
-nnoremap <Leader>d :Pydoc 
-au FileType c set textwidth=79
-autocmd FileType python map <buffer> <Leader>x :call Flake8()<CR>
-nnoremap <buffer> <leader>2 :w<CR>:exec '!python2' shellescape(@%, 1)<CR>
-nnoremap <buffer> <leader>3 :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
-let g:ycm_global_ycm_extra_conf = "/home/chad/.ycm_extra_conf.py"
-let g:ycm_filetype_whitelist = { '*': 1 }
-colo Mustang
-nnoremap <A-h> <C-w>h
-nnoremap <A-j> <C-w>j
-nnoremap <A-l> <C-w>l
-nnoremap <A-k> <C-w>k
-nnoremap <Leader>bn :bnext<CR>
-nnoremap <Leader>bp :bprev<CR>
-if has("nvim") 
-    tnoremap <A-h> <C-\><C-n><C-w>h
-    tnoremap <A-j> <C-\><C-n><C-w>j
-    tnoremap <A-k> <C-\><C-n><C-w>k
-    tnoremap <A-l> <C-\><C-n><C-w>l
-endif
 
 augroup HASKELL
+    au!
     au FileType haskell set sts=2
+augroup END
+
+augroup C_OR_CPP
+    au!
+    au FileType c set textwidth=79
+    au FileType cpp set textwidth=79
 augroup END
