@@ -282,6 +282,7 @@ splix
 sshfs
 steam
 steghide
+strace
 sudo
 sysfsutils
 system-config-printer
