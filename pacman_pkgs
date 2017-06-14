@@ -314,6 +314,7 @@ util-linux
 valgrind
 vi
 virtualbox
+virtualbox-guest-utils
 vlc
 w3m
 wget
