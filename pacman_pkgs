@@ -247,6 +247,7 @@ python-pyqt4
 python-pyqt5
 python-pysmbc
 python-reportlab
+python-selenium
 python2-docutils
 python2-gtkspellcheck
 python2-neovim
