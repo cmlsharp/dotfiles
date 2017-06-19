@@ -245,6 +245,7 @@ python-mutagen
 python-neovim
 python-pillow
 python-pip
+python-pycparser
 python-pyqt4
 python-pyqt5
 python-pysmbc
