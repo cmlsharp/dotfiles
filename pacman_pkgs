@@ -57,6 +57,7 @@ docker
 dos2unix
 dosfstools
 e2fsprogs
+eclipse-java
 emscripten
 eog
 epiphany
