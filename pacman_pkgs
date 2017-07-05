@@ -243,6 +243,7 @@ pulseaudio-alsa
 pulseaudio-bluetooth
 pv
 pygmentize
+pyprof2calltree
 python-mutagen
 python-neovim
 python-pillow
