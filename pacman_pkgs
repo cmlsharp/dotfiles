@@ -145,6 +145,7 @@ irssi
 jdk8-openjdk
 jfsutils
 jq
+kcachegrind
 kile
 less
 lib32-alsa-plugins
