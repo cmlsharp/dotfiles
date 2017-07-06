@@ -246,6 +246,7 @@ pulseaudio-bluetooth
 pv
 pygmentize
 pyprof2calltree
+python-matplotlib
 python-mutagen
 python-neovim
 python-pillow
