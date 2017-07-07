@@ -54,6 +54,7 @@ diffutils
 dkms
 dmraid
 docker
+docker-compose
 dos2unix
 dosfstools
 e2fsprogs
