@@ -58,6 +58,7 @@ docker
 docker-compose
 dos2unix
 dosfstools
+dwdiff
 e2fsprogs
 emscripten
 eog
