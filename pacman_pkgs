@@ -264,6 +264,7 @@ python-selenium
 python2-backports
 python2-docutils
 python2-gtkspellcheck
+python2-jedi
 python2-mutagen
 python2-neovim
 python2-pexpect
