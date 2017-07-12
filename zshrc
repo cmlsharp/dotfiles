@@ -8,17 +8,36 @@ fi
 stty -ixon
 [[ -f /etc/updates.txt ]] && { head -n1 /etc/updates.txt; echo; }
 ##Prompt
+setopt prompt_subst
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' actionformats \
+    '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '
+zstyle ':vcs_info:*' formats       \
+    '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{5}]%f '
+zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b%F{1}:%F{3}%r'
+
+zstyle ':vcs_info:*' enable git cvs svn
+
+vcs_info_wrapper() {
+  vcs_info
+  if [ -n "$vcs_info_msg_0_" ]; then
+    echo "%{$fg[grey]%}${vcs_info_msg_0_}%{$reset_color%}$del"
+  fi
+}
+
+
 user=chad
-if (( EUID == $(id -u $user) )); then
+if [[ -n $DISPLAY ]] && (( EUID == $(id -u $user) )); then
     PROMPT="%(?,Ω,ω) %~/ "
 else
-    PROMPT="[%B%F{blue}%n%f%b@%m %B%40<..<%~%<< %b] %# "
-fi
-
-if [[ -z $DISPLAY ]]; then
     PROMPT="[%B%(?,%F{blue},%F{red})%n%f%b@%m %B%40<..<%~%<< %b] %# "
 fi
+
 RPROMPT="%B%(?..%?)%b"
+#RPROMPT=$'$(vcs_info_wrapper)'
+
+
+
 pgrep mpd &>/dev/null || mpd &>/dev/null
 #Make sure tmux is running
 [[ -z "$TMUX" ]] && exec tmux
@@ -136,12 +155,18 @@ alias treset='sudo modprobe -r psmouse; sudo modprobe psmouse'
 alias info='info --vi-keys'
 alias -g pacupg-dev='~/bin/pacupg/pacupg'
 alias ytau='youtube-dl --extract-audio --audio-format'
+alias perfgraph='perf record --call-graph dwarf -e cycles:u'
 nport(){nmap -p $1 --open -sV "$(echo "$(ip route get 8.8.8.8 | awk -F'src ' '!/cache/{print $2}' | tr -d ' ')/$2")"}
 alias tarcheck='ssh mmfab-server -l root jexec 3 tarsnap --list-archives --keyfile /root/tarsnap.key | sort 2>/dev/null || ssh mmfab-server-away -l root jexec 3 tarsnap --list-archives --keyfile /root/tarsnap.key | sort'
 alias snapnum='echo $(($(snapper list | wc -l)-3))'
 for i in fuck damnit please; do
     alias $i='source ~/.zshrc;fc -ln -1; sudo -E $(fc -ln -1)'
 done
+
+if type pycodestyle &> /dev/null; then
+    alias pep8="pycodestyle"
+fi
+
 rman(){
   local count=0
   while true; do 
@@ -177,8 +202,7 @@ open(){
 ddp () {
 	sudo dd if="$1" | pv -s $(du "$1" | awk '{print $1}') | sudo dd of="$2"
 }
-export CC=gcc
-export CFLAGS='-ggdb3 -O0 -Wall -pedantic -Wextra -pipe -fstack-protector -ftrapv -Wl,-zrelro -Wl,-z,now -Wformat-security -std=c11'
+type rustup &> /dev/null && export RUST_SRC_PATH="$HOME/.multirust/toolchains/$(rustup toolchain list | grep default | cut -d ' ' -f1)/lib/rustlib/src/rust/src"
 comp(){
     extraflags=""
     while [[ $(head -c1 <<<$1) == "-" ]]; do
@@ -233,7 +257,9 @@ up() {
 } 
 export TERM=screen-256color
 export CC=gcc
-export CFLAGS='-Wall -O0 -ggdb3 -pedantic -Wextra -pipe -fstack-protector -Wl,-zrelro -Wl,-z,now -Wformat-security -std=c11'
+export CFLAGS='-Wall -O0 -ggdb3 -pedantic -Wextra -Werror -pipe -fstack-protector -Wl,-zrelro -Wl,-z,now -Wformat-security -std=c11'
+export CXX='g++'
+export CXXFLAGS='-Wall -O0 -ggdb3 -Wextra -pedantic -pipe -std=c++17'
 
 for i in mv cp; do
     which a${i} > /dev/null 2>&1 && alias $i="a${i} -g"

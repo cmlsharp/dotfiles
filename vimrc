@@ -11,12 +11,12 @@ filetype plugin indent on
 set autoread
 
 " With a map leader it's possible to do extra key combinations
-" like <leader>w saves the current file
+" like <Leader>w saves the current file
 let mapleader = ","
 let g:mapleader = ","
 
 " Fast saving
-nmap <leader>w :w!<cr>
+nmap <Leader>w :w!<CR>
 
 " Disable ex mode
 nnoremap Q <nop>
@@ -142,7 +142,7 @@ set undodir=~/.vim/undo//
 " Use spaces instead of tabs
 set expandtab
 
-" Be smart when using tabs ;)
+" Use code context to determine how much to indent
 set smarttab
 
 " 1 tab == 4 spaces
@@ -197,32 +197,35 @@ else
 endif
 
 " Open Exporer
-map <leader>e :Explore<cr>
+map <Leader>e :Explore<CR>
 
 " Close the current buffer
-map <leader>bd :Bclose<cr>
+map <Leader>bd :Bclose<CR>
+nnoremap <Leader>bn :bnext<CR>
+nnoremap <Leader>bp :bprev<CR>
+
 
 " Close all the buffers
-map <leader>ba :1,1000 bd!<cr>
+map <Leader>ba :1,1000 bd!<CR>
 
 " Useful mappings for managing tabs
-map <leader>tn :tabnew<cr>
-map <leader>to :tabonly<cr>
-map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove
+map <Leader>tn :tabnew<CR>
+map <Leader>to :tabonly<CR>
+map <Leader>tc :tabclose<CR>
+map <Leader>tm :tabmove
 
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
-map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+map <Leader>te :tabedit <c-r>=expand("%:p:h")<CR>/
 
 " Switch CWD to the directory of the open buffer
-map <leader>cd :cd %:p:h<cr>:pwd<cr>
+map <Leader>cd :cd %:p:h<CR>:pwd<CR>
 
 " Move a line of text using Ctrl + [jk]
-nmap <C-j> mz:m+<cr>`z
-nmap <C-k> mz:m-2<cr>`z
-vmap <C-j> :m'>+<cr>`<my`>mzgv`yo`z
-vmap <C-k> :m'<-2<cr>`>my`<mzgv`yo`z
+nmap <C-j> mz:m+<CR>`z
+nmap <C-k> mz:m-2<CR>`z
+vmap <C-j> :m'>+<CR>`<my`>mzgv`yo`z
+vmap <C-k> :m'<-2<CR>`>my`<mzgv`yo`z
 
 " Specify the behavior when switching between buffers 
 try
@@ -254,17 +257,13 @@ set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ 
 " => Misc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Remove the Windows ^M - when the encodings gets messed up
-noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+noremap <Leader>m mmHmt:%s/<C-V><CR>//ge<CR>'tzt'm
 
-" Quickly open a buffer for scripbble
-map <leader>q :e ~/buffer<cr>
+" Quickly open a buffer for scribble
+map <Leader>q :e ~/buffer<CR>
 
 " Toggle paste mode on and off
-map <leader>pp :setlocal paste!<cr>
-
-" Useful keybindings for moving between buffers
-nnoremap <Leader>bn :bnext<CR>
-nnoremap <Leader>bp :bprev<CR>
+map <Leader>pp :setlocal paste!<CR>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
@@ -328,7 +327,7 @@ function! <SID>BufcloseCloseIt()
 endfunction
 
 
-" Delete trailing white space on save, useful for Python and CoffeeScript ;)
+" Delete trailing white space on save
 func! DeleteTrailingWS()
   exe "normal mz"
   %s/\s\+$//ge
@@ -341,17 +340,17 @@ endfunc
 set runtimepath+=~/.vim/bundle/neobundle.vim/
 call neobundle#begin(expand('~/.vim/bundle/'))
 
-" General
+"" General
 NeoBundleFetch 'Shougo/neobundle.vim'
-NeoBundle 'Shougo/vimproc.vim', {
-\ 'build' : {
-\     'windows' : 'tools\\update-dll-mingw',
-\     'cygwin' : 'make -f make_cygwin.mak',
-\     'mac' : 'make',
-\     'linux' : 'make',
-\     'unix' : 'gmake',
-\    },
-\ }
+"NeoBundle 'Shougo/vimproc.vim', {
+"\ 'build' : {
+"\     'windows' : 'tools\\update-dll-mingw',
+"\     'cygwin' : 'make -f make_cygwin.mak',
+"\     'mac' : 'make',
+"\     'linux' : 'make',
+"\     'unix' : 'gmake',
+"\    },
+"\ }
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'vim-scripts/Colour-Sampler-Pack'
 NeoBundle 'vim-scripts/bufexplorer.zip'
@@ -360,7 +359,7 @@ NeoBundle 'xolox/vim-misc'
 
 " C/C++
 NeoBundle 'benekastah/neomake'
-NeoBundle 'vim-scripts/Conque-GDB'
+NeoBundleLazy 'vim-scripts/Conque-GDB'
 
 " Python
 NeoBundle 'vim-scripts/pydoc.vim'
@@ -374,10 +373,10 @@ NeoBundle 'eagletmt/ghcmod-vim'
 NeoBundle 'neovimhaskell/haskell-vim'
 
 " LaTeX
-NeoBundle 'xuhdev/vim-latex-live-preview'
+NeoBundleLazy 'xuhdev/vim-latex-live-preview'
 
 " Multilang
-NeoBundle 'Valloric/YouCompleteMe'
+NeoBundleLazy 'Valloric/YouCompleteMe'
 NeoBundle 'scrooloose/syntastic'
 
 call neobundle#end()
@@ -405,15 +404,23 @@ let g:ycm_rust_src_path = $RUST_SRC_PATH
 let g:ycm_global_ycm_extra_conf = "/home/chad/.ycm_extra_conf.py"
 let g:ycm_filetype_whitelist = { '*': 1 }
 let g:ycm_confirm_extra_conf = 0
-
+let g:ycm_python_binary_path = "python"
+let g:ycm_autoclose_preview_window_after_completion=1
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Language Specific
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+augroup TEX
+    au!
+    au FileType latex,tex NeoBundleSource vim-latex-live-preview
+augroup END
+
+
 augroup PYTHON
     au!
-    au FileType python nnoremap <buffer> <leader>2 :w<CR>:exec '!python2' shellescape(@%, 1)<CR>
-    au FileType python nnoremap <buffer> <leader>3 :w<CR>:exec '!python3' shellescape(@%, 1)<CR>
+    au FileType python nnoremap <buffer> <Leader>2 :w<CR>:exec '!python2' shellescape(@%, 1)
+    au FileType python nnoremap <buffer> <Leader>3 :w<CR>:exec '!python3' shellescape(@%, 1)
     au BufWrite *.py :call DeleteTrailingWS()
 
     " Plugins
@@ -437,6 +444,12 @@ augroup END
 
 augroup C_OR_CPP
     au!
-    au FileType c set textwidth=79
-    au FileType cpp set textwidth=79
+    au FileType c,cpp set textwidth=79
+    au FileType c,cpp NeoBundleSource YouCompleteMe
+    au FileType c,cpp nnoremap <Leader>g :NeoBundleSource Conque-GDB
+augroup END
+
+
+augroup MULTILANG
+    au! FileType c,cpp,python,rust,go,js, NeoBundleSource YouCompleteMe
 augroup END
