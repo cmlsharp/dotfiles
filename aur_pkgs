@@ -8,6 +8,7 @@ gstreamer0.10-base-plugins
 gstreamer0.10-ffmpeg
 gstreamer0.10-ugly-plugins
 htop-vim-git
+icdiff
 imagewriter
 ipscan
 latex-enumitem
