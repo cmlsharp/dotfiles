@@ -79,7 +79,6 @@ flashplugin
 flex
 fluidsynth
 gawk
-gcc-multilib
 gcolor2
 gdb
 gdm
@@ -152,18 +151,6 @@ jq
 kcachegrind
 kile
 less
-lib32-alsa-plugins
-lib32-curl
-lib32-dbus-glib
-lib32-gtk2
-lib32-libgudev
-lib32-libnm-glib
-lib32-libpulse
-lib32-libudev0-shim
-lib32-libusb
-lib32-libxtst
-lib32-mesa
-lib32-openal
 libdvdcss
 libisoburn
 libreoffice-fresh
@@ -300,7 +287,6 @@ snapper
 sox
 splix
 sshfs
-steam
 steghide
 strace
 sudo
@@ -339,7 +325,6 @@ w3m
 wget
 which
 whois
-wine
 winetricks
 wireless_tools
 words
