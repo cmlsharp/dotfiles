@@ -41,6 +41,7 @@ cmake
 cmatrix
 colordiff
 coreutils
+cowsay
 cppcheck
 cpupower
 crda
