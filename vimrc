@@ -29,6 +29,12 @@ if &compatible
     set nocompatible
 endif
 
+" Autoread file after external command
+set autoread
+
+" Key sequence timeout
+set ttimeout
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -96,6 +102,9 @@ set tm=500
 " Make splitting the window behave like you'd expect it to
 set splitbelow
 set splitright
+
+" Change terminal title
+set title
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -103,14 +112,14 @@ set splitright
 " Enable syntax highlighting
 syntax enable
 
-set background=dark
+set background=light
 
 " Set extra options when running in GUI mode
 if has("gui_running")
     set go=aAcig
-    set guifont=Inconsolata\ 9 
     nnoremap <expr> ZZ (getline(1) ==# '' && 1 == line('$') ? 'ZZ' : ':w<CR>:bdelete<CR>')
     nnoremap <expr> ZQ (getline(1) ==# '' && 1 == line('$') ? 'ZZ' : ':bdelete<CR>')
+    autocmd GUIEnter * set vb t_vb=
 
 endif
 
@@ -133,7 +142,14 @@ set swapfile
 set undofile
 
 " Make sure these exist
+if empty(glob('~/.vim/swp'))
+    silent !mkdir -p ~/.vim/swp
+endif
 set directory=~/.vim/swp//
+
+if empty(glob('~/.vim/undo'))
+    silent !mkdir -p ~/.vim/swp
+endif
 set undodir=~/.vim/undo//
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -337,6 +353,10 @@ endfunc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugins 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+if empty(glob(expand('~/.vim/bundle')))
+    silent !git clone git@github.com:shougo/neobundle.vim ~/.vim/bundle
+endif
+
 set runtimepath+=~/.vim/bundle/neobundle.vim/
 call neobundle#begin(expand('~/.vim/bundle/'))
 
@@ -375,6 +395,9 @@ NeoBundle 'neovimhaskell/haskell-vim'
 " LaTeX
 NeoBundleLazy 'xuhdev/vim-latex-live-preview'
 
+" Markdown
+NeoBundle 'JamshedVesuna/vim-markdown-preview'
+
 " Multilang
 NeoBundleLazy 'Valloric/YouCompleteMe'
 NeoBundle 'scrooloose/syntastic'
@@ -383,7 +406,7 @@ call neobundle#end()
 filetype plugin indent on
 NeoBundleCheck
 
-nnoremap <F5> :GundoToggle<CR>
+nnoremap <F5> :MundoToggle<CR>
 nnoremap <F2> :BufExplorerVerticalSplit<CR>
 
 try 
@@ -407,6 +430,8 @@ let g:ycm_confirm_extra_conf = 0
 let g:ycm_python_binary_path = "python"
 let g:ycm_autoclose_preview_window_after_completion=1
 
+let vim_markdown_preview_github=1
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Language Specific
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -414,6 +439,8 @@ let g:ycm_autoclose_preview_window_after_completion=1
 augroup TEX
     au!
     au FileType latex,tex NeoBundleSource vim-latex-live-preview
+    au FileType latex,tex set textwidth=100
+    au FileType latex, tex, setlocal spell
 augroup END
 
 
@@ -451,5 +478,5 @@ augroup END
 
 
 augroup MULTILANG
-    au! FileType c,cpp,python,rust,go,js, NeoBundleSource YouCompleteMe
+    au! FileType c,cpp,python,rust,go,js NeoBundleSource YouCompleteMe
 augroup END

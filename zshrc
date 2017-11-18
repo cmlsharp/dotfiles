@@ -29,17 +29,21 @@ vcs_info_wrapper() {
 user=chad
 if [[ -n $DISPLAY ]] && (( EUID == $(id -u $user) )); then
     PROMPT="%(?,Ω,ω) %~/ "
+    if [[ -n "$DESKTOP_SESSION" ]]; then
+        eval $(gnome-keyring-daemon --start)
+        export SSH_AUTH_SOCK
+    fi
 else
     PROMPT="[%B%(?,%F{blue},%F{red})%n%f%b@%m %B%40<..<%~%<< %b] %# "
 fi
 
-RPROMPT="%B%(?..%?)%b"
-#RPROMPT=$'$(vcs_info_wrapper)'
+#RPROMPT="%B%(?..%?)%b"
+RPROMPT=$'$(vcs_info_wrapper)'
 
 
 
 pgrep mpd &>/dev/null || mpd &>/dev/null
-#Make sure tmux is running
+#Make sure mux is running
 [[ -z "$TMUX" ]] && exec tmux
 ##ZSH options
 autoload -U compinit promptinit colors && colors
@@ -57,11 +61,12 @@ bindkey -M vicmd 'j' history-substring-search-down
 HISTFILE=~/.zsh_history
 HISTSIZE=5000
 SAVEHIST=5000
-if [[ -L /bin ]]; then
-    export PATH="$HOME/.cabal/bin:$HOME/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:$HOME/bin:/usr/bin/core_perl:/usr/local/scripts:$HOME/.gem/ruby/2.2.0/bin"
-else
-    export PATH="$HOME/.cabal/bin:$HOME/.cargo/bin:/bin:/sbin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin:$HOME/bin:/usr/bin/core_perl:/usr/local/scripts"
+export PATH="$HOME/.cabal/bin:$HOME/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:$HOME/bin:/usr/bin/core_perl:/usr/local/scripts:$(ruby -rubygems -e "puts Gem.user_dir")/bin:$HOME/.local/bin"
+
+if [[ ! -L /bin ]]; then
+    export PATH="/bin:/sbin:$PATH"
 fi
+
 
 if type nvim &> /dev/null; then
     export EDITOR="nvim"
@@ -70,7 +75,7 @@ elif type vim &> /dev/null; then
 else 
     export EDITOR="vi"
 fi
-which firefox > /dev/null 2>&1 && export BROWSER="firefox"
+type firefox &> /dev/null && export BROWSER="firefox"
 
 
 ##Completion optios
@@ -168,18 +173,15 @@ if type pycodestyle &> /dev/null; then
 fi
 
 rman(){
-  local count=0
-  while true; do 
-      count=$(($count+1))
-      command=$(command ls -1 /usr/bin | sort -R | head -n1); 
-      if [[ "$(man -k "${command}" 2>&1 | awk -F': ' '{print $2}')" != "nothing appropriate." ]] &>/dev/null; then
-          man "$command"
-          break 
-      elif (($count == 5)); then
-          echo "Five failed attempts at finding a suitable command. Aborting."
-          break
-      fi
-  done 
+    for ((i=0 ; i < 5 ; i++)); do 
+        cmd=$(command ls -1 /usr/bin | sort -R | head -n1);
+        if [[ "$(man -k "$cmd" |& awk -F': ' '{print $2}')" != "nothing appropriate." ]] &> /dev/null; then
+            man "$cmd"
+            return 0
+        fi
+    done 
+    >&2 echo "Five failed attempts at finding a suitable command. Aborting."
+    return 1
 }
 gcco(){gcc -o ${1} ${1}.c}
 rev(){ echo "r$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"}
@@ -202,7 +204,6 @@ open(){
 ddp () {
 	sudo dd if="$1" | pv -s $(du "$1" | awk '{print $1}') | sudo dd of="$2"
 }
-type rustup &> /dev/null && export RUST_SRC_PATH="$HOME/.multirust/toolchains/$(rustup toolchain list | grep default | cut -d ' ' -f1)/lib/rustlib/src/rust/src"
 comp(){
     extraflags=""
     while [[ $(head -c1 <<<$1) == "-" ]]; do
@@ -250,20 +251,30 @@ fix-steam() {
 up() {
     local dest=".." 
     local limit=${1:-1} 
+
     for ((i=2 ; i <= limit ; i++)); do 
          dest=$dest/..
     done 
-    cd $dest
+
+    if [[ -t 1 ]]; then
+        cd "$dest"
+    elif type realpath &> /dev/null; then
+        # Resolve path if we can
+        realpath "$dest"
+    else
+        # Print relative if we can't
+        echo "$dest"
+    fi
 } 
 export TERM=screen-256color
 export CC=gcc
-export CFLAGS='-Wall -O0 -ggdb3 -pedantic -Wextra -Werror -pipe -fstack-protector -Wl,-zrelro -Wl,-z,now -Wformat-security -std=c11'
+export CFLAGS='-Wall -O0 -ggdb3 -Wextra -std=gnu11'
 export CXX='g++'
-export CXXFLAGS='-Wall -O0 -ggdb3 -Wextra -pedantic -pipe -std=c++17'
+export CXXFLAGS='-Wall -O0 -ggdb3 -Wextra -std=gnu++1z'
 
 for i in mv cp; do
-    which a${i} > /dev/null 2>&1 && alias $i="a${i} -g"
-done > /dev/null
+    type a${i} && alias $i="a${i} -g"
+done &> /dev/null
 
 command grep '^DISTRIB_ID=' /etc/lsb-release | source /dev/stdin
 distro=$(echo $DISTRIB_ID | awk '{print tolower($0)}')
@@ -366,7 +377,7 @@ alias lrt='ls -1Fcrt'
 alias sl='ls'
 
 alias ga='git add'
-alias gl='git pull'
+alias gpl='git pull'
 alias g='git'
 alias gp='git push'
 alias gc='git commit -v'
@@ -377,7 +388,13 @@ alias gfp='git format-patch'
 alias gch='git checkout'
 alias gb='git branch'
 alias gpom='git push origin master'
-alias glom='git pull origin master'
+alias gplom='git pull origin master'
+alias gl="git log --all --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
+gpr() { 
+    (( $# == 0 )) && target="origin" || target="$1"
+    git config remote.$target.fetch "+refs/pull/*/head:refs/remotes/$target/pr/*" && git fetch --all
+}
+
 
 alias zshrc='$EDITOR ~/.zshrc'
 
@@ -391,10 +408,10 @@ alias -g H='| head'
 alias -g T='| tail'
 alias -g G='| grep --color'
 alias -g L="| less"
-alias -g LL="2>&1 | less"
-alias -g CA="2>&1 | cat -A"
-alias -g NE="2> /dev/null"
-alias -g NUL="> /dev/null 2>&1"
+alias -g LL="|& less"
+alias -g CA="|& cat -A"
+alias -g NE="|& /dev/null"
+alias -g NUL="&> /dev/null"
 alias DATE='$(date "+%Y-%m-%d")'
 alias edit='$EDITOR'
 
@@ -633,3 +650,21 @@ mkaur(){
 for i in ~/.zsh_plugins/*.zsh; do
     source $i
 done
+
+# Make copying commands from the internet easier s.t. `$ ls` executes ls
+function $ { eval "$@" } 
+
+
+export WORKON_HOME=~/.virtualenvs
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
+export VIRTUALENVWRAPPER_VIRTUALENV=~/.local/bin/virtualenv
+source ~/.local/bin/virtualenvwrapper.sh
+
+type rustup &> /dev/null && export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
+
+if [[ -f ~/.config/ranger/rc.conf ]]; then
+    export RANGER_LOAD_DEFAULT_RC=FALSE
+fi
+
+export TEXMFHOME="/urs/local/share/texmf"
+export R_LIBS_USER="~/.local/share/R"
