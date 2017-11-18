@@ -161,9 +161,11 @@ alias info='info --vi-keys'
 alias -g pacupg-dev='~/bin/pacupg/pacupg'
 alias ytau='youtube-dl --extract-audio --audio-format'
 alias perfgraph='perf record --call-graph dwarf -e cycles:u'
+
 nport(){nmap -p $1 --open -sV "$(echo "$(ip route get 8.8.8.8 | awk -F'src ' '!/cache/{print $2}' | tr -d ' ')/$2")"}
-alias tarcheck='ssh mmfab-server -l root jexec 3 tarsnap --list-archives --keyfile /root/tarsnap.key | sort 2>/dev/null || ssh mmfab-server-away -l root jexec 3 tarsnap --list-archives --keyfile /root/tarsnap.key | sort'
+
 alias snapnum='echo $(($(snapper list | wc -l)-3))'
+
 for i in fuck damnit please; do
     alias $i='source ~/.zshrc;fc -ln -1; sudo -E $(fc -ln -1)'
 done
@@ -183,9 +185,9 @@ rman(){
     >&2 echo "Five failed attempts at finding a suitable command. Aborting."
     return 1
 }
-gcco(){gcc -o ${1} ${1}.c}
+
 rev(){ echo "r$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"}
-fj(){firejail -c $@ 2> /dev/null}
+
 open(){
     if (($# > 0)); then 
         for arg in $@; do
@@ -199,48 +201,6 @@ open(){
         echo "At least one argument required"
         return 1
     fi
-}
-
-ddp () {
-	sudo dd if="$1" | pv -s $(du "$1" | awk '{print $1}') | sudo dd of="$2"
-}
-comp(){
-    extraflags=""
-    while [[ $(head -c1 <<<$1) == "-" ]]; do
-        extraflags+=" $1"
-        shift
-    done
-    if [[ ! -f "$1.c" ]]; then
-        echo "File $1.c not found"
-        return 1;
-    fi
-    cmd="$CC $1.c $CFLAGS $extraflags -o $1"
-    echo "$cmd"
-    eval "$cmd"
-}
-
-lib(){
-    if (( $# < 1 || $# > 2 )); then
-        echo "This function takes one or two arguments"
-        return 1
-    fi
-
-    old=$1
-    if (($# == 2)); then
-        new=$2
-    else
-        new=$1
-    fi
-    if [[ ! -f "${old}.c" ]]; then
-        echo "File ${old}.c does not exist"
-        return 2;
-    fi
-    gcc -c -ggdb3 -std=c99 -Wall -Wextra -pedantic -lm "${old}.c" -o "${new}.o" || return 3
-    ar rcs "lib${new}.a" "${new}.o" || return 3
-    rm -f "${new}.o"
-    sudo mv "lib${new}.a" /usr/lib/
-    sudo cp "${old}.h" "/usr/include/${new}.h"
-    return 0;
 }
 
 fix-steam() {
