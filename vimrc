@@ -112,11 +112,11 @@ set title
 " Enable syntax highlighting
 syntax enable
 
-set background=light
+set background=dark
 
 " Set extra options when running in GUI mode
 if has("gui_running")
-    set go=aAcig
+    "set go=aAcig
     nnoremap <expr> ZZ (getline(1) ==# '' && 1 == line('$') ? 'ZZ' : ':w<CR>:bdelete<CR>')
     nnoremap <expr> ZQ (getline(1) ==# '' && 1 == line('$') ? 'ZZ' : ':bdelete<CR>')
     autocmd GUIEnter * set vb t_vb=
@@ -362,15 +362,15 @@ call neobundle#begin(expand('~/.vim/bundle/'))
 
 "" General
 NeoBundleFetch 'Shougo/neobundle.vim'
-"NeoBundle 'Shougo/vimproc.vim', {
-"\ 'build' : {
-"\     'windows' : 'tools\\update-dll-mingw',
-"\     'cygwin' : 'make -f make_cygwin.mak',
-"\     'mac' : 'make',
-"\     'linux' : 'make',
-"\     'unix' : 'gmake',
-"\    },
-"\ }
+NeoBundle 'Shougo/vimproc.vim', {
+\ 'build' : {
+\     'windows' : 'tools\\update-dll-mingw',
+\     'cygwin' : 'make -f make_cygwin.mak',
+\     'mac' : 'make',
+\     'linux' : 'make',
+\     'unix' : 'gmake',
+\    },
+\ }
 NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'vim-scripts/Colour-Sampler-Pack'
 NeoBundle 'vim-scripts/bufexplorer.zip'
@@ -401,6 +401,9 @@ NeoBundle 'JamshedVesuna/vim-markdown-preview'
 " Multilang
 NeoBundleLazy 'Valloric/YouCompleteMe'
 NeoBundle 'scrooloose/syntastic'
+
+" Coffeescript
+NeoBundle 'kchmck/vim-coffee-script'
 
 call neobundle#end()
 filetype plugin indent on
@@ -440,7 +443,7 @@ augroup TEX
     au!
     au FileType latex,tex NeoBundleSource vim-latex-live-preview
     au FileType latex,tex set textwidth=100
-    au FileType latex, tex, setlocal spell
+    au FileType latex,tex set spell
 augroup END
 
 
@@ -466,7 +469,9 @@ augroup END
 
 augroup HASKELL
     au!
+    au FileType haskell set shiftwidth=2
     au FileType haskell set sts=2
+    au FileType haskell set ts=2
 augroup END
 
 augroup C_OR_CPP

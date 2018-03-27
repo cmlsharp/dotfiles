@@ -6,6 +6,8 @@ antergos-gsettings
 antergos-keyring
 antergos-mirrorlist
 antergos-wallpapers
+antlr4
+asciidoc
 asciidoctor
 aspell-en
 astyle
@@ -32,6 +34,7 @@ clang
 cmake
 cmatrix
 coreutils
+cpulimit
 crda
 cryptsetup
 cups
@@ -70,6 +73,7 @@ gdm
 gedit
 gettext
 ghc
+ghc-static
 git
 glibc
 gnome-backgrounds
@@ -104,6 +108,7 @@ grep
 groff
 grub
 grub2-theme-antergos
+grunt-cli
 gsfonts
 gst-libav
 gst-plugins-bad
@@ -131,6 +136,7 @@ ipw2200-fw
 irssi
 jfsutils
 jq
+jre8-openjdk
 less
 lib32-libldap
 lib32-mesa
@@ -138,7 +144,6 @@ libdvdcss
 libgnome-keyring
 libreoffice-fresh
 libtool
-libtxc_dxtn
 libva-intel-driver
 licenses
 light-locker
@@ -161,6 +166,7 @@ modemmanager
 mpv
 nano
 nautilus
+ncdu
 neovim
 net-tools
 netctl
@@ -172,10 +178,12 @@ nfs-utils
 nilfs-utils
 nmap
 npm
+nss-mdns
 ntfs-3g
 numix-frost-themes
 numix-icon-theme
 numix-icon-theme-square
+octave
 openconnect
 openssh
 orca
@@ -187,6 +195,7 @@ patch
 pavucontrol
 pciutils
 pcmciautils
+peek
 perf
 perl
 pkg-config
@@ -198,6 +207,7 @@ psmisc
 pulseaudio
 pulseaudio-alsa
 pulseaudio-bluetooth
+pygmentize
 python-argparse
 python-flask
 python-gobject
@@ -229,7 +239,6 @@ sed
 shadow
 snapper
 splix
-srm
 steam
 steam-native-runtime
 sudo

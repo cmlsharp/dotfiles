@@ -61,7 +61,7 @@ bindkey -M vicmd 'j' history-substring-search-down
 HISTFILE=~/.zsh_history
 HISTSIZE=5000
 SAVEHIST=5000
-export PATH="$HOME/.cabal/bin:$HOME/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:$HOME/bin:/usr/bin/core_perl:/usr/local/scripts:$(ruby -rubygems -e "puts Gem.user_dir")/bin:$HOME/.local/bin"
+export PATH="$HOME/.cabal/bin:$HOME/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:$HOME/bin:/usr/bin/core_perl:/usr/local/scripts:$HOME/.local/bin"
 
 if [[ ! -L /bin ]]; then
     export PATH="/bin:/sbin:$PATH"
@@ -95,7 +95,10 @@ zstyle ':completion:*:history-words'   menu yes
 zstyle ':completion:*:history-words'   remove-all-dups yes
 zstyle ':completion:*:history-words'   stop yes
 # match uppercase from lowercase
-zstyle ':completion:*'                 matcher-list 'm:{a-z}={A-Z}'
+zstyle ':completion:*'                  matcher-list '' \
+                                        'm:{a-z\-}={A-Z\_}' \
+                                        'r:[^[:alpha:]]||[[:alpha:]]=** r:|=* m:{a-z\-}={A-Z\_}' \
+                                        'r:|?=** m:{a-z\-}={A-Z\_}'
 zstyle ':completion:*:matches'         group 'yes'
 zstyle ':completion:*'                 group-name ''
 zstyle ':completion:*:messages'        format '%d'
