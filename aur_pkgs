@@ -25,6 +25,7 @@ texlive-local-pict2e
 texlive-local-qtree
 texlive-local-siunitx
 texlive-localmanager-git
+tmux-mem-cpu-load-git
 trizen
 ttf-emojione-color
 ttf-inconsolata-g
