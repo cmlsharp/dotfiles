@@ -394,6 +394,7 @@ NeoBundle 'neovimhaskell/haskell-vim'
 
 " LaTeX
 NeoBundleLazy 'xuhdev/vim-latex-live-preview'
+NeoBundleLazy 'lervag/vimtex'
 
 " Markdown
 NeoBundle 'JamshedVesuna/vim-markdown-preview'
@@ -441,7 +442,8 @@ let vim_markdown_preview_github=1
 
 augroup TEX
     au!
-    au FileType latex,tex NeoBundleSource vim-latex-live-preview
+    "au FileType latex,tex NeoBundleSource vim-latex-live-preview
+    au FileType latex,tex NeoBundleSource vimtex
     au FileType latex,tex set textwidth=100
     au FileType latex,tex set spell
 augroup END
@@ -485,3 +487,4 @@ augroup END
 augroup MULTILANG
     au! FileType c,cpp,python,rust,go,js NeoBundleSource YouCompleteMe
 augroup END
+

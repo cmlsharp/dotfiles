@@ -249,10 +249,10 @@ case "$distro" in
         pacre(){sudo pacman -R $@; pkgdump}
         pacrem(){sudo pacman -Rns $@; pkgdump}
         pacremc(){sudo pacman -Rnsc $@; pkgdump}
-        aurin(){pacaur -S $@;  pkgdump}
-        aurre(){pacaur -R $@; pkgdump}
-        aurrem(){pacaur -Rns $@; pkgdump}
-        aurremc(){pacaur -Rnsc $@; pkgdump}
+        aurin(){trizen -S $@;  pkgdump}
+        aurre(){trizen -R $@; pkgdump}
+        aurrem(){trizen -Rns $@; pkgdump}
+        aurremc(){trizen -Rnsc $@; pkgdump}
         
         alias pacdown='sudo pacman -Sw'
         alias pacupd="sudo pacman -Sy && sudo abs"
@@ -274,18 +274,18 @@ case "$distro" in
         alias pacfile='pacman -Ql'
         
         alias yaconf='yaourt -C'
-        alias aursu='pacaur -Syu --noconfirm'
-        alias aurrep='pacaur -Si'
-        alias aurreps='pacaur -Ss'
-        alias aurloc='pacaur -Qi'
-        alias aurlocs='pacaur -Qs'
-        alias aurlst='pacaur -Qe'
-        alias aurorph='pacaur -Qtd'
+        alias aursu='trizen -Syu --noconfirm'
+        alias aurrep='trizen -Si'
+        alias aurreps='trizen -Ss'
+        alias aurloc='trizen -Qi'
+        alias aurlocs='trizen -Qs'
+        alias aurlst='trizen -Qe'
+        alias aurorph='trizen -Qtd'
         alias aurupga='pacupg -a && sudo abs'
-        alias aurmir='pacaur -Syy'
-        alias aurmake='pacaur -Sw'
-        alias aurcheck='pacaur -k'
-        alias aurclean='pacaur -cc'
+        alias aurmir='trizen -Syy'
+        alias aurmake='trizen -Sw'
+        alias aurcheck='trizen -k'
+        alias aurclean='trizen -cc'
         export ABSROOT="/home/chad/.abs"
         ;;
     gentoo)

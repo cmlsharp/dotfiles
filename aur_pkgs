@@ -1,6 +1,5 @@
 chrome-gnome-shell-git
 frotz
-git-lfs
 google-chrome
 jdk8
 libtinfo
@@ -13,15 +12,20 @@ powder-toy
 python-grip
 python-jedihttp-git
 python34
+skypeforlinux-stable-bin
 slack-desktop
 srm
 stack-static
 texlive-local-algorithmicx
 texlive-local-algorithms
+texlive-local-commath
 texlive-local-complexity
+texlive-local-pgfplots
 texlive-local-pict2e
 texlive-local-qtree
+texlive-local-siunitx
 texlive-localmanager-git
+trizen
 ttf-emojione-color
 ttf-inconsolata-g
 ttf-mac-fonts
