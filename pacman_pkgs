@@ -211,6 +211,7 @@ pulseaudio
 pulseaudio-alsa
 pulseaudio-bluetooth
 pygmentize
+pypy3
 python-argparse
 python-flask
 python-gobject
