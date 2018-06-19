@@ -8,6 +8,7 @@ libtxc_dxtn
 masterpdfeditor
 ncurses5-compat-libs
 pacupg
+pkg-config
 popcorntime-bin
 powder-toy
 python-grip
