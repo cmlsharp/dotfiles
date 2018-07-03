@@ -8,6 +8,7 @@ libtxc_dxtn
 masterpdfeditor
 ncurses5-compat-libs
 pacupg
+pcmciautils
 pkg-config
 popcorntime-bin
 powder-toy
@@ -34,3 +35,4 @@ ttf-inconsolata-g
 ttf-mac-fonts
 ttf-monaco
 ttf-ms-fonts
+zd1211-firmware

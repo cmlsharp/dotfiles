@@ -155,6 +155,7 @@ lightdm-webkit2-greeter
 linux
 logrotate
 lsb-release
+lsof
 lvm2
 m4
 make
@@ -196,7 +197,6 @@ pacman
 patch
 pavucontrol
 pciutils
-pcmciautils
 peek
 perf
 perl
@@ -334,5 +334,4 @@ xorg-xwud
 xscreensaver
 xsel
 yaourt
-zd1211-firmware
 zsh
