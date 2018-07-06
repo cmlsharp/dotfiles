@@ -131,6 +131,7 @@ hplip
 htop
 hunspell-en
 inetutils
+inotify-tools
 intel-ucode
 iproute2
 iputils
