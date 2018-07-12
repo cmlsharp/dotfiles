@@ -220,7 +220,6 @@ python-gobject
 python-jedi
 python-neovim
 python-pexpect
-python-pip
 python-pyqt5
 python-pysmbc
 python2-gnomekeyring
