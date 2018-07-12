@@ -203,6 +203,7 @@ peek
 perf
 perl
 perl-http-server-simple
+pkgconf
 pkgfile
 playonlinux
 polari
