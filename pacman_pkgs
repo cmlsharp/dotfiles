@@ -46,6 +46,7 @@ dialog
 diffutils
 dmraid
 docker
+docker-compose
 dos2unix
 dosfstools
 doxygen
