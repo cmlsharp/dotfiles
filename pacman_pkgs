@@ -215,6 +215,7 @@ psmisc
 pulseaudio
 pulseaudio-alsa
 pulseaudio-bluetooth
+pv
 pygmentize
 pypy
 pypy3
