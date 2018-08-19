@@ -157,6 +157,7 @@ light-locker-settings
 lightdm
 lightdm-webkit2-greeter
 linux
+llvm
 logrotate
 lsb-release
 lsof
