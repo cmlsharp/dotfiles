@@ -167,6 +167,7 @@ make
 man-db
 man-pages
 mdadm
+memcached
 mesa
 mesa-vdpau
 mlocate
@@ -184,6 +185,7 @@ networkmanager
 networkmanager-openvpn
 networkmanager-pptp
 nfs-utils
+nginx
 nilfs-utils
 nmap
 npm
@@ -210,6 +212,7 @@ pkgconf
 pkgfile
 playonlinux
 polari
+postgresql
 procps-ng
 psmisc
 pulseaudio
@@ -239,6 +242,7 @@ qt5-styleplugins
 qt5-webkit
 qt5ct
 r
+rabbitmq
 ranger
 reflector
 reiserfsprogs
