@@ -23,6 +23,7 @@ binutils
 bison
 bluez
 bluez-utils
+boost
 brasero
 btrfs-progs
 bzip2
