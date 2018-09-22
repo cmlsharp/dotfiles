@@ -299,6 +299,7 @@ wget
 which
 whois
 wireless_tools
+wkhtmltopdf
 words
 wpa_actiond
 xdg-user-dirs-gtk
