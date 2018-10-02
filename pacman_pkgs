@@ -209,6 +209,7 @@ pciutils
 peek
 perf
 perl
+perl-file-mimeinfo
 perl-http-server-simple
 pkgconf
 pkgfile
