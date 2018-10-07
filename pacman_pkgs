@@ -211,6 +211,7 @@ perf
 perl
 perl-file-mimeinfo
 perl-http-server-simple
+php
 pkgconf
 pkgfile
 playonlinux
