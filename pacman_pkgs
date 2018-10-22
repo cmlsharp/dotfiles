@@ -271,6 +271,7 @@ sysfsutils
 system-config-printer
 systemd-sysvcompat
 tar
+tcpdump
 terminus-font
 texinfo
 texlive-bin
