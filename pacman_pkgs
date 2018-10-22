@@ -80,6 +80,7 @@ ghc
 ghc-static
 git
 git-lfs
+gksu
 glibc
 gnome-backgrounds
 gnome-bluetooth
