@@ -303,6 +303,7 @@ wget
 which
 whois
 wireless_tools
+wireshark-gtk
 wkhtmltopdf
 words
 wpa_actiond
