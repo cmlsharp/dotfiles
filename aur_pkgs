@@ -9,6 +9,7 @@ libtxc_dxtn
 masterpdfeditor
 ncurses5-compat-libs
 pacupg
+pandoc-include-code
 pcmciautils
 popcorntime-bin
 powder-toy
