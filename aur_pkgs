@@ -30,6 +30,7 @@ texlive-local-qtree
 texlive-local-siunitx
 texlive-localmanager-git
 tmux-mem-cpu-load-git
+tor-browser
 trizen
 ttf-emojione-color
 ttf-inconsolata-g
