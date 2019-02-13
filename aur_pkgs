@@ -27,6 +27,7 @@ srm
 stack-static
 texlive-local-algorithmicx
 texlive-local-algorithms
+texlive-local-circuitikz
 texlive-local-commath
 texlive-local-complexity
 texlive-local-pgfplots
