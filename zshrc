@@ -16,7 +16,7 @@ zstyle ':vcs_info:*' formats       \
     '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{5}]%f '
 zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b%F{1}:%F{3}%r'
 
-zstyle ':vcs_info:*' enable git cvs svn
+#zstyle ':vcs_info:*' enable git cvs svn
 
 vcs_info_wrapper() {
   vcs_info
@@ -50,7 +50,7 @@ autoload -U compinit promptinit colors && colors
 setopt completealiases auto_cd append_history share_history histignorealldups histignorespace extended_glob longlistjobs nonomatch notify hash_list_all completeinword nohup auto_pushd pushd_ignore_dups nobeep noglobdots noshwordsplit nohashdirs inc_append_history prompt_subst
 promptinit
 compinit -i
-REPORTTIME=5
+export REPORTTIME=5 TIMEFMT="%J  %U user %S system %P cpu %*E total  %MMb mem"
 watch=(notme root)
 bindkey -v
 bindkey -M viins 'jk' vi-cmd-mode
@@ -189,13 +189,13 @@ rman(){
     return 1
 }
 
-rev(){ echo "r$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"}
+#rev(){ echo "r$(git rev-list --count HEAD).$(git rev-parse --short HEAD)"}
 
 open(){
     if (($# > 0)); then 
         for arg in $@; do
             if [[ -e "$arg" ]]; then
-                gvfs-open "$arg" &> /dev/null
+                xdg-open "$arg" &> /dev/null
             else
                 echo "Argument '$arg' does not exist"
             fi
@@ -233,7 +233,7 @@ export TERM=screen-256color
 export CC=gcc
 export CFLAGS='-Wall -O0 -ggdb3 -Wextra -std=gnu11'
 export CXX='g++'
-export CXXFLAGS='-Wall -O0 -ggdb3 -Wextra -std=gnu++1z'
+export CXXFLAGS='-Wall -O0 -ggdb3 -Wextra -std=gnu++17'
 
 for i in mv cp; do
     type a${i} && alias $i="a${i} -g"
@@ -243,7 +243,7 @@ command grep '^DISTRIB_ID=' /etc/lsb-release | source /dev/stdin
 distro=$(echo $DISTRIB_ID | awk '{print tolower($0)}')
 unset DISTRIB_ID
 case "$distro" in 
-    arch) 
+    arch|antergos) 
         pacin(){sudo pacman -S $@; pkgdump}
         pacins(){sudo pacman -U $@; pkgdump}
         pacre(){sudo pacman -R $@; pkgdump}
@@ -366,6 +366,7 @@ alias grep='grep --color'
 alias sgrep='grep -R -n -H -C 5 --exclude-dir={.git,.svn,CVS} '
 
 alias t='tail -f'
+alias less='less -R'
 
 alias -g H='| head'
 alias -g T='| tail'

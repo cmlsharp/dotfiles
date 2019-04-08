@@ -399,9 +399,9 @@ NeoBundleLazy 'lervag/vimtex'
 " Markdown
 NeoBundle 'JamshedVesuna/vim-markdown-preview'
 
-" Multilang
+"" Multilang
 NeoBundleLazy 'Valloric/YouCompleteMe'
-NeoBundle 'scrooloose/syntastic'
+"NeoBundle 'scrooloose/syntastic'
 
 " Coffeescript
 NeoBundle 'kchmck/vim-coffee-script'
@@ -442,10 +442,15 @@ let vim_markdown_preview_github=1
 
 augroup TEX
     au!
-    "au FileType latex,tex NeoBundleSource vim-latex-live-preview
+    au FileType latex,tex NeoBundleSource vim-latex-live-preview
     au FileType latex,tex NeoBundleSource vimtex
-    au FileType latex,tex set textwidth=100
+    au FileType latex,tex set textwidth=90
     au FileType latex,tex set spell
+augroup END
+
+augroup MD
+    au FileType md, markdown set textwidth=90
+    au FileType md, markdown set spell
 augroup END
 
 
@@ -469,22 +474,29 @@ augroup MAIL
     au FileType mail set noautoindent
 augroup END
 
-augroup HASKELL
+augroup YAML
     au!
-    au FileType haskell set shiftwidth=2
-    au FileType haskell set sts=2
-    au FileType haskell set ts=2
+    au FileType yaml set shiftwidth=2
+    au FileType yaml set sts=2
+    au FileType yaml set ts=2
+augroup END
+
+augroup FUNCTIONAL
+    au!
+    au FileType haskell,scheme set shiftwidth=2
+    au FileType haskell,scheme set sts=2
+    au FileType haskell,scheme set ts=2
 augroup END
 
 augroup C_OR_CPP
     au!
     au FileType c,cpp set textwidth=79
-    au FileType c,cpp NeoBundleSource YouCompleteMe
+    "au FileType c,cpp NeoBundleSource YouCompleteMe
     au FileType c,cpp nnoremap <Leader>g :NeoBundleSource Conque-GDB
 augroup END
 
 
-augroup MULTILANG
-    au! FileType c,cpp,python,rust,go,js NeoBundleSource YouCompleteMe
-augroup END
+"augroup MULTILANG
+    "au! FileType c,cpp,python,rust,go,js NeoBundleSource YouCompleteMe
+"augroup END
 
