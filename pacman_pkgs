@@ -54,6 +54,7 @@ dosfstools
 doxygen
 e2fsprogs
 efibootmgr
+elinks
 emscripten
 eog
 evince
@@ -233,6 +234,7 @@ pulseaudio
 pulseaudio-alsa
 pulseaudio-bluetooth
 pv
+pyenv
 pygmentize
 pypy
 pypy3
@@ -249,7 +251,6 @@ python2-gnomekeyring
 python2-jedi
 python2-pip
 qalculate-gtk
-qt4
 qt5-styleplugins
 qt5-webkit
 qt5ct
