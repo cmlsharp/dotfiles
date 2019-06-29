@@ -3,10 +3,6 @@ acpid
 adobe-source-code-pro-fonts
 aircrack-ng
 alsa-utils
-antergos-gnome-defaults-list
-antergos-keyring
-antergos-mirrorlist
-antergos-wallpapers
 antlr4
 asciidoc
 asciidoctor
@@ -82,7 +78,6 @@ ghc
 ghc-static
 git
 git-lfs
-gksu
 glibc
 gnome-backgrounds
 gnome-bluetooth
@@ -101,8 +96,6 @@ gnome-photos
 gnome-power-manager
 gnome-screenshot
 gnome-shell
-gnome-shell-extension-dash-to-dock
-gnome-shell-extension-status-menu-buttons
 gnome-shell-extensions
 gnome-sound-recorder
 gnome-system-monitor
@@ -117,7 +110,6 @@ graphviz
 grep
 groff
 grub
-grub2-theme-antergos
 grunt-cli
 gscan2pdf
 gsfonts
@@ -162,7 +154,6 @@ libtool
 libva-intel-driver
 licenses
 light-locker
-light-locker-settings
 lightdm
 lightdm-webkit2-greeter
 linux
@@ -200,9 +191,6 @@ nmap
 npm
 nss-mdns
 ntfs-3g
-numix-frost-themes
-numix-icon-theme
-numix-icon-theme-square
 octave
 openconnect
 openshot
@@ -297,7 +285,6 @@ transmission-gtk
 tree
 ttf-bitstream-vera
 ttf-dejavu
-ttf-google-fonts-typewolf
 ttf-liberation
 ttf-ubuntu-font-family
 unrar
