@@ -632,3 +632,5 @@ fi
 
 export TEXMFHOME="/urs/local/share/texmf"
 export R_LIBS_USER="~/.local/share/R"
+
+emulate sh -c 'source /etc/profile.d/snapd.sh'

@@ -148,7 +148,7 @@ endif
 set directory=~/.vim/swp//
 
 if empty(glob('~/.vim/undo'))
-    silent !mkdir -p ~/.vim/swp
+    silent !mkdir -p ~/.vim/undo
 endif
 set undodir=~/.vim/undo//
 
