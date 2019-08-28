@@ -49,6 +49,7 @@ docker-compose
 dos2unix
 dosfstools
 doxygen
+dropbear
 e2fsprogs
 efibootmgr
 elinks
