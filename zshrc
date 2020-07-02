@@ -44,7 +44,7 @@ RPROMPT=$'$(vcs_info_wrapper)'
 
 pgrep mpd &>/dev/null || mpd &>/dev/null
 #Make sure mux is running
-[[ -z "$TMUX" ]] && exec tmux
+[[ $commands[tmux] ]] && [[ -z "$TMUX" ]] && exec tmux
 ##ZSH options
 autoload -U compinit promptinit colors && colors
 setopt completealiases auto_cd append_history share_history histignorealldups histignorespace extended_glob longlistjobs nonomatch notify hash_list_all completeinword nohup auto_pushd pushd_ignore_dups nobeep noglobdots noshwordsplit nohashdirs inc_append_history prompt_subst
@@ -61,7 +61,7 @@ bindkey -M vicmd 'j' history-substring-search-down
 HISTFILE=~/.zsh_history
 HISTSIZE=5000
 SAVEHIST=5000
-export PATH="$HOME/.cabal/bin:$HOME/.cargo/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:$HOME/bin:/usr/bin/core_perl:/usr/local/scripts:$HOME/.local/bin"
+export PATH="$HOME/.cabal/bin:$HOME/.cargo/bin:$HOME/.gem/ruby/2.7.0/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:$HOME/bin:/usr/bin/core_perl:/usr/local/scripts:$HOME/.local/bin"
 
 if [[ ! -L /bin ]]; then
     export PATH="/bin:/sbin:$PATH"
@@ -70,12 +70,20 @@ fi
 
 if type nvim &> /dev/null; then
     export EDITOR="nvim"
+    alias vim=nvim
+    alias vi=nvim
 elif type vim &> /dev/null; then
     export EDITOR="vim"
+    alias vi=vim
 else 
     export EDITOR="vi"
+    alias vim=vi
 fi
+
+[[ $commands[neomutt] ]] && alias mutt=neomutt
+
 type firefox &> /dev/null && export BROWSER="firefox"
+type firefox-developer-edition &> /dev/null && export BROWSER="firefox-developer-edition"
 
 
 ##Completion optios
@@ -144,7 +152,6 @@ alias vimrc='vim /home/chad/.vimrc'
 alias chkupd='checkupdates'
 alias m="mpd ~/.config/mpd/mpd.conf"
 alias n="ncmpcpp"
-alias vim="nvim"
 alias snp='sudo snp'
 alias mstat='dstat -tcmnd --top-cpu --top-mem'
 alias nfs='mount ~/Cloud/nfs'
@@ -339,6 +346,8 @@ alias lart='ls -1FcArt'
 alias lrt='ls -1Fcrt'
 alias sl='ls'
 
+
+type hub &> /dev/null && alias git=hub
 alias ga='git add'
 alias gpl='git pull'
 alias g='git'
@@ -630,7 +639,11 @@ if [[ -f ~/.config/ranger/rc.conf ]]; then
     export RANGER_LOAD_DEFAULT_RC=FALSE
 fi
 
+[[ $commands[kubectl] ]] && source <(kubectl completion zsh)
+
 export TEXMFHOME="/urs/local/share/texmf"
 export R_LIBS_USER="~/.local/share/R"
 
 emulate sh -c 'source /etc/profile.d/snapd.sh'
+
+log50() { kubectl -nchecks logs -ljob-name="$1" }

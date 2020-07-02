@@ -12,10 +12,7 @@ set autoread
 
 " With a map leader it's possible to do extra key combinations
 " like <Leader>w saves the current file
-let mapleader = ","
-let g:mapleader = ","
-
-" Fast saving
+let mapleader = "," let g:mapleader = "," Fast saving
 nmap <Leader>w :w!<CR>
 
 " Disable ex mode
@@ -393,7 +390,7 @@ NeoBundle 'eagletmt/ghcmod-vim'
 NeoBundle 'neovimhaskell/haskell-vim'
 
 " LaTeX
-NeoBundleLazy 'xuhdev/vim-latex-live-preview'
+NeoBundleLazy 'donRaphaco/neotex'
 NeoBundleLazy 'lervag/vimtex'
 
 " Markdown
@@ -419,7 +416,8 @@ catch
     colo slate
 endtry
 
-let g:livepreview_previewer = 'evince'
+"let g:livepreview_previewer = 'evince'
+"
 
 let g:ConqueTerm_Color = 2
 let g:ConqueTerm_CloseOnEnd = 1

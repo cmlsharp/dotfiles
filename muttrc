@@ -22,13 +22,12 @@ bind index _ collapse-all
 ## Sidebar -- IMPORTANT:  REQUIRES mutt-sidebar patch
 set sidebar_visible = yes
 set sidebar_width=38
-set sidebar_sort = yes
+#set sidebar_sort = yes
 macro index B '<enter-command>toggle sidebar_visible<enter><refresh>'
 macro pager B '<enter-command>toggle sidebar_visible<enter><redraw-screen>'
 bind index K sidebar-prev
 bind index J sidebar-next
 bind index L sidebar-open
-toggle sidebar_visible # Sidebar invisible by default
 # Keybindings
 bind editor <Tab> complete-query
 bind pager K  previous-line
@@ -53,11 +52,11 @@ macro pager M v/text/html<Enter>mq "Open html with mailcap"
 # PGP options
 source "gpg2 -dq $HOME/.mypw.gpg |" #Decrypt encrypted password variables
 set pgp_use_gpg_agent = yes
-set pgp_sign_as = "0x0E317A6140804CCD"
-set pgp_timeout = 3600
-set crypt_autosign = yes
-set crypt_replyencrypt = yes
-set pgp_auto_decode = yes
+#set pgp_sign_as = "0x0E317A6140804CCD"
+#set pgp_timeout = 3600
+#set crypt_autosign = yes
+#set crypt_replyencrypt = yes
+#set pgp_auto_decode = yes
 source /etc/Muttrc.gpg.dist
 # Default color definitions
 color normal     white         default
@@ -115,21 +114,24 @@ color body brightblue  default "(^|[[:space:][:punct:]])/[^/]+/([[:space:][:punc
 # Border lines.
 color body blue default "( *[-+=#*~_]){6,}"
 
+macro index A \
+    "<tag-pattern>~N<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" \
+    "mark all new as read"
 
 ### Accounts
 
 ### Cub Gmail
 
-### Riseup email
-source "~/.mutt/riseup"
-folder-hook $folder 'source ~/.mutt/riseup'
+#### Riseup email
+#source "~/.mutt/riseup"
+#folder-hook $folder 'source ~/.mutt/riseup'
 
-#source "~/.mutt/gmail1"
-#folder-hook $folder 'source ~/.mutt/gmail1'
+source "~/.mutt/gmail1"
+folder-hook $folder 'source ~/.mutt/gmail1'
 
 
-#source "~/.mutt/gmail2"
-#folder-hook $folder 'source ~/.mutt/gmail2'
+source "~/.mutt/gmail2"
+folder-hook $folder 'source ~/.mutt/gmail2'
 
-#source "~/.mutt/michigan"
-#folder-hook $folder 'source ~/.mutt/michigan'
+source "~/.mutt/michigan"
+folder-hook $folder 'source ~/.mutt/michigan'
