@@ -244,6 +244,7 @@ python-pylint
 python-pynvim
 python-pyqt5
 python-pysmbc
+python-rope
 python-virtualenvwrapper
 python2-pip
 qalculate-gtk
