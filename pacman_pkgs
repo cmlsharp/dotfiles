@@ -240,16 +240,15 @@ python-gobject
 python-jedi
 python-pexpect
 python-pip
+python-pylint
 python-pynvim
 python-pyqt5
 python-pysmbc
 python-virtualenvwrapper
 python2-pip
 qalculate-gtk
-qt5-styleplugins
 qt5-webkit
 qt5ct
-qtspim
 r
 rabbitmq
 racket
