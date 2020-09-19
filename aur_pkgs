@@ -1,9 +1,4 @@
 anaconda
-antergos-gnome-defaults-list
-antergos-gsettings
-antergos-keyring
-antergos-mirrorlist
-antergos-wallpapers
 anyconnect-client
 chrome-gnome-shell-git
 chrome-remote-desktop
@@ -14,7 +9,6 @@ ganttproject
 gksu
 gnome-shell-extension-status-menu-buttons
 google-chrome
-grub2-theme-antergos
 haskell-ide-engine-git
 jdk8
 kazam
