@@ -12,7 +12,9 @@ set autoread
 
 " With a map leader it's possible to do extra key combinations
 " like <Leader>w saves the current file
-let mapleader = "," let g:mapleader = "," Fast saving
+let mapleader = ","
+let g:mapleader = "," 
+"Fast saving
 nmap <Leader>w :w!<CR>
 
 " Disable ex mode
