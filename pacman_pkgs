@@ -168,6 +168,7 @@ llvm
 logrotate
 lsb-release
 lsof
+luit
 lvm2
 m4
 make
@@ -267,6 +268,7 @@ sdl2_gfx
 seahorse
 sed
 shadow
+signal-desktop
 simple-scan
 simplescreenrecorder
 snapper
@@ -326,7 +328,6 @@ xorg-bdftopcf
 xorg-font-util
 xorg-fonts-encodings
 xorg-iceauth
-xorg-luit
 xorg-mkfontscale
 xorg-server
 xorg-sessreg
