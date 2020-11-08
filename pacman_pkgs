@@ -12,6 +12,7 @@ atom
 autoconf
 automake
 b43-fwcutter
+bamf
 baobab
 bash
 bash-completion
