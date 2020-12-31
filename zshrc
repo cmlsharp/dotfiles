@@ -254,10 +254,10 @@ case "$distro" in
         pacre(){sudo pacman -R $@; pkgdump}
         pacrem(){sudo pacman -Rns $@; pkgdump}
         pacremc(){sudo pacman -Rnsc $@; pkgdump}
-        aurin(){trizen -S $@;  pkgdump}
-        aurre(){trizen -R $@; pkgdump}
-        aurrem(){trizen -Rns $@; pkgdump}
-        aurremc(){trizen -Rnsc $@; pkgdump}
+        aurin(){pikaur -S $@;  pkgdump}
+        aurre(){pikaur -R $@; pkgdump}
+        aurrem(){pikaur -Rns $@; pkgdump}
+        aurremc(){pikaur -Rnsc $@; pkgdump}
         
         alias pacdown='sudo pacman -Sw'
         alias pacupd="sudo pacman -Sy && sudo abs"
@@ -280,18 +280,18 @@ case "$distro" in
         alias pacfile='pacman -Ql'
         
         alias yaconf='yaourt -C'
-        alias aursu='trizen -Syu --noconfirm'
-        alias aurrep='trizen -Si'
-        alias aurreps='trizen -Ss'
-        alias aurloc='trizen -Qi'
-        alias aurlocs='trizen -Qs'
-        alias aurlst='trizen -Qe'
-        alias aurorph='trizen -Qtd'
+        alias aursu='pikaur -Syu --noconfirm'
+        alias aurrep='pikaur -Si'
+        alias aurreps='pikaur -Ss'
+        alias aurloc='pikaur -Qi'
+        alias aurlocs='pikaur -Qs'
+        alias aurlst='pikaur -Qe'
+        alias aurorph='pikaur -Qtd'
         alias aurupga='pacupg -a && sudo abs'
-        alias aurmir='trizen -Syy'
-        alias aurmake='trizen -Sw'
-        alias aurcheck='trizen -k'
-        alias aurclean='trizen -cc'
+        alias aurmir='pikaur -Syy'
+        alias aurmake='pikaur -Sw'
+        alias aurcheck='pikaur -k'
+        alias aurclean='pikaur -cc'
         export ABSROOT="/home/chad/.abs"
         ;;
     gentoo)
@@ -617,11 +617,6 @@ done
 function $ { eval "$@" } 
 
 
-export WORKON_HOME=~/.virtualenvs
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
-export VIRTUALENVWRAPPER_VIRTUALENV=~/.local/bin/virtualenv
-source ~/.local/bin/virtualenvwrapper.sh
-
 type rustup &> /dev/null && export RUST_SRC_PATH="$(rustc --print sysroot)/lib/rustlib/src/rust/src"
 
 if [[ -f ~/.config/ranger/rc.conf ]]; then
@@ -633,7 +628,6 @@ fi
 export TEXMFHOME="/urs/local/share/texmf"
 export R_LIBS_USER="~/.local/share/R"
 
-emulate sh -c 'source /etc/profile.d/snapd.sh'
 
 log50() { kubectl -nchecks logs -ljob-name="$1" }
 

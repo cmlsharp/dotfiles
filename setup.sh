@@ -1,12 +1,9 @@
 dir=~/.dotfiles # dotfiles directory
 olddir=~/.dotfiles_old # old dotfiles backup directory
-lnfiles="zshrc gvimrc vimrc tmux.conf vimperatorrc zsh_plugins mailcap mutt muttrc" # list of files/folders to symlink in homedir
+lnfiles="zshrc gvimrc vimrc tmux.conf gdbinit zsh_plugins mailcap mutt muttrc" # list of files/folders to symlink in homedir
 bold(){
     echo "$(tput bold)$@$(tput sgr0)"
 }
-
-bold "Decrypting mutt passwords"
-scrypt enc $dir/mypw.gpg.bfe > ~/.mypw.gpg
 
 bold "Creating $olddir for backup of any existing dotfiles in ~ ..."
 mkdir -p $olddir
