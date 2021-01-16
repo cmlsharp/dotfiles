@@ -145,6 +145,7 @@ kubectl
 lib32-libldap
 lib32-mesa
 libdvdcss
+libfprint
 libgnome-keyring
 libreoffice-fresh
 libtool
