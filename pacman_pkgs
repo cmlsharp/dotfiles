@@ -226,7 +226,6 @@ pyenv
 pypy
 pypy3
 python-argparse
-python-dbusmock
 python-gobject
 python-jedi
 python-pexpect
