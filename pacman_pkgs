@@ -205,6 +205,7 @@ orca
 os-prober
 otf-ipafont
 pacman-contrib
+pam_wrapper
 pandoc
 patch
 pavucontrol
