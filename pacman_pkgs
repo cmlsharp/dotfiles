@@ -158,6 +158,7 @@ lightdm
 lightdm-webkit2-greeter
 linux
 linux-firmware
+linux-headers
 llvm
 lmms
 logrotate
