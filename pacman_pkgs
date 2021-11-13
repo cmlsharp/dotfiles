@@ -216,14 +216,13 @@ perf
 perl-file-mimeinfo
 perl-http-server-simple
 php
+pipewire-pulse
 pkgconf
 pkgfile
 playonlinux
 polari
 postgresql
-pulseaudio
 pulseaudio-alsa
-pulseaudio-bluetooth
 pv
 pyenv
 pypy
