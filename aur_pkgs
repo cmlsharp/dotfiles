@@ -5,6 +5,7 @@ flat-remix-gnome
 flat-remix-gtk
 gksu
 gnome-python
+google-chrome
 grub2-theme-archlinux
 haskell-ide-engine-git
 jre8
@@ -21,6 +22,7 @@ pepper-flash
 pikaur
 popcorntime-bin
 powder-toy
+python2-pip
 scid_vs_pc
 skypeforlinux-stable-bin
 slack-desktop

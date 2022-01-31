@@ -239,7 +239,6 @@ python-pyqt5
 python-pysmbc
 python-rope
 python-virtualenvwrapper
-python2-pip
 qalculate-gtk
 qt5-webkit
 qt5ct
