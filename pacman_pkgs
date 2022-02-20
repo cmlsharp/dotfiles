@@ -44,6 +44,7 @@ dconf-editor
 dhcpcd
 dialog
 discord
+discord-canary
 dmraid
 docker
 docker-compose
