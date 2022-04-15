@@ -36,7 +36,6 @@ clang
 cmake
 cmatrix
 cpulimit
-crda
 cups
 cups-pk-helper
 cvc4
@@ -63,6 +62,7 @@ fakeroot
 fcrackzip
 ffmpegthumbnailer
 file-roller
+filezilla
 firefox
 firefox-developer-edition
 fish
