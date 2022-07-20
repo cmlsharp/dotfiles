@@ -307,6 +307,7 @@ wget
 which
 whois
 wireless_tools
+wireplumber
 wireshark-qt
 wkhtmltopdf
 words
