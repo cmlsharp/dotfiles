@@ -3,6 +3,7 @@ flat-remix
 flat-remix-gnome
 flat-remix-gtk
 gksu
+gnome-browser-connector
 gnome-documents
 gnome-python
 google-chrome
@@ -31,7 +32,6 @@ stockfish
 tdom
 teamviewer
 tmux-mem-cpu-load-git
-tor-browser
 trizen
 ttf-google-fonts-typewolf
 ttf-inconsolata-g
