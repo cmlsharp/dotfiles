@@ -3,10 +3,12 @@ flat-remix
 flat-remix-gnome
 flat-remix-gtk
 gksu
-gnome-browser-connector
+gnome-browser-connector-git
 gnome-python
 google-chrome
 grub2-theme-archlinux
+ipw2100-fw
+ipw2200-fw
 jre8
 masterpdfeditor
 nnn-icons
