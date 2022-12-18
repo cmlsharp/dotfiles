@@ -1,4 +1,6 @@
+capt-src
 chrome-remote-desktop
+discord-canary
 flat-remix
 flat-remix-gnome
 flat-remix-gtk
@@ -20,6 +22,7 @@ pikaur
 playonlinux
 popcorntime-bin
 powder-toy
+qt5-webkit
 scid_vs_pc
 skypeforlinux-stable-bin
 slack-desktop
@@ -37,5 +40,6 @@ ttf-mac-fonts
 ttf-ms-fonts
 vmware-workstation
 windscribe-bin
+wkhtmltopdf
 yay
 zoom

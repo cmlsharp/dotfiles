@@ -44,7 +44,6 @@ dconf-editor
 dhcpcd
 dialog
 discord
-discord-canary
 dmraid
 docker
 docker-compose
@@ -239,7 +238,6 @@ python-pysmbc
 python-rope
 python-virtualenvwrapper
 qalculate-gtk
-qt5-webkit
 qt5ct
 r
 rabbitmq
@@ -308,7 +306,6 @@ whois
 wireless_tools
 wireplumber
 wireshark-qt
-wkhtmltopdf
 words
 xclip
 xdg-user-dirs-gtk
