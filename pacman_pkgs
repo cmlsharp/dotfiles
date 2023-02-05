@@ -206,7 +206,7 @@ orca
 os-prober
 otf-ipafont
 pacman-contrib
-pandoc
+pandoc-cli
 patch
 pavucontrol
 pdfcrack
