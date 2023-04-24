@@ -36,7 +36,6 @@ cifs-utils
 clang
 cmake
 cmatrix
-cpulimit
 cups
 cups-pk-helper
 cvc4
@@ -255,7 +254,6 @@ seahorse
 shotcut
 signal-desktop
 simple-scan
-simplescreenrecorder
 snapper
 sof-firmware
 splix

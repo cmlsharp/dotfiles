@@ -1,5 +1,6 @@
 capt-src
 chrome-remote-desktop
+cpulimit
 discord-canary
 flat-remix
 flat-remix-gnome
@@ -24,6 +25,7 @@ popcorntime-bin
 powder-toy
 qt5-webkit
 scid_vs_pc
+simplescreenrecorder
 skypeforlinux-stable-bin
 slack-desktop
 snack
