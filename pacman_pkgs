@@ -271,8 +271,8 @@ terminus-font
 tesseract
 tesseract-data-eng
 texinfo
+texlive-basic
 texlive-bin
-texlive-core
 texlive-fontsextra
 texlive-latexextra
 thunderbird
