@@ -225,7 +225,6 @@ pv
 pyenv
 pypy
 pypy3
-python-argparse
 python-gobject
 python-jedi
 python-numpy
