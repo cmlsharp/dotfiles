@@ -277,6 +277,7 @@ texlive-bin
 texlive-fontsextra
 texlive-fontsrecommended
 texlive-latexextra
+texlive-xetex
 thunderbird
 tidy
 tigervnc
