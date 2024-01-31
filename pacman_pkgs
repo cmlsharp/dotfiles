@@ -275,6 +275,7 @@ texinfo
 texlive-basic
 texlive-bin
 texlive-fontsextra
+texlive-fontsrecommended
 texlive-latexextra
 thunderbird
 tidy
