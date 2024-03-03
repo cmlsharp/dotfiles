@@ -237,6 +237,7 @@ python-pysmbc
 python-rope
 python-virtualenvwrapper
 qalculate-gtk
+qt5-remoteobjects
 qt5ct
 r
 rabbitmq
