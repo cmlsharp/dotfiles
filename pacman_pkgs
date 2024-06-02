@@ -38,6 +38,7 @@ cmake
 cmatrix
 coin-or-cbc
 cups
+cups-pdf
 cups-pk-helper
 cvc4
 dconf-editor
