@@ -310,6 +310,7 @@ w3m
 wget
 which
 whois
+winetricks
 wireless_tools
 wireplumber
 wireshark-qt
