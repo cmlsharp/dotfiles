@@ -175,6 +175,7 @@ man-pages
 mariadb
 mdadm
 memcached
+memtester
 mesa
 mesa-vdpau
 mlocate
