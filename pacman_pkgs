@@ -235,6 +235,7 @@ pypy
 pypy3
 python-gobject
 python-jedi
+python-lsp-server
 python-numpy
 python-pexpect
 python-pip
