@@ -233,7 +233,6 @@ pv
 pyenv
 pypy
 pypy3
-pyright
 python-gobject
 python-jedi
 python-numpy
