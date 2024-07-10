@@ -163,6 +163,7 @@ lightdm-webkit2-greeter
 linux
 linux-firmware
 linux-headers
+lldb
 llvm
 lmms
 logrotate
