@@ -182,7 +182,6 @@ memcached
 memtester
 mesa
 mesa-vdpau
-mlocate
 modemmanager
 mpv
 mutt
@@ -227,6 +226,7 @@ php
 pipewire-pulse
 pkgconf
 pkgfile
+plocate
 polari
 postgresql
 powertop
