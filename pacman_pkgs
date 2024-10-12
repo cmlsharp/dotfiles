@@ -18,6 +18,7 @@ b43-fwcutter
 bamf
 baobab
 base
+base-devel
 bash-completion
 bat
 bind
@@ -132,6 +133,7 @@ gvim
 hashcat
 haveged
 heaptrack
+help2man
 hicolor-icon-theme
 hoogle
 hplip
@@ -260,6 +262,7 @@ reflector
 reiserfsprogs
 ripgrep
 ruby
+rust-analyzer
 rustup
 s-nail
 screen
