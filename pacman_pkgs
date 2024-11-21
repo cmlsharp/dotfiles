@@ -188,6 +188,7 @@ modemmanager
 mpv
 mutt
 nano
+nasm
 nautilus
 ncdu
 neofetch
@@ -203,6 +204,7 @@ nfs-utils
 nginx
 nilfs-utils
 ninja
+nlohmann-json
 nmap
 noto-fonts-cjk
 noto-fonts-emoji
