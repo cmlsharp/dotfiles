@@ -24,7 +24,6 @@ vcs_info_wrapper() {
   fi
 }
 
-
 user=chad
 if [[ -n $DISPLAY ]] && (( EUID == $(id -u $user) )); then
     PROMPT="%(?,Ω,ω) %~/ "
