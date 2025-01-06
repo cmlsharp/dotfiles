@@ -3,7 +3,6 @@
 if [ -f "${HOME}/.gpg-agent-info" ]; then
   . "${HOME}/.gpg-agent-info"
   export GPG_AGENT_INFO
-  export SSH_AUTH_SOCK
 fi
 stty -ixon
 [[ -f /etc/updates.txt ]] && { head -n1 /etc/updates.txt; echo; }
@@ -30,12 +29,13 @@ user=chad
 if [[ -n $DISPLAY ]] && (( EUID == $(id -u $user) )); then
     PROMPT="%(?,Ω,ω) %~/ "
     if [[ -n "$DESKTOP_SESSION" ]]; then
-        eval $(gnome-keyring-daemon --start)
+        eval $(gnome-keyring-daemon --start 2> /dev/null)
         export SSH_AUTH_SOCK
     fi
 else
     PROMPT="[%B%(?,%F{blue},%F{red})%n%f%b@%m %B%40<..<%~%<< %b] %# "
 fi
+
 
 #RPROMPT="%B%(?..%?)%b"
 RPROMPT=$'$(vcs_info_wrapper)'
@@ -654,3 +654,4 @@ alias lS='ls -1FSsh'
 alias lart='ls -1FcArt'
 alias lrt='ls -1Fcrt'
 alias sl='ls'
+
