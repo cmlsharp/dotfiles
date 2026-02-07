@@ -1,0 +1,310 @@
+/* Catppuccin Mocha Pill Theme */
+@define-color base    #1e1e2e;
+@define-color mantle  #181825;
+@define-color crust   #11111b;
+@define-color surface0 #313244;
+@define-color surface1 #45475a;
+@define-color surface2 #585b70;
+@define-color overlay0 #6c7086;
+@define-color text    #cdd6f4;
+@define-color subtext1 #bac2de;
+@define-color subtext0 #a6adc8;
+@define-color rosewater #f5e0dc;
+@define-color flamingo #f2cdcd;
+@define-color pink    #f5c2e7;
+@define-color mauve   #cba6f7;
+@define-color red     #f38ba8;
+@define-color maroon  #eba0ac;
+@define-color peach   #fab387;
+@define-color yellow  #f9e2af;
+@define-color green   #a6e3a1;
+@define-color teal    #94e2d5;
+@define-color sky     #89dceb;
+@define-color sapphire #74c7ec;
+@define-color blue    #89b4fa;
+@define-color lavender #b4befe;
+
+* {
+    font-family: "SauceCodePro Nerd Font", "Noto Sans", sans-serif;
+    font-size: 13px;
+    min-height: 0;
+}
+
+window#waybar {
+    background-color: alpha(@crust, 0.7);
+    color: @text;
+    border: none;
+    border-radius: 12px;
+}
+
+tooltip {
+    background-color: @base;
+    border: 1px solid @surface1;
+    border-radius: 12px;
+    color: @text;
+}
+
+tooltip label {
+    color: @text;
+    padding: 4px;
+}
+
+/* ── Pill base style for all modules ── */
+#clock,
+#cpu,
+#memory,
+#battery,
+#pulseaudio,
+#custom-mic,
+#network,
+#backlight,
+#idle_inhibitor,
+#mpris,
+#custom-weather,
+#custom-power,
+#tray {
+    padding: 0 14px;
+    margin: 5px 3px;
+    background-color: alpha(@base, 0.85);
+    border-radius: 16px;
+    color: @text;
+    border: 1px solid alpha(@surface0, 0.5);
+    transition: all 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+/* ── Hover state ── */
+#clock:hover,
+#cpu:hover,
+#memory:hover,
+#battery:hover,
+#pulseaudio:hover,
+#custom-mic:hover,
+#network:hover,
+#backlight:hover,
+#idle_inhibitor:hover,
+#mpris:hover,
+#custom-weather:hover,
+#custom-power:hover {
+    background-color: @surface0;
+    border-color: @surface1;
+}
+
+/* ── Workspaces ── */
+#workspaces {
+    margin: 5px 3px;
+    padding: 0 2px;
+    background-color: alpha(@base, 0.85);
+    border-radius: 16px;
+    border: 1px solid alpha(@surface0, 0.5);
+}
+
+#workspaces button {
+    padding: 0 8px;
+    margin: 3px 2px;
+    color: @overlay0;
+    background-color: transparent;
+    border: none;
+    border-radius: 12px;
+    transition: all 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+#workspaces button.focused {
+    color: @crust;
+    background-color: @mauve;
+    font-weight: bold;
+}
+
+#workspaces button.urgent {
+    color: @base;
+    background-color: @red;
+}
+
+#workspaces button:hover {
+    background-color: @surface1;
+    color: @text;
+}
+
+/* ── Window title ── */
+#window {
+    color: @subtext0;
+    padding: 0 14px;
+    margin: 5px 3px;
+    background-color: alpha(@base, 0.85);
+    border-radius: 16px;
+    border: 1px solid alpha(@surface0, 0.5);
+    font-style: italic;
+    transition: all 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+#window.empty {
+    padding: 0;
+    margin: 0;
+    background: transparent;
+    border: none;
+    min-width: 0;
+}
+
+/* ── Clock ── */
+#clock {
+    color: @text;
+    font-weight: bold;
+}
+
+#clock:hover {
+    border-color: @lavender;
+}
+
+/* ── CPU ── */
+#cpu {
+    color: @sky;
+}
+
+#cpu:hover {
+    border-color: @sky;
+}
+
+/* ── Memory ── */
+#memory {
+    color: @teal;
+}
+
+#memory:hover {
+    border-color: @teal;
+}
+
+/* ── Battery ── */
+#battery {
+    color: @green;
+}
+
+#battery:hover {
+    border-color: @green;
+}
+
+#battery.warning {
+    color: @yellow;
+}
+
+#battery.warning:hover {
+    border-color: @yellow;
+}
+
+#battery.critical {
+    color: @red;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+#battery.critical:hover {
+    border-color: @red;
+}
+
+#battery.charging,
+#battery.plugged {
+    color: @green;
+}
+
+@keyframes pulse {
+    0% { opacity: 1; }
+    50% { opacity: 0.6; }
+    100% { opacity: 1; }
+}
+
+/* ── Backlight ── */
+#backlight {
+    color: @yellow;
+}
+
+#backlight:hover {
+    border-color: @yellow;
+}
+
+/* ── PulseAudio ── */
+#pulseaudio {
+    color: @peach;
+}
+
+#pulseaudio:hover {
+    border-color: @peach;
+}
+
+#pulseaudio.muted {
+    color: @overlay0;
+}
+
+/* ── Mic ── */
+#custom-mic {
+    color: @pink;
+}
+
+#custom-mic:hover {
+    border-color: @pink;
+}
+
+/* ── Network ── */
+#network {
+    color: @blue;
+}
+
+#network:hover {
+    border-color: @blue;
+}
+
+#network.disconnected {
+    color: @overlay0;
+}
+
+/* ── Media (mpris) ── */
+#mpris {
+    color: @flamingo;
+}
+
+#mpris:hover {
+    border-color: @flamingo;
+}
+
+/* ── Idle inhibitor ── */
+#idle_inhibitor {
+    color: @overlay0;
+}
+
+#idle_inhibitor.activated {
+    color: @green;
+}
+
+#idle_inhibitor.activated:hover {
+    border-color: @green;
+}
+
+/* ── Weather ── */
+#custom-weather {
+    color: @rosewater;
+}
+
+#custom-weather:hover {
+    border-color: @rosewater;
+}
+
+/* ── Power ── */
+#custom-power {
+    color: @red;
+    padding: 0 10px;
+}
+
+#custom-power:hover {
+    background-color: @red;
+    color: @crust;
+    border-color: @red;
+}
+
+/* ── Tray ── */
+#tray {
+    padding: 0 8px;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+}

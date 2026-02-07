@@ -1,0 +1,22 @@
+font=SauceCodePro Nerd Font 11
+background-color=#1e1e2e
+text-color=#cdd6f4
+border-color=#cba6f7
+border-size=2
+border-radius=12
+default-timeout=5000
+max-visible=3
+width=350
+margin=10
+padding=12
+icons=1
+
+[urgency=low]
+border-color=#89b4fa
+
+[urgency=normal]
+border-color=#cba6f7
+
+[urgency=critical]
+border-color=#f38ba8
+default-timeout=0

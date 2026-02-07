@@ -1,0 +1,184 @@
+{
+    "layer": "top",
+    "position": "top",
+    "height": 40,
+    "margin-top": 6,
+    "margin-left": 8,
+    "margin-right": 8,
+    "spacing": 0,
+    "modules-left": [
+        "sway/workspaces",
+        "sway/window",
+        "mpris"
+    ],
+    "modules-center": [
+        "clock"
+    ],
+    "modules-right": [
+        "custom/weather",
+        "idle_inhibitor",
+        "backlight",
+        "pulseaudio",
+        "custom/mic",
+        "battery",
+        "custom/power",
+        "tray"
+    ],
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "format": "{icon}",
+        "format-icons": {
+            "1": "1",
+            "2": "2",
+            "3": "3",
+            "4": "4",
+            "5": "5",
+            "6": "6",
+            "7": "7",
+            "8": "8",
+            "9": "9",
+            "10": "0",
+            "focused": "",
+            "default": ""
+        }
+    },
+    "sway/window": {
+        "max-length": 40,
+        "tooltip": false,
+        "rewrite": {
+            "(.*) — (.*)": "$1",
+            "(.*) - (.*)": "$1"
+        }
+    },
+    "clock": {
+        "format": "  {:%a %b %d    %I:%M %p}",
+        "tooltip-format": "<big>{:%B %Y}</big>\n<tt>{calendar}</tt>",
+        "interval": 1,
+        "calendar": {
+            "mode": "month",
+            "weeks-pos": "left",
+            "format": {
+                "months": "<span color='#cba6f7'><b>{}</b></span>",
+                "weeks": "<span color='#6c7086'>{}</span>",
+                "weekdays": "<span color='#fab387'><b>{}</b></span>",
+                "today": "<span color='#f38ba8'><b><u>{}</u></b></span>"
+            }
+        }
+    },
+    "cpu": {
+        "format": "  {usage}%",
+        "interval": 5,
+        "tooltip": true,
+        "on-click": "foot --title floating-htop htop"
+    },
+    "memory": {
+        "format": "  {used:0.1f}G / {percentage}%",
+        "interval": 10,
+        "tooltip-format": "{used:0.1f}G used / {total:0.1f}G total",
+        "on-click": "foot --title floating-htop htop"
+    },
+    "battery": {
+        "bat": "BAT0",
+        "interval": 30,
+        "states": {
+            "good": 80,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon}  {capacity}%",
+        "format-charging": "  {capacity}%",
+        "format-plugged": "  {capacity}%",
+        "format-full": "  Full",
+        "format-icons": [
+            "",
+            "",
+            "",
+            "",
+            ""
+        ],
+        "tooltip-format": "{timeTo}\n{capacity}% - {power:.1f}W"
+    },
+    "pulseaudio": {
+        "format": "{icon}  {volume}%",
+        "format-muted": "  muted",
+        "format-icons": {
+            "default": [
+                "",
+                "",
+                ""
+            ]
+        },
+        "scroll-step": 5,
+        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        "on-click-right": "pavucontrol",
+        "tooltip-format": "{desc}\n{volume}%"
+    },
+    "network": {
+        "format-wifi": "  {signalStrength}%",
+        "format-ethernet": "  {ipaddr}",
+        "format-disconnected": "  off",
+        "tooltip-format-wifi": "{essid}\n{ipaddr} ({signalStrength}%)\n↓ {bandwidthDownBits}  ↑ {bandwidthUpBits}",
+        "tooltip-format-ethernet": "{ifname}: {ipaddr}",
+        "tooltip-format-disconnected": "Disconnected",
+        "interval": 5,
+        "on-click": "nm-connection-editor",
+        "on-click-right": "~/.config/waybar/scripts/network-menu.sh"
+    },
+    "backlight": {
+        "format": "{icon} {percent}%",
+        "format-icons": [
+            "󰖨"
+        ],
+        "tooltip-format": "Brightness: {percent}%",
+        "on-scroll-up": "brightnessctl set 5%+",
+        "on-scroll-down": "sh -c 'brightnessctl set 5%-; [ $(brightnessctl get) -lt $(($(brightnessctl max) / 10)) ] && brightnessctl set 10%'"
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        },
+        "tooltip-format-activated": "Idle inhibitor: ON",
+        "tooltip-format-deactivated": "Idle inhibitor: OFF"
+    },
+    "mpris": {
+        "format": "{player_icon} {title} - {artist}",
+        "format-paused": "{player_icon} {status_icon} {title} - {artist}",
+        "player-icons": {
+            "default": "",
+            "firefox": "",
+            "spotify": ""
+        },
+        "status-icons": {
+            "paused": ""
+        },
+        "max-length": 35,
+        "tooltip-format": "{player}: {title}\nby {artist}\nfrom {album}"
+    },
+    "custom/weather": {
+        "exec": "~/.config/waybar/scripts/weather.sh",
+        "interval": 900,
+        "tooltip": false
+    },
+    "custom/power": {
+        "format": "",
+        "on-click": "~/.config/waybar/scripts/power-menu.sh",
+        "tooltip": false
+    },
+    "tray": {
+        "icon-size": 16,
+        "spacing": 8
+    },
+    "custom/mic": {
+        "exec": "printf '  %s' \"$(pactl get-source-volume @DEFAULT_SOURCE@ | grep -oP '[0-9]+%' | head -1)\"",
+        "exec-if": "pactl get-source-mute @DEFAULT_SOURCE@ | grep -q no",
+        "interval": 2,
+        "signal": 10,
+        "on-click": "pactl set-source-mute @DEFAULT_SOURCE@ toggle; pkill -RTMIN+10 waybar",
+        "on-scroll-up": "[ $(pactl get-source-volume @DEFAULT_SOURCE@ | grep -oP '[0-9]+(?=%)' | head -1) -lt 100 ] && pactl set-source-volume @DEFAULT_SOURCE@ +5%; pkill -RTMIN+10 waybar",
+        "on-scroll-down": "pactl set-source-volume @DEFAULT_SOURCE@ -5%; pkill -RTMIN+10 waybar",
+        "tooltip": "Microphone",
+        "format": "{}"
+    }
+}

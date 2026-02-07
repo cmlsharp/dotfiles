@@ -1,0 +1,63 @@
+window {
+  background-color: #1e1e2e;
+}
+
+frame.background {
+  background-color: alpha(#1e1e2e, 0.85);
+  border-radius: 16px;
+  padding: 32px;
+  margin: 128px;
+  border: 2px solid #cba6f7;
+}
+
+entry {
+  background-color: #313244;
+  color: #cdd6f4;
+  border-radius: 8px;
+  padding: 8px 12px;
+  border: 1px solid #45475a;
+}
+
+entry:focus {
+  border: 1px solid #cba6f7;
+}
+
+label {
+  color: #cdd6f4;
+}
+
+label.time {
+  color: #a6adc8;
+  font-size: 14px;
+}
+
+label.greeting {
+  color: #a6e3a1;
+  font-size: 20px;
+  margin-bottom: 16px;
+}
+
+button {
+  background-color: #313244;
+  color: #cdd6f4;
+  border-radius: 8px;
+  padding: 8px 16px;
+  border: 1px solid #45475a;
+}
+
+button:hover {
+  background-color: #45475a;
+  border: 1px solid #cba6f7;
+}
+
+button:focus {
+  border: 1px solid #cba6f7;
+}
+
+combobox button {
+  background-color: #313244;
+}
+
+combobox entry {
+  background-color: #313244;
+}

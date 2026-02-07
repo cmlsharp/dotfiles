@@ -1,0 +1,12 @@
+# Local account configuration (contains sensitive info)
+mutt/accounts.local
+
+# Backup directories
+.dotfiles_old/
+dotfiles_backup_temp/
+
+# Build artifacts
+nnn-restorepreview/src/
+nnn-restorepreview/pkg/
+nnn-restorepreview/*.tar.gz
+nnn-restorepreview/*.pkg.tar.zst

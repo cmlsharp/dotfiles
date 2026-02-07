@@ -126,12 +126,6 @@ macro index A \
 #source "~/.mutt/riseup"
 #folder-hook $folder 'source ~/.mutt/riseup'
 
-source "~/.mutt/gmail1"
-folder-hook $folder 'source ~/.mutt/gmail1'
-
-
-source "~/.mutt/gmail2"
-folder-hook $folder 'source ~/.mutt/gmail2'
-
-source "~/.mutt/michigan"
-folder-hook $folder 'source ~/.mutt/michigan'
+#### Account configuration (local, not in git)
+# Copy mutt/accounts.local.example to ~/.mutt/accounts.local and configure your accounts
+source "~/.mutt/accounts.local"

@@ -1,0 +1,102 @@
+# Base system
+base
+base-devel
+linux
+linux-firmware
+linux-headers
+grub
+intel-ucode
+networkmanager
+network-manager-applet
+
+# Shells
+zsh
+fish
+tmux
+
+# Sway/Wayland essentials (official repos)
+greetd
+greetd-tuigreet
+greetd-regreet
+swaybg
+swayidle
+waybar
+mako
+wofi
+foot
+grim
+slurp
+wl-clipboard
+brightnessctl
+cliphist
+playerctl
+
+# Sway/Wayland (AUR)
+swayfx
+swaylock-effects
+swayr
+
+# Utilities
+neovim
+git
+fzf
+ripgrep
+bat
+btop
+htop
+nnn
+tree
+trash-cli
+ncdu
+
+# Audio
+pipewire
+pipewire-pulse
+wireplumber
+pavucontrol
+
+# Fonts
+ttf-jetbrains-mono-nerd
+ttf-dejavu
+ttf-liberation
+noto-fonts-emoji
+noto-fonts-cjk
+
+# Development tools
+gcc
+make
+cmake
+gdb
+python
+python-pip
+python-pynvim
+nodejs
+npm
+go
+rustup
+
+# File systems
+btrfs-progs
+dosfstools
+ntfs-3g
+exfat-utils
+
+# Essential tools
+firefox
+openssh
+wget
+curl
+unzip
+unrar
+man-db
+man-pages
+
+# Cursors (AUR)
+catppuccin-mocha-dark-cursors
+
+# AUR helper
+yay
+
+# Email & utilities (kept from old dotfiles)
+neomutt
+abook

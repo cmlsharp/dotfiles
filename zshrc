@@ -6,38 +6,12 @@ if [ -f "${HOME}/.gpg-agent-info" ]; then
 fi
 stty -ixon
 [[ -f /etc/updates.txt ]] && { head -n1 /etc/updates.txt; echo; }
-##Prompt
-setopt prompt_subst
-autoload -Uz vcs_info
-zstyle ':vcs_info:*' actionformats \
-    '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{3}|%F{1}%a%F{5}]%f '
-zstyle ':vcs_info:*' formats       \
-    '%F{5}(%f%s%F{5})%F{3}-%F{5}[%F{2}%b%F{5}]%f '
-zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b%F{1}:%F{3}%r'
+##Prompt (Starship) - init moved to end of file, after plugins
 
-#zstyle ':vcs_info:*' enable git cvs svn
-
-vcs_info_wrapper() {
-  vcs_info
-  if [ -n "$vcs_info_msg_0_" ]; then
-    echo "%{$fg[grey]%}${vcs_info_msg_0_}%{$reset_color%}$del"
-  fi
-}
-
-user=chad
-if [[ -n $DISPLAY ]] && (( EUID == $(id -u $user) )); then
-    PROMPT="%(?,Ω,ω) %~/ "
-    if [[ -n "$DESKTOP_SESSION" ]]; then
-        eval $(gnome-keyring-daemon --start 2> /dev/null)
-        export SSH_AUTH_SOCK
-    fi
-else
-    PROMPT="[%B%(?,%F{blue},%F{red})%n%f%b@%m %B%40<..<%~%<< %b] %# "
+if [[ -n "$DESKTOP_SESSION" ]]; then
+    eval $(gnome-keyring-daemon --start 2> /dev/null)
+    export SSH_AUTH_SOCK
 fi
-
-
-#RPROMPT="%B%(?..%?)%b"
-RPROMPT=$'$(vcs_info_wrapper)'
 
 
 
@@ -55,12 +29,12 @@ bindkey -v
 bindkey -M viins 'jk' vi-cmd-mode
 bindkey '^R' history-incremental-search-backward
 bindkey -M vicmd '?' history-incremental-search-backward
-bindkey -M vicmd 'k' history-substring-search-up
-bindkey -M vicmd 'j' history-substring-search-down
+bindkey -M vicmd 'k' history-beginning-search-backward
+bindkey -M vicmd 'j' history-beginning-search-forward
 HISTFILE=~/.zsh_history
 HISTSIZE=5000
 SAVEHIST=5000
-export PATH="$HOME/.cabal/bin:$HOME/.cargo/bin:$HOME/.gem/ruby/2.7.0/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:$HOME/bin:/usr/bin/core_perl:/usr/local/scripts:$HOME/.local/bin"
+export PATH="$HOME/.cabal/bin:$HOME/.cargo/bin:$HOME/.gem/ruby/2.7.0/bin:/usr/local/sbin:/usr/local/bin:/usr/bin:$HOME/bin:/usr/bin/core_perl:/usr/local/scripts:$HOME/.local/bin:/usr/local/texlive/2025/bin/x86_64-linux:$HOME/.ghcup/bin"
 
 if [[ ! -L /bin ]]; then
     export PATH="/bin:/sbin:$PATH"
@@ -233,11 +207,11 @@ up() {
         echo "$dest"
     fi
 } 
-export TERM=screen-256color
+export TERM=tmux-256color
 export CC=gcc
-export CFLAGS='-Wall -O0 -ggdb3 -Wextra -std=gnu11'
-export CXX='g++'
-export CXXFLAGS='-Wall -O0 -ggdb3 -Wextra -std=gnu++17'
+#export CFLAGS='-Wall -O0 -ggdb3 -Wextra -std=gnu11'
+#export CXX='g++'
+#export CXXFLAGS='-Wall -O0 -ggdb3 -Wextra -std=c++20'
 
 for i in mv cp; do
     type a${i} && alias $i="a${i} -g"
@@ -378,7 +352,6 @@ alias edit='$EDITOR'
 
 alias dud='du --max-depth=1 -h'
 alias duf='du -sh *'
-alias fd='find . -type d -name'
 alias ff='find . -type f -name'
 
 alias h='history'
@@ -608,9 +581,9 @@ mkaur(){
 
 
 ##Plugins
-for i in ~/.zsh_plugins/*.zsh; do
-    source $i
-done
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh 2>/dev/null
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh 2>/dev/null
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=#6c7086"
 
 # Make copying commands from the internet easier s.t. `$ ls` executes ls
 function $ { eval "$@" } 
@@ -630,19 +603,33 @@ export R_LIBS_USER="~/.local/share/R"
 
 log50() { kubectl -nchecks logs -ljob-name="$1" }
 
-if [[ -f /usr/share/nnn/quitcd/quitcd.bash_zsh && -z $NNN_SOURCED ]]; then
+export NNN_OPTS="deaA"
+export NNN_FCOLORS="c1e2272e006033f7c6d6abc4"
+export NNN_PLUG='p:preview-tui;o:organize;d:diffs;r:renamer;n:nuke;g:gitroot;f:finder;c:chksum'
+export NNN_ARCHIVE='\\.(7z|bz2|gz|tar|tgz|xz|zip|zst)$'
+export NNN_BMS="d:$HOME/Documents;D:$HOME/Downloads;p:$HOME/Pictures;c:$HOME/.config;r:/"
+export NNN_FIFO="/tmp/nnn.fifo.$$"
+if [[ -f /usr/share/nnn/quitcd/quitcd.bash_sh_zsh && -z $NNN_SOURCED ]]; then
     NNN_SOURCED=1
-    source /usr/share/nnn/quitcd/quitcd.bash_zsh
-    alias n='n -dea'
-    #alias ls='n'
-    #alias l='ls'
-    type pistol &> /dev/null && export "USE_PISTOL=1"
-    export NNN_PLUG='s:preview-tui'
+    source /usr/share/nnn/quitcd/quitcd.bash_sh_zsh
+
+    # Wrapper function: auto-preview only if terminal is wide enough
+    n() {
+        local cols=$(tput cols)
+        if [[ $cols -ge 120 ]]; then
+            # Terminal is wide enough for split preview
+            command n -dea -P p "$@"
+        else
+            # Terminal too narrow, skip preview
+            command n -dea "$@"
+        fi
+    }
+
     [[ -n "$NNNLVL" ]] && PROMPT="N$NNNLVL $PROMPT"
     alias ncp="cat ${NNN_SEL:-${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.selection} | tr '\0' '\n'"
 fi
 
-alias ls='ls --color -F --group-directories-first'
+alias ls='exa -F --group-directories-first'
 alias l='ls -lh'  
 alias ll='ls -lh'
 alias la='ls -lAFh' 
@@ -654,3 +641,62 @@ alias lart='ls -1FcArt'
 alias lrt='ls -1Fcrt'
 alias sl='ls'
 
+
+
+# BEGIN opam configuration
+# This is useful if you're using opam as it adds:
+#   - the correct directories to the PATH
+#   - auto-completion for the opam binary
+# This section can be safely removed at any time if needed.
+[[ ! -r '/home/chad/.opam/opam-init/init.zsh' ]] || source '/home/chad/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null
+# END opam configuration
+source ~/.zsh_plugins/elan.zsh &> /dev/null
+export WAYLAND_DISPLAY=$(ls /run/user/$(id -u)/ | grep '^wayland-' | head -n1)
+export XCURSOR_THEME=catppuccin-mocha-dark-cursors
+export XCURSOR_SIZE=24
+
+# Fix swaymsg inside tmux when Sway gets restarted
+if [[ -v TMUX ]]; then
+    swaymsg(){
+        export SWAYSOCK=$XDG_RUNTIME_DIR/sway-ipc.$UID.$(pgrep -x sway).sock
+        command swaymsg "$@"
+    }
+fi
+
+# Detect TTY mode and set up appropriate prompt
+if [[ "$TERM" == "linux" ]] || [[ -z "$DISPLAY" && -z "$WAYLAND_DISPLAY" ]]; then
+    # TTY fallback prompt - simple, no fancy characters
+    # Color codes for 16-color TTY
+    autoload -U colors && colors
+    setopt prompt_subst
+
+    # Simple two-line prompt for TTY
+    PROMPT='%{$fg[cyan]%}%n@%m%{$reset_color%} %{$fg[yellow]%}%~%{$reset_color%}
+%{$fg[green]%}%(!.#.$)%{$reset_color%} '
+    RPROMPT='%{$fg[red]%}%(?..[%?])%{$reset_color%}'
+
+    # Vi mode indicator
+    function zle-keymap-select {
+        if [[ ${KEYMAP} == vicmd ]]; then
+            PROMPT='%{$fg[cyan]%}%n@%m%{$reset_color%} %{$fg[yellow]%}%~%{$reset_color%}
+%{$fg[blue]%}<<%{$reset_color%} '
+        else
+            PROMPT='%{$fg[cyan]%}%n@%m%{$reset_color%} %{$fg[yellow]%}%~%{$reset_color%}
+%{$fg[green]%}%(!.#.$)%{$reset_color%} '
+        fi
+        zle reset-prompt
+    }
+    zle -N zle-keymap-select
+elif ! command -v starship &> /dev/null; then
+    # Starship not available fallback - simple colored prompt
+    autoload -U colors && colors
+    setopt prompt_subst
+
+    PROMPT='%{$fg[cyan]%}%n@%m%{$reset_color%} %{$fg[yellow]%}%~%{$reset_color%} %{$fg[green]%}>%{$reset_color%} '
+    RPROMPT='%{$fg[red]%}%(?..[%?])%{$reset_color%}'
+else
+    # Starship available - use it
+    function zle-keymap-select { zle reset-prompt }
+    zle -N zle-keymap-select
+    eval "$(starship init zsh)"
+fi

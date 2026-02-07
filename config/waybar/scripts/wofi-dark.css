@@ -1,0 +1,54 @@
+window {
+    background-color: #1e1e2e;
+    border: 2px solid #cba6f7;
+    border-radius: 12px;
+    font-family: "SauceCodePro Nerd Font";
+    font-size: 14px;
+}
+
+#input {
+    background-color: #313244;
+    color: #cdd6f4;
+    border: none;
+    border-radius: 8px;
+    margin: 8px 8px 4px 8px;
+    padding: 8px 12px;
+}
+
+#input:focus {
+    border: 1px solid #cba6f7;
+}
+
+#inner-box {
+    margin: 4px 8px;
+}
+
+#outer-box {
+    margin: 0;
+    padding: 0;
+}
+
+#scroll {
+    margin: 0;
+}
+
+#text {
+    color: #cdd6f4;
+}
+
+#entry {
+    padding: 6px 12px;
+    color: #cdd6f4;
+    border-radius: 8px;
+    transition: all 200ms ease;
+}
+
+#entry:selected {
+    background-color: #45475a;
+    color: #cdd6f4;
+    border-left: 3px solid #cba6f7;
+}
+
+#entry image {
+    margin-right: 8px;
+}
