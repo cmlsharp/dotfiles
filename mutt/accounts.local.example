@@ -1,13 +1,14 @@
 # Local account configuration
 # Copy this file to accounts.local and configure your email accounts
 # accounts.local is gitignored and won't be committed
+# Account files should use the *.account extension (e.g., gmail1.account)
 
 # Example account configurations:
-# source "~/.mutt/gmail1"
-# folder-hook $folder 'source ~/.mutt/gmail1'
+# source "~/.mutt/gmail1.account"
+# folder-hook $folder 'source ~/.mutt/gmail1.account'
 #
-# source "~/.mutt/gmail2"
-# folder-hook $folder 'source ~/.mutt/gmail2'
+# source "~/.mutt/gmail2.account"
+# folder-hook $folder 'source ~/.mutt/gmail2.account'
 #
-# source "~/.mutt/work"
-# folder-hook $folder 'source ~/.mutt/work'
+# source "~/.mutt/work.account"
+# folder-hook $folder 'source ~/.mutt/work.account'

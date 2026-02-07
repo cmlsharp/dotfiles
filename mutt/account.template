@@ -1,0 +1,21 @@
+## Receive options.
+set imap_user=your.email@example.com
+set imap_pass=$my_pw_accountname
+set folder = imaps://your.email@imap.example.com/
+set spoolfile = imaps://imap.example.com:993/INBOX
+set postponed = "+[Gmail]/Drafts"  # Adjust for your email provider
+unset record
+mailboxes "imaps://imap.example.com/INBOX" "imaps://imap.example.com/[Gmail]/Drafts" "imaps://imap.example.com/[Gmail]/Sent Mail" "imaps://imap.example.com/[Gmail]/Spam" "imaps://imap.example.com/[Gmail]/Trash"
+
+## Send options.
+set smtp_url=smtps://your.email@smtp.example.com
+set smtp_pass=$my_pw_accountname
+set realname='Your Name'
+set from=your.email@example.com
+set hostname="example.com"
+# Connection options
+set ssl_force_tls = yes
+unset ssl_starttls
+
+## Hook -- IMPORTANT!
+account-hook $folder "set imap_user=your.email@example.com"
