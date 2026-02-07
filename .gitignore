@@ -1,5 +1,6 @@
 # Local account configuration (contains sensitive info)
 mutt/accounts.local
+mutt/*.account
 
 # Backup directories
 .dotfiles_old/
