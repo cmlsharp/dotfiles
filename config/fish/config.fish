@@ -2,6 +2,22 @@ if not status is-interactive
     return
 end
 
+# SSH Agent setup (gnome-keyring)
+if test -n "$WAYLAND_DISPLAY"; or test -n "$SWAYSOCK"
+    # Check if SSH socket already exists
+    if test -S /run/user/(id -u)/gcr/ssh
+        set -gx SSH_AUTH_SOCK /run/user/(id -u)/gcr/ssh
+    else
+        # Try to start gnome-keyring-daemon with SSH component
+        for line in (gnome-keyring-daemon --start --components=ssh 2>/dev/null)
+            if string match -q "*=*" $line
+                set -l parts (string split '=' $line)
+                set -gx $parts[1] $parts[2]
+            end
+        end
+    end
+end
+
 # PATH
 fish_add_path ~/.cargo/bin ~/.cabal/bin ~/.local/bin ~/bin ~/.ghcup/bin /usr/local/texlive/2025/bin/x86_64-linux
 
