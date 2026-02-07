@@ -1,0 +1,125 @@
+/* Catppuccin Mocha Firefox Theme */
+
+:root {
+    --ctp-base: #1e1e2e;
+    --ctp-mantle: #181825;
+    --ctp-crust: #11111b;
+    --ctp-surface0: #313244;
+    --ctp-surface1: #45475a;
+    --ctp-surface2: #585b70;
+    --ctp-overlay0: #6c7086;
+    --ctp-text: #cdd6f4;
+    --ctp-subtext1: #bac2de;
+    --ctp-subtext0: #a6adc8;
+    --ctp-mauve: #cba6f7;
+    --ctp-blue: #89b4fa;
+    --ctp-red: #f38ba8;
+    --ctp-peach: #fab387;
+
+    /* Override Firefox variables */
+    --toolbar-bgcolor: var(--ctp-mantle) !important;
+    --toolbar-color: var(--ctp-text) !important;
+    --toolbar-field-background-color: var(--ctp-base) !important;
+    --toolbar-field-color: var(--ctp-text) !important;
+    --toolbar-field-focus-background-color: var(--ctp-surface0) !important;
+    --toolbar-field-focus-color: var(--ctp-text) !important;
+    --toolbar-field-border-color: transparent !important;
+    --toolbar-field-focus-border-color: var(--ctp-mauve) !important;
+    --urlbarView-highlight-background: var(--ctp-surface1) !important;
+    --urlbarView-highlight-color: var(--ctp-text) !important;
+    --lwt-sidebar-background-color: var(--ctp-mantle) !important;
+    --lwt-sidebar-text-color: var(--ctp-text) !important;
+    --arrowpanel-background: var(--ctp-base) !important;
+    --arrowpanel-color: var(--ctp-text) !important;
+    --arrowpanel-border-color: var(--ctp-surface1) !important;
+    --tab-selected-bgcolor: var(--ctp-base) !important;
+}
+
+/* Tab bar background */
+#TabsToolbar {
+    background-color: var(--ctp-crust) !important;
+}
+
+/* Individual tabs */
+.tabbrowser-tab .tab-background {
+    border-radius: 8px 8px 0 0 !important;
+    margin-block: 4px 0 !important;
+}
+
+/* Active tab */
+.tabbrowser-tab[selected] .tab-background {
+    background-color: var(--ctp-base) !important;
+}
+
+/* Inactive tabs */
+.tabbrowser-tab:not([selected]) .tab-background {
+    background-color: transparent !important;
+}
+
+.tabbrowser-tab:not([selected]):hover .tab-background {
+    background-color: var(--ctp-surface0) !important;
+}
+
+/* Tab text */
+.tabbrowser-tab .tab-label {
+    color: var(--ctp-subtext1) !important;
+}
+
+.tabbrowser-tab[selected] .tab-label {
+    color: var(--ctp-text) !important;
+}
+
+/* Navigation bar */
+#nav-bar {
+    background-color: var(--ctp-mantle) !important;
+    border-bottom: 1px solid var(--ctp-surface0) !important;
+}
+
+/* URL bar */
+#urlbar-background {
+    background-color: var(--ctp-base) !important;
+    border: 1px solid var(--ctp-surface0) !important;
+    border-radius: 8px !important;
+}
+
+#urlbar[focused] #urlbar-background {
+    border-color: var(--ctp-mauve) !important;
+}
+
+/* Bookmarks bar */
+#PersonalToolbar {
+    background-color: var(--ctp-mantle) !important;
+}
+
+/* Findbar */
+.findbar-container {
+    background-color: var(--ctp-base) !important;
+    color: var(--ctp-text) !important;
+}
+
+/* Sidebar */
+#sidebar-header {
+    background-color: var(--ctp-mantle) !important;
+    color: var(--ctp-text) !important;
+    border-bottom: 1px solid var(--ctp-surface0) !important;
+}
+
+/* Context menus and panels */
+menupopup,
+panel {
+    --panel-background: var(--ctp-base) !important;
+    --panel-color: var(--ctp-text) !important;
+}
+
+menupopup {
+    background-color: var(--ctp-base) !important;
+    color: var(--ctp-text) !important;
+    border: 1px solid var(--ctp-surface1) !important;
+    border-radius: 8px !important;
+}
+
+menuitem[_moz-menuactive="true"],
+menu[_moz-menuactive="true"] {
+    background-color: var(--ctp-surface1) !important;
+    color: var(--ctp-text) !important;
+}

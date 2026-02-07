@@ -191,7 +191,7 @@ fi
 bold "==> Creating symlinks for .config directories..."
 mkdir -p "$HOME/.config"
 
-for config_dir in nvim sway waybar mako foot fish nnn swaylock swayr; do
+for config_dir in nvim sway waybar mako foot fish nnn swaylock swayr bat btop git environment.d; do
     if [ -d "$DOTFILES_DIR/config/$config_dir" ]; then
         create_symlink "$DOTFILES_DIR/config/$config_dir" "$HOME/.config/$config_dir"
     fi
@@ -205,6 +205,22 @@ if [ -d "$DOTFILES_DIR/greetd" ]; then
     sudo cp -r "$DOTFILES_DIR/greetd/"* /etc/greetd/
     sudo systemctl enable greetd
     echo "  ✓ Copied greetd config to /etc/greetd/ and enabled service"
+fi
+
+# Firefox userChrome.css setup
+if [ -f "$DOTFILES_DIR/firefox/userChrome.css" ]; then
+    bold "==> Setting up Firefox userChrome.css..."
+    # Find default Firefox profile (typically ends with .default-release or .default)
+    FIREFOX_PROFILE=$(find "$HOME/.mozilla/firefox" -maxdepth 1 -type d -name "*.default-release" -o -name "*.default" 2>/dev/null | head -1)
+
+    if [ -n "$FIREFOX_PROFILE" ]; then
+        mkdir -p "$FIREFOX_PROFILE/chrome"
+        cp "$DOTFILES_DIR/firefox/userChrome.css" "$FIREFOX_PROFILE/chrome/userChrome.css"
+        echo "  ✓ Copied userChrome.css to Firefox profile"
+        echo "  Note: Enable 'toolkit.legacyUserProfileCustomizations.stylesheets' in about:config if not already enabled"
+    else
+        warn "  Firefox profile not found. Create a Firefox profile and re-run this script."
+    fi
 fi
 
 bold "==> Setup complete!"
