@@ -2,6 +2,10 @@
 
 # Weather widget using wttr.in with monochromatic text-based icons
 
+# Cache settings
+CACHE_FILE="$HOME/.cache/waybar-weather.json"
+CACHE_DURATION=900  # 15 minutes (matches waybar interval)
+
 # Function to map weather conditions to icons
 get_icon() {
     local condition="$1"
@@ -36,8 +40,28 @@ get_icon() {
     esac
 }
 
-# Get all weather data in one JSON request
-weather_json=$(curl -s 'wttr.in/?format=j1' 2>/dev/null)
+# Check if cache exists and is recent enough
+if [ -f "$CACHE_FILE" ]; then
+    cache_age=$(($(date +%s) - $(stat -c %Y "$CACHE_FILE" 2>/dev/null || stat -f %m "$CACHE_FILE" 2>/dev/null)))
+    if [ $cache_age -lt $CACHE_DURATION ]; then
+        # Cache is fresh, use it
+        weather_json=$(cat "$CACHE_FILE")
+    else
+        # Cache is stale, fetch new data
+        weather_json=$(curl -s 'wttr.in/?format=j1' 2>/dev/null)
+        if [ -n "$weather_json" ]; then
+            mkdir -p "$(dirname "$CACHE_FILE")"
+            echo "$weather_json" > "$CACHE_FILE"
+        fi
+    fi
+else
+    # No cache, fetch new data
+    weather_json=$(curl -s 'wttr.in/?format=j1' 2>/dev/null)
+    if [ -n "$weather_json" ]; then
+        mkdir -p "$(dirname "$CACHE_FILE")"
+        echo "$weather_json" > "$CACHE_FILE"
+    fi
+fi
 
 if [ -z "$weather_json" ]; then
     echo '{"text":"?","tooltip":"Weather unavailable"}'

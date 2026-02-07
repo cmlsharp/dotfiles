@@ -44,6 +44,7 @@ alias ZZ exit
 alias edit '$EDITOR'
 alias svim sudoedit
 alias z 'source ~/.config/fish/config.fish'
+alias fishrc '$EDITOR ~/.config/fish/config.fish'
 
 # Aliases - ls (eza > exa > ls)
 if command -q eza
@@ -288,26 +289,4 @@ else
         set_color normal
     end
 end
-function bind_bang
-    switch (commandline -t)[-1]
-        case "!"
-            commandline -t -- $history[1]
-            commandline -f repaint
-        case "*"
-            commandline -i !
-    end
-end
 
-function bind_dollar
-    switch (commandline -t)[-1]
-        case "!"
-            commandline -f backward-delete-char history-token-search-backward
-        case "*"
-            commandline -i '$'
-    end
-end
-
-function fish_user_key_bindings
-    bind ! bind_bang
-    bind '$' bind_dollar
-end
