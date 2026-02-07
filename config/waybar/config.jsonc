@@ -159,7 +159,8 @@
     "custom/weather": {
         "exec": "~/.config/waybar/scripts/weather.sh",
         "interval": 900,
-        "tooltip": false
+        "return-type": "json",
+        "tooltip": true
     },
     "custom/power": {
         "format": "",

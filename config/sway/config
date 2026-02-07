@@ -116,8 +116,10 @@ bindsym $mod+Return exec $term
 # Floating windows
 for_window [app_id="wdisplays"] floating enable, resize set 800 600, move position center
 for_window [title="^floating-htop$"] floating enable, resize set 900 500, move position center
+for_window [title="^floating-btop$"] floating enable, resize set 1200 700, move position center
 for_window [title="^floating-calendar$"] floating enable, move position center
 bindsym $mod+p exec wdisplays
+bindsym $mod+i exec ~/.config/sway/toggle-btop.sh
 
 # Toggle microphone mute
 bindsym $mod+m exec sh -c 'pactl set-source-mute @DEFAULT_SOURCE@ toggle; pkill -RTMIN+10 waybar'
