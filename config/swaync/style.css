@@ -1,0 +1,375 @@
+/* ── Catppuccin Mocha ── */
+@define-color base      #1e1e2e;
+@define-color mantle    #181825;
+@define-color crust     #11111b;
+@define-color surface0  #313244;
+@define-color surface1  #45475a;
+@define-color surface2  #585b70;
+@define-color overlay0  #6c7086;
+@define-color overlay1  #7f849c;
+@define-color subtext1  #bac2de;
+@define-color text      #cdd6f4;
+@define-color rosewater #f5e0dc;
+@define-color flamingo  #f2cdcd;
+@define-color pink      #f5c2e7;
+@define-color mauve     #cba6f7;
+@define-color red       #f38ba8;
+@define-color maroon    #eba0ac;
+@define-color peach     #fab387;
+@define-color yellow    #f9e2af;
+@define-color green     #a6e3a1;
+@define-color teal      #94e2d5;
+@define-color sky       #89dceb;
+@define-color sapphire  #74c7ec;
+@define-color blue      #89b4fa;
+@define-color lavender  #b4befe;
+
+* {
+    font-family: "SauceCodePro Nerd Font", "Noto Sans", sans-serif;
+    font-size: 13px;
+}
+
+/* ── Windows ── */
+notificationwindow,
+blankwindow {
+    background: transparent;
+}
+
+.blank-window {
+    background: transparent;
+}
+
+.floating-notifications {
+    background: transparent;
+}
+
+/* ── Control Center ── */
+.control-center {
+    background: alpha(@base, 0.97);
+    border: 1px solid alpha(@mauve, 0.25);
+    border-radius: 12px;
+    color: @text;
+    box-shadow: 0 4px 24px alpha(@crust, 0.7);
+}
+
+.control-center .control-center-list {
+    background: transparent;
+}
+
+.control-center .control-center-list-placeholder {
+    opacity: 0.5;
+    color: @overlay0;
+}
+
+/* ── Close Button ── */
+.close-button {
+    background: alpha(@surface1, 0.5);
+    color: @text;
+    border-radius: 100%;
+    min-width: 24px;
+    min-height: 24px;
+    border: none;
+    box-shadow: none;
+    padding: 0;
+    margin-top: 8px;
+    margin-right: 8px;
+}
+
+.close-button:hover {
+    background: alpha(@red, 0.75);
+    color: @base;
+}
+
+/* ── Notification Row ── */
+.notification-row {
+    background: none;
+    outline: none;
+}
+
+.notification-row:focus {
+    background: alpha(@surface0, 0.35);
+}
+
+.notification-row .notification-background {
+    padding: 6px 12px;
+}
+
+/* ── Notification Card ── */
+.notification-row .notification-background .notification {
+    border-radius: 12px;
+    border: 1px solid alpha(@surface1, 0.5);
+    background: alpha(@surface0, 0.95);
+    box-shadow: 0 2px 8px alpha(@crust, 0.5);
+}
+
+.notification-row .notification-background .notification.low {
+    border-color: alpha(@blue, 0.4);
+}
+
+.notification-row .notification-background .notification.normal {
+    border-color: alpha(@mauve, 0.4);
+}
+
+.notification-row .notification-background .notification.critical {
+    border-color: alpha(@red, 0.7);
+    box-shadow: 0 2px 12px alpha(@red, 0.25);
+}
+
+/* ── Notification Actions ── */
+.notification-default-action {
+    border-radius: 12px;
+    background: transparent;
+    color: @text;
+}
+
+.notification-default-action:hover {
+    background: alpha(@surface1, 0.5);
+}
+
+.notification-default-action:not(:only-child) {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+/* ── Notification Content ── */
+.notification-content {
+    padding: 6px;
+}
+
+.notification-content .image {
+    border-radius: 100px;
+}
+
+.notification-content .text-box .summary {
+    font-weight: bold;
+    color: @text;
+    font-size: 14px;
+}
+
+.notification-content .text-box .time {
+    color: @overlay0;
+    font-size: 11px;
+}
+
+.notification-content .text-box .body {
+    color: @subtext1;
+    font-size: 13px;
+}
+
+/* Alt action buttons */
+.notification-action > button {
+    border-radius: 0;
+    background: alpha(@surface1, 0.4);
+    color: @text;
+    border: none;
+    padding: 4px 8px;
+}
+
+.notification-action > button:first-child {
+    border-bottom-left-radius: 12px;
+}
+
+.notification-action > button:last-child {
+    border-bottom-right-radius: 12px;
+}
+
+.notification-action > button:hover {
+    background: alpha(@mauve, 0.3);
+    color: @mauve;
+}
+
+/* ── Notification Groups ── */
+.notification-group {
+    border-radius: 12px;
+    margin: 2px 12px;
+}
+
+.notification-group.collapsed.not-expanded {
+    opacity: 0.4;
+}
+
+.notification-group .notification-group-headers .notification-group-header {
+    color: @subtext1;
+    font-size: 12px;
+}
+
+/* ── Widgets ── */
+.widget {
+    margin: 8px;
+    padding: 10px;
+    border-radius: 12px;
+    background: alpha(@surface0, 0.5);
+    border: 1px solid alpha(@surface1, 0.3);
+}
+
+/* Title */
+.widget-title {
+    padding: 6px 10px;
+    background: transparent;
+    border: none;
+    margin: 8px 8px 0 8px;
+}
+
+.widget-title > label {
+    font-size: 18px;
+    font-weight: bold;
+    color: @mauve;
+}
+
+.widget-title > button {
+    background: alpha(@blue, 0.15);
+    color: @blue;
+    border-radius: 8px;
+    border: 1px solid alpha(@blue, 0.3);
+    padding: 3px 10px;
+    font-size: 12px;
+}
+
+.widget-title > button:hover {
+    background: alpha(@blue, 0.3);
+    border-color: @blue;
+}
+
+/* DND */
+.widget-dnd {
+    font-size: 14px;
+}
+
+.widget-dnd > label {
+    color: @text;
+    font-size: 14px;
+}
+
+.widget-dnd > switch {
+    background: alpha(@surface2, 0.6);
+    border-radius: 12px;
+    border: none;
+    outline: none;
+}
+
+.widget-dnd > switch:checked {
+    background: @mauve;
+}
+
+.widget-dnd > switch slider {
+    background: @text;
+    border-radius: 100%;
+    min-width: 18px;
+    min-height: 18px;
+    margin: 2px;
+}
+
+/* MPRIS */
+.widget-mpris {
+    background: transparent;
+    border: none;
+    padding: 0;
+    margin: 4px 8px;
+}
+
+.widget-mpris .widget-mpris-player {
+    border-radius: 12px;
+    background: alpha(@surface0, 0.7);
+    border: 1px solid alpha(@surface1, 0.4);
+    padding: 8px;
+}
+
+.widget-mpris .widget-mpris-player .mpris-background {
+    filter: blur(10px);
+    border-radius: 12px;
+}
+
+.widget-mpris .widget-mpris-player .mpris-overlay .widget-mpris-title {
+    font-weight: bold;
+    color: @text;
+    font-size: 14px;
+}
+
+.widget-mpris .widget-mpris-player .mpris-overlay .widget-mpris-subtitle {
+    color: @subtext1;
+    font-size: 12px;
+}
+
+.widget-mpris .widget-mpris-player .mpris-overlay > box > button {
+    background: alpha(@surface1, 0.5);
+    color: @text;
+    border-radius: 100%;
+    min-width: 32px;
+    min-height: 32px;
+    border: none;
+}
+
+.widget-mpris .widget-mpris-player .mpris-overlay > box > button:hover {
+    background: alpha(@mauve, 0.4);
+    color: @mauve;
+}
+
+.widget-mpris > box > button {
+    background: alpha(@surface1, 0.4);
+    color: @text;
+    border-radius: 100%;
+    border: none;
+    min-width: 28px;
+    min-height: 28px;
+}
+
+.widget-mpris > box > button:disabled {
+    opacity: 0.4;
+}
+
+/* ── Volume & Backlight sliders ── */
+.widget-volume,
+.widget-backlight {
+    padding: 2px 10px;
+    margin: 2px 8px;
+}
+
+.widget-volume scale,
+.widget-backlight scale {
+    padding: 6px 4px;
+    margin: 0;
+}
+
+.widget-volume scale trough,
+.widget-backlight scale trough {
+    min-height: 4px;
+    border-radius: 4px;
+    background: alpha(@surface1, 0.6);
+}
+
+.widget-volume scale trough highlight,
+.widget-backlight scale trough highlight {
+    border-radius: 4px;
+}
+
+.widget-volume scale slider,
+.widget-backlight scale slider {
+    min-width: 14px;
+    min-height: 14px;
+    border-radius: 100%;
+    background: @text;
+    border: none;
+    box-shadow: none;
+}
+
+/* ── Volume ── */
+.widget-volume label {
+    color: @blue;
+    font-size: 14px;
+    min-width: 16px;
+}
+
+.widget-volume scale trough highlight {
+    background: @blue;
+}
+
+/* ── Backlight ── */
+.widget-backlight label {
+    color: @yellow;
+    font-size: 14px;
+    min-width: 16px;
+}
+
+.widget-backlight scale trough highlight {
+    background: @yellow;
+}

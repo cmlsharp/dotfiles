@@ -25,9 +25,10 @@ OFFICIAL_PKGS=(
     swaybg
     swayidle
     waybar
-    mako
+    swaync
     wofi
     foot
+    wlogout
 
     # Sway utilities (screenshots, clipboard, brightness)
     grim
@@ -135,8 +136,10 @@ if [ ${#AUR_PKGS[@]} -gt 0 ]; then
     yay -S --needed --noconfirm "${AUR_PKGS[@]}" || warn "Some AUR packages failed to install"
 fi
 
-# Build and install nnn-restorepreview
-bold "==> Building and installing nnn-restorepreview..."
+# Build and install custom packages
+bold "==> Building and installing custom packages..."
+
+# Build nnn-restorepreview
 if [ -d "$DOTFILES_DIR/nnn-restorepreview" ]; then
     cd "$DOTFILES_DIR/nnn-restorepreview"
     makepkg -si --noconfirm --skipinteg || warn "nnn-restorepreview installation failed"
@@ -144,6 +147,7 @@ if [ -d "$DOTFILES_DIR/nnn-restorepreview" ]; then
 else
     warn "nnn-restorepreview directory not found, skipping"
 fi
+
 
 # Create backup directory
 bold "==> Creating backup directory at $BACKUP_DIR..."
@@ -191,7 +195,7 @@ fi
 bold "==> Creating symlinks for .config directories..."
 mkdir -p "$HOME/.config"
 
-for config_dir in nvim sway waybar mako foot fish nnn swaylock swayr bat btop git environment.d; do
+for config_dir in nvim sway waybar swaync wlogout foot fish nnn swaylock swayr bat btop git environment.d; do
     if [ -d "$DOTFILES_DIR/config/$config_dir" ]; then
         create_symlink "$DOTFILES_DIR/config/$config_dir" "$HOME/.config/$config_dir"
     fi
@@ -221,6 +225,22 @@ if [ -f "$DOTFILES_DIR/firefox/userChrome.css" ]; then
     else
         warn "  Firefox profile not found. Create a Firefox profile and re-run this script."
     fi
+fi
+
+# Systemd user services setup
+bold "==> Setting up systemd user services..."
+mkdir -p "$HOME/.config/systemd/user"
+
+if [ -d "$DOTFILES_DIR/systemd/user" ]; then
+    for unit_file in "$DOTFILES_DIR/systemd/user"/*.service "$DOTFILES_DIR/systemd/user"/*.timer; do
+        if [ -f "$unit_file" ]; then
+            unit_name=$(basename "$unit_file")
+            create_symlink "$unit_file" "$HOME/.config/systemd/user/$unit_name"
+        fi
+    done
+    systemctl --user daemon-reload
+    systemctl --user enable --now battery-notify.timer || warn "battery-notify.timer failed to enable"
+    echo "  ✓ Systemd user services configured"
 fi
 
 bold "==> Setup complete!"

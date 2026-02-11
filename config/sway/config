@@ -138,7 +138,7 @@ floating_modifier $mod normal
 bindsym $mod+Shift+c reload
 
 # Exit sway (logs you out of your Wayland session)
-bindsym $mod+Shift+e exec swaynag -t warning -m 'You pressed the exit shortcut. Do you really want to exit sway? This will end your Wayland session.' -B 'Yes, exit sway' 'swaymsg exit'
+bindsym Ctrl+Alt+Delete exec wlogout
 #
 # Moving around:
 #
@@ -292,8 +292,8 @@ bindsym --release $mod+Shift+s exec sh -c 'slurp | grim -g - - | wl-copy && noti
 # Clipboard manager (cliphist)
 bindsym $mod+Shift+v exec sh -c 'cliphist list | wofi --dmenu --style ~/.config/waybar/scripts/wofi-dark.css --prompt "Clipboard" | cliphist decode | wl-copy'
 
-# View past notifications (mako)
-bindsym $mod+n exec makoctl restore
+# Toggle notification center (swaync)
+bindsym $mod+n exec swaync-client -t
 
 # launch firefox
 bindsym $mod+Shift+b exec sh -c 'firefox'
@@ -332,22 +332,20 @@ shadow_offset 0 4
 default_dim_inactive 0.15
 
 layer_effects "waybar" blur enable; shadows enable; corner_radius 10
-layer_effects "mako" blur enable; shadows enable; corner_radius 12
+layer_effects "swaync" blur enable; shadows enable; corner_radius 12
+layer_effects "swaync-control-center" blur enable; shadows enable
 
 exec nm-applet --indicator
-exec mako
+exec swaync
 exec wl-paste --watch cliphist store
 exec swayrd
 
 
-exec_always killall swayidle; swayidle -w \
-  timeout 600 'swaylock -f --indicator-caps-lock'  \
-  timeout 600 'swaymsg "output * power off"' \
-  before-sleep 'playerctl pause' \
-  before-sleep 'swaylock -f --indicator-caps-lock' \
-  before-sleep 'swaymsg "output * power off"' \
-  unlock 'swaymsg "output * power on"' \
-  after-resume 'swaymsg "output * power on"'
+exec_always killall swayidle && swayidle -w \
+     timeout 300 'swaymsg "output * power off"' \
+     timeout 600 'swaylock -f --indicator-caps-lock' \
+     timeout 650 'playerctl -a pause; systemctl hibernate' \
+          resume 'swaymsg "output * power on"' \
 
 
 include /etc/sway/config.d/*

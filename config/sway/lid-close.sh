@@ -4,7 +4,7 @@
 LAPTOP_SCREEN="eDP-1"
 OUTPUT_COUNT=$(swaymsg -t get_outputs | grep "\"name\":" | wc -l)
 
-if [ "$OUTPUT_COUNT" -eq 1 ]; then
+if [[ "$OUTPUT_COUNT" -eq 1 ]]; then
     # Only laptop screen - lock and suspend
     swaylock --indicator-caps-lock -f
     sleep 2

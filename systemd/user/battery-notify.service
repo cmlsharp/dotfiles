@@ -1,0 +1,10 @@
+[Unit]
+Description=Battery level notification
+After=graphical-session.target
+
+[Service]
+Type=oneshot
+ExecStart=%h/.config/sway/battery-notify.sh
+
+[Install]
+WantedBy=graphical-session.target

@@ -1,0 +1,14 @@
+[Unit]
+Description=Low battery notification daemon for Sway
+Documentation=https://github.com/m00qek/swaynag-battery
+PartOf=graphical-session.target
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/swaynag-battery --threshold 20
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=graphical-session.target

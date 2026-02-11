@@ -1,0 +1,91 @@
+{
+    "$schema": "/etc/xdg/swaync/configSchema.json",
+    "positionX": "right",
+    "positionY": "top",
+    "layer": "overlay",
+    "layer-shell": true,
+    "cssPriority": "user",
+    "control-center-layer": "overlay",
+    "control-center-margin-top": 10,
+    "control-center-margin-bottom": 10,
+    "control-center-margin-right": 10,
+    "control-center-margin-left": 0,
+    "control-center-width": 400,
+    "fit-to-screen": false,
+    "control-center-height": 640,
+    "notification-window-width": 400,
+    "transition-time": 200,
+    "hide-on-clear": false,
+    "hide-on-action": true,
+    "keyboard-shortcuts": true,
+    "image-visibility": "when-available",
+    "notification-2fa-action": true,
+    "notification-inline-replies": false,
+    "notification-body-image-height": 100,
+    "notification-body-image-width": 200,
+    "script-fail-notify": true,
+    "notification-grouping": true,
+    "relative-timestamps": true,
+    "timeout": 10,
+    "timeout-low": 5,
+    "timeout-critical": 0,
+    "text-empty": "No Notifications",
+    "scripts": {},
+    "notification-visibility": {},
+    "widgets": [
+        "title",
+        "dnd",
+        "buttons-grid",
+        "mpris",
+        "volume",
+        "backlight",
+        "notifications"
+    ],
+    "widget-config": {
+        "title": {
+            "text": "Notifications",
+            "clear-all-button": true,
+            "button-text": "Clear All"
+        },
+        "dnd": {
+            "text": "Do Not Disturb"
+        },
+        "buttons-grid": {
+            "buttons-per-row": 2,
+            "actions": [
+                {
+                    "label": "󰂯  Bluetooth",
+                    "type": "toggle",
+                    "active": false,
+                    "command": "sh -c 'test $SWAYNC_TOGGLE_STATE = true && bluetoothctl power on || bluetoothctl power off'",
+                    "update-command": "bluetoothctl show | grep Powered | grep -q yes && echo true || echo false"
+                },
+                {
+                    "label": "󰑋  Record",
+                    "type": "toggle",
+                    "active": false,
+                    "command": "~/.config/waybar/scripts/screen-record.sh",
+                    "update-command": "sh -c '[ -f /tmp/wf-recorder.pid ] && kill -0 $(cat /tmp/wf-recorder.pid) 2>/dev/null && echo true || echo false'"
+                }
+            ]
+        },
+        "mpris": {
+            "autohide": true,
+            "show-album-art": "when-available",
+            "loop-carousel": false
+        },
+        "volume": {
+            "label": " ",
+            "show-per-app": false
+        },
+        "backlight": {
+            "label": "󰖨 ",
+            "device": "intel_backlight",
+            "subsystem": "backlight",
+            "min": 0
+        },
+        "notifications": {
+            "vexpand": true
+        }
+    }
+}

@@ -16,12 +16,11 @@
     ],
     "modules-right": [
         "custom/weather",
-        "idle_inhibitor",
-        "backlight",
-        "pulseaudio",
-        "custom/mic",
+        "cpu",
+        "memory",
         "battery",
-        "custom/power",
+        "idle_inhibitor",
+        "custom/notification",
         "tray"
     ],
     "sway/workspaces": {
@@ -69,13 +68,13 @@
         "format": "  {usage}%",
         "interval": 5,
         "tooltip": true,
-        "on-click": "foot --title floating-htop htop"
+        "on-click": "foot --title floating-btop btop"
     },
     "memory": {
-        "format": "  {used:0.1f}G / {percentage}%",
+        "format": "≡ {percentage}%",
         "interval": 10,
         "tooltip-format": "{used:0.1f}G used / {total:0.1f}G total",
-        "on-click": "foot --title floating-htop htop"
+        "on-click": "foot --title floating-btop btop"
     },
     "battery": {
         "bat": "BAT0",
@@ -162,9 +161,29 @@
         "return-type": "json",
         "tooltip": true
     },
+        "custom/notification": {
+        "tooltip": false,
+        "format": "{icon}",
+        "format-icons": {
+            "notification": "󱅫",
+            "none": "󰂚",
+            "dnd-notification": "󱅫",
+            "dnd-none": "󰂛",
+            "inhibited-notification": "󱅫",
+            "inhibited-none": "󰂚",
+            "dnd-inhibited-notification": "󱅫",
+            "dnd-inhibited-none": "󰂛"
+        },
+        "return-type": "json",
+        "exec-if": "which swaync-client",
+        "exec": "swaync-client -swb",
+        "on-click": "swaync-client -t -sw",
+        "on-click-right": "swaync-client -d -sw",
+        "escape": true
+    },
     "custom/power": {
         "format": "",
-        "on-click": "~/.config/waybar/scripts/power-menu.sh",
+        "on-click": "wlogout",
         "tooltip": false
     },
     "tray": {

@@ -54,13 +54,11 @@ tooltip label {
 #cpu,
 #memory,
 #battery,
-#pulseaudio,
-#custom-mic,
 #network,
-#backlight,
 #idle_inhibitor,
 #mpris,
 #custom-weather,
+#custom-notification,
 #custom-power,
 #tray {
     padding: 0 14px;
@@ -77,13 +75,11 @@ tooltip label {
 #cpu:hover,
 #memory:hover,
 #battery:hover,
-#pulseaudio:hover,
-#custom-mic:hover,
 #network:hover,
-#backlight:hover,
 #idle_inhibitor:hover,
 #mpris:hover,
 #custom-weather:hover,
+#custom-notification:hover,
 #custom-power:hover {
     background-color: @surface0;
     border-color: @surface1;
@@ -209,37 +205,6 @@ tooltip label {
     100% { opacity: 1; }
 }
 
-/* ── Backlight ── */
-#backlight {
-    color: @yellow;
-}
-
-#backlight:hover {
-    border-color: @yellow;
-}
-
-/* ── PulseAudio ── */
-#pulseaudio {
-    color: @peach;
-}
-
-#pulseaudio:hover {
-    border-color: @peach;
-}
-
-#pulseaudio.muted {
-    color: @overlay0;
-}
-
-/* ── Mic ── */
-#custom-mic {
-    color: @pink;
-}
-
-#custom-mic:hover {
-    border-color: @pink;
-}
-
 /* ── Network ── */
 #network {
     color: @blue;
@@ -282,6 +247,15 @@ tooltip label {
 
 #custom-weather:hover {
     border-color: @rosewater;
+}
+
+/* ── Notification Bell ── */
+#custom-notification {
+    color: @lavender;
+}
+
+#custom-notification:hover {
+    border-color: @lavender;
 }
 
 /* ── Power ── */
