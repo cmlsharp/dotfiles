@@ -87,7 +87,8 @@ blankwindow {
 }
 
 .notification-row:focus {
-    background: alpha(@surface0, 0.35);
+    background: rgba(203, 166, 247, 0.12) !important;
+    outline: none !important;
 }
 
 .notification-row .notification-background {
@@ -315,6 +316,36 @@ blankwindow {
 
 .widget-mpris > box > button:disabled {
     opacity: 0.4;
+}
+
+/* ── Buttons Grid ── */
+.widget-buttons-grid > flowbox > flowboxchild > button {
+    background: alpha(@surface0, 0.7);
+    color: @subtext1;
+    border-radius: 8px;
+    border: 1px solid alpha(@surface1, 0.5);
+    padding: 8px 12px;
+    margin: 2px;
+    font-size: 12px;
+    min-width: 120px;
+    transition: all 150ms ease;
+}
+
+.widget-buttons-grid > flowbox > flowboxchild > button:hover {
+    background: alpha(@surface1, 0.8);
+    border-color: @surface2;
+    color: @text;
+}
+
+.widget-buttons-grid > flowbox > flowboxchild > button.active {
+    background: alpha(@mauve, 0.2);
+    color: @mauve;
+    border-color: alpha(@mauve, 0.5);
+}
+
+.widget-buttons-grid > flowbox > flowboxchild > button.active:hover {
+    background: alpha(@mauve, 0.35);
+    border-color: @mauve;
 }
 
 /* ── Volume & Backlight sliders ── */

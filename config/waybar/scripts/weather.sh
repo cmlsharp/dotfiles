@@ -6,6 +6,23 @@
 CACHE_FILE="$HOME/.cache/waybar-weather.json"
 CACHE_DURATION=900  # 15 minutes (matches waybar interval)
 
+FETCH_ERROR=""
+do_fetch() {
+    local tmpfile
+    tmpfile=$(mktemp)
+    local result
+    result=$(curl -sf --show-error 'wttr.in/?format=j1' 2>"$tmpfile")
+    local exit_code=$?
+    if [ $exit_code -ne 0 ]; then
+        FETCH_ERROR=$(cat "$tmpfile")
+        FETCH_ERROR="${FETCH_ERROR:-Unknown network error (exit $exit_code)}"
+    elif [ -z "$result" ]; then
+        FETCH_ERROR="Empty response from server"
+    fi
+    rm -f "$tmpfile"
+    echo "$result"
+}
+
 # Function to map weather conditions to icons
 get_icon() {
     local condition="$1"
@@ -48,7 +65,7 @@ if [ -f "$CACHE_FILE" ]; then
         weather_json=$(cat "$CACHE_FILE")
     else
         # Cache is stale, fetch new data
-        weather_json=$(curl -s 'wttr.in/?format=j1' 2>/dev/null)
+        weather_json=$(do_fetch)
         if [ -n "$weather_json" ]; then
             mkdir -p "$(dirname "$CACHE_FILE")"
             echo "$weather_json" > "$CACHE_FILE"
@@ -56,7 +73,7 @@ if [ -f "$CACHE_FILE" ]; then
     fi
 else
     # No cache, fetch new data
-    weather_json=$(curl -s 'wttr.in/?format=j1' 2>/dev/null)
+    weather_json=$(do_fetch)
     if [ -n "$weather_json" ]; then
         mkdir -p "$(dirname "$CACHE_FILE")"
         echo "$weather_json" > "$CACHE_FILE"
@@ -64,7 +81,9 @@ else
 fi
 
 if [ -z "$weather_json" ]; then
-    echo '{"text":"?","tooltip":"Weather unavailable"}'
+    error_msg="${FETCH_ERROR:-Weather unavailable}"
+    error_escaped=$(printf '%s' "$error_msg" | sed 's/"/\\"/g' | sed ':a;N;$!ba;s/\n/\\n/g')
+    echo "{\"text\":\"?\",\"tooltip\":\"$error_escaped\"}"
     exit 0
 fi
 

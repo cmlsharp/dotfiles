@@ -140,6 +140,35 @@ tooltip label {
     min-width: 0;
 }
 
+/* ── Scratchpad indicator (hidden when empty) ── */
+#scratchpad {
+    padding: 0 14px;
+    margin: 5px 3px;
+    background-color: alpha(@base, 0.85);
+    border-radius: 16px;
+    border: 1px solid alpha(@surface0, 0.5);
+    color: @overlay0;
+    transition: all 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+#scratchpad:hover {
+    background-color: @surface0;
+    border-color: @surface1;
+    color: @text;
+}
+
+/* ── Mode indicator ── */
+#mode {
+    padding: 0 14px;
+    margin: 5px 3px;
+    background-color: alpha(@peach, 0.15);
+    border-radius: 16px;
+    border: 1px solid alpha(@peach, 0.5);
+    color: @peach;
+    font-weight: bold;
+    transition: all 200ms cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
 /* ── Clock ── */
 #clock {
     color: @text;

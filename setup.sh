@@ -29,6 +29,7 @@ OFFICIAL_PKGS=(
     wofi
     foot
     wlogout
+    kanshi
 
     # Sway utilities (screenshots, clipboard, brightness)
     grim
@@ -76,6 +77,7 @@ AUR_PKGS=(
     swayfx
     swaylock-effects
     swayr
+    wdisplays-persistent
 
     # Themes
     catppuccin-mocha-dark-cursors
@@ -195,7 +197,7 @@ fi
 bold "==> Creating symlinks for .config directories..."
 mkdir -p "$HOME/.config"
 
-for config_dir in nvim sway waybar swaync wlogout foot fish nnn swaylock swayr bat btop git environment.d; do
+for config_dir in nvim sway waybar swaync wlogout foot fish nnn swaylock swayr bat btop git environment.d kanshi; do
     if [ -d "$DOTFILES_DIR/config/$config_dir" ]; then
         create_symlink "$DOTFILES_DIR/config/$config_dir" "$HOME/.config/$config_dir"
     fi

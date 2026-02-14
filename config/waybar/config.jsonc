@@ -8,6 +8,8 @@
     "spacing": 0,
     "modules-left": [
         "sway/workspaces",
+        "sway/mode",
+        "sway/scratchpad",
         "sway/window",
         "mpris"
     ],
@@ -40,6 +42,17 @@
             "focused": "",
             "default": ""
         }
+    },
+    "sway/mode": {
+        "format": "󰌌  {}",
+        "tooltip": false
+    },
+    "sway/scratchpad": {
+        "format": "{icon} {count}",
+        "show-empty": false,
+        "format-icons": ["", ""],
+        "tooltip": true,
+        "tooltip-format": "{title}"
     },
     "sway/window": {
         "max-length": 40,
@@ -159,7 +172,8 @@
         "exec": "~/.config/waybar/scripts/weather.sh",
         "interval": 900,
         "return-type": "json",
-        "tooltip": true
+        "tooltip": true,
+        "on-click": "rm -f ~/.cache/waybar-weather.json"
     },
         "custom/notification": {
         "tooltip": false,
