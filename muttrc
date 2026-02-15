@@ -1,131 +1,142 @@
+## Pager
+set pager_index_lines = 10
+
+## Headers
+ignore *
+unignore from: to: cc: bcc: reply-to: date: subject:
+hdr_order from: to: cc: bcc: reply-to: date: subject:
+
 ## General options
 set imap_keepalive = 300
 set mail_check = 60
-set mbox_type=Maildir
-set query_command="abook --mutt-query '%s'"
+set mbox_type = Maildir
+set query_command = "abook --mutt-query '%s'"
 set mark_old = no
 set header_cache = "~/.mutt_cache/headers"
 set message_cachedir = "~/.mutt_cache/messages"
-set certificate_file="~/.mutt_cache/certs"
+set certificate_file = "~/.mutt_cache/certs"
 set delete = yes
 set edit_headers = yes
 set include = yes
 set abort_nosubject = no
+set send_charset = "utf-8"
 auto_view text/html
-folder-hook . `rm -f /tmp/mutt/*`
-# Threads
-set sort="threads"
-set strict_threads=yes
+
+## Threads
+set sort     = "threads"
+set sort_aux = "reverse-last-date-received"
+set strict_threads = yes
 unset collapse_unread
 bind index - collapse-thread
 bind index _ collapse-all
-## Sidebar -- IMPORTANT:  REQUIRES mutt-sidebar patch
+
+## Sidebar
 set sidebar_visible = yes
-set sidebar_width=38
-#set sidebar_sort = yes
+set sidebar_width = 38
+set sidebar_format = "%B%* %?N?%N/?%S"
 macro index B '<enter-command>toggle sidebar_visible<enter><refresh>'
 macro pager B '<enter-command>toggle sidebar_visible<enter><redraw-screen>'
 bind index K sidebar-prev
 bind index J sidebar-next
 bind index L sidebar-open
-# Keybindings
+
+## Keybindings
 bind editor <Tab> complete-query
-bind pager K  previous-line
+bind pager K previous-line
 bind pager J next-line
+bind pager h exit
+bind pager H display-toggle-weed
+bind pager l view-attachments
 bind index,pager X previous-page
 bind index,pager x next-page
 bind index G last-entry
+bind index g noop
 bind index I imap-fetch-mail
 bind index \cN next-unread
 bind index \cP previous-unread
-bind compose p pgp-menu
-macro compose Y pfy "Send mail without PGP"
-macro compose I pipey "Send mail with inline PGP"
 macro generic,index,pager \cb "<shell-escape>abook<return><redraw-screen>" "launch abook"
-macro index S "\cc =[Gmail]/" "Switch to gmail"
-macro index,pager A "<pipe-message>abook --add-email<return>" "add the sender address to abook"
+macro pager A "<pipe-message>abook --add-email<return>" "add the sender address to abook"
 macro index,pager Z \$q "Save and quit"
-macro index,pager <f3> '<sync-mailbox><enter-command>source ~/.mutt/gmail1<enter><change-folder>!<enter>'
-macro index,pager <f2> '<sync-mailbox><enter-command>source ~/.mutt/gmail2<enter><change-folder>!<enter>'
-macro index,pager <f4> '<sync-mailbox><enter-command>source ~/.mutt/riseup<enter><change-folder>!<enter>'
-macro pager M v/text/html<Enter>mq "Open html with mailcap"
-# PGP options
-source "gpg2 -dq $HOME/.mypw.gpg |" #Decrypt encrypted password variables
-set pgp_use_gpg_agent = yes
-#set pgp_sign_as = "0x0E317A6140804CCD"
-#set pgp_timeout = 3600
-#set crypt_autosign = yes
-#set crypt_replyencrypt = yes
-#set pgp_auto_decode = yes
-source /etc/Muttrc.gpg.dist
-# Default color definitions
-color normal     white         default
-color hdrdefault green         default
-color quoted	 green         default
-color quoted1    yellow        default
-color quoted2    red           default
-color signature  cyan          default
-color indicator  brightyellow  red
-color error      brightred     default
-color status	 brightwhite   blue
-color tree	 brightmagenta default
-color tilde	 blue          default
-color attachment brightyellow  default
-color markers	 brightred     default
-color message    white         default
-color search     brightwhite   magenta
-color bold       brightyellow  default
-
-# Colors for items in the reader
-color header brightyellow default "^(From|Subject):"
-color header brightcyan   default ^To:
-color header brightcyan   default ^Cc:
-mono  header bold                 "^(From|Subject):"
-
-# regular new messages
-color index brightwhite        green   "~N"
-# URLs
-color body brightyellow default "([a-z][a-z0-9+-]*://(((([a-z0-9_.!~*'();:&=+$,-]|%[0-9a-f][0-9a-f])*@)?((([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?|[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)(:[0-9]+)?)|([a-z0-9_.!~*'()$,;:@&=+-]|%[0-9a-f][0-9a-f])+)(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?(#([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?|(www|ftp)\\.(([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?(:[0-9]+)?(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?(#([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?)[^].,:;!)? \t\r\n<>\"]"
-
-# email addresses
-color body brightmagenta default "((@(([0-9a-z-]+\\.)*[0-9a-z-]+\\.?|#[0-9]+|\\[[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\]),)*@(([0-9a-z-]+\\.)*[0-9a-z-]+\\.?|#[0-9]+|\\[[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\]):)?[0-9a-z_.+%$-]+@(([0-9a-z-]+\\.)*[0-9a-z-]+\\.?|#[0-9]+|\\[[0-2]?[0-9]?[0-9]\\.[0-2]?[0-9]?[0-9]\\.[0-2]?[0-9]?[0-9]\\.[0-2]?[0-9]?[0-9]\\])"
-
-# PGP messages
-color  body            brightyellow    default "^gpg: Good signature .*"
-color  body            white           default "^gpg: "
-color  body            brightwhite     red     "^gpg: BAD signature from.*"
-mono   body            bold                    "^gpg: Good signature"
-mono   body            bold                    "^gpg: BAD signature from.*"
-
-# Various smilies and the like
-color body brightwhite default "<[Gg]>"                            # <g>
-color body brightwhite default "<[Bb][Gg]>"                        # <bg>
-color body brightwhite default " [;:]-*[})>{(<|]"                  # :-) etc...
-# *bold*
-color body brightblue  default "(^|[[:space:][:punct:]])\\*[^*]+\\*([[:space:][:punct:]]|$)"
-mono  body bold                "(^|[[:space:][:punct:]])\\*[^*]+\\*([[:space:][:punct:]]|$)"
-# _underline_
-color body brightblue  default "(^|[[:space:][:punct:]])_[^_]+_([[:space:][:punct:]]|$)"
-mono  body underline           "(^|[[:space:][:punct:]])_[^_]+_([[:space:][:punct:]]|$)"
-# /italic/  (Sometimes gets directory names)
-color body brightblue  default "(^|[[:space:][:punct:]])/[^/]+/([[:space:][:punct:]]|$)"
-#mono  body underline           "(^|[[:space:][:punct:]])/[^/]+/([[:space:][:punct:]]|$)"
-
-# Border lines.
-color body blue default "( *[-+=#*~_]){6,}"
-
 macro index A \
     "<tag-pattern>~N<enter><tag-prefix><clear-flag>N<untag-pattern>.<enter>" \
     "mark all new as read"
 
-### Accounts
+# First entry (gg) and goto shortcuts (g prefix)
+macro index gg '<first-entry>' "Go to first entry"
+macro index gi '<change-folder>=INBOX<enter>'                "Go to Inbox"
+macro index gs '<change-folder>=[Gmail]/Sent Mail<enter>'    "Go to Sent"
+macro index gd '<change-folder>=[Gmail]/Drafts<enter>'       "Go to Drafts"
 
-### Cub Gmail
+# Account switching (Alt+1/2/3)
+set status_format = "-%r- %f [%?n?%n new/?%m msgs]─%>─[?]─[%P]─"
+macro index \e1 '<sync-mailbox><enter-command>source ~/.mutt/michigan.account<enter><change-folder>!<enter>' "Switch to michigan"
+macro index \e2 '<sync-mailbox><enter-command>source ~/.mutt/gmail1.account<enter><change-folder>!<enter>' "Switch to gmail1"
+macro index \e3 '<sync-mailbox><enter-command>source ~/.mutt/gmail2.account<enter><change-folder>!<enter>' "Switch to gmail2"
 
-#### Riseup email
-#source "~/.mutt/riseup"
-#folder-hook $folder 'source ~/.mutt/riseup'
+## Colors — Catppuccin Mocha
+# Must be set before color commands
+set color_directcolor = yes
 
-#### Account configuration (local, not in git)
-# Copy mutt/accounts.local.example to ~/.mutt/accounts.local and configure your accounts
+color normal      #cdd6f4  default
+color hdrdefault  #a6adc8  default
+color quoted      #a6e3a1  default
+color quoted1     #f9e2af  default
+color quoted2     #fab387  default
+color quoted3     #f38ba8  default
+color signature   #94e2d5  default
+color indicator   #1e1e2e  #cba6f7
+color error       #f38ba8  default
+color status      #1e1e2e  #89b4fa
+color tree        #cba6f7  default
+color tilde       #45475a  default
+color attachment  #f9e2af  default
+color markers     #f38ba8  default
+color message     #cdd6f4  default
+color search      #1e1e2e  #f9e2af
+color bold        #f9e2af  default
+color underline   #b4befe  default
+
+# Sidebar
+color sidebar_divider    #45475a  default
+color sidebar_indicator  #1e1e2e  #cba6f7
+color sidebar_highlight  #cdd6f4  #313244
+color sidebar_new        #a6e3a1  default
+color sidebar_ordinary   #a6adc8  default
+color sidebar_flagged    #fab387  default
+color sidebar_spoolfile  #89b4fa  default
+
+# Header colors
+color header #f9e2af default "^(From|Subject):"
+color header #74c7ec default "^(To|Cc|Bcc):"
+color header #a6adc8 default "^Date:"
+color header #cba6f7 default "^Reply-To:"
+mono  header bold               "^(From|Subject):"
+
+# Index — message states
+color index #a6e3a1  default "~N"    # new
+color index #f9e2af  default "~U"    # unread (not new)
+color index #fab387  default "~F"    # flagged
+color index #f38ba8  default "~D"    # deleted
+color index #b4befe  default "~Q"    # replied
+color index #6c7086  default "~T"    # tagged
+color index_author  #74c7ec  default ".*"
+color index_subject #cdd6f4  default ".*"
+color index_date    #6c7086  default ".*"
+color index_flags   #cba6f7  default ".*"
+
+# URLs
+color body #f9e2af default "([a-z][a-z0-9+-]*://(((([a-z0-9_.!~*'();:&=+$,-]|%[0-9a-f][0-9a-f])*@)?((([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?|[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+)(:[0-9]+)?)|([a-z0-9_.!~*'()$,;:@&=+-]|%[0-9a-f][0-9a-f])+)(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*(/([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*(;([a-z0-9_.!~*'():@&=+$,-]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?(#([a-z0-9_.!~*'();/?:@&=+$,-]|%[0-9a-f][0-9a-f])*)?|(www|ftp)\\.(([a-z0-9]([a-z0-9-]*[a-z0-9])?)\\.)*([a-z]([a-z0-9-]*[a-z0-9])?)\\.?(:[0-9]+)?(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*(/([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*(;([-a-z0-9_.!~*'():@&=+$,]|%[0-9a-f][0-9a-f])*)*)*)?(\\?([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?(#([-a-z0-9_.!~*'();/?:@&=+$,]|%[0-9a-f][0-9a-f])*)?)[^].,:;!)? \t\r\n<>\"]"
+
+# Email addresses
+color body #cba6f7 default "((@(([0-9a-z-]+\\.)*[0-9a-z-]+\\.?|#[0-9]+|\\[[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\]),)*@(([0-9a-z-]+\\.)*[0-9a-z-]+\\.?|#[0-9]+|\\[[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\.[0-9]?[0-9]?[0-9]\\]):)?[0-9a-z_.+%$-]+@(([0-9a-z-]+\\.)*[0-9a-z-]+\\.?|#[0-9]+|\\[[0-2]?[0-9]?[0-9]\\.[0-2]?[0-9]?[0-9]\\.[0-2]?[0-9]?[0-9]\\.[0-2]?[0-9]?[0-9]\\])"
+
+# Formatting
+color body #89b4fa default "(^|[[:space:][:punct:]])\\*[^*]+\\*([[:space:][:punct:]]|$)"
+mono  body bold              "(^|[[:space:][:punct:]])\\*[^*]+\\*([[:space:][:punct:]]|$)"
+color body #89b4fa default "(^|[[:space:][:punct:]])_[^_]+_([[:space:][:punct:]]|$)"
+mono  body underline         "(^|[[:space:][:punct:]])_[^_]+_([[:space:][:punct:]]|$)"
+color body #89b4fa default "(^|[[:space:][:punct:]])/[^/]+/([[:space:][:punct:]]|$)"
+color body #45475a default "( *[-+=#*~_]){6,}"
+
+## Accounts (local, not in git)
 source "~/.mutt/accounts.local"

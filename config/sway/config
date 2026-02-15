@@ -72,7 +72,7 @@ for_window [all] title_format "%title <span foreground='$mauve'>%marks</span>"
 # Prevent idle/screensaver while any window is fullscreen (videos, presentations)
 for_window [all] inhibit_idle fullscreen
 # Apps requesting focus flash as urgent instead of stealing focus
-focus_on_window_activation urgent
+focus_on_window_activation smart
 # Fullscreen apps can show their own popups without dropping out of fullscreen
 popup_during_fullscreen smart
 
@@ -622,9 +622,10 @@ exec kanshi
 
 exec_always killall swayidle; swayidle -w \
      timeout 300 'swaymsg "output * power off"' \
+          resume 'swaymsg "output * power on"' \
      timeout 600 'swaylock -f --indicator-caps-lock' \
      timeout 650 'playerctl -a pause; systemctl hibernate' \
-          resume 'swaymsg "output * power on"' \
+     before-sleep 'swaylock -f --indicator-caps-lock'
 
 
 include /etc/sway/config.d/*

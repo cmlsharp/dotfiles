@@ -87,7 +87,7 @@ alias p 'ps -ef'
 alias dud 'du --max-depth=1 -h'
 alias duf 'du -sh *'
 alias info 'info --vi-keys'
-command -q neomutt; and alias mutt neomutt
+## mutt is defined in functions/mutt.fish (sets TERM=xterm-direct for truecolor)
 
 # Abbreviations - git (expand inline so you can edit before running)
 abbr -a g git

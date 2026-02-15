@@ -1,21 +1,43 @@
-## Receive options.
-set imap_user=your.email@example.com
-set imap_pass=$my_pw_accountname
-set folder = imaps://your.email@imap.example.com/
-set spoolfile = imaps://imap.example.com:993/INBOX
-set postponed = "+[Gmail]/Drafts"  # Adjust for your email provider
-unset record
-mailboxes "imaps://imap.example.com/INBOX" "imaps://imap.example.com/[Gmail]/Drafts" "imaps://imap.example.com/[Gmail]/Sent Mail" "imaps://imap.example.com/[Gmail]/Spam" "imaps://imap.example.com/[Gmail]/Trash"
+# Gmail account template
+# Copy to ~/.mutt/accountname.account and fill in your details
+#
+# Before using, store your App Password in the keyring:
+#   secret-tool store --label="Mutt accountname" service mutt username you@gmail.com
+#
+# Generate an App Password at:
+#   Google Account → Security → 2-Step Verification → App passwords
 
-## Send options.
-set smtp_url=smtps://your.email@smtp.example.com
-set smtp_pass=$my_pw_accountname
-set realname='Your Name'
-set from=your.email@example.com
-set hostname="example.com"
-# Connection options
+## Identity
+set realname  = "Your Name"
+set from      = "you@gmail.com"
+set status_format = "-%r- %f [%?n?%n new/?%m msgs]─%>─[you@gmail.com]─[%P]─"
+
+## IMAP (incoming)
+set folder    = "imaps://you@gmail.com@imap.gmail.com/"
+set spoolfile = "+INBOX"
+set postponed = "+[Gmail]/Drafts"
+unset record  # Gmail saves sent mail automatically
+
+## SMTP (outgoing)
+set smtp_url  = "smtps://you@gmail.com@smtp.gmail.com:465/"
+
+## Passwords from keyring (never stored in plain text)
+set imap_pass = "`secret-tool lookup service mutt username you@gmail.com`"
+set smtp_pass = "`secret-tool lookup service mutt username you@gmail.com`"
+
+## Mailboxes shown in sidebar
+unmailboxes *
+mailboxes +INBOX \
+          "+[Gmail]/Sent Mail" \
+          "+[Gmail]/Drafts" \
+          "+[Gmail]/Spam" \
+          "+[Gmail]/Trash"
+
+## SSL
 set ssl_force_tls = yes
-unset ssl_starttls
 
-## Hook -- IMPORTANT!
-account-hook $folder "set imap_user=your.email@example.com"
+## Account hook — re-sets credentials when switching to this account
+account-hook "imaps://you@gmail.com@imap.gmail.com/" \
+    "set imap_user=you@gmail.com \
+         imap_pass=\"`secret-tool lookup service mutt username you@gmail.com`\" \
+         smtp_pass=\"`secret-tool lookup service mutt username you@gmail.com`\""
