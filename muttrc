@@ -20,15 +20,30 @@ set edit_headers = yes
 set include = yes
 set abort_nosubject = no
 set send_charset = "utf-8"
+set editor = "nvim +/^$"
+set fast_reply = yes
+set pager_stop = yes
+set pager_context = 3
+set text_flowed = yes
+set forward_format = "Fwd: %s"
+set attribution = "On %d, %n wrote:"
+set confirmappend = no
+set collapse_flagged = no
 auto_view text/html
+alternative_order text/html text/plain
+set mailcap_path = ~/.mailcap
 
 ## Threads
-set sort     = "threads"
-set sort_aux = "reverse-last-date-received"
+set sort     = "reverse-threads"
+set sort_aux = "last-date-received"
 set strict_threads = yes
 unset collapse_unread
 bind index - collapse-thread
 bind index _ collapse-all
+
+## Index
+# Date: time if today, weekday+day if this month, month+day if this year, month/year if older
+set index_format = '%4C %Z %<[y?%<[m?%<[d?%[%H:%M ]&%[%a %d]>&%[%b %d]>&%[%m/%y ]> %-15.15L (%<l?%4l&%4c>) %s'
 
 ## Sidebar
 set sidebar_visible = yes
@@ -55,6 +70,8 @@ bind index I imap-fetch-mail
 bind index \cN next-unread
 bind index \cP previous-unread
 macro generic,index,pager \cb "<shell-escape>abook<return><redraw-screen>" "launch abook"
+macro index,pager \cu "<pipe-message>urlscan<Enter>" "open URLs with urlscan"
+macro attach,compose \cu "<pipe-entry>urlscan<Enter>" "open URLs in attachment"
 macro pager A "<pipe-message>abook --add-email<return>" "add the sender address to abook"
 macro index,pager Z \$q "Save and quit"
 macro index A \

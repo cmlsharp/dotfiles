@@ -1,7 +1,9 @@
-text/html;                      cp %s /tmp/mutt-html-$$.html && $BROWSER /tmp/mutt-html-$$.html &>/dev/null &; needsterminal;
-text/html;                      w3m -I %{charset} -T text/html; copiousoutput;
-text/plain;                     vim -geometry=500x500 %s & &>/dev/null; needsterminal;
-text/plain;                     vim %s; copiousoutput;
+text/html;                      cp %s /tmp/mutt-html-$$.html && $BROWSER /tmp/mutt-html-$$.html &>/dev/null &; needsterminal; nametemplate=%s.html
+text/html;                      elinks -dump -dump-charset %{charset}; copiousoutput;
+text/plain;                     nvim %s; needsterminal;
+text/plain;                     nvim %s; copiousoutput;
+application/pdf;                xdg-open %s &>/dev/null &; nametemplate=%s.pdf
 application/*;                  mkdir -p /tmp/mutt \; cp %s /tmp/mutt \; xdg-open /tmp/mutt/$(basename %s) &>/dev/null &
 image/*;                        mkdir -p /tmp/mutt \; cp %s /tmp/mutt \; xdg-open /tmp/mutt/$(basename %s) &>/dev/null &
-
+audio/*;                        mpv %s &>/dev/null &
+video/*;                        mpv %s &>/dev/null &
