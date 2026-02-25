@@ -8,9 +8,6 @@ return {
       "mason-lspconfig.nvim",
     },
     config = function()
-      local lspconfig = require "lspconfig"
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
-
       vim.api.nvim_create_autocmd("LspAttach", {
         group = vim.api.nvim_create_augroup("UserLspKeymaps", {}),
         callback = function(ev)
@@ -29,33 +26,31 @@ return {
         end,
       })
 
-      local servers = { "html", "cssls", "clangd", "ocamllsp" }
-      for _, lsp in ipairs(servers) do
-        lspconfig[lsp].setup {
-          capabilities = capabilities,
-        }
-      end
+      vim.lsp.config("*", {
+        capabilities = require("cmp_nvim_lsp").default_capabilities(),
+      })
 
-      lspconfig.ocamllsp.setup {
+      vim.lsp.config("ocamllsp", {
         cmd = { "ocamllsp" },
         filetypes = { "ml", "ocaml", "ocaml.menhir", "ocaml.interface", "ocaml.ocamllex", "reason", "dune" },
-        capabilities = capabilities,
-      }
+      })
+
+      vim.lsp.enable("ocamllsp")
     end,
   },
 
   -- Mason
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     cmd = "Mason",
     opts = {},
   },
   {
-    "williamboman/mason-lspconfig.nvim",
-    dependencies = { "mason.nvim" },
+    "mason-org/mason-lspconfig.nvim",
+    dependencies = { "mason.nvim", "nvim-lspconfig" },
     opts = {
       ensure_installed = { "html", "cssls", "clangd" },
-      automatic_installation = true,
+      automatic_enable = true,
     },
   },
 

@@ -564,8 +564,8 @@ bindsym $mod+Shift+v exec sh -c 'cliphist list | wofi --dmenu --style ~/.config/
 # Toggle the swaync notification center panel
 bindsym $mod+n exec swaync-client -t
 
-# Open Firefox
-bindsym $mod+Shift+b exec sh -c 'firefox'
+# Open zen
+bindsym $mod+Shift+b exec sh -c 'zen-browser'
 
 # Close / kill the focused window
 bindsym $mod+BackSpace kill
