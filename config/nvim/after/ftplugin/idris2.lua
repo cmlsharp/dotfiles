@@ -20,7 +20,7 @@ local function save_and_run(action, check_modified)
   if check_modified == nil then check_modified = true end
   return function()
     if check_modified then
-      if vim.api.nvim_buf_get_option(0, 'modified') then
+      if vim.api.nvim_get_option_value('modified', { buf = 0 }) then
         vim.cmd('write')
       end
     else
@@ -63,7 +63,7 @@ local function toggle_auto_hover()
     hover_autocmd_id = vim.api.nvim_create_autocmd({"CursorHold"}, {
       buffer = bufnr,
       callback = function()
-        if vim.api.nvim_buf_get_option(0, 'modified') then
+        if vim.api.nvim_get_option_value('modified', { buf = 0 }) then
           vim.cmd('write')
         end
         hover.hover(true)

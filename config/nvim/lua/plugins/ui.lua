@@ -33,6 +33,9 @@ return {
     opts = {
       options = {
         diagnostics = "nvim_lsp",
+        custom_filter = function(buf)
+          return vim.bo[buf].buftype ~= "terminal"
+        end,
       },
     },
   },

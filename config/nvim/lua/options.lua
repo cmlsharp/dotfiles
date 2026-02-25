@@ -7,8 +7,8 @@ opt.shiftwidth = 4
 opt.tabstop = 4
 opt.expandtab = true
 
-opt.swapfile = true
-opt.directory = vim.fn.stdpath("cache") .. "/swap"
+--opt.swapfile = true
+--opt.directory = vim.fn.stdpath("cache") .. "/swap"
 opt.undofile = true
 opt.undodir = vim.fn.stdpath("cache") .. "/undo"
 

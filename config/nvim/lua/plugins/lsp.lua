@@ -30,6 +30,18 @@ return {
         capabilities = require("cmp_nvim_lsp").default_capabilities(),
       })
 
+      vim.lsp.config("clangd", {
+        cmd = {
+          "clangd",
+          "--background-index",        -- index project in background, persist to disk
+          "--clang-tidy",              -- enable clang-tidy diagnostics
+          "--all-scopes-completion",   -- suggest symbols from all namespaces, not just visible ones
+          "--completion-style=detailed", -- show full type info per overload instead of bundling
+          "--header-insertion=iwyu",   -- auto-insert #include for used symbols
+          "--pch-storage=memory",      -- keep precompiled headers in memory (faster, more RAM)
+        },
+      })
+
       vim.lsp.config("ocamllsp", {
         cmd = { "ocamllsp" },
         filetypes = { "ml", "ocaml", "ocaml.menhir", "ocaml.interface", "ocaml.ocamllex", "reason", "dune" },
@@ -117,6 +129,15 @@ return {
           { name = "buffer" },
         }),
       }
+
+      -- Avante completion sources for the chat input
+      cmp.setup.filetype("AvanteInput", {
+        sources = cmp.config.sources({
+          { name = "avante_commands" },
+          { name = "avante_mentions" },
+          { name = "avante_files" },
+        }),
+      })
     end,
   },
 }

@@ -43,6 +43,11 @@ end
 set -gx TERM tmux-256color
 set -gx CC gcc
 
+# Anthropic API key
+if test -f ~/.dotfiles/.claude_api_key
+    set -gx ANTHROPIC_API_KEY (cat ~/.dotfiles/.claude_api_key)
+end
+
 # Tmux auto-attach
 if command -q tmux; and not set -q TMUX
     exec tmux

@@ -112,7 +112,7 @@ return {
   -- Telescope
   {
     "nvim-telescope/telescope.nvim",
-    version = "*",
+    branch = "master",
     cmd = "Telescope",
     dependencies = {
       "nvim-lua/plenary.nvim",
@@ -122,20 +122,17 @@ return {
   },
 
   -- Treesitter
-  {
-    "nvim-treesitter/nvim-treesitter",
-    branch = "main",
-    event = { "BufReadPost", "BufNewFile" },
-    build = ":TSUpdate",
-    opts = {
-      highlight = { enable = true },
-      indent = { enable = true },
-      ensure_installed = {
-        "vim", "lua", "vimdoc", "html", "css", "rust", "c", "cpp",
-      },
-    },
-    config = function(_, opts)
-      require("nvim-treesitter").setup(opts)
+  { -- Highlight, edit, and navigate code
+    'nvim-treesitter/nvim-treesitter',
+    lazy = false,
+    build = ':TSUpdate',
+    config = function()
+      local filetypes = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc', 'rust', 'haskell', 'ocaml' }
+      require('nvim-treesitter').install(filetypes)
+      vim.api.nvim_create_autocmd('FileType', {
+        pattern = filetypes,
+        callback = function() vim.treesitter.start() end,
+      })
     end,
   },
 
@@ -168,5 +165,127 @@ return {
   {
     "jake-stewart/multicursor.nvim",
     event = "VeryLazy",
+  },
+
+  -- Toggleterm
+  {
+    "akinsho/toggleterm.nvim",
+    version = "*",
+    opts = {
+      size = function(term)
+        if term.direction == "horizontal" then
+          return math.floor(vim.o.lines * 0.3)
+        elseif term.direction == "vertical" then
+          return math.floor(vim.o.columns * 0.4)
+        end
+      end,
+      open_mapping = [[<C-\>]],
+      direction = "horizontal",
+      shade_terminals = false,
+      persist_size = false,
+      on_open = function(term)
+        if term.direction == "horizontal" then
+          local target = math.floor(vim.o.lines * 0.3)
+          vim.api.nvim_win_set_height(term.window, target)
+        end
+      end,
+    },
+  },
+
+  -- Dressing (use Telescope for vim.ui.select)
+  {
+    "stevearc/dressing.nvim",
+    event = "VeryLazy",
+    opts = {},
+  },
+
+  -- Session manager
+  {
+    "Shatur/neovim-session-manager",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    lazy = false,
+    config = function()
+      local config = require("session_manager.config")
+      require("session_manager").setup({
+        autoload_mode = config.AutoloadMode.Disabled,
+        autosave_only_in_session = true,
+        autosave_ignore_filetypes = { "alpha" },
+      })
+    end,
+  },
+
+  -- Alpha (start screen)
+  {
+    "goolord/alpha-nvim",
+    event = "VimEnter",
+    config = function()
+      local dashboard = require("alpha.themes.dashboard")
+
+      -- Build last session label from path
+      local last_label = "Last session"
+      local ok, utils = pcall(require, "session_manager.utils")
+      if ok then
+        local last = utils.get_last_session_filename()
+        if last then
+          local sm_config = require("session_manager.config")
+          local dir = tostring(sm_config.session_filename_to_dir(last))
+          local short = dir:gsub("^" .. vim.pesc(vim.fn.expand("~")), "~")
+          if #short <= 30 then
+            last_label = "Last session (" .. short .. ")"
+          else
+            local parts = vim.split(dir, "/", { trimempty = true })
+            local n = #parts
+            if n >= 2 then
+              last_label = "Last session (../" .. parts[n - 1] .. "/" .. parts[n] .. ")"
+            elseif n >= 1 then
+              last_label = "Last session (../" .. parts[n] .. ")"
+            end
+          end
+        end
+      end
+
+      dashboard.section.buttons.val = {
+        dashboard.button("s", "  " .. last_label, ":SessionManager load_last_session<CR>"),
+        dashboard.button("S", "  Sessions", ":SessionManager load_session<CR>"),
+        dashboard.button("o", "  Open project", ":lua require('alpha.projects').open()<CR>"),
+        dashboard.button("f", "  Find file", ":Telescope find_files<CR>"),
+        dashboard.button("r", "  Recent files", ":Telescope oldfiles<CR>"),
+        dashboard.button("q", "  Quit", ":qa<CR>"),
+      }
+      require("alpha").setup(dashboard.config)
+    end,
+  },
+
+  -- Avante (AI assistant)
+  {
+    "yetone/avante.nvim",
+    lazy = false,
+    version = false,
+    build = "make",
+    opts = {
+      provider = "claude",
+      providers = {
+        claude = {
+          endpoint = "https://api.anthropic.com",
+          model = "claude-sonnet-4-20250514",
+          extra_request_body = {
+            temperature = 0.75,
+            max_tokens = 20480,
+          },
+        },
+      },
+    },
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+      "nvim-tree/nvim-web-devicons",
+      "nvim-telescope/telescope.nvim",
+      "stevearc/dressing.nvim",
+      {
+        "MeanderingProgrammer/render-markdown.nvim",
+        opts = { file_types = { "markdown", "Avante" } },
+        ft = { "markdown", "Avante" },
+      },
+    },
   },
 }

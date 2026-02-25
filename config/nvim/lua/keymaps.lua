@@ -22,8 +22,6 @@ map("n", "<leader>x", "<cmd>bdelete<CR>", { desc = "Close buffer" })
 map("n", "<C-n>", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file tree" })
 
 -- Terminal
-map("n", "<leader>th", "<cmd>split | terminal<CR>", { desc = "Horizontal terminal" })
-map("n", "<leader>tv", "<cmd>vsplit | terminal<CR>", { desc = "Vertical terminal" })
 map("t", "<Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })
 
 -- Better paste in visual mode (don't yank replaced text)
@@ -59,6 +57,8 @@ map("n", "<leader>ln", "<cmd>lnext<CR>zz", { desc = "Next location list item" })
 map("n", "<leader>lp", "<cmd>lprev<CR>zz", { desc = "Prev location list item" })
 
 map("n", "Q", "<nop>")
+map("n", "ZZ", "<cmd>wqa!<CR>", { desc = "Save and quit all" })
+map("n", "ZQ", "<cmd>qa!<CR>", { desc = "Quit all" })
 
 -- Diagnostics
 map("n", "<leader>k", function()
