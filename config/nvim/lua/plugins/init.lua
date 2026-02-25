@@ -96,6 +96,13 @@ return {
     event = "BufWritePre",
   },
 
+  -- Fidget (LSP progress + notifications)
+  {
+    "j-hui/fidget.nvim",
+    event = "LspAttach",
+    opts = {},
+  },
+
   -- Gitsigns
   {
     "lewis6991/gitsigns.nvim",
