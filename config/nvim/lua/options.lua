@@ -27,3 +27,12 @@ opt.splitbelow = true
 opt.scrolloff = 8
 opt.updatetime = 250
 opt.mouse = "a"
+
+opt.showmode = false
+opt.breakindent = true
+opt.inccommand = "split"
+opt.timeoutlen = 300
+
+opt.list = true
+opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
+opt.confirm = true

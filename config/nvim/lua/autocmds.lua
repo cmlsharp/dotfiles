@@ -15,11 +15,9 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   end,
 })
 
--- LSP format on save for specific filetypes
-vim.api.nvim_create_autocmd("BufWritePre", {
+-- Highlight yanked text
+vim.api.nvim_create_autocmd("TextYankPost", {
   group = augroup,
-  pattern = { "*.rs", "*.ml", "*.idr" },
-  callback = function()
-    vim.lsp.buf.format { async = false }
-  end,
+  callback = function() vim.highlight.on_yank() end,
 })
+

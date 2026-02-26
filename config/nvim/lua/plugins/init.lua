@@ -128,6 +128,21 @@ return {
     },
   },
 
+  -- Todo comments
+  {
+    "folke/todo-comments.nvim",
+    event = "VimEnter",
+    dependencies = { "nvim-lua/plenary.nvim" },
+    opts = { signs = false },
+  },
+
+  -- Guess indentation
+  {
+    "NMAC427/guess-indent.nvim",
+    event = "BufReadPost",
+    opts = {},
+  },
+
   -- Lean
   {
     "Julian/lean.nvim",
@@ -145,7 +160,7 @@ return {
     event = { "BufReadPre *.idr", "BufNewFile *.idr" },
     dependencies = { "MunifTanjim/nui.nvim" },
     opts = function()
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+      local capabilities = require("blink.cmp").get_lsp_capabilities()
 
       return {
         client = {
@@ -246,6 +261,20 @@ return {
     },
   },
 
+  -- Flash (jump anywhere in 2-3 keystrokes)
+  {
+    "folke/flash.nvim",
+    event = "VeryLazy",
+    ---@type Flash.Config
+    opts = {},
+    keys = {
+      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
+      { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+    },
+  },
+
   -- Surround
   {
     "kylechui/nvim-surround",
@@ -343,6 +372,29 @@ return {
     end,
   },
 
+  -- Conform (format-on-save)
+  {
+    "stevearc/conform.nvim",
+    event = "BufWritePre",
+    opts = {
+      formatters_by_ft = {
+        lua = { "stylua" },
+        rust = { lsp_format = "fallback" },
+        ocaml = { lsp_format = "fallback" },
+        idris2 = { lsp_format = "fallback" },
+      },
+      format_on_save = { timeout_ms = 2000, lsp_format = "fallback" },
+    },
+  },
+
+  -- Mini.ai (enhanced text objects)
+  {
+    "echasnovski/mini.ai",
+    version = "*",
+    event = "VeryLazy",
+    opts = {},
+  },
+
   -- Avante (AI assistant)
   {
     "yetone/avante.nvim",
@@ -367,7 +419,6 @@ return {
       "MunifTanjim/nui.nvim",
       "nvim-tree/nvim-web-devicons",
       "nvim-telescope/telescope.nvim",
-      "stevearc/dressing.nvim",
       {
         "MeanderingProgrammer/render-markdown.nvim",
         opts = { file_types = { "markdown", "Avante" } },

@@ -34,7 +34,9 @@ else
 end
 
 # Browser
-if command -q firefox-developer-edition
+if command -q zen-browser
+    set -gx BROWSER zen-browser
+else if command -q firefox-developer-edition
     set -gx BROWSER firefox-developer-edition
 else if command -q firefox
     set -gx BROWSER firefox

@@ -16,18 +16,56 @@ return {
 
           map("n", "gD", vim.lsp.buf.declaration, opts)
           map("n", "K", vim.lsp.buf.hover, opts)
-          map("n", "<leader>ra", vim.lsp.buf.rename, opts)
-          map({ "n", "v" }, "<leader>ca", vim.lsp.buf.code_action, opts)
+          map("n", "grn", vim.lsp.buf.rename, opts)
+          map({ "n", "v" }, "gra", vim.lsp.buf.code_action, opts)
           map("n", "<C-k>", vim.lsp.buf.signature_help, opts)
           map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts)
           map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts)
           map("n", "[d", vim.diagnostic.goto_prev, opts)
           map("n", "]d", vim.diagnostic.goto_next, opts)
+
+          -- Document highlight on CursorHold
+          local client = vim.lsp.get_client_by_id(ev.data.client_id)
+          if client and client:supports_method("textDocument/documentHighlight", ev.buf) then
+            local hl_group = vim.api.nvim_create_augroup("lsp-highlight", { clear = false })
+            vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
+              buffer = ev.buf,
+              group = hl_group,
+              callback = vim.lsp.buf.document_highlight,
+            })
+            vim.api.nvim_create_autocmd({ "CursorMoved", "CursorMovedI" }, {
+              buffer = ev.buf,
+              group = hl_group,
+              callback = vim.lsp.buf.clear_references,
+            })
+            vim.api.nvim_create_autocmd("LspDetach", {
+              group = vim.api.nvim_create_augroup("lsp-detach", { clear = true }),
+              callback = function(ev2)
+                vim.lsp.buf.clear_references()
+                vim.api.nvim_clear_autocmds { group = "lsp-highlight", buffer = ev2.buf }
+              end,
+            })
+          end
+
+          -- Inlay hints toggle
+          if client and client:supports_method("textDocument/inlayHint", ev.buf) then
+            map("n", "<leader>th", function()
+              vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = ev.buf })
+            end, { buffer = ev.buf, desc = "Toggle inlay hints" })
+          end
         end,
       })
 
+      -- Diagnostic config
+      vim.diagnostic.config {
+        severity_sort = true,
+        float = { border = "rounded", source = "if_many" },
+        virtual_text = true,
+        jump = { float = true },
+      }
+
       vim.lsp.config("*", {
-        capabilities = require("cmp_nvim_lsp").default_capabilities(),
+        capabilities = require("blink.cmp").get_lsp_capabilities(),
       })
 
       vim.lsp.config("clangd", {
@@ -70,76 +108,28 @@ return {
 
   -- Completion
   {
-    "hrsh7th/nvim-cmp",
+    "saghen/blink.cmp",
     event = "InsertEnter",
+    version = "1.*",
     dependencies = {
-      "hrsh7th/cmp-nvim-lsp",
-      "hrsh7th/cmp-buffer",
-      "hrsh7th/cmp-nvim-lua",
-      { "https://codeberg.org/FelipeLema/cmp-async-path.git", name = "cmp-async-path" },
-      "saadparwaiz1/cmp_luasnip",
       "rafamadriz/friendly-snippets",
-      {
-        "L3MON4D3/LuaSnip",
-        build = "make install_jsregexp",
-        config = function()
-          require("luasnip.loaders.from_vscode").lazy_load()
-        end,
-      },
+      { "Kaiser-Yang/blink-cmp-avante", version = false },
     },
-    config = function()
-      local cmp = require "cmp"
-      local luasnip = require "luasnip"
-
-      cmp.setup {
-        snippet = {
-          expand = function(args)
-            luasnip.lsp_expand(args.body)
-          end,
+    opts = {
+      keymap = { preset = "default" },
+      appearance = { nerd_font_variant = "mono" },
+      sources = {
+        default = { "lsp", "path", "snippets", "buffer", "avante" },
+        providers = {
+          avante = {
+            module = "blink-cmp-avante",
+            name = "Avante",
+            opts = {},
+          },
         },
-        mapping = cmp.mapping.preset.insert {
-          ["<C-b>"] = cmp.mapping.scroll_docs(-4),
-          ["<C-f>"] = cmp.mapping.scroll_docs(4),
-          ["<C-Space>"] = cmp.mapping.complete(),
-          ["<C-e>"] = cmp.mapping.abort(),
-          ["<CR>"] = cmp.mapping.confirm { select = true },
-          ["<Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_next_item()
-            elseif luasnip.expand_or_jumpable() then
-              luasnip.expand_or_jump()
-            else
-              fallback()
-            end
-          end, { "i", "s" }),
-          ["<S-Tab>"] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-              cmp.select_prev_item()
-            elseif luasnip.jumpable(-1) then
-              luasnip.jump(-1)
-            else
-              fallback()
-            end
-          end, { "i", "s" }),
-        },
-        sources = cmp.config.sources({
-          { name = "nvim_lsp" },
-          { name = "luasnip" },
-          { name = "nvim_lua" },
-          { name = "async_path" },
-        }, {
-          { name = "buffer" },
-        }),
-      }
-
-      -- Avante completion sources for the chat input
-      cmp.setup.filetype("AvanteInput", {
-        sources = cmp.config.sources({
-          { name = "avante_commands" },
-          { name = "avante_mentions" },
-          { name = "avante_files" },
-        }),
-      })
-    end,
+      },
+      completion = { documentation = { auto_show = true } },
+      signature = { enabled = true },
+    },
   },
 }
