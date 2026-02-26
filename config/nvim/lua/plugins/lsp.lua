@@ -62,7 +62,9 @@ return {
     dependencies = { "mason.nvim", "nvim-lspconfig" },
     opts = {
       ensure_installed = { "html", "cssls", "clangd" },
-      automatic_enable = true,
+      automatic_enable = {
+        exclude = { "rust_analyzer" },
+      },
     },
   },
 
