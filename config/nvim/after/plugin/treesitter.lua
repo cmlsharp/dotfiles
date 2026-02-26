@@ -1,2 +1,0 @@
--- Treesitter config moved to lua/plugins/init.lua
--- ensure_installed is handled by lazy.nvim build = ":TSUpdate"
