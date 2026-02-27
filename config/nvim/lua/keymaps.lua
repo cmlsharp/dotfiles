@@ -34,22 +34,22 @@ map("n", "J", "mzJ`z")
 map("n", "<C-d>", "<C-d>zz")
 map("n", "<C-u>", "<C-u>zz")
 
-map("n", "<leader>y", "\"+y")
-map("v", "<leader>y", "\"+y")
-map("n", "<leader>Y", "\"+Y")
+map("n", "<leader>y", '"+y')
+map("v", "<leader>y", '"+y')
+map("n", "<leader>Y", '"+Y')
 map("x", "<leader>p", [["_dP]])
-map({"n", "v"}, "<leader>d", [["_d]])
+map({ "n", "v" }, "<leader>d", [["_d]])
 
 -- quickfix list
 map("n", "<leader>q", function()
   local wins = vim.fn.getwininfo()
   for _, win in ipairs(wins) do
     if win.quickfix == 1 then
-      vim.cmd("cclose")
+      vim.cmd "cclose"
       return
     end
   end
-  vim.cmd("copen")
+  vim.cmd "copen"
 end, { desc = "Toggle quickfix list" })
 map("n", "<leader>lj", "<cmd>cnext<CR>zz")
 map("n", "<leader>lk", "<cmd>cprev<CR>zz")
@@ -57,8 +57,8 @@ map("n", "<leader>ln", "<cmd>lnext<CR>zz", { desc = "Next location list item" })
 map("n", "<leader>lp", "<cmd>lprev<CR>zz", { desc = "Prev location list item" })
 
 map("n", "Q", "<nop>")
-map("n", "ZZ", "<cmd>wqa!<CR>", { desc = "Save and quit all" })
-map("n", "ZQ", "<cmd>qa!<CR>", { desc = "Quit all" })
+map("n", "ZZ", "<cmd>wq<CR>", { desc = "Save and quit all" })
+map("n", "ZQ", "<cmd>q<CR>", { desc = "Quit all" })
 
 -- Diagnostics
 map("n", "<leader>k", function()

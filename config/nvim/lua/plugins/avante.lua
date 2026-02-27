@@ -1,7 +1,6 @@
 return {
   "yetone/avante.nvim",
-  lazy = false,
-  version = false,
+  event = "VeryLazy",
   build = "make",
   opts = {
     provider = "claude",

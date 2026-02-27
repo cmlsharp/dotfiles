@@ -122,6 +122,8 @@ input type:touchpad {
     click_method clickfinger
 }
 
+input type:keyboard xkb_options caps:swapescape
+
 ### Key bindings
 #
 # ── Basics ───────────────────────────────────────────────────────

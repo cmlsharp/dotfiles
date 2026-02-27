@@ -21,11 +21,16 @@ end
 # PATH
 fish_add_path ~/.cargo/bin ~/.cabal/bin ~/.local/bin ~/bin ~/.ghcup/bin /usr/local/texlive/2025/bin/x86_64-linux
 
+# Anthropic API key (local, not exported — only passed to nvim/vim via functions)
+if test -f ~/.dotfiles/.claude_api_key
+    set -g __anthropic_api_key (cat ~/.dotfiles/.claude_api_key)
+end
+
 # Editor
 if command -q nvim
     set -gx EDITOR nvim
-    alias vim nvim
-    alias vi nvim
+    function vim --wraps nvim; ANTHROPIC_API_KEY=$__anthropic_api_key command nvim $argv; end
+    function vi --wraps nvim; ANTHROPIC_API_KEY=$__anthropic_api_key command nvim $argv; end
 else if command -q vim
     set -gx EDITOR vim
     alias vi vim
@@ -45,10 +50,6 @@ end
 set -gx TERM tmux-256color
 set -gx CC gcc
 
-# Anthropic API key
-if test -f ~/.dotfiles/.claude_api_key
-    set -gx ANTHROPIC_API_KEY (cat ~/.dotfiles/.claude_api_key)
-end
 
 # Tmux auto-attach
 if command -q tmux; and not set -q TMUX
