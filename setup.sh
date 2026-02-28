@@ -182,6 +182,7 @@ create_symlink "$DOTFILES_DIR/abookrc" "$HOME/.abookrc"
 create_symlink "$DOTFILES_DIR/muttrc" "$HOME/.muttrc"
 create_symlink "$DOTFILES_DIR/mailcap" "$HOME/.mailcap"
 create_symlink "$DOTFILES_DIR/gpg.conf" "$HOME/.gpg.conf"
+create_symlink "$DOTFILES_DIR/latexmkrc" "$HOME/.latexmkrc"
 
 # Create symlink for mutt directory if it exists
 if [ -d "$DOTFILES_DIR/mutt" ]; then

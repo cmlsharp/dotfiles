@@ -36,7 +36,6 @@ require("lazy").setup("plugins", {
         "optwin",
         "compiler",
         "bugreport",
-        "ftplugin",
       },
     },
   },

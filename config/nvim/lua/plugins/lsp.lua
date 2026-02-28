@@ -85,6 +85,14 @@ return {
         filetypes = { "ml", "ocaml", "ocaml.menhir", "ocaml.interface", "ocaml.ocamllex", "reason", "dune" },
       })
 
+      vim.lsp.config("texlab", {
+        settings = {
+          texlab = {
+            build = { onSave = false },
+          },
+        },
+      })
+
       vim.lsp.enable("ocamllsp")
     end,
   },
@@ -99,7 +107,7 @@ return {
     "mason-org/mason-lspconfig.nvim",
     dependencies = { "mason.nvim", "nvim-lspconfig" },
     opts = {
-      ensure_installed = { "html", "cssls", "clangd" },
+      ensure_installed = { "html", "cssls", "clangd", "texlab" },
       automatic_enable = {
         exclude = { "rust_analyzer" },
       },

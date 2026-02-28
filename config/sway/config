@@ -122,7 +122,7 @@ input type:touchpad {
     click_method clickfinger
 }
 
-input type:keyboard xkb_options caps:swapescape
+input type:keyboard xkb_options caps:escape
 
 ### Key bindings
 #
@@ -140,6 +140,9 @@ for_window [title="^floating-calendar$"] floating enable, move position center
 
 # Open display manager (wdisplays)
 bindsym $mod+p exec wdisplays
+
+# Toggle mirror laptop screen to external display
+bindsym $mod+Shift+p exec ~/.config/sway/toggle-mirror.sh
 
 # Toggle floating btop system monitor
 bindsym $mod+i exec ~/.config/sway/toggle-btop.sh
