@@ -56,6 +56,10 @@ OFFICIAL_PKGS=(
     htop
     ncdu
 
+    # Document viewer
+    zathura
+    zathura-pdf-mupdf
+
     # Email and utilities
     neomutt
     abook
@@ -198,7 +202,7 @@ fi
 bold "==> Creating symlinks for .config directories..."
 mkdir -p "$HOME/.config"
 
-for config_dir in nvim sway waybar swaync wlogout foot fish nnn swaylock swayr bat btop git environment.d kanshi; do
+for config_dir in nvim sway waybar swaync wlogout foot fish nnn swaylock swayr bat btop git environment.d kanshi zathura; do
     if [ -d "$DOTFILES_DIR/config/$config_dir" ]; then
         create_symlink "$DOTFILES_DIR/config/$config_dir" "$HOME/.config/$config_dir"
     fi
