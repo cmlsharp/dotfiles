@@ -1,0 +1,103 @@
+# =============================================================================
+# Zathura Configuration - Catppuccin Mocha Accents / White Default
+# =============================================================================
+
+# -- General -----------------------------------------------------------------
+set selection-clipboard clipboard
+set adjust-open "best-fit"
+set pages-per-row 1
+set page-v-padding 8
+set page-h-padding 1
+
+set scroll-page-aware "true"
+set smooth-scroll "true"
+set scroll-full-overlap 0.01
+set scroll-step 50
+
+set zoom-min 10
+set guioptions ""
+set render-loading "false"
+
+set window-title-basename "true"
+set window-title-page "true"
+set statusbar-home-tilde "true"
+
+set font "SauceCodePro Nerd Font 12"
+
+# -- Default Colors (white background, dark UI chrome) -----------------------
+# PDF pages render with their native white background and black text.
+# UI elements (statusbar, inputbar, completion) use Catppuccin Mocha colors.
+
+# Catppuccin Mocha palette reference:
+#   Base:      #1e1e2e    Mantle:  #181825    Crust:   #11111b
+#   Text:      #cdd6f4    Subtext: #a6adc8    Overlay: #6c7086
+#   Surface0:  #313244    Surface1:#45475a    Surface2:#585b70
+#   Lavender:  #b4befe    Mauve:   #cba6f7    Pink:    #f5c2e7
+#   Red:       #f38ba8    Peach:   #fab387    Yellow:  #f9e2af
+#   Green:     #a6e3a1    Teal:    #94e2d5    Blue:    #89b4fa
+#   Sky:       #89dcfe    Sapphire:#74c7ec    Flamingo:#f2cdcd
+#   Rosewater: #f5e0dc
+
+set default-bg "#11111b"
+set default-fg "#cdd6f4"
+
+# Statusbar / Inputbar
+set statusbar-fg "#cdd6f4"
+set statusbar-bg "#1e1e2e"
+set inputbar-fg "#cdd6f4"
+set inputbar-bg "#1e1e2e"
+
+# Notifications
+set notification-bg "#1e1e2e"
+set notification-fg "#a6e3a1"
+set notification-error-bg "#1e1e2e"
+set notification-error-fg "#f38ba8"
+set notification-warning-bg "#1e1e2e"
+set notification-warning-fg "#f9e2af"
+
+# Completion
+set completion-bg "#313244"
+set completion-fg "#cdd6f4"
+set completion-highlight-bg "#cba6f7"
+set completion-highlight-fg "#1e1e2e"
+set completion-group-bg "#181825"
+set completion-group-fg "#cdd6f4"
+
+# Highlight (selection / search) - Catppuccin accent colors
+set highlight-color rgba(249,226,175,0.5)
+set highlight-active-color rgba(203,166,247,0.5)
+set highlight-fg "#1e1e2e"
+
+# Index (TOC sidebar)
+set index-fg "#cdd6f4"
+set index-bg "#1e1e2e"
+set index-active-fg "#cdd6f4"
+set index-active-bg "#313244"
+
+# -- Recolor (dark mode) - off by default, toggle with Ctrl+R ---------------
+# When enabled, recolors pages to Catppuccin Mocha base/text colors.
+set recolor "true"
+set recolor-lightcolor "#1e1e2e"
+set recolor-darkcolor "#cdd6f4"
+set recolor-reverse-video "true"
+set recolor-keephue "true"
+
+# -- Key Bindings ------------------------------------------------------------
+# Ctrl+R: toggle dark mode (recolor)
+map <C-r> recolor
+
+# Tab: toggle index/TOC sidebar (default, listed for clarity)
+map <Tab> toggle_index
+map [index] <Tab> toggle_index
+
+# f: toggle fullscreen
+unmap f
+map f toggle_fullscreen
+map [fullscreen] f toggle_fullscreen
+
+# Index navigation (when TOC sidebar is open)
+map [index] h navigate_index collapse
+map [index] l navigate_index expand
+map [index] j navigate_index next
+map [index] k navigate_index previous
+map [index] <Return> navigate_index select
