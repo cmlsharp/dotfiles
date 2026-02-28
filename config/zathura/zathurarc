@@ -17,6 +17,7 @@ set scroll-step 50
 set zoom-min 10
 set guioptions ""
 set render-loading "false"
+set page-cache-size 30
 
 set window-title-basename "true"
 set window-title-page "true"

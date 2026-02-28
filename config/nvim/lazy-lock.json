@@ -20,7 +20,7 @@
   "idris2-nvim": { "branch": "main", "commit": "19dcf61737293365c23c890ca622fa34aeb12780" },
   "indent-blankline.nvim": { "branch": "master", "commit": "d28a3f70721c79e3c5f6693057ae929f3d9c0a03" },
   "lazy.nvim": { "branch": "main", "commit": "306a05526ada86a7b30af95c5cc81ffba93fef97" },
-  "lean.nvim": { "branch": "main", "commit": "4f9d48499b002ab361a4351142cae2f6f5403646" },
+  "lean.nvim": { "branch": "main", "commit": "539facb84f490a0e859d82cebf5974e80a492edc" },
   "lualine.nvim": { "branch": "master", "commit": "47f91c416daef12db467145e16bed5bbfe00add8" },
   "mason-lspconfig.nvim": { "branch": "main", "commit": "6c4830e37743b060d13c9269394176aea6a0fbc8" },
   "mason-nvim-dap.nvim": { "branch": "main", "commit": "9a10e096703966335bd5c46c8c875d5b0690dade" },
