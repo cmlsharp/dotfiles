@@ -3,12 +3,42 @@ return {
     "nvim-treesitter/nvim-treesitter",
     lazy = false,
     build = ":TSUpdate",
+    branch = "main",
     config = function()
-      local filetypes = { "bash", "c", "diff", "html", "lua", "luadoc", "markdown", "markdown_inline", "query", "vim", "vimdoc", "rust", "haskell", "ocaml", "cpp" }
-      require("nvim-treesitter").install(filetypes)
+      local parsers = {
+        "bash",
+        "c",
+        "diff",
+        "html",
+        "lua",
+        "luadoc",
+        "markdown",
+        "markdown_inline",
+        "query",
+        "vim",
+        "vimdoc",
+        "rust",
+        "haskell",
+        "ocaml",
+        "cpp",
+      }
+      require("nvim-treesitter").install(parsers)
       vim.api.nvim_create_autocmd("FileType", {
-        pattern = filetypes,
-        callback = function() vim.treesitter.start() end,
+        callback = function(args)
+          local buf, filetype = args.buf, args.match
+
+          local language = vim.treesitter.language.get_lang(filetype)
+          if not language then
+            return
+          end
+
+          if not vim.treesitter.language.add(language) then
+            return
+          end
+
+          vim.treesitter.start(buf, language)
+          vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end,
       })
     end,
   },

@@ -37,6 +37,7 @@ map("n", "<C-u>", "<C-u>zz")
 map("n", "<leader>y", '"+y')
 map("v", "<leader>y", '"+y')
 map("n", "<leader>Y", '"+Y')
+map("n", "<leader>p", '"+p')
 map("x", "<leader>p", [["_dP]])
 map({ "n", "v" }, "<leader>d", [["_d]])
 

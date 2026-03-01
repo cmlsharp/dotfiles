@@ -14,7 +14,7 @@ return {
           local opts = { buffer = ev.buf }
           local map = vim.keymap.set
 
-          map("n", "gD", vim.lsp.buf.declaration, opts)
+          map("n", "grD", vim.lsp.buf.declaration, opts)
           map("n", "K", vim.lsp.buf.hover, opts)
           map("n", "grn", vim.lsp.buf.rename, opts)
           map({ "n", "v" }, "gra", vim.lsp.buf.code_action, opts)
