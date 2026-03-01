@@ -36,3 +36,7 @@ opt.timeoutlen = 300
 opt.list = true
 opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 opt.confirm = true
+opt.lazyredraw = true
+opt.smoothscroll = true
+opt.backup = false
+opt.writebackup = false

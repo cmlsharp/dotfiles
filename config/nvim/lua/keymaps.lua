@@ -1,8 +1,7 @@
 local map = vim.keymap.set
 
-map("n", ";", ":", { desc = "CMD enter command mode" })
-map("n", "j", "gj")
-map("n", "k", "gk")
+map("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
+map("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
 
 -- Window navigation
 map("", "<A-h>", "<C-\\><C-n><C-w>h")
@@ -57,7 +56,7 @@ map("n", "<leader>lk", "<cmd>cprev<CR>zz")
 map("n", "<leader>ln", "<cmd>lnext<CR>zz", { desc = "Next location list item" })
 map("n", "<leader>lp", "<cmd>lprev<CR>zz", { desc = "Prev location list item" })
 
-map("n", "Q", "<nop>")
+map("n", "Q", "@q", { desc = "Replay last macro" })
 map("n", "ZZ", "<cmd>wq<CR>", { desc = "Save and quit all" })
 map("n", "ZQ", "<cmd>q<CR>", { desc = "Quit all" })
 
