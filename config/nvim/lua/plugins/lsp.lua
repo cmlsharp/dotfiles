@@ -14,15 +14,17 @@ return {
           local opts = { buffer = ev.buf }
           local map = vim.keymap.set
 
-          map("n", "grD", vim.lsp.buf.declaration, opts)
-          map("n", "K", vim.lsp.buf.hover, opts)
-          map("n", "grn", vim.lsp.buf.rename, opts)
-          map({ "n", "v" }, "gra", vim.lsp.buf.code_action, opts)
-          map("n", "<C-k>", vim.lsp.buf.signature_help, opts)
-          map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, opts)
-          map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, opts)
-          map("n", "[d", vim.diagnostic.goto_prev, opts)
-          map("n", "]d", vim.diagnostic.goto_next, opts)
+          map("n", "grD", vim.lsp.buf.declaration, { buffer = ev.buf, desc = "Go to declaration" })
+          map("n", "K", vim.lsp.buf.hover, { buffer = ev.buf, desc = "Hover" })
+          map("n", "grn", vim.lsp.buf.rename, { buffer = ev.buf, desc = "Rename symbol" })
+          map({ "n", "v" }, "gra", vim.lsp.buf.code_action, { buffer = ev.buf, desc = "Code action" })
+          map("n", "<C-k>", vim.lsp.buf.signature_help, { buffer = ev.buf, desc = "Signature help" })
+          map("n", "<leader>wa", vim.lsp.buf.add_workspace_folder, { buffer = ev.buf, desc = "Add workspace folder" })
+          map("n", "<leader>wr", vim.lsp.buf.remove_workspace_folder, { buffer = ev.buf, desc = "Remove workspace folder" })
+          map("n", "[d", vim.diagnostic.goto_prev, { buffer = ev.buf, desc = "Prev diagnostic" })
+          map("n", "]d", vim.diagnostic.goto_next, { buffer = ev.buf, desc = "Next diagnostic" })
+          map("n", "[e", function() vim.diagnostic.goto_prev { severity = vim.diagnostic.severity.ERROR } end, { buffer = ev.buf, desc = "Prev error" })
+          map("n", "]e", function() vim.diagnostic.goto_next { severity = vim.diagnostic.severity.ERROR } end, { buffer = ev.buf, desc = "Next error" })
 
           -- Document highlight on CursorHold
           local client = vim.lsp.get_client_by_id(ev.data.client_id)

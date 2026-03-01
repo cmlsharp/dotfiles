@@ -12,7 +12,8 @@ local browse = require('idris2.browse')
 local repl = require('idris2.repl')
 
 local bufnr = vim.api.nvim_get_current_buf()
-local opts = { noremap = true, silent = true, buffer = bufnr }
+local def = { noremap = true, silent = true, buffer = bufnr }
+local function opts(desc) return vim.tbl_extend("force", def, { desc = desc }) end
 
 -- Helper function to save before running action
 -- check_modified: if true, only save if buffer is modified; if false, always save
@@ -31,23 +32,23 @@ local function save_and_run(action, check_modified)
 end
 
 -- Code Actions (always save since they modify the file)
-vim.keymap.set('n', '<leader>ic', save_and_run(code_action.case_split, false), opts)
-vim.keymap.set('n', '<leader>ia', save_and_run(code_action.add_clause, false), opts)
-vim.keymap.set('n', '<leader>ie', save_and_run(code_action.expr_search, false), opts)
-vim.keymap.set('n', '<leader>ig', save_and_run(code_action.generate_def, false), opts)
-vim.keymap.set('n', '<leader>ir', save_and_run(code_action.refine_hole, false), opts)
-vim.keymap.set('n', '<leader>imc', save_and_run(code_action.make_case, false), opts)
-vim.keymap.set('n', '<leader>iml', save_and_run(code_action.make_lemma, false), opts)
-vim.keymap.set('n', '<leader>imw', save_and_run(code_action.make_with, false), opts)
+vim.keymap.set('n', '<leader>ic', save_and_run(code_action.case_split, false), opts("Case split"))
+vim.keymap.set('n', '<leader>ia', save_and_run(code_action.add_clause, false), opts("Add clause"))
+vim.keymap.set('n', '<leader>ie', save_and_run(code_action.expr_search, false), opts("Expression search"))
+vim.keymap.set('n', '<leader>ig', save_and_run(code_action.generate_def, false), opts("Generate definition"))
+vim.keymap.set('n', '<leader>ir', save_and_run(code_action.refine_hole, false), opts("Refine hole"))
+vim.keymap.set('n', '<leader>imc', save_and_run(code_action.make_case, false), opts("Make case"))
+vim.keymap.set('n', '<leader>iml', save_and_run(code_action.make_lemma, false), opts("Make lemma"))
+vim.keymap.set('n', '<leader>imw', save_and_run(code_action.make_with, false), opts("Make with"))
 
 -- Metavariable Navigation (auto-save before running)
-vim.keymap.set('n', '<leader>imn', save_and_run(metavars.goto_next), opts)
-vim.keymap.set('n', '<leader>imp', save_and_run(metavars.goto_prev), opts)
-vim.keymap.set('n', '<leader>ima', save_and_run(metavars.request_all), opts)
+vim.keymap.set('n', '<leader>imn', save_and_run(metavars.goto_next), opts("Next metavar"))
+vim.keymap.set('n', '<leader>imp', save_and_run(metavars.goto_prev), opts("Prev metavar"))
+vim.keymap.set('n', '<leader>ima', save_and_run(metavars.request_all), opts("List all metavars"))
 
 -- Hover and Type Info (always save to ensure LSP has latest state)
-vim.keymap.set('n', 'K', function() hover.hover (false) end, opts)
-vim.keymap.set('n', '<leader>it', save_and_run(function() hover.hover(true) end, false), opts)
+vim.keymap.set('n', 'K', function() hover.hover (false) end, opts("Hover"))
+vim.keymap.set('n', '<leader>it', save_and_run(function() hover.hover(true) end, false), opts("Type info (split)"))
 
 -- Auto-updating hover in split
 local hover_autocmd_id = nil
@@ -72,16 +73,16 @@ local function toggle_auto_hover()
     vim.notify("Auto-hover enabled (updates on cursor hold)", vim.log.levels.INFO)
   end
 end
-vim.keymap.set('n', '<leader>ita', toggle_auto_hover, opts)
+vim.keymap.set('n', '<leader>ita', toggle_auto_hover, opts("Toggle auto-hover"))
 
 -- Browse and REPL (auto-save before running)
-vim.keymap.set('n', '<leader>ib', save_and_run(browse.browse), opts)
-vim.keymap.set('n', '<leader>ix', save_and_run(repl.evaluate), opts)
+vim.keymap.set('n', '<leader>ib', save_and_run(browse.browse), opts("Browse namespace"))
+vim.keymap.set('n', '<leader>ix', save_and_run(repl.evaluate), opts("Evaluate in REPL"))
 
 -- Semantic highlighting refresh (auto-save before running)
 vim.keymap.set('n', '<leader>ish', save_and_run(function()
   vim.lsp.buf_request(bufnr, 'workspace/semanticTokens/refresh', {})
-end), opts)
+end), opts("Refresh semantic highlights"))
 
 -- Auto-enable hover on file open
 --vim.defer_fn(function()
