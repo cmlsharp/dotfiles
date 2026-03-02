@@ -87,6 +87,8 @@ return {
         filetypes = { "ml", "ocaml", "ocaml.menhir", "ocaml.interface", "ocaml.ocamllex", "reason", "dune" },
       })
 
+      vim.lsp.enable "ocamllsp"
+
       vim.lsp.config("texlab", {
         settings = {
           texlab = {
@@ -95,7 +97,6 @@ return {
         },
       })
 
-      vim.lsp.enable("ocamllsp")
     end,
   },
 
@@ -140,6 +141,32 @@ return {
       },
       completion = { documentation = { auto_show = true } },
       signature = { enabled = true },
+    },
+  },
+
+  -- Formatting
+  {
+    "stevearc/conform.nvim",
+    event = { "BufWritePre" },
+    cmd = { "ConformInfo" },
+    keys = {
+      {
+        "<leader>f",
+        function()
+          require("conform").format { async = true, lsp_format = "fallback" }
+        end,
+        mode = "",
+        desc = "[F]ormat buffer",
+      },
+    },
+    opts = {
+      formatters_by_ft = {
+        lua = { "stylua" },
+        rust = { lsp_format = "fallback" },
+        ocaml = { lsp_format = "fallback" },
+        idris2 = { lsp_format = "fallback" },
+      },
+      format_on_save = { timeout_ms = 1000, lsp_format = "fallback" },
     },
   },
 }
