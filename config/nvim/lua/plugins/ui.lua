@@ -45,41 +45,25 @@ return {
       local dashboard = require "alpha.themes.dashboard"
 
       local function open_project()
-        local actions = require "telescope.actions"
-        local action_state = require "telescope.actions.state"
-        local pickers = require "telescope.pickers"
-        local finders = require "telescope.finders"
-        local conf = require("telescope.config").values
+        require("telescope").extensions.projects.projects {}
+      end
 
-        pickers
-          .new({}, {
-            prompt_title = "Open Project",
-            finder = finders.new_oneshot_job(
-              { "fd", "--type", "d", "--hidden", "--exclude", ".git", ".", vim.fn.expand "~" },
-              {}
-            ),
-            sorter = conf.generic_sorter {},
-            attach_mappings = function(prompt_bufnr)
-              actions.select_default:replace(function()
-                local entry = action_state.get_selected_entry()
-                actions.close(prompt_bufnr)
-                if not entry or not entry[1] then
-                  return
-                end
-
-                local dir = entry[1]
-                vim.cmd("cd " .. vim.fn.fnameescape(dir))
-
-                local sm = require "session_manager"
-                if not sm.load_current_dir_session() then
-                  sm.save_current_session()
-                  require("telescope.builtin").find_files()
-                end
-              end)
-              return true
-            end,
-          })
-          :find()
+      local function add_project()
+        require("telescope").extensions.repo.list {
+          attach_mappings = function(prompt_bufnr, map)
+            local actions = require "telescope.actions"
+            local action_state = require "telescope.actions.state"
+            actions.select_default:replace(function()
+              local entry = action_state.get_selected_entry()
+              actions.close(prompt_bufnr)
+              if not entry then
+                return
+              end
+              vim.cmd("ProjectAdd " .. vim.fn.fnameescape(entry.value))
+            end)
+            return true
+          end,
+        }
       end
 
       -- Build last session label from path
@@ -105,13 +89,13 @@ return {
         end
       end
 
-      -- Register as a keymap so dashboard.button can reference it
-      vim.keymap.set("n", "<leader>o", open_project, { desc = "Open project" })
+      vim.keymap.set("n", "<leader>pp", open_project, { desc = "[P]roject switch" })
+      vim.keymap.set("n", "<leader>pa", add_project, { desc = "[P]roject [A]dd" })
+      vim.keymap.set("n", "<leader>pd", "<cmd>ProjectDelete<CR>", { desc = "[P]roject [D]elete" })
 
       dashboard.section.buttons.val = {
-        dashboard.button("s", "  " .. last_label, ":SessionManager load_last_session<CR>"),
-        dashboard.button("S", "  Sessions", ":SessionManager load_session<CR>"),
-        dashboard.button("o", "  Open project", "<leader>o"),
+        dashboard.button("o", "  " .. last_label, ":SessionManager load_last_session<CR>"),
+        dashboard.button("O", "  Open project", ":Telescope projects<CR>"),
         dashboard.button("f", "  Find file", ":Telescope find_files<CR>"),
         dashboard.button("r", "  Recent files", ":Telescope oldfiles<CR>"),
         dashboard.button("q", "  Quit", ":qa<CR>"),
@@ -162,6 +146,7 @@ return {
         { "<leader>g", group = "[G]it" },
         { "<leader>gp", group = "Git [P]R" },
         { "<leader>gi", group = "Git [I]ssue" },
+        { "<leader>p", group = "[P]roject" },
         { "<leader>t", group = "[T]oggle" },
         { "<leader>h", group = "Git [H]unk", mode = { "n", "v" } },
         { "gr", group = "LSP Actions", mode = { "n" } },

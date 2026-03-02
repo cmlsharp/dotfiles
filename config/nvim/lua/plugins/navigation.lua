@@ -13,6 +13,7 @@ return {
         end,
       },
       { "nvim-telescope/telescope-ui-select.nvim" },
+      { "cljoly/telescope-repo.nvim" },
       { "nvim-tree/nvim-web-devicons" },
       {
         "DrKJeff16/project.nvim",
@@ -24,6 +25,7 @@ return {
     config = function()
       local telescope = require "telescope"
       telescope.setup {
+        defaults = require("telescope.themes").get_ivy(),
         extensions = {
           ["ui-select"] = { require("telescope.themes").get_dropdown() },
         },
@@ -32,6 +34,7 @@ return {
       pcall(telescope.load_extension, "fzf")
       pcall(telescope.load_extension, "ui-select")
       pcall(telescope.load_extension, "project")
+      pcall(telescope.load_extension, "repo")
 
       local builtin = require "telescope.builtin"
       vim.keymap.set("n", "<C-p>", builtin.git_files, { desc = "Telescope git files" })
@@ -98,16 +101,28 @@ return {
     dependencies = { "nvim-lua/plenary.nvim" },
     event = "VeryLazy",
     config = function()
-      local harpoon = require("harpoon")
+      local harpoon = require "harpoon"
       harpoon:setup()
 
-      vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end, { desc = "Harpoon add" })
-      vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, { desc = "Harpoon menu" })
+      vim.keymap.set("n", "<leader>a", function()
+        harpoon:list():add()
+      end, { desc = "Harpoon add" })
+      vim.keymap.set("n", "<C-e>", function()
+        harpoon.ui:toggle_quick_menu(harpoon:list())
+      end, { desc = "Harpoon menu" })
 
-      vim.keymap.set("n", "<leader>1", function() harpoon:list():select(1) end, { desc = "Harpoon 1" })
-      vim.keymap.set("n", "<leader>2", function() harpoon:list():select(2) end, { desc = "Harpoon 2" })
-      vim.keymap.set("n", "<leader>3", function() harpoon:list():select(3) end, { desc = "Harpoon 3" })
-      vim.keymap.set("n", "<leader>4", function() harpoon:list():select(4) end, { desc = "Harpoon 4" })
+      vim.keymap.set("n", "<leader>1", function()
+        harpoon:list():select(1)
+      end, { desc = "Harpoon 1" })
+      vim.keymap.set("n", "<leader>2", function()
+        harpoon:list():select(2)
+      end, { desc = "Harpoon 2" })
+      vim.keymap.set("n", "<leader>3", function()
+        harpoon:list():select(3)
+      end, { desc = "Harpoon 3" })
+      vim.keymap.set("n", "<leader>4", function()
+        harpoon:list():select(4)
+      end, { desc = "Harpoon 4" })
     end,
   },
 
@@ -133,12 +148,11 @@ return {
     dependencies = { "nvim-lua/plenary.nvim" },
     lazy = false,
     config = function()
-      local config = require("session_manager.config")
-      require("session_manager").setup({
+      local config = require "session_manager.config"
+      require("session_manager").setup {
         autoload_mode = config.AutoloadMode.Disabled,
-        autosave_only_in_session = true,
         autosave_ignore_filetypes = { "alpha" },
-      })
+      }
     end,
   },
 }

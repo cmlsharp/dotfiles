@@ -89,6 +89,13 @@ return {
 
       vim.lsp.enable "ocamllsp"
 
+      vim.lsp.config("sourcekit", {
+        cmd = { "sourcekit-lsp" },
+        filetypes = { "swift" },
+      })
+
+      vim.lsp.enable "sourcekit"
+
       vim.lsp.config("texlab", {
         settings = {
           texlab = {
@@ -176,6 +183,7 @@ return {
         rust = { lsp_format = "fallback" },
         ocaml = { lsp_format = "fallback" },
         idris2 = { lsp_format = "fallback" },
+        swift = { lsp_format = "fallback" },
       },
       format_on_save = { timeout_ms = 1000, lsp_format = "fallback" },
     },

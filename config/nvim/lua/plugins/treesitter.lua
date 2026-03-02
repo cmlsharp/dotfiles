@@ -21,6 +21,7 @@ return {
         "haskell",
         "ocaml",
         "cpp",
+        "swift",
       }
       require("nvim-treesitter").install(parsers)
       vim.api.nvim_create_autocmd("FileType", {

@@ -14,7 +14,7 @@ set $down j
 set $up k
 set $right l
 # Your preferred terminal emulator
-set $term foot
+set $term kitty
 # Your preferred application launcher
 set $menu wofi --show drun --style ~/.config/waybar/scripts/wofi-dark.css --allow-images --prompt "Launch"
 
