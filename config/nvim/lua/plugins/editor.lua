@@ -3,11 +3,11 @@ return {
     "windwp/nvim-autopairs",
     event = "InsertEnter",
     config = function()
-      local npairs = require("nvim-autopairs")
+      local npairs = require "nvim-autopairs"
       npairs.setup {}
 
       -- Disable single quote pairing for OCaml
-      local rule = npairs.get_rule("'")
+      local rule = npairs.get_rule "'"
       if rule and rule[1] then
         rule[1].not_filetypes = { "ocaml" }
       end
@@ -34,10 +34,38 @@ return {
     ---@type Flash.Config
     opts = {},
     keys = {
-      { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-      { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-      { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+      {
+        "s",
+        mode = { "n", "x", "o" },
+        function()
+          require("flash").jump()
+        end,
+        desc = "Flash",
+      },
+      {
+        "S",
+        mode = { "n", "x", "o" },
+        function()
+          require("flash").treesitter()
+        end,
+        desc = "Flash Treesitter",
+      },
+      {
+        "r",
+        mode = "o",
+        function()
+          require("flash").remote()
+        end,
+        desc = "Remote Flash",
+      },
+      {
+        "R",
+        mode = { "o", "x" },
+        function()
+          require("flash").treesitter_search()
+        end,
+        desc = "Treesitter Search",
+      },
     },
   },
 

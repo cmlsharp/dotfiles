@@ -110,7 +110,7 @@ return {
     "mason-org/mason-lspconfig.nvim",
     dependencies = { "mason.nvim", "nvim-lspconfig" },
     opts = {
-      ensure_installed = { "html", "cssls", "clangd", "texlab" },
+      ensure_installed = { "html", "cssls", "clangd", "texlab", "lua_ls" },
       automatic_enable = {
         exclude = { "rust_analyzer" },
       },
@@ -141,6 +141,17 @@ return {
       },
       completion = { documentation = { auto_show = true } },
       signature = { enabled = true },
+    },
+  },
+
+  -- Lua dev (nvim API completions)
+  {
+    "folke/lazydev.nvim",
+    ft = "lua",
+    opts = {
+      library = {
+        { path = "${3rd}/luv/library", words = { "vim%.uv" } },
+      },
     },
   },
 

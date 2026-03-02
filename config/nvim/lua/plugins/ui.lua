@@ -42,7 +42,7 @@ return {
     "goolord/alpha-nvim",
     event = "VimEnter",
     config = function()
-      local dashboard = require("alpha.themes.dashboard")
+      local dashboard = require "alpha.themes.dashboard"
 
       local function open_project()
         local actions = require "telescope.actions"
@@ -88,9 +88,9 @@ return {
       if ok then
         local last = utils.get_last_session_filename()
         if last then
-          local sm_config = require("session_manager.config")
+          local sm_config = require "session_manager.config"
           local dir = tostring(sm_config.session_filename_to_dir(last))
-          local short = dir:gsub("^" .. vim.pesc(vim.fn.expand("~")), "~")
+          local short = dir:gsub("^" .. vim.pesc(vim.fn.expand "~"), "~")
           if #short <= 30 then
             last_label = "Last session (" .. short .. ")"
           else
