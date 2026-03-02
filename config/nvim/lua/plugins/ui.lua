@@ -94,7 +94,7 @@ return {
       vim.keymap.set("n", "<leader>pd", "<cmd>ProjectDelete<CR>", { desc = "[P]roject [D]elete" })
 
       dashboard.section.buttons.val = {
-        dashboard.button("o", "  " .. last_label, ":SessionManager load_last_session<CR>"),
+        dashboard.button("s", "  " .. last_label, ":SessionManager load_last_session<CR>"),
         dashboard.button("O", "  Open project", ":Telescope projects<CR>"),
         dashboard.button("f", "  Find file", ":Telescope find_files<CR>"),
         dashboard.button("r", "  Recent files", ":Telescope oldfiles<CR>"),
