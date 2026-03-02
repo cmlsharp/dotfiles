@@ -24,11 +24,11 @@ vim.api.nvim_create_autocmd("FileType", {
     "neotest-summary",
     "lazy",
   },
-  command = [[
-          nnoremap <buffer><silent> q :close<CR>
-          nnoremap <buffer><silent> <ESC> :close<CR>
-          set nobuflisted
-      ]],
+  callback = function(event)
+    vim.keymap.set("n", "q", "<cmd>close<CR>", { buffer = event.buf, silent = true })
+    vim.keymap.set("n", "<ESC>", "<cmd>close<CR>", { buffer = event.buf, silent = true })
+    vim.bo[event.buf].buflisted = false
+  end,
 })
 
 vim.api.nvim_create_autocmd("BufWritePre", {
