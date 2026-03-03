@@ -17,8 +17,8 @@ map("n", "L", "<cmd>BufferLineCycleNext<CR>", { desc = "Next buffer" })
 map("n", "H", "<cmd>BufferLineCyclePrev<CR>", { desc = "Prev buffer" })
 map("n", "<leader>x", "<cmd>bdelete<CR>", { desc = "Close buffer" })
 
--- NvimTree
-map("n", "<C-n>", "<cmd>NvimTreeToggle<CR>", { desc = "Toggle file tree" })
+-- Oil
+map("n", "<C-n>", "<cmd>Oil<CR>", { desc = "Open file browser" })
 
 -- Terminal
 map("t", "<Esc>", "<C-\\><C-n>", { desc = "Exit terminal mode" })

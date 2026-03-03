@@ -4,8 +4,4 @@ return {
     version = "^6",
     lazy = false,
   },
-  {
-    "neovimhaskell/haskell-vim",
-    ft = "haskell",
-  },
 }

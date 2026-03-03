@@ -6,6 +6,7 @@ opt.relativenumber = true
 opt.shiftwidth = 4
 opt.tabstop = 4
 opt.expandtab = true
+opt.linebreak = true
 
 opt.undofile = true
 opt.undodir = vim.fn.stdpath "cache" .. "/undo"

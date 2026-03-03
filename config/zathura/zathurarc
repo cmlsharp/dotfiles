@@ -77,7 +77,7 @@ set index-active-bg "#313244"
 
 # -- Recolor (dark mode) - off by default, toggle with Ctrl+R ---------------
 # When enabled, recolors pages to Catppuccin Mocha base/text colors.
-set recolor "true"
+set recolor "false"
 set recolor-lightcolor "#1e1e2e"
 set recolor-darkcolor "#cdd6f4"
 set recolor-reverse-video "true"
