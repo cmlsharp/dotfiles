@@ -1,0 +1,26 @@
+#!/bin/sh
+# sesh-picker - fuzzy session picker for sesh/tmux
+# Used by: fish config.fish, zsh .zshrc, tmux .tmux.conf
+
+FZF_CMD="fzf"
+[ -n "$TMUX" ] && FZF_CMD="fzf-tmux -p 80%,70%"
+
+choice=$(sesh list --icons | $FZF_CMD \
+    --no-sort --ansi --border-label ' sesh ' --prompt '⚡  ' \
+    --header '  ^a all ^t tmux ^g configs ^x zoxide ^f find ^d kill ^n ephemeral' \
+    --bind 'tab:down,btab:up' \
+    --bind 'ctrl-a:change-prompt(⚡  )+reload(sesh list --icons)' \
+    --bind 'ctrl-t:change-prompt(🪟  )+reload(sesh list -t --icons)' \
+    --bind 'ctrl-g:change-prompt(⚙️  )+reload(sesh list -c --icons)' \
+    --bind 'ctrl-x:change-prompt(📁  )+reload(sesh list -z --icons)' \
+    --bind 'ctrl-f:change-prompt(🔎  )+reload(fd -H -d 2 -t d -E .Trash . ~)' \
+    --bind 'ctrl-d:execute(tmux kill-session -t {2..})+change-prompt(⚡  )+reload(sesh list --icons)' \
+    --bind 'ctrl-n:print(__sesh_ephemeral_session_24a7f__)+accept' \
+    --preview-window 'right:55%' \
+    --preview 'sesh preview {}')
+
+if [ "$choice" = "__sesh_ephemeral_session_24a7f__" ] || [ -z "$choice" ]; then
+    tmux new-session \; set-option destroy-unattached on
+else
+    sesh connect "$choice"
+fi

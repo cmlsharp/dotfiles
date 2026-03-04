@@ -6,8 +6,12 @@ if [[ -n "$DESKTOP_SESSION" ]]; then
     export SSH_AUTH_SOCK
 fi
 
-# Tmux auto-attach
-[[ $commands[tmux] ]] && [[ -z "$TMUX" ]] && exec tmux
+# Tmux auto-attach via sesh
+if [[ -z "$TMUX" ]] && [[ $commands[sesh] ]]; then
+    exec sesh-picker
+elif [[ -z "$TMUX" ]] && [[ $commands[tmux] ]]; then
+    exec tmux
+fi
 
 # ZSH options
 autoload -U compinit promptinit colors && colors

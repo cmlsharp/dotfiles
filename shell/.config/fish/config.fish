@@ -2,6 +2,8 @@ if not status is-interactive
     return
 end
 
+set -g fish_greeting
+
 # SSH Agent setup (gnome-keyring)
 if test -n "$WAYLAND_DISPLAY"; or test -n "$SWAYSOCK"
     # Check if SSH socket already exists
@@ -51,8 +53,10 @@ set -gx TERM tmux-256color
 set -gx CC gcc
 
 
-# Tmux auto-attach
-if command -q tmux; and not set -q TMUX
+# Tmux auto-attach via sesh
+if not set -q TMUX; and command -q sesh
+    exec sesh-picker
+else if not set -q TMUX; and command -q tmux
     exec tmux
 end
 
@@ -270,6 +274,15 @@ else
         echo -n '> '
         set_color normal
     end
+end
+
+# fzf integration (built-in, replaces patrickf1/fzf.fish plugin)
+if command -q fzf
+    set -gx FZF_DEFAULT_OPTS '--height 40% --border top'
+    set -gx FZF_CTRL_T_COMMAND 'fd --type f --hidden --follow --exclude .git'
+    set -gx FZF_CTRL_T_OPTS '--preview "bat --color=always --style=numbers {}"'
+    set -gx FZF_ALT_C_COMMAND 'fd --type d --hidden --follow --exclude .git'
+    fzf --fish | source
 end
 
 if command -q zoxide
