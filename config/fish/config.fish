@@ -67,7 +67,7 @@ alias q exit
 alias ZZ exit
 alias edit '$EDITOR'
 alias svim sudoedit
-alias z 'source ~/.config/fish/config.fish'
+alias r 'source ~/.config/fish/config.fish'
 alias fishrc '$EDITOR ~/.config/fish/config.fish'
 
 # Aliases - ls (eza > exa > ls)
@@ -314,3 +314,6 @@ else
     end
 end
 
+if command -q zoxide
+    zoxide init --cmd cd fish | source
+end

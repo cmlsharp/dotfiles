@@ -73,6 +73,10 @@ return {
       jump = { float = true },
     }
 
+    -- Source - https://stackoverflow.com/a/79656109
+    -- Posted by Jo Totland
+    -- Retrieved 2026-03-04, License - CC BY-SA 4.0
+
     vim.lsp.config("*", {
       capabilities = require("blink.cmp").get_lsp_capabilities(),
     })

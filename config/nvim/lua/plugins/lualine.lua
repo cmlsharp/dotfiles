@@ -4,7 +4,10 @@ return {
   dependencies = { "nvim-tree/nvim-web-devicons" },
   opts = {
     options = {
-      theme = "catppuccin",
+      disabled_filetypes = { statusline = { "alpha" } },
+    },
+    sections = {
+      lualine_x = { "filetype" },
     },
   },
 }
