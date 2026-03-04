@@ -1,13 +1,13 @@
 # Local account configuration (contains sensitive info)
-mutt/accounts.local
-mutt/*.account
+mutt/.mutt/accounts.local
+mutt/.mutt/*.account
 
-# Backup directories
-.dotfiles_old/
-dotfiles_backup_temp/
+# Fish plugin-generated files (reinstall via `fisher update`)
+fish/.config/fish/completions/
+fish/.config/fish/conf.d/
+fish/.config/fish/functions/
+fish/.config/fish/themes/
+fish/.config/fish/fish_variables
+fish/.config/fish/conf
 
-# Build artifacts
-nnn-restorepreview/src/
-nnn-restorepreview/pkg/
-nnn-restorepreview/*.tar.gz
-nnn-restorepreview/*.pkg.tar.zst
+.claude*

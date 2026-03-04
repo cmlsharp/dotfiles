@@ -1,65 +1,49 @@
-# crossroads1112's dotfiles
+# dotfiles
 
-My personal dotfiles for Arch Linux with Sway/Wayland.
+Personal dotfiles for Arch Linux with Sway/Wayland, managed with [GNU Stow](https://www.gnu.org/software/stow/).
 
-## What's included
+## Stow packages
 
-- **Window Manager**: SwayFX (Sway with effects)
-- **Terminal**: foot
-- **Shells**: zsh, fish
-- **Editor**: neovim
-- **File Manager**: nnn
-- **Display Manager**: greetd
-- **Bar**: waybar
-- **Notifications**: mako
-- **Launcher**: wofi
-- **Terminal Multiplexer**: tmux
+Each top-level directory is a stow package whose contents mirror `$HOME`.
+
+| Package | Contents |
+|---------|----------|
+| `zsh` | `.zshrc` |
+| `fish` | `.config/fish/` |
+| `tmux` | `.tmux.conf` |
+| `nvim` | `.config/nvim/`, `.config/zathura/` |
+| `gdb` | `.gdbinit` |
+| `mutt` | `.muttrc`, `.mailcap`, `.mutt/`, `.abookrc` |
+| `sway` | `.config/sway/`, `.config/waybar/`, `.config/swaync/`, `.config/swaylock/`, `.config/swayr/`, `.config/wlogout/`, `.config/foot/`, `.config/kitty/`, `.config/btop/`, `.config/environment.d/`, `.config/mako/`, `.config/systemd/` |
+
+Non-stow directories:
+- `greetd/` — copied to `/etc/greetd/` with sudo (stow can't target `/etc`)
+- `grub/` — GRUB configuration
 
 ## Installation
 
-Clone this repository:
 ```bash
-git clone <your-repo-url> ~/.dotfiles
+git clone <repo-url> ~/.dotfiles
 cd ~/.dotfiles
-```
-
-Run the setup script:
-```bash
 ./setup.sh
 ```
 
-The script will:
-1. Install all required packages (official repos + AUR)
-2. Back up existing dotfiles to `~/.dotfiles_old`
-3. Create symlinks from this repo to your home directory
-4. Set up greetd configuration
+The setup script installs packages (pacman + AUR), stows all dotfile packages, configures greetd, and sets up systemd user services.
 
-## Manual steps after installation
+## Usage
 
-1. Restart your shell: `source ~/.zshrc`
-2. For fish shell: `fish`
-3. Open neovim to install plugins
-4. Initialize Rust: `rustup default stable`
-5. Reboot to start using Sway with greetd
-
-## Structure
-
+Stow a single package:
+```bash
+cd ~/.dotfiles
+stow -t ~ <package>
 ```
-~/.dotfiles/
-├── config/          # XDG config directory dotfiles
-│   ├── nvim/
-│   ├── sway/
-│   ├── waybar/
-│   ├── mako/
-│   ├── foot/
-│   ├── fish/
-│   ├── nnn/
-│   ├── swaylock/
-│   └── swayr/
-├── greetd/          # Display manager config
-├── zsh_plugins/     # Zsh plugin configurations
-├── zshrc            # Zsh configuration
-├── tmux.conf        # tmux configuration
-├── muttrc           # Neomutt email configuration
-└── setup.sh         # Installation script
+
+Restow (repair symlinks):
+```bash
+stow -t ~ -R <package>
+```
+
+Unstow:
+```bash
+stow -t ~ -D <package>
 ```

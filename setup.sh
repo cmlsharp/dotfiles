@@ -4,10 +4,12 @@
 set -e  # Exit on error
 
 DOTFILES_DIR="$HOME/.dotfiles"
-BACKUP_DIR="$HOME/.dotfiles_old"
 
 # Package arrays
 OFFICIAL_PKGS=(
+    # Dotfile manager
+    stow
+
     # Shells and terminal multiplexer
     zsh
     fish
@@ -28,23 +30,32 @@ OFFICIAL_PKGS=(
     swaync
     wofi
     foot
+    kitty
     wlogout
     kanshi
 
-    # Sway utilities (screenshots, clipboard, brightness)
+    # Sway utilities (screenshots, clipboard, brightness, recording)
     grim
     slurp
     wl-clipboard
     brightnessctl
     cliphist
     playerctl
+    wf-recorder
+    wl-mirror
+    libnotify
 
     # Audio
     pipewire-pulse
+    pavucontrol
 
     # Network
     networkmanager
     nm-applet
+    nm-connection-editor
+
+    # Bluetooth
+    bluez
 
     # File utilities
     git
@@ -54,7 +65,12 @@ OFFICIAL_PKGS=(
     eza
     bat
     htop
+    btop
     ncdu
+    jq
+    curl
+    zoxide
+    xdg-utils
 
     # Document viewer
     zathura
@@ -63,7 +79,19 @@ OFFICIAL_PKGS=(
     # Email and utilities
     neomutt
     abook
+    elinks
+    urlscan
+    mpv
     gdb
+
+    # Shell prompt
+    starship
+
+    # Security
+    gnome-keyring
+
+    # Dev tools
+    stylua
 
     # Fonts
     ttf-sourcecodepro-nerd
@@ -71,6 +99,7 @@ OFFICIAL_PKGS=(
 
     # Themes
     papirus-icon-theme
+    kvantum
 
     # Rust toolchain
     rustup
@@ -82,6 +111,13 @@ AUR_PKGS=(
     swaylock-effects
     swayr
     wdisplays-persistent
+    sesh-bin
+
+    # Browser
+    zen-browser-bin
+
+    # Tmux
+    tmux-mem-cpu-load
 
     # Themes
     catppuccin-mocha-dark-cursors
@@ -89,7 +125,7 @@ AUR_PKGS=(
     papirus-folders-catppuccin-git
 
     # AUR helper
-    yay
+    paru
 )
 
 # Colors for output
@@ -145,67 +181,11 @@ fi
 # Build and install custom packages
 bold "==> Building and installing custom packages..."
 
-# Build nnn-restorepreview
-if [ -d "$DOTFILES_DIR/nnn-restorepreview" ]; then
-    cd "$DOTFILES_DIR/nnn-restorepreview"
-    makepkg -si --noconfirm --skipinteg || warn "nnn-restorepreview installation failed"
-    cd "$DOTFILES_DIR"
-else
-    warn "nnn-restorepreview directory not found, skipping"
-fi
-
-
-# Create backup directory
-bold "==> Creating backup directory at $BACKUP_DIR..."
-mkdir -p "$BACKUP_DIR"
-
-# Function to safely create symlink
-create_symlink() {
-    local src="$1"
-    local dest="$2"
-
-    if [ -e "$dest" ] || [ -L "$dest" ]; then
-        if [ -L "$dest" ] && [ "$(readlink "$dest")" = "$src" ]; then
-            echo "  ✓ $dest already linked correctly"
-            return
-        fi
-        warn "  Backing up existing $dest"
-        mv "$dest" "$BACKUP_DIR/"
-    fi
-
-    ln -s "$src" "$dest"
-    echo "  ✓ Linked $dest -> $src"
-}
-
-# Create symlinks for root-level dotfiles
-bold "==> Creating symlinks for root-level dotfiles..."
-create_symlink "$DOTFILES_DIR/zshrc" "$HOME/.zshrc"
-create_symlink "$DOTFILES_DIR/tmux.conf" "$HOME/.tmux.conf"
-create_symlink "$DOTFILES_DIR/gdbinit" "$HOME/.gdbinit"
-create_symlink "$DOTFILES_DIR/abookrc" "$HOME/.abookrc"
-create_symlink "$DOTFILES_DIR/muttrc" "$HOME/.muttrc"
-create_symlink "$DOTFILES_DIR/mailcap" "$HOME/.mailcap"
-create_symlink "$DOTFILES_DIR/gpg.conf" "$HOME/.gpg.conf"
-create_symlink "$DOTFILES_DIR/latexmkrc" "$HOME/.latexmkrc"
-
-# Create symlink for mutt directory if it exists
-if [ -d "$DOTFILES_DIR/mutt" ]; then
-    create_symlink "$DOTFILES_DIR/mutt" "$HOME/.mutt"
-fi
-
-# Create symlinks for zsh_plugins if it exists
-if [ -d "$DOTFILES_DIR/zsh_plugins" ]; then
-    create_symlink "$DOTFILES_DIR/zsh_plugins" "$HOME/.zsh_plugins"
-fi
-
-# Create symlinks for .config directories
-bold "==> Creating symlinks for .config directories..."
-mkdir -p "$HOME/.config"
-
-for config_dir in nvim sway waybar swaync wlogout foot fish nnn swaylock swayr bat btop git environment.d kanshi zathura; do
-    if [ -d "$DOTFILES_DIR/config/$config_dir" ]; then
-        create_symlink "$DOTFILES_DIR/config/$config_dir" "$HOME/.config/$config_dir"
-    fi
+# Create symlinks using GNU stow
+bold "==> Stowing dotfile packages..."
+STOW_PKGS=(zsh fish tmux nvim gdb mutt sway)
+for pkg in "${STOW_PKGS[@]}"; do
+    stow -d "$DOTFILES_DIR" -t "$HOME" "$pkg" || warn "Failed to stow $pkg"
 done
 
 # Special handling for greetd (requires sudo)
@@ -216,6 +196,17 @@ if [ -d "$DOTFILES_DIR/greetd" ]; then
     sudo cp -r "$DOTFILES_DIR/greetd/"* /etc/greetd/
     sudo systemctl enable greetd
     echo "  ✓ Copied greetd config to /etc/greetd/ and enabled service"
+
+    # Configure PAM for automatic gnome-keyring unlocking with greetd
+    PAM_FILE="/etc/pam.d/system-login"
+    if ! grep -q "pam_gnome_keyring.so" "$PAM_FILE"; then
+        bold "==> Configuring PAM for gnome-keyring..."
+        sudo cp "$PAM_FILE" "$PAM_FILE.backup-$(date +%Y%m%d-%H%M%S)"
+        sudo sed -i '/^auth.*include.*system-auth/a auth       optional   pam_gnome_keyring.so' "$PAM_FILE"
+        sudo sed -i '/^password.*include.*system-auth/a password   optional   pam_gnome_keyring.so use_authtok' "$PAM_FILE"
+        sudo sed -i '/^session.*required.*pam_env.so/a session    optional   pam_gnome_keyring.so auto_start' "$PAM_FILE"
+        echo "  ✓ Configured gnome-keyring PAM module"
+    fi
 fi
 
 # Firefox userChrome.css setup
@@ -234,21 +225,11 @@ if [ -f "$DOTFILES_DIR/firefox/userChrome.css" ]; then
     fi
 fi
 
-# Systemd user services setup
-bold "==> Setting up systemd user services..."
-mkdir -p "$HOME/.config/systemd/user"
-
-if [ -d "$DOTFILES_DIR/systemd/user" ]; then
-    for unit_file in "$DOTFILES_DIR/systemd/user"/*.service "$DOTFILES_DIR/systemd/user"/*.timer; do
-        if [ -f "$unit_file" ]; then
-            unit_name=$(basename "$unit_file")
-            create_symlink "$unit_file" "$HOME/.config/systemd/user/$unit_name"
-        fi
-    done
-    systemctl --user daemon-reload
-    systemctl --user enable --now battery-notify.timer || warn "battery-notify.timer failed to enable"
-    echo "  ✓ Systemd user services configured"
-fi
+# Systemd user services setup (stowed via desktop package)
+bold "==> Enabling systemd user services..."
+systemctl --user daemon-reload
+systemctl --user enable --now battery-notify.timer || warn "battery-notify.timer failed to enable"
+echo "  ✓ Systemd user services configured"
 
 bold "==> Setup complete!"
 echo ""
@@ -258,5 +239,3 @@ echo "  2. For fish shell setup, run: fish"
 echo "  3. Open neovim to install plugins"
 echo "  4. Initialize rustup: rustup default stable"
 echo "  5. Reboot to start using Sway with greetd"
-echo ""
-echo "Backups of replaced files are in: $BACKUP_DIR"
