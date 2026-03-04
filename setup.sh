@@ -205,23 +205,8 @@ if [ -d "$DOTFILES_DIR/greetd" ]; then
         sudo sed -i '/^auth.*include.*system-auth/a auth       optional   pam_gnome_keyring.so' "$PAM_FILE"
         sudo sed -i '/^password.*include.*system-auth/a password   optional   pam_gnome_keyring.so use_authtok' "$PAM_FILE"
         sudo sed -i '/^session.*required.*pam_env.so/a session    optional   pam_gnome_keyring.so auto_start' "$PAM_FILE"
+        systemctl --user enable --now gcr-ssh-agent.socket
         echo "  ✓ Configured gnome-keyring PAM module"
-    fi
-fi
-
-# Firefox userChrome.css setup
-if [ -f "$DOTFILES_DIR/firefox/userChrome.css" ]; then
-    bold "==> Setting up Firefox userChrome.css..."
-    # Find default Firefox profile (typically ends with .default-release or .default)
-    FIREFOX_PROFILE=$(find "$HOME/.mozilla/firefox" -maxdepth 1 -type d -name "*.default-release" -o -name "*.default" 2>/dev/null | head -1)
-
-    if [ -n "$FIREFOX_PROFILE" ]; then
-        mkdir -p "$FIREFOX_PROFILE/chrome"
-        cp "$DOTFILES_DIR/firefox/userChrome.css" "$FIREFOX_PROFILE/chrome/userChrome.css"
-        echo "  ✓ Copied userChrome.css to Firefox profile"
-        echo "  Note: Enable 'toolkit.legacyUserProfileCustomizations.stylesheets' in about:config if not already enabled"
-    else
-        warn "  Firefox profile not found. Create a Firefox profile and re-run this script."
     fi
 fi
 
