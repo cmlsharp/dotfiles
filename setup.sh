@@ -183,7 +183,12 @@ bold "==> Building and installing custom packages..."
 
 # Create symlinks using GNU stow
 bold "==> Stowing dotfile packages..."
-STOW_PKGS=(zsh fish tmux nvim gdb mutt sway)
+
+# Pre-create directories that other programs write into, so stow symlinks
+# individual files instead of folding the entire directory into a symlink.
+mkdir -p ~/.config/fish ~/.config/nvim ~/.config/systemd/user
+
+STOW_PKGS=(shell nvim gdb mutt sway)
 for pkg in "${STOW_PKGS[@]}"; do
     stow -d "$DOTFILES_DIR" -t "$HOME" "$pkg" || warn "Failed to stow $pkg"
 done
