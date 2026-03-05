@@ -1,7 +1,3 @@
-if not status is-interactive
-    return
-end
-
 set -g fish_greeting
 
 # SSH Agent setup (gnome-keyring)
@@ -283,8 +279,11 @@ if command -q fzf
     set -gx FZF_CTRL_T_OPTS '--preview "bat --color=always --style=numbers {}"'
     set -gx FZF_ALT_C_COMMAND 'fd --type d --hidden --follow --exclude .git'
     fzf --fish | source
+    bind -M insert ctrl-e 'vim (fzf); and commandline -f repaint'
 end
 
 if command -q zoxide
     zoxide init --cmd cd fish | source
 end
+
+

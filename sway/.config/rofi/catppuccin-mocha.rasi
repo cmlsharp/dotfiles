@@ -1,0 +1,69 @@
+* {
+    bg:          #1e1e2e;
+    bg-alt:      #313244;
+    fg:          #cdd6f4;
+    fg-alt:      #bac2de;
+    accent:      #cba6f7;
+    urgent:      #f38ba8;
+    surface:     #45475a;
+
+    background-color: transparent;
+    text-color:       @fg;
+    font:             "SauceCodePro Nerd Font 14";
+}
+
+window {
+    background-color: @bg;
+    border:           2px solid;
+    border-color:     @accent;
+    border-radius:    12px;
+    width:            500px;
+}
+
+inputbar {
+    background-color: @bg-alt;
+    border-radius:    8px;
+    margin:           8px 8px 4px 8px;
+    padding:          8px 12px;
+    children:         [ prompt, textbox-prompt-colon, entry ];
+}
+
+prompt {
+    text-color: @accent;
+}
+
+textbox-prompt-colon {
+    str:        " ";
+    text-color: @accent;
+}
+
+entry {
+    placeholder:       "Search...";
+    placeholder-color: @surface;
+}
+
+listview {
+    margin:  4px 8px 8px 8px;
+    lines:   10;
+    spacing: 4px;
+}
+
+element {
+    padding:       6px 12px;
+    border-radius: 8px;
+}
+
+element selected.normal {
+    background-color: @surface;
+    text-color:       @fg;
+    border:           0 0 0 3px solid;
+    border-color:     @accent;
+}
+
+element normal.normal {
+    background-color: transparent;
+}
+
+element alternate.normal {
+    background-color: transparent;
+}

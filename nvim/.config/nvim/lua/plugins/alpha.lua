@@ -1,5 +1,6 @@
 return {
   "goolord/alpha-nvim",
+  enabled = false,
   event = "VimEnter",
   config = function()
     local dashboard = require "alpha.themes.dashboard"
@@ -9,9 +10,8 @@ return {
       "~/Documents/research",
     }
 
-    function _G._alpha_open_project()
-      require("telescope").extensions.repo.list {
-        search_dirs = project_dirs,
+    local function open_project(picker)
+      picker {
         attach_mappings = function(prompt_bufnr)
           local actions = require "telescope.actions"
           actions.select_default:replace(function()
@@ -28,6 +28,19 @@ return {
           return true
         end,
       }
+    end
+
+    function _G._alpha_open_project()
+      open_project(function(opts)
+        opts.search_dirs = project_dirs
+        require("telescope").extensions.repo.list(opts)
+      end)
+    end
+
+    function _G._alpha_open_saved_project()
+      open_project(function(opts)
+        require("telescope").extensions.projects.projects(opts)
+      end)
     end
 
     local function add_project()
@@ -77,8 +90,8 @@ return {
 
     dashboard.section.buttons.val = {
       dashboard.button("s", "   " .. last_label, ":SessionManager load_last_session<CR>"),
-      dashboard.button("o", "   Open project", ":Telescope projects<CR>"),
-      dashboard.button("O", "   Open new project", "<cmd>lua _G._alpha_open_project()<CR>"),
+      dashboard.button("o", "   Open saved project", "<cmd>lua _G._alpha_open_saved_project()<CR>"),
+      dashboard.button("n", "   Open new project", "<cmd>lua _G._alpha_open_project()<CR>"),
       dashboard.button("f", "   Find file", ":Telescope find_files<CR>"),
       dashboard.button("r", "   Recent files", ":Telescope oldfiles<CR>"),
       dashboard.button("q", "   Quit", ":qa<CR>"),

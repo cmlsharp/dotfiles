@@ -124,6 +124,10 @@ AUR_PKGS=(
     catppuccin-gtk-theme-mocha
     papirus-folders-catppuccin-git
 
+    # Bitwarden
+    rofi-rbw-git
+    rbw-pinentry-keyring
+
     # AUR helper
     paru
 )

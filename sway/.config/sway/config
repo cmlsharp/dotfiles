@@ -139,10 +139,10 @@ for_window [title="^floating-btop$"] floating enable, resize set 1200 700, move 
 for_window [title="^floating-calendar$"] floating enable, move position center
 
 # Open display manager (wdisplays)
-bindsym $mod+p exec wdisplays
+bindsym $mod+Shift+d exec wdisplays
 
 # Toggle mirror laptop screen to external display
-bindsym $mod+Shift+p exec ~/.config/sway/toggle-mirror.sh
+bindsym $mod+Shift+o exec ~/.config/sway/toggle-mirror.sh
 
 # Toggle floating btop system monitor
 bindsym $mod+i exec ~/.config/sway/toggle-btop.sh
@@ -572,6 +572,11 @@ bindsym $mod+n exec swaync-client -t
 # Open zen
 bindsym $mod+Shift+b exec sh -c 'zen-browser'
 
+# Bitwarden vault picker (type password)
+bindsym $mod+p exec rofi-rbw --prompt "Vault (Type): "
+# Bitwarden vault picker (copy password)
+bindsym $mod+Shift+p exec rofi-rbw --action copy --prompt "Vault (Copy): "
+
 # Close / kill the focused window
 bindsym $mod+BackSpace kill
 bindsym $mod+c kill
@@ -617,6 +622,9 @@ layer_effects "wofi" blur enable; shadows enable; corner_radius 12
 # Propagate Wayland env to DBus and systemd — needed for XDG portals,
 # screen sharing, file pickers, and tray apps to work correctly
 exec dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP=sway
+
+# Unlock Bitwarden vault (master password pulled from gnome-keyring)
+exec rbw unlock
 
 exec nm-applet --indicator
 exec swaync

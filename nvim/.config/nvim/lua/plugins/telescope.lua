@@ -1,6 +1,6 @@
 return {
   "nvim-telescope/telescope.nvim",
-  enabled = true,
+  enabled = false,
   event = "VimEnter",
   dependencies = {
     "nvim-lua/plenary.nvim",
@@ -25,6 +25,10 @@ return {
     local telescope = require "telescope"
     telescope.setup {
       defaults = require("telescope.themes").get_ivy(),
+      pickers = {
+        find_files = { follow = true, hidden = true },
+        live_grep = { follow = true, additional_args = { "--hidden" } },
+      },
       extensions = {
         ["ui-select"] = { require("telescope.themes").get_dropdown() },
       },
