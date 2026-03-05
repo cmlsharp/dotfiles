@@ -84,7 +84,7 @@
         "on-click": "foot --title floating-btop btop"
     },
     "memory": {
-        "format": "≡ {percentage}%",
+        "format": "  {percentage}%",
         "interval": 10,
         "tooltip-format": "{used:0.1f}G used / {total:0.1f}G total",
         "on-click": "foot --title floating-btop btop"

@@ -8,24 +8,25 @@ return {
     dashboard = {
       preset = {
         keys = {
-          { icon = " ", key = "p", desc = "Projects", action = ":lua Snacks.picker.projects()" },
-          { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.picker.files()" },
-          { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.picker.recent()" },
-          { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.picker.grep()" },
+          { icon = "", key = "p", desc = "Open Project", action = ":lua Snacks.picker.projects()" },
+          { icon = "", key = "f", desc = "Find File", action = ":lua Snacks.picker.files()" },
+          { icon = "", key = "r", desc = "Recent Files", action = ":lua Snacks.picker.recent()" },
+          { icon = "", key = "g", desc = "Find Text", action = ":lua Snacks.picker.grep()" },
           {
-            icon = " ",
+            icon = "",
             key = "c",
             desc = "Config",
             action = ":lua Snacks.picker.files({cwd = vim.fn.stdpath('config'), follow = true})",
           },
           { icon = "󰒲 ", key = "L", desc = "Lazy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
-          { icon = " ", key = "q", desc = "Quit", action = ":qa" },
+          --{ icon = "󰮢", key = "M", desc = "Mason", action = ":Mason" },
+          { icon = "󰈆", key = "q", desc = "Quit", action = ":qa" },
         },
       },
       sections = {
         { section = "header" },
         { section = "keys", gap = 1, padding = 1 },
-        { icon = " ", title = "Projects", section = "projects", indent = 2, padding = 1 },
+        { icon = " ", title = "Recent Projects", section = "projects", indent = 2, padding = 1 },
         { section = "startup" },
       },
     },

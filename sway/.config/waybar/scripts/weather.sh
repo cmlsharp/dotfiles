@@ -28,28 +28,34 @@ get_icon() {
     local condition="$1"
     case "$condition" in
         *[Cc]lear*|*[Ss]unny*)
-            echo "☀"
+            echo ""
             ;;
         *[Cc]loud*|*[Oo]vercast*)
-            echo "☁"
+            echo ""
             ;;
         *[Pp]artly*)
-            echo "☀☁"
+            echo "󰖕"
             ;;
         *[Rr]ain*|*[Dd]rizzle*|*[Ss]hower*)
-            echo "🌧"
+            echo ""
             ;;
         *[Tt]hunder*|*[Ss]torm*)
-            echo "⛈"
+            echo ""
             ;;
-        *[Ss]snow*|*[Ss]leet*)
-            echo "❄"
+        *[Ss]snow*)
+            echo ""
             ;;
-        *[Ff]og*|*[Mm]ist*|*[Hh]aze*)
-            echo "░"
+        *[Ss]leet*)
+            echo ""
+            ;;
+        *[Ff]og*|*[Mm]ist*)
+            echo ""
+            ;;
+        *[Hh]aze*|)
+            echo ""
             ;;
         *[Ww]ind*)
-            echo "🌫"
+            echo ""
             ;;
         *)
             echo "?"
