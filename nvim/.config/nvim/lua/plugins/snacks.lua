@@ -12,7 +12,12 @@ return {
           { icon = " ", key = "f", desc = "Find File", action = ":lua Snacks.picker.files()" },
           { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.picker.recent()" },
           { icon = " ", key = "g", desc = "Find Text", action = ":lua Snacks.picker.grep()" },
-          { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.picker.files({cwd = vim.fn.stdpath('config')})" },
+          {
+            icon = " ",
+            key = "c",
+            desc = "Config",
+            action = ":lua Snacks.picker.files({cwd = vim.fn.stdpath('config'), follow = true})",
+          },
           { icon = "󰒲 ", key = "L", desc = "Lazy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
           { icon = " ", key = "q", desc = "Quit", action = ":qa" },
         },
@@ -36,10 +41,10 @@ return {
     },
     picker = {
       enabled = true,
-      layout = "ivy",
+      --layout = "ivy",
       sources = {
-        files = { hidden = true, follow = true },
-        grep = { hidden = true, follow = true },
+        --files = { hidden = true, follow = true },
+        --grep = { hidden = true, follow = true },
       },
     },
     quickfile = { enabled = true },
@@ -56,7 +61,7 @@ return {
   keys = {
     -- Top Pickers & Explorer
     {
-      "<leader><space>",
+      "<leader><leader>",
       function()
         Snacks.picker.smart()
       end,
@@ -108,7 +113,7 @@ return {
     {
       "<leader>fc",
       function()
-        Snacks.picker.files { cwd = vim.fn.stdpath "config" }
+        Snacks.picker.files { cwd = vim.fn.stdpath "config", hidden = true, follow = "true" }
       end,
       desc = "Find Config File",
     },

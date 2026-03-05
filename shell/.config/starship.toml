@@ -6,9 +6,6 @@ format = """$directory$cmd_duration$character"""
 
 right_format = """$git_branch$git_status$status"""
 
-[os]
-disabled = true
-
 [directory]
 style = "flamingo"
 format = "[$path]($style) "
@@ -16,10 +13,11 @@ truncation_length = 3
 truncation_symbol = ".../"
 
 [directory.substitutions]
-"Documents" = "󰈙 "
-"Downloads" = " "
-"Music" = "󰝚 "
-"Pictures" = " "
+"Documents" = "󰈙"
+"Downloads" = ""
+"Music" = "󰝚"
+"Pictures" = ""
+"Videos" = ""
 
 [git_branch]
 symbol = ""
@@ -29,29 +27,6 @@ format = "[$branch ]($style)"
 [git_status]
 style = "peach"
 format = "[$all_status$ahead_behind]($style)"
-
-[rust]
-disabled = true
-[golang]
-disabled = true
-[python]
-disabled = true
-[c]
-disabled = true
-[haskell]
-disabled = true
-[lua]
-disabled = true
-[ocaml]
-disabled = true
-[nodejs]
-disabled = true
-[java]
-disabled = true
-[ruby]
-disabled = true
-[php]
-disabled = true
 
 [cmd_duration]
 min_time = 2000
