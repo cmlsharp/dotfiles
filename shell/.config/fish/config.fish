@@ -287,3 +287,5 @@ if command -q zoxide
 end
 
 
+# I use tmux, and scacks.nvim can't tell this terminal supports graphics
+export SNACKS_KITTY=true

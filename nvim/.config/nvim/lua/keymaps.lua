@@ -33,7 +33,8 @@ map("n", "<C-u>", "<C-u>zz", { desc = "Scroll up (centered)" })
 map("n", "<leader>y", '"+y', { desc = "Yank to clipboard" })
 map("v", "<leader>y", '"+y', { desc = "Yank to clipboard" })
 map("n", "<leader>Y", '"+Y', { desc = "Yank line to clipboard" })
-map({ "n", "x" }, "<leader>P", '"+gP', { desc = "Paste from clipboard" })
+map({ "n", "v" }, "<leader>p", '"+gP', { desc = "Paste from clipboard" })
+map("x", "<leader>P", [["_dP]], { desc = "Paste to black hole" })
 map({ "n", "v" }, "<leader>d", [["_d]], { desc = "Delete to black hole" })
 
 -- quickfix list

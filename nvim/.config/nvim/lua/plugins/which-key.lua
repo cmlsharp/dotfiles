@@ -12,10 +12,9 @@ return {
     -- Document existing key chains
     spec = {
       { "<leader>s", group = "[S]earch", mode = { "n", "v" } },
-      { "<leader>sg", group = "[S]earch [G]it" },
-      { "<leader>p", group = "[P]roject" },
       { "<leader>t", group = "[T]oggle" },
       { "<leader>h", group = "Git [H]unk", mode = { "n", "v" } },
+      { "<leader>g", group = "[G]it", mode = { "n", "v" } },
       { "gr", group = "LSP Actions", mode = { "n" } },
     },
   },

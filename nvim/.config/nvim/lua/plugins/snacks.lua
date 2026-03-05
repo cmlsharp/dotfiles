@@ -5,11 +5,19 @@ return {
   ---@type snacks.Config
   opts = {
     bigfile = { enabled = true },
+    image = { enabled = true },
     dashboard = {
       preset = {
         keys = {
-          { icon = "", key = "p", desc = "Open Project", action = ":lua Snacks.picker.projects()" },
-          { icon = "", key = "f", desc = "Find File", action = ":lua Snacks.picker.files()" },
+          --{ icon = "", key = "p", desc = "Open Project", action = ":lua Snacks.picker.projects()" },
+          { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },
+          { icon = " ", key = "s", desc = "Restore Session", section = "session" },
+          {
+            icon = "",
+            key = "f",
+            desc = "Find File",
+            action = ":lua Snacks.picker.files({hidden = true, follow = true})",
+          },
           { icon = "", key = "r", desc = "Recent Files", action = ":lua Snacks.picker.recent()" },
           { icon = "", key = "g", desc = "Find Text", action = ":lua Snacks.picker.grep()" },
           {
@@ -18,6 +26,7 @@ return {
             desc = "Config",
             action = ":lua Snacks.picker.files({cwd = vim.fn.stdpath('config'), follow = true})",
           },
+
           { icon = "󰒲 ", key = "L", desc = "Lazy", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
           --{ icon = "󰮢", key = "M", desc = "Mason", action = ":Mason" },
           { icon = "󰈆", key = "q", desc = "Quit", action = ":qa" },
@@ -26,11 +35,10 @@ return {
       sections = {
         { section = "header" },
         { section = "keys", gap = 1, padding = 1 },
-        { icon = " ", title = "Recent Projects", section = "projects", indent = 2, padding = 1 },
-        { section = "startup" },
+        { pane = 1, icon = " ", title = "Recent Projects", section = "projects", indent = 2, padding = 1 },
+        { pane = 1, icon = " ", title = "Recent Files", section = "recent_files", indent = 2, padding = 1 },
       },
     },
-    explorer = { enabled = true },
     indent = {
       enabled = true,
       animate = { enabled = false },
@@ -55,7 +63,7 @@ return {
     words = { enabled = true },
     styles = {
       notification = {
-        -- wo = { wrap = true } -- Wrap notifications
+        wo = { wrap = true }, -- Wrap notifications
       },
     },
   },
@@ -114,7 +122,7 @@ return {
     {
       "<leader>fc",
       function()
-        Snacks.picker.files { cwd = vim.fn.stdpath "config", hidden = true, follow = "true" }
+        Snacks.picker.files { cwd = vim.fn.stdpath "config", follow = "true" }
       end,
       desc = "Find Config File",
     },
