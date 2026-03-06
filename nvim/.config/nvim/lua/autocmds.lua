@@ -1,6 +1,7 @@
 local augroup = vim.api.nvim_create_augroup("UserGroup", {})
+local autocmd = vim.api.nvim_create_autocmd
 
-vim.api.nvim_create_autocmd({ "VimResized" }, {
+autocmd("VimResized", {
   group = augroup,
   callback = function()
     local current_tab = vim.api.nvim_get_current_tabpage()
@@ -10,7 +11,7 @@ vim.api.nvim_create_autocmd({ "VimResized" }, {
   desc = "Resize splits with terminal window",
 })
 
-vim.api.nvim_create_autocmd("FileType", {
+autocmd("FileType", {
   group = augroup,
   desc = "Close read-only buffer with q/esc",
   pattern = {
@@ -31,7 +32,7 @@ vim.api.nvim_create_autocmd("FileType", {
   end,
 })
 
-vim.api.nvim_create_autocmd("BufWritePre", {
+autocmd("BufWritePre", {
   desc = "Autocreate a dir when saving a file",
   group = augroup,
   callback = function(event)
@@ -43,7 +44,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
 })
 
-vim.api.nvim_create_autocmd("BufWritePre", {
+autocmd("BufWritePre", {
   group = augroup,
   desc = "Delete trailing whitsespace on buf write",
   callback = function()
@@ -53,7 +54,7 @@ vim.api.nvim_create_autocmd("BufWritePre", {
   end,
 })
 
-vim.api.nvim_create_autocmd("BufReadPost", {
+autocmd("BufReadPost", {
   group = augroup,
   desc = "Restore cursor position on file open",
   callback = function(args)
@@ -68,10 +69,27 @@ vim.api.nvim_create_autocmd("BufReadPost", {
   end,
 })
 
-vim.api.nvim_create_autocmd("TextYankPost", {
+autocmd("TextYankPost", {
   group = augroup,
   desc = "Highlight yanked text",
   callback = function()
-    vim.highlight.on_yank()
+    vim.hl.on_yank { higroup = "Visual", timeout = 200 }
+  end,
+})
+
+-- this won't really work if relativenumbers are disabled by some other means
+autocmd("InsertEnter", {
+  group = augroup,
+  desc = "Disable relative line numbers in insert mode",
+  callback = function()
+    vim.opt.relativenumber = false
+  end,
+})
+
+autocmd("InsertLeave", {
+  group = augroup,
+  desc = "Re-enable relative line numbers on leave",
+  callback = function()
+    vim.opt.relativenumber = true
   end,
 })

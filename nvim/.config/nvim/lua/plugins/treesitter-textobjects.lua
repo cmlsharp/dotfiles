@@ -1,7 +1,6 @@
 return {
   "nvim-treesitter/nvim-treesitter-textobjects",
-  branch = "main",
-  event = "VeryLazy",
+  event = { "BufRead", "BufNewFile" },
   config = function()
     require("nvim-treesitter-textobjects").setup {
       select = { lookahead = true },

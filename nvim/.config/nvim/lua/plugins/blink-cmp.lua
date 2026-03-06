@@ -16,4 +16,9 @@ return {
     completion = { documentation = { auto_show = true } },
     signature = { enabled = true },
   },
+  config = function()
+    vim.lsp.config("*", {
+      capabilities = require("blink.cmp").get_lsp_capabilities(),
+    })
+  end,
 }

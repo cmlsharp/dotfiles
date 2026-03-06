@@ -11,7 +11,13 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
-require("lazy").setup({ { import = "plugins" } }, { install = { colorscheme = { "catppuccin" } } })
+require("lazy").setup({
+  import = "plugins",
+}, {
+  install = {
+    colorscheme = { "catppuccin" },
+  },
+})
 
 require "options"
 require "keymaps"

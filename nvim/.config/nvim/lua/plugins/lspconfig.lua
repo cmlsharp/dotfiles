@@ -80,9 +80,12 @@ return {
     -- Posted by Jo Totland
     -- Retrieved 2026-03-04, License - CC BY-SA 4.0
 
-    vim.lsp.config("*", {
-      capabilities = require("blink.cmp").get_lsp_capabilities(),
-    })
+    local blink_ok, blink = pcall(require, "blink.cmp")
+    if blink_ok then
+      vim.lsp.config("*", {
+        capabilities = blink.get_lsp_capabilities(),
+      })
+    end
 
     vim.lsp.config("clangd", {
       cmd = {
