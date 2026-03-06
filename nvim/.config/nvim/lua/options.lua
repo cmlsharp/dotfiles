@@ -2,6 +2,7 @@ local opt = vim.opt
 
 opt.number = true
 opt.relativenumber = true
+opt.winborder = "rounded"
 
 opt.shiftwidth = 4
 opt.tabstop = 4
@@ -14,7 +15,6 @@ opt.undodir = vim.fn.stdpath "cache" .. "/undo"
 opt.clipboard = ""
 
 opt.termguicolors = true
-opt.signcolumn = "yes"
 opt.cursorline = true
 
 opt.smartcase = true

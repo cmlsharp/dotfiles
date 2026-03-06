@@ -9,7 +9,6 @@ return {
     vim.api.nvim_create_autocmd("LspAttach", {
       group = vim.api.nvim_create_augroup("UserLspKeymaps", {}),
       callback = function(ev)
-        local opts = { buffer = ev.buf }
         local map = vim.keymap.set
 
         map("n", "grD", vim.lsp.buf.declaration, { buffer = ev.buf, desc = "Go to declaration" })
@@ -24,13 +23,17 @@ return {
           vim.lsp.buf.remove_workspace_folder,
           { buffer = ev.buf, desc = "Remove workspace folder" }
         )
-        map("n", "[d", vim.diagnostic.goto_prev, { buffer = ev.buf, desc = "Prev diagnostic" })
-        map("n", "]d", vim.diagnostic.goto_next, { buffer = ev.buf, desc = "Next diagnostic" })
+        map("n", "[d", function()
+          vim.diagnostic.jump { jump = -1, float = true }
+        end, { buffer = ev.buf, desc = "Prev diagnostic" })
+        map("n", "[d", function()
+          vim.diagnostic.jump { jump = 1, float = true }
+        end, { buffer = ev.buf, desc = "Next diagnostic" })
         map("n", "[e", function()
-          vim.diagnostic.goto_prev { severity = vim.diagnostic.severity.ERROR }
+          vim.diagnostic.jump { jump = -1, float = true, severity = vim.diagnostic.severity.ERROR }
         end, { buffer = ev.buf, desc = "Prev error" })
         map("n", "]e", function()
-          vim.diagnostic.goto_next { severity = vim.diagnostic.severity.ERROR }
+          vim.diagnostic.jump { jump = 1, float = true, severity = vim.diagnostic.severity.ERROR }
         end, { buffer = ev.buf, desc = "Next error" })
 
         -- Document highlight on CursorHold

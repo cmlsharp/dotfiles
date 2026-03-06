@@ -77,3 +77,5 @@ map("n", "<leader>e", function()
     wrap = true,
   })
 end, { desc = "Diagnostic float" })
+
+map("v", "<leader>N", ":norm")
