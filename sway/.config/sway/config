@@ -16,7 +16,7 @@ set $right l
 # Your preferred terminal emulator
 set $term kitty
 # Your preferred application launcher
-set $menu wofi --show drun --style ~/.config/waybar/scripts/wofi-dark.css --allow-images --prompt "Launch"
+set $menu wofi
 
 # Catppuccin Mocha
 set $rosewater #f5e0dc
@@ -64,8 +64,8 @@ default_border pixel 3
 default_floating_border pixel 3
 smart_borders off
 smart_gaps off
-gaps inner 8
-gaps outer 4
+gaps inner 4
+gaps outer 2
 # Show mark labels in the title bar (visible in tabbed/stacking layouts or with normal border)
 # %marks renders as [a] when marked, empty string when not
 for_window [all] title_format "%title <span foreground='$mauve'>%marks</span>"
@@ -501,7 +501,7 @@ bindsym $mod+r mode "resize"
 #
 
 # Toggle inner (8px) and outer (4px) gaps on the current workspace
-bindsym $mod+g exec swaymsg "gaps inner current toggle 8, gaps outer current toggle 4"
+bindsym $mod+g exec swaymsg "gaps inner current toggle 4, gaps outer current toggle 2"
 
 #
 # ── Session ──────────────────────────────────────────────────────
@@ -564,7 +564,7 @@ bindsym --release $mod+Shift+s exec sh -c 'slurp | grim -g - - | wl-copy && noti
 #
 
 # Open clipboard history picker (cliphist + wofi)
-bindsym $mod+Shift+v exec sh -c 'cliphist list | wofi --dmenu --style ~/.config/waybar/scripts/wofi-dark.css --prompt "Clipboard" | cliphist decode | wl-copy'
+bindsym $mod+Shift+v exec sh -c 'cliphist list | wofi --dmenu --prompt "Clipboard" | cliphist decode | wl-copy'
 
 # Toggle the swaync notification center panel
 bindsym $mod+n exec swaync-client -t
@@ -573,9 +573,9 @@ bindsym $mod+n exec swaync-client -t
 bindsym $mod+Shift+b exec sh -c 'zen-browser'
 
 # Bitwarden vault picker (type password)
-bindsym $mod+p exec rofi-rbw --prompt "Vault (Type): "
+bindsym $mod+p exec rofi-rbw --selector wofi --prompt "Vault (Type): "
 # Bitwarden vault picker (copy password)
-bindsym $mod+Shift+p exec rofi-rbw --action copy --prompt "Vault (Copy): "
+bindsym $mod+Shift+p exec rofi-rbw --selector wofi --action copy --prompt "Vault (Copy): "
 
 # Close / kill the focused window
 bindsym $mod+BackSpace kill
@@ -604,20 +604,16 @@ blur_passes 3
 blur_radius 6
 blur_xray disable
 
-corner_radius 10
+corner_radius 0
 
-shadows enable
-shadow_blur_radius 20
-shadow_color #11111ba0
-shadow_inactive_color #11111b60
-shadow_offset 0 4
+shadows disable
 
 default_dim_inactive 0.15
 
-layer_effects "waybar" blur enable; shadows enable; corner_radius 10
-layer_effects "swaync" blur enable; shadows enable; corner_radius 12
-layer_effects "swaync-control-center" blur enable; shadows enable
-layer_effects "wofi" blur enable; shadows enable; corner_radius 12
+layer_effects "waybar" corner_radius 0
+layer_effects "swaync" blur enable; corner_radius 0
+layer_effects "swaync-control-center" blur enable
+layer_effects "wofi" blur enable
 
 # Propagate Wayland env to DBus and systemd — needed for XDG portals,
 # screen sharing, file pickers, and tray apps to work correctly

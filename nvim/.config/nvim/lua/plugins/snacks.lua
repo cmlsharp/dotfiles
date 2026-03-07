@@ -56,8 +56,7 @@ return {
         --grep = { hidden = true, follow = true },
       },
     },
-    -- quickfile makes things slower for me idk
-    quickfile = { enabled = true },
+    quickfile = { enabled = true, exclude = { "latex", "haskell" } },
     scope = { enabled = true },
     scroll = { enabled = false },
     statuscolumn = { enabled = true },

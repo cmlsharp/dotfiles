@@ -37,8 +37,6 @@
         "dnd",
         "buttons-grid",
         "mpris",
-        "volume",
-        "backlight",
         "notifications"
     ],
     "widget-config": {
@@ -85,16 +83,6 @@
             "autohide": true,
             "show-album-art": "when-available",
             "loop-carousel": false
-        },
-        "volume": {
-            "label": " ",
-            "show-per-app": false
-        },
-        "backlight": {
-            "label": "󰖨 ",
-            "device": "intel_backlight",
-            "subsystem": "backlight",
-            "min": 0
         },
         "notifications": {
             "vexpand": true

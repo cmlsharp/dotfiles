@@ -1,7 +1,7 @@
 window {
     background-color: #1e1e2e;
     border: 2px solid #cba6f7;
-    border-radius: 12px;
+    border-radius: 0;
     font-family: "SauceCodePro Nerd Font";
     font-size: 14px;
 }
@@ -10,7 +10,7 @@ window {
     background-color: #313244;
     color: #cdd6f4;
     border: none;
-    border-radius: 8px;
+    border-radius: 0;
     margin: 8px 8px 4px 8px;
     padding: 8px 12px;
 }
@@ -39,7 +39,7 @@ window {
 #entry {
     padding: 6px 12px;
     color: #cdd6f4;
-    border-radius: 8px;
+    border-radius: 0;
     transition: all 200ms ease;
 }
 

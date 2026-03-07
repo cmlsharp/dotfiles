@@ -51,7 +51,7 @@ get_icon() {
         *[Ff]og*|*[Mm]ist*)
             echo ""
             ;;
-        *[Hh]aze*|)
+        *[Hh]aze*)
             echo ""
             ;;
         *[Ww]ind*)

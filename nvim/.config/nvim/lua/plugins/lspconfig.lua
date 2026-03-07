@@ -99,13 +99,6 @@ return {
       },
     })
 
-    vim.lsp.config("ocamllsp", {
-      cmd = { "ocamllsp" },
-      filetypes = { "ml", "ocaml", "ocaml.menhir", "ocaml.interface", "ocaml.ocamllex", "reason", "dune" },
-    })
-
-    vim.lsp.enable "ocamllsp"
-
     vim.lsp.config("sourcekit", {
       cmd = { "sourcekit-lsp" },
       filetypes = { "swift" },

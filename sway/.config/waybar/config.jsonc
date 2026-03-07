@@ -1,10 +1,10 @@
 {
     "layer": "top",
     "position": "top",
-    "height": 40,
-    "margin-top": 6,
-    "margin-left": 8,
-    "margin-right": 8,
+    "height": 28,
+    "margin-top": 0,
+    "margin-left": 0,
+    "margin-right": 0,
     "spacing": 0,
     "modules-left": [
         "sway/workspaces",
@@ -20,6 +20,8 @@
         "custom/weather",
         "cpu",
         "memory",
+        "backlight",
+        "pulseaudio",
         "battery",
         "idle_inhibitor",
         "custom/notification",
@@ -27,6 +29,14 @@
     ],
     "sway/workspaces": {
         "disable-scroll": true,
+        "all-outputs": true,
+        "persistent-workspaces": {
+            "1": [],
+            "2": [],
+            "3": [],
+            "4": [],
+            "5": []
+        },
         "format": "{icon}",
         "format-icons": {
             "1": "1",
@@ -39,7 +49,6 @@
             "8": "8",
             "9": "9",
             "10": "0",
-            "focused": "",
             "default": ""
         }
     },
@@ -139,7 +148,7 @@
     "backlight": {
         "format": "{icon} {percent}%",
         "format-icons": [
-            "󰖨"
+            "󰛩"
         ],
         "tooltip-format": "Brightness: {percent}%",
         "on-scroll-up": "brightnessctl set 5%+",

@@ -4,7 +4,7 @@ window {
 
 frame.background {
   background-color: alpha(#1e1e2e, 0.85);
-  border-radius: 16px;
+  border-radius: 0;
   padding: 32px;
   margin: 128px;
   border: 2px solid #cba6f7;
@@ -13,7 +13,7 @@ frame.background {
 entry {
   background-color: #313244;
   color: #cdd6f4;
-  border-radius: 8px;
+  border-radius: 0;
   padding: 8px 12px;
   border: 1px solid #45475a;
 }
@@ -40,7 +40,7 @@ label.greeting {
 button {
   background-color: #313244;
   color: #cdd6f4;
-  border-radius: 8px;
+  border-radius: 0;
   padding: 8px 16px;
   border: 1px solid #45475a;
 }
