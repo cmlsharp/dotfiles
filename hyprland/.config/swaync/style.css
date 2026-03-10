@@ -24,6 +24,12 @@
 @define-color blue #89b4fa;
 @define-color lavender #b4befe;
 
+:root {
+    --border-radius: 10px;
+    --cc-bg: transparent;
+    --padding: calc(var(--border-radius) / 2);
+}
+
 * {
     font-family: "JetBrainsMono Nerd Font", "Noto Sans", sans-serif;
     font-size: 13px;
@@ -45,35 +51,34 @@ blankwindow {
 
 /* ── Control Center ── */
 .control-center {
-    background: alpha(@base, 0.97);
-    border: 1px solid alpha(@mauve, 0.25);
-    border-radius: 10;
+    border-radius: 5;
+    background: alpha(@base, 0.6);
+    border: 1px solid @surface1;
     color: @text;
     box-shadow: none;
 }
 
-.control-center .widget-notifications {
-    margin-bottom: 10px;
-}
-
-.text-button {
-    border-radius: 5px;
-}
-
-.control-center .control-center-list {
-    background: transparent;
-}
-
-.control-center .control-center-list-placeholder {
+.control-center-list-placeholder {
+    padding: var(--border-radius);
     opacity: 0.5;
     color: @overlay0;
+}
+
+/* ── Widgets ── */
+.widgets > .widget:not(.widget-title),
+.widget-mpris > carouselindicatordots,
+.widget-mpris > box > button {
+    background: alpha(@surface0, 0.6);
+    border-radius: var(--border-radius);
+    padding: var(--padding);
+    border: 1px solid alpha(@surface1, 0.5);
 }
 
 /* ── Close Button ── */
 .close-button {
     background: alpha(@surface1, 0.5);
     color: @text;
-    border-radius: 10;
+    border-radius: var(--border-radius);
     min-width: 24px;
     min-height: 24px;
     border: none;
@@ -95,8 +100,8 @@ blankwindow {
 }
 
 .notification-row:focus {
-    background: rgba(203, 166, 247, 0.12) !important;
-    outline: none !important;
+    background: alpha(@surface1, 0.3);
+    outline: none;
 }
 
 .notification-row .notification-background {
@@ -105,39 +110,30 @@ blankwindow {
 
 /* ── Notification Card ── */
 .notification-row .notification-background .notification {
-    border-radius: 0;
+    border-radius: 5;
     border: 1px solid alpha(@surface1, 0.5);
-    background: alpha(@surface0, 0.95);
+    background: @surface0;
     box-shadow: none;
-}
-
-.notification-row .notification-background .notification.low {
-    border-color: alpha(@blue, 0.4);
-}
-
-.notification-row .notification-background .notification.normal {
-    border-color: alpha(@mauve, 0.4);
 }
 
 .notification-row .notification-background .notification.critical {
-    border-color: alpha(@red, 0.7);
-    box-shadow: none;
+    border-color: alpha(@red, 0.5);
 }
 
 /* ── Notification Actions ── */
 .notification-default-action {
-    border-radius: 10;
+    border-radius: 5;
     background: transparent;
     color: @text;
 }
 
 .notification-default-action:hover {
-    background: alpha(@surface1, 0.5);
+    background: alpha(@surface1, 0.3);
 }
 
 .notification-default-action:not(:only-child) {
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 /* ── Notification Content ── */
@@ -146,7 +142,7 @@ blankwindow {
 }
 
 .notification-content .image {
-    border-radius: 10;
+    border-radius: 5;
 }
 
 .notification-content .text-box .summary {
@@ -165,103 +161,119 @@ blankwindow {
     font-size: 13px;
 }
 
-/* Alt action buttons */
-.notification-action>button {
-    border-radius: 10;
+/* ── Notification Action Buttons ── */
+.notification-action > button {
+    border-radius: 5;
     background: alpha(@surface1, 0.4);
     color: @text;
     border: none;
     padding: 4px 8px;
 }
 
-.notification-action>button:first-child {
+.notification-action > button:first-child {
     border-bottom-left-radius: 0;
 }
 
-.notification-action>button:last-child {
+.notification-action > button:last-child {
     border-bottom-right-radius: 0;
 }
 
-.notification-action>button:hover {
-    background: alpha(@mauve, 0.3);
-    color: @mauve;
+.notification-action > button:hover {
+    background: alpha(@surface1, 0.8);
+    color: @text;
 }
 
 /* ── Notification Groups ── */
 .notification-group {
-    border-radius: 10;
-    margin: 2px 12px;
+    border-radius: var(--border-radius);
+    padding: 8px;
+    background: transparent;
+    border: none;
+    box-shadow: none;
 }
 
 .notification-group.collapsed.not-expanded {
     opacity: 0.4;
 }
 
+.notification-group .notification-group-headers {
+    background: transparent;
+    border: none;
+}
+
 .notification-group .notification-group-headers .notification-group-header {
     color: @subtext1;
     font-size: 12px;
+    background: transparent;
 }
 
-/* ── Widgets ── */
-.widget {
-    margin: 8px;
-    padding: 10px;
-    border-radius: 10;
-    background: alpha(@surface0, 0.5);
-    border: 1px solid alpha(@surface1, 0.3);
-}
-
-/* Title */
-.widget-title {
-    padding: 6px 10px;
+.notification-group .notification-group-collapse-button {
     background: transparent;
     border: none;
-    margin: 8px 8px 0 8px;
+    color: @overlay1;
 }
 
-.widget-title>label {
-    font-size: 18px;
+.notification-group .notification-group-collapse-button:hover {
+    background: alpha(@surface1, 0.5);
+    color: @text;
+}
+
+/* ── Text Button ── */
+.text-button {
+    border-radius: 5px;
+}
+
+/* ── Inhibitors / Title Widget ── */
+.widget-inhibitors,
+.widget-title {
+    padding: 6px 10px;
+}
+
+.widget-inhibitors > label,
+.widget-title > label {
+    font-size: 20px;
     font-weight: bold;
     color: @mauve;
 }
 
-.widget-title>button {
-    background: alpha(@blue, 0.15);
-    color: @blue;
-    border-radius: 10;
-    border: 1px solid alpha(@blue, 0.3);
+.widget-inhibitors > button,
+.widget-title > button {
+    background: alpha(@surface1, 0.5);
+    color: @text;
+    border-radius: var(--border-radius);
+    border: 1px solid alpha(@surface1, 0.5);
     padding: 3px 10px;
     font-size: 12px;
 }
 
-.widget-title>button:hover {
-    background: alpha(@blue, 0.3);
-    border-color: @blue;
+.widget-inhibitors > button:hover,
+.widget-title > button:hover {
+    background: alpha(@surface1, 0.8);
+    border-color: @surface2;
 }
 
-/* DND */
+/* ── DND ── */
 .widget-dnd {
     font-size: 14px;
-    border-radius: 10;
 }
 
-.widget-dnd>label {
+.widget-dnd > label {
     color: @text;
     font-size: 14px;
 }
 
-.widget-dnd>switch {
+.widget-dnd > switch {
     background: alpha(@surface2, 0.6);
     border-radius: 12px;
     border: none;
     outline: none;
 }
 
-.widget-dnd>switch:checked {
+.widget-dnd > switch:checked {
     background: @mauve;
 }
 
-.widget-dnd>switch slider {
+.widget-dnd > switch slider {
     background: @text;
     border-radius: 100%;
     min-width: 18px;
@@ -269,24 +281,38 @@ blankwindow {
     margin: 2px;
 }
 
-/* MPRIS */
-.widget-mpris {
+/* ── MPRIS ── */
+.widget.widget-mpris {
     background: transparent;
-    border: none;
+    border-radius: 0;
     padding: 0;
-    margin: 4px 8px;
+    border: none;
 }
 
-.widget-mpris .widget-mpris-player {
-    border-radius: 10;
-    background: alpha(@surface0, 0.7);
+.widget.widget-mpris > carouselindicatordots {
+    --dots-padding: 4px;
+    padding: var(--dots-padding);
+    padding-left: var(--dots-padding);
+    padding-right: calc(6px + var(--dots-padding));
+    margin: 0;
+    margin-top: var(--padding);
+}
+
+.widget-mpris > box > button:hover {
+    background: alpha(@surface1, 0.8);
+}
+
+.widget-mpris-player {
+    box-shadow: none;
     border: 1px solid alpha(@surface1, 0.4);
+    margin: 0 var(--padding);
+    border-radius: var(--border-radius);
+    background: alpha(@surface0, 0.7);
     padding: 8px;
 }
 
-.widget-mpris .widget-mpris-player .mpris-background {
-    filter: blur(10px);
-    border-radius: 10;
+.widget-mpris-player:only-child {
+    margin: 0;
 }
 
 .widget-mpris .widget-mpris-player .mpris-overlay .widget-mpris-title {
@@ -300,115 +326,16 @@ blankwindow {
     font-size: 12px;
 }
 
-.widget-mpris .widget-mpris-player .mpris-overlay>box>button {
+.widget-mpris .widget-mpris-player .mpris-overlay > box > button {
     background: alpha(@surface1, 0.5);
     color: @text;
-    border-radius: 10;
+    border-radius: var(--border-radius);
     min-width: 32px;
     min-height: 32px;
     border: none;
 }
 
-.widget-mpris .widget-mpris-player .mpris-overlay>box>button:hover {
-    background: alpha(@mauve, 0.4);
-    color: @mauve;
-}
-
-.widget-mpris>box>button {
-    background: alpha(@surface1, 0.4);
-    color: @text;
-    border-radius: 10;
-    border: none;
-    min-width: 28px;
-    min-height: 28px;
-}
-
-.widget-mpris>box>button:disabled {
-    opacity: 0.4;
-}
-
-/* ── Buttons Grid ── */
-.widget-buttons-grid>flowbox>flowboxchild>button {
-    background: alpha(@surface0, 0.7);
-    color: @subtext1;
-    border-radius: 10 border: 1px solid alpha(@surface1, 0.5);
-    padding: 8px 12px;
-    margin: 2px;
-    font-size: 12px;
-    min-width: 120px;
-    transition: all 150ms ease;
-}
-
-.widget-buttons-grid>flowbox>flowboxchild>button:hover {
+.widget-mpris .widget-mpris-player .mpris-overlay > box > button:hover {
     background: alpha(@surface1, 0.8);
-    border-color: @surface2;
     color: @text;
-}
-
-.widget-buttons-grid>flowbox>flowboxchild>button.active {
-    background: alpha(@mauve, 0.2);
-    color: @mauve;
-    border-color: alpha(@mauve, 0.5);
-}
-
-.widget-buttons-grid>flowbox>flowboxchild>button.active:hover {
-    background: alpha(@mauve, 0.35);
-    border-color: @mauve;
-}
-
-/* ── Volume & Backlight sliders ── */
-.widget-volume,
-.widget-backlight {
-    padding: 2px 10px;
-    margin: 2px 8px;
-}
-
-.widget-volume scale,
-.widget-backlight scale {
-    padding: 6px 4px;
-    margin: 0;
-}
-
-.widget-volume scale trough,
-.widget-backlight scale trough {
-    min-height: 4px;
-    border-radius: 10;
-    background: alpha(@surface1, 0.6);
-}
-
-.widget-volume scale trough highlight,
-.widget-backlight scale trough highlight {
-    border-radius: 10;
-}
-
-.widget-volume scale slider,
-.widget-backlight scale slider {
-    min-width: 14px;
-    min-height: 14px;
-    border-radius: 10;
-    background: @text;
-    border: none;
-    box-shadow: none;
-}
-
-/* ── Volume ── */
-.widget-volume label {
-    color: @blue;
-    font-size: 14px;
-    min-width: 16px;
-}
-
-.widget-volume scale trough highlight {
-    background: @blue;
-}
-
-/* ── Backlight ── */
-.widget-backlight label {
-    color: @yellow;
-    font-size: 14px;
-    min-width: 16px;
-}
-
-.widget-backlight scale trough highlight {
-    background: @yellow;
 }

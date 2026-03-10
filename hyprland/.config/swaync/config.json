@@ -1,37 +1,40 @@
 {
     "$schema": "/etc/xdg/swaync/configSchema.json",
+
     "positionX": "right",
     "positionY": "top",
-    "layer": "overlay",
-    "layer-shell": true,
-    "cssPriority": "user",
-    "control-center-layer": "overlay",
-    "control-center-margin-top": 10,
-    "control-center-margin-bottom": 10,
-    "control-center-margin-right": 10,
-    "control-center-margin-left": 0,
-    "control-center-width": 400,
-    "fit-to-screen": false,
+    "control-center-positionX": "none",
+    "control-center-positionY": "none",
+    "control-center-margin-top": 8,
+    "control-center-margin-bottom": 8,
+    "control-center-margin-right": 8,
+    "control-center-margin-left": 8,
+    "control-center-width": 500,
     "control-center-height": 640,
-    "notification-window-width": 400,
-    "transition-time": 200,
-    "hide-on-clear": false,
-    "hide-on-action": true,
-    "keyboard-shortcuts": true,
-    "image-visibility": "when-available",
-    "notification-2fa-action": true,
-    "notification-inline-replies": true,
+    "fit-to-screen": false,
+    "layer-shell-cover-screen": true,
+
+    "layer-shell": true,
+    "layer": "overlay",
+    "control-center-layer": "overlay",
+    "cssPriority": "user",
     "notification-body-image-height": 100,
     "notification-body-image-width": 200,
-    "script-fail-notify": true,
-    "notification-grouping": true,
-    "relative-timestamps": true,
+    "notification-inline-replies": true,
+    "notification-2fa-action": true,
     "timeout": 10,
     "timeout-low": 5,
     "timeout-critical": 0,
-    "text-empty": "No Notifications",
-    "scripts": {},
-    "notification-visibility": {},
+    "notification-window-width": 500,
+    "keyboard-shortcuts": true,
+    "image-visibility": "always",
+    "transition-time": 200,
+    "hide-on-clear": true,
+    "hide-on-action": true,
+    "script-fail-notify": true,
+    "notification-grouping": true,
+    "relative-timestamps": true,
+
     "widgets": [
         "title",
         "dnd",
@@ -39,6 +42,14 @@
         "notifications"
     ],
     "widget-config": {
+        "notifications": {
+            "vexpand": false
+        },
+        "inhibitors": {
+            "text": "Inhibitors",
+            "button-text": "Clear All",
+            "clear-all-button": true
+        },
         "title": {
             "text": "Notifications",
             "clear-all-button": true,
@@ -49,11 +60,7 @@
         },
         "mpris": {
             "autohide": true,
-            "show-album-art": "when-available",
-            "loop-carousel": false
-        },
-        "notifications": {
-            "vexpand": true
+            "show-album-art": "when-available"
         }
     }
 }
