@@ -1,0 +1,14 @@
+/* Translucent dmenu theme — for clipboard, bitwarden, etc. */
+
+@import "catppuccin-mocha"
+
+* {
+  bg:          #1e1e2ecc;
+  bg-inputbar: #31324460;
+  bg-selected: #45475a80;
+  fg-selected: @text;
+  bg-border:   @surface1;
+  accent:      @mauve;
+}
+
+@import "dmenu-layout"

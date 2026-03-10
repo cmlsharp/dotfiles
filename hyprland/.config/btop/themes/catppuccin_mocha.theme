@@ -1,0 +1,91 @@
+# Catppuccin Mocha theme for btop
+
+# Main background
+theme[main_bg]="#1e1e2e"
+
+# Main text color
+theme[main_fg]="#cdd6f4"
+
+# Title color for boxes
+theme[title]="#cdd6f4"
+
+# Highlight color for keyboard shortcuts
+theme[hi_fg]="#89b4fa"
+
+# Background color of selected item in processes box
+theme[selected_bg]="#45475a"
+
+# Foreground color of selected item in processes box
+theme[selected_fg]="#cdd6f4"
+
+# Color of inactive/disabled text
+theme[inactive_fg]="#6c7086"
+
+# Color of text appearing on top of graphs
+theme[graph_text]="#bac2de"
+
+# Background color of the percentage meters
+theme[meter_bg]="#45475a"
+
+# Misc colors for processes box including mini cpu graphs, subtle background, -b flags
+theme[proc_misc]="#89dceb"
+
+# CPU box outline color
+theme[cpu_box]="#89b4fa"
+
+# Memory/disks box outline color
+theme[mem_box]="#a6e3a1"
+
+# Net up/down box outline color
+theme[net_box]="#cba6f7"
+
+# Processes box outline color
+theme[proc_box]="#f5c2e7"
+
+# Box divider line and target field cursor color
+theme[div_line]="#45475a"
+
+# Temperature graph colors
+theme[temp_start]="#a6e3a1"
+theme[temp_mid]="#f9e2af"
+theme[temp_end]="#f38ba8"
+
+# CPU graph colors
+theme[cpu_start]="#89b4fa"
+theme[cpu_mid]="#74c7ec"
+theme[cpu_end]="#cba6f7"
+
+# Mem/Disk free meter
+theme[free_start]="#a6e3a1"
+theme[free_mid]="#94e2d5"
+theme[free_end]="#89dceb"
+
+# Mem/Disk cached meter
+theme[cached_start]="#f9e2af"
+theme[cached_mid]="#fab387"
+theme[cached_end]="#f38ba8"
+
+# Mem/Disk available meter
+theme[available_start]="#a6e3a1"
+theme[available_mid]="#94e2d5"
+theme[available_end]="#89dceb"
+
+# Mem/Disk used meter
+theme[used_start]="#cba6f7"
+theme[used_mid]="#f5c2e7"
+theme[used_end]="#f38ba8"
+
+# Download graph colors
+theme[download_start]="#89b4fa"
+theme[download_mid]="#74c7ec"
+theme[download_end]="#cba6f7"
+
+# Upload graph colors
+theme[upload_start]="#a6e3a1"
+theme[upload_mid]="#94e2d5"
+theme[upload_end]="#89dceb"
+
+# Process box color gradient for threads, mem and cpu usage
+theme[process_start]="#89b4fa"
+theme[process_mid]="#cba6f7"
+theme[process_end]="#f38ba8"

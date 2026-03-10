@@ -1,0 +1,6 @@
+action type
+target password
+clipboarder wl-copy
+selector rofi
+no-help
+no-folder

@@ -98,14 +98,12 @@ return {
         "--pch-storage=memory", -- keep precompiled headers in memory (faster, more RAM)
       },
     })
-
-    vim.lsp.config("sourcekit", {
-      cmd = { "sourcekit-lsp" },
-      filetypes = { "swift" },
+    vim.lsp.config("tinymist", {
+      settings = {
+        exportPdf = "onSave",
+        outputPath = "$root/target/$dir/$name",
+      },
     })
-
-    vim.lsp.enable "sourcekit"
-
     vim.lsp.config("texlab", {
       settings = {
         texlab = {

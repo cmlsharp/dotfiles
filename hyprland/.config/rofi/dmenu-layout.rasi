@@ -1,0 +1,106 @@
+* {
+  background-color: transparent;
+  text-color:       @text;
+  font:             "JetBrainsMono Nerd Font 12";
+}
+
+window {
+  width:            850px;
+  padding:          0;
+  border:           1px;
+  border-radius:    10px;
+  background-color: @bg;
+  border-color:     @bg-border;
+  location:         center;
+  anchor:           center;
+}
+
+mainbox {
+  padding: 0;
+  border:  0;
+}
+
+inputbar {
+  padding:          10px 16px;
+  spacing:          10px;
+  background-color: @bg-inputbar;
+  children:         [ "prompt", "entry" ];
+}
+
+prompt {
+  spacing:    0;
+  text-color: @accent;
+}
+
+entry {
+  text-color:        @text;
+  cursor:            text;
+  spacing:           0;
+  placeholder-color: @subtext0;
+  placeholder:       "Search...";
+}
+
+listview {
+  padding:      8px 0;
+  scrollbar:    false;
+  spacing:      0;
+  fixed-height: true;
+  border:       0;
+  lines:        10;
+  columns:      2;
+}
+
+element {
+  padding:     8px 16px;
+  cursor:      pointer;
+  spacing:     10px;
+  border:      0;
+  orientation: horizontal;
+}
+
+element normal.normal,
+element alternate.normal {
+  background-color: transparent;
+  text-color:       @text;
+}
+
+element normal.active,
+element alternate.active {
+  background-color: transparent;
+  text-color:       @accent;
+}
+
+element selected.normal {
+  background-color: @bg-selected;
+  text-color:       @fg-selected;
+}
+
+element selected.active {
+  background-color: @accent;
+  text-color:       @base;
+}
+
+element-text {
+  background-color: transparent;
+  cursor:           inherit;
+  highlight:        bold;
+  text-color:       inherit;
+  vertical-align:   0.5;
+}
+
+element-icon {
+  background-color: transparent;
+  size:             28px;
+  cursor:           inherit;
+  text-color:       inherit;
+}
+
+message {
+  padding: 8px 16px;
+  border:  0;
+}
+
+textbox {
+  text-color: @subtext0;
+  font:       "JetBrainsMono Nerd Font 10";
+}

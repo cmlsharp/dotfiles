@@ -1,0 +1,140 @@
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "JetBrainsMono Nerd Font", "Noto Sans", sans-serif;
+    font-size: 13px;
+    box-shadow: none;
+    text-shadow: none;
+    transition-duration: 0s;
+    min-height: 0;
+}
+
+window {
+    color: #cdd6f4;
+    background: rgba(17, 17, 27, 0.00);
+}
+
+window#waybar.solo {
+    color: #cdd6f4;
+    background: rgba(17, 17, 27, 0.00);
+}
+
+tooltip {
+    background: #1e1e2e;
+    border: 1px solid #45475a;
+    color: #cdd6f4;
+}
+
+tooltip label {
+    color: #cdd6f4;
+    padding: 2px 4px;
+}
+
+#workspaces {
+    margin: 0 5px;
+}
+
+#workspaces button {
+    padding: 0 5px;
+    margin-right: 2px;
+    color: rgba(166, 173, 200, 0.4);
+}
+
+#workspaces button:not(.empty) {
+    border-top: 3px solid rgba(166, 173, 200, 0.4);
+}
+
+#workspaces button.visible {
+    color: #bac2de;
+}
+
+#workspaces button.focused,
+#workspaces button.active {
+    color: #cdd6f4;
+    border-top: 3px solid #cdd6f4;
+}
+
+#workspaces button.urgent {
+    color: #f38ba8;
+    border-top: 3px solid #f38ba8;
+}
+
+#cpu,
+#battery,
+#pulseaudio,
+#custom-power,
+#custom-weather,
+#idle_inhibitor,
+#backlight,
+#memory,
+#bluetooth,
+#network,
+#custom-notification,
+#tray,
+#mode {
+    min-width: 40px;
+    -GtkLabel-align: center;
+    margin: 0;
+    color: #cdd6f4;
+}
+
+#custom-weather {
+    margin-right: 10px;
+}
+
+#clock {
+    margin: 0px 16px 0px 10px;
+    min-width: 140px;
+}
+
+#window {
+    color: #6c7086;
+    font-style: italic;
+}
+
+#window.empty {
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+}
+
+#scratchpad {
+    margin: 0px 6px 0px 10px;
+    color: #6c7086;
+}
+
+#mpris {
+    margin: 0px 6px 0px 10px;
+    color: #cdd6f4;
+}
+
+#battery.warning {
+    color: #f9e2af;
+}
+
+#battery.critical {
+    color: #f38ba8;
+}
+
+#network.disconnected,
+#pulseaudio.muted,
+#idle_inhibitor.deactivated,
+#bluetooth.disabled {
+    color: #6c7086;
+}
+
+#idle_inhibitor.activated {
+    color: #cdd6f4;
+}
+
+#custom-power {
+    color: #cdd6f4;
+}
+
+#tray>.passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray>.needs-attention {
+    -gtk-icon-effect: highlight;
+}

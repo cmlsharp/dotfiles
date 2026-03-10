@@ -20,21 +20,24 @@ OFFICIAL_PKGS=(
     python
     python-pip
 
-    # Sway/Wayland window manager
+    # Hyprland/Wayland window manager
     greetd
     greetd-tuigreet
     greetd-regreet
-    swaybg
-    swayidle
+    hyprland
+    hypridle
+    hyprlock
+    hyprpaper
+    hyprshot
+    hyprtoolkit
     waybar
     swaync
-    wofi
+    rofi
     foot
     kitty
     wlogout
-    kanshi
 
-    # Sway utilities (screenshots, clipboard, brightness, recording)
+    # Wayland utilities (screenshots, clipboard, brightness, recording)
     grim
     slurp
     wl-clipboard
@@ -42,8 +45,9 @@ OFFICIAL_PKGS=(
     cliphist
     playerctl
     wf-recorder
-    wl-mirror
     libnotify
+    impala
+    bluetui
 
     # Audio
     pipewire-pulse
@@ -94,7 +98,7 @@ OFFICIAL_PKGS=(
     stylua
 
     # Fonts
-    ttf-sourcecodepro-nerd
+    ttf-jetbrains-mono-nerd
     noto-fonts-emoji
 
     # Themes
@@ -106,10 +110,9 @@ OFFICIAL_PKGS=(
 )
 
 AUR_PKGS=(
-    # Sway (fork with effects)
-    swayfx
-    swaylock-effects
-    swayr
+    # Hyprland utilities
+    snappy-switcher
+    tzupdate
     wdisplays-persistent
     sesh-bin
 
@@ -192,7 +195,7 @@ bold "==> Stowing dotfile packages..."
 # individual files instead of folding the entire directory into a symlink.
 mkdir -p ~/.config/fish ~/.config/nvim ~/.config/systemd/user
 
-STOW_PKGS=(shell nvim gdb mutt sway)
+STOW_PKGS=(shell nvim gdb mutt hyprland)
 for pkg in "${STOW_PKGS[@]}"; do
     stow -d "$DOTFILES_DIR" -t "$HOME" "$pkg" || warn "Failed to stow $pkg"
 done
@@ -232,4 +235,4 @@ echo "  1. Restart your shell or run: source ~/.zshrc"
 echo "  2. For fish shell setup, run: fish"
 echo "  3. Open neovim to install plugins"
 echo "  4. Initialize rustup: rustup default stable"
-echo "  5. Reboot to start using Sway with greetd"
+echo "  5. Reboot to start using Hyprland with greetd"

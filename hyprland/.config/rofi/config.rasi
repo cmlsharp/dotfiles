@@ -1,0 +1,116 @@
+@import "catppuccin-mocha"
+
+* {
+  background-color: transparent;
+  text-color:       @text;
+  font:             "JetBrainsMono Nerd Font 12";
+}
+
+configuration {
+  modi:                "drun,run";
+  show-icons:          true;
+  display-drun:        "";
+  display-run:         "";
+  drun-display-format: "{name}";
+}
+
+window {
+  padding:          0;
+  background-color: #1e1e2ecc;
+  border:           1;
+  border-color:     @surface1;
+  width:            850px;
+  border-radius:    10px;
+  location:         center;
+  anchor:           center;
+}
+
+mainbox {
+  padding: 0;
+  border:  0;
+}
+
+message {
+  padding: 8px 16px;
+  border:  0;
+}
+
+textbox {
+  text-color: @subtext0;
+  font:       "JetBrainsMono Nerd Font 10";
+}
+
+listview {
+  padding:      8px 0;
+  scrollbar:    false;
+  spacing:      0;
+  fixed-height: true;
+  border:       0;
+  lines:        15;
+  columns:      1;
+}
+
+element {
+  padding: 8px 16px;
+  cursor:  pointer;
+  spacing: 10px;
+  border:  0;
+}
+
+element normal.normal,
+element alternate.normal {
+  background-color: transparent;
+  text-color:       @text;
+}
+
+element normal.active,
+element alternate.active {
+  background-color: transparent;
+  text-color:       @mauve;
+}
+
+element selected.normal {
+  background-color: #45475a80;
+  text-color:       @text;
+}
+
+element selected.active {
+  background-color: @mauve;
+  text-color:       @base;
+}
+
+element-text {
+  background-color: transparent;
+  cursor:           inherit;
+  highlight:        bold;
+  text-color:       inherit;
+  vertical-align:   0.5;
+}
+
+element-icon {
+  background-color: transparent;
+  size:             1.2em;
+  cursor:           inherit;
+  text-color:       inherit;
+}
+
+inputbar {
+  padding:          10px 16px;
+  spacing:          10px;
+  text-color:       @text;
+  background-color: #31324460;
+  children:         [ "prompt", "entry" ];
+}
+
+entry {
+  text-color:        @text;
+  cursor:            text;
+  spacing:           0;
+  placeholder-color: @subtext0;
+  placeholder:       "Search...";
+}
+
+prompt {
+  spacing:    0;
+  text-color: @mauve;
+}

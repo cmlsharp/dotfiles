@@ -1,0 +1,59 @@
+{
+    "$schema": "/etc/xdg/swaync/configSchema.json",
+    "positionX": "right",
+    "positionY": "top",
+    "layer": "overlay",
+    "layer-shell": true,
+    "cssPriority": "user",
+    "control-center-layer": "overlay",
+    "control-center-margin-top": 10,
+    "control-center-margin-bottom": 10,
+    "control-center-margin-right": 10,
+    "control-center-margin-left": 0,
+    "control-center-width": 400,
+    "fit-to-screen": false,
+    "control-center-height": 640,
+    "notification-window-width": 400,
+    "transition-time": 200,
+    "hide-on-clear": false,
+    "hide-on-action": true,
+    "keyboard-shortcuts": true,
+    "image-visibility": "when-available",
+    "notification-2fa-action": true,
+    "notification-inline-replies": true,
+    "notification-body-image-height": 100,
+    "notification-body-image-width": 200,
+    "script-fail-notify": true,
+    "notification-grouping": true,
+    "relative-timestamps": true,
+    "timeout": 10,
+    "timeout-low": 5,
+    "timeout-critical": 0,
+    "text-empty": "No Notifications",
+    "scripts": {},
+    "notification-visibility": {},
+    "widgets": [
+        "title",
+        "dnd",
+        "mpris",
+        "notifications"
+    ],
+    "widget-config": {
+        "title": {
+            "text": "Notifications",
+            "clear-all-button": true,
+            "button-text": "Clear All"
+        },
+        "dnd": {
+            "text": "Do Not Disturb"
+        },
+        "mpris": {
+            "autohide": true,
+            "show-album-art": "when-available",
+            "loop-carousel": false
+        },
+        "notifications": {
+            "vexpand": true
+        }
+    }
+}

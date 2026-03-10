@@ -23,7 +23,7 @@ set window-title-basename "true"
 set window-title-page "true"
 set statusbar-home-tilde "true"
 
-set font "SauceCodePro Nerd Font 12"
+set font "JetBrainsMono Nerd Font 12"
 
 # -- Default Colors (white background, dark UI chrome) -----------------------
 # PDF pages render with their native white background and black text.

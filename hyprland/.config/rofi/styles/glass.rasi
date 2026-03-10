@@ -1,0 +1,14 @@
+/* Glass — heavy transparency, frosted look */
+
+@import "../catppuccin-mocha"
+
+* {
+  bg:          #1e1e2e66;
+  bg-inputbar: #18182540;
+  bg-selected: #cba6f730;
+  fg-selected: @mauve;
+  bg-border:   #cba6f740;
+  accent:      @mauve;
+}
+
+@import "../launcher-layout"

@@ -50,7 +50,7 @@ set -gx CC gcc
 
 
 # Tmux auto-attach via sesh
-if not set -q TMUX; and command -q sesh
+if not set -q TMUX; and command -q sesh; and test -n "$DISPLAY" -o -n "$WAYLAND_DISPLAY"
     exec sesh-picker
 else if not set -q TMUX; and command -q tmux
     exec tmux

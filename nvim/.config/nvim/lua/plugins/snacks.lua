@@ -5,7 +5,7 @@ return {
   ---@type snacks.Config
   opts = {
     bigfile = { enabled = true },
-    image = { enabled = true },
+    image = { enabled = false },
     dashboard = {
       preset = {
         keys = {

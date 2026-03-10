@@ -3,7 +3,11 @@
 # Used by: fish config.fish, zsh .zshrc, tmux .tmux.conf
 
 FZF_CMD="fzf"
-[ -n "$TMUX" ] && FZF_CMD="fzf-tmux -p 80%,70%"
+SESH_CONNECT="sesh connect"
+if [ -n "$TMUX" ]; then
+    FZF_CMD="fzf-tmux -p 80%,70%"
+    SESH_CONNECT="sesh connect --switch"
+fi
 
 choice=$(sesh list --icons | $FZF_CMD \
     --no-sort --ansi --border-label ' sesh ' --prompt '⚡  ' \
@@ -15,12 +19,19 @@ choice=$(sesh list --icons | $FZF_CMD \
     --bind 'ctrl-x:change-prompt(📁  )+reload(sesh list -z --icons)' \
     --bind 'ctrl-f:change-prompt(🔎  )+reload(fd -H -d 2 -t d -E .Trash . ~)' \
     --bind 'ctrl-d:execute(tmux kill-session -t {2..})+change-prompt(⚡  )+reload(sesh list --icons)' \
-    --bind 'ctrl-n:print(__sesh_ephemeral_session_24a7f__)+accept' \
+    --bind 'ctrl-n:become(echo __sesh_ephemeral_session_24a7f__)' \
     --preview-window 'right:55%' \
     --preview 'sesh preview {}')
 
-if [ "$choice" = "__sesh_ephemeral_session_24a7f__" ] || [ -z "$choice" ]; then
-    tmux new-session \; set-option destroy-unattached on
+if [ -z "$choice" ] || [ "$choice" = "__sesh_ephemeral_session_24a7f__" ]; then
+    session_name="ephemeral-$(date +%s)"
+    tmux new-session -d -s "$session_name"
+    if [ -n "$TMUX" ]; then
+        tmux switch-client -t "$session_name"
+    else
+        tmux attach-session -t "$session_name"
+    fi
+    tmux set-option -t "$session_name" destroy-unattached on
 else
-    sesh connect "$choice"
+    $SESH_CONNECT "$choice"
 fi

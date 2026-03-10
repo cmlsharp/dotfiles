@@ -1,0 +1,11 @@
+[Unit]
+Description=Check battery level every 5 minutes
+Requires=battery-notify.service
+
+[Timer]
+OnBootSec=1min
+OnUnitActiveSec=5min
+AccuracySec=30s
+
+[Install]
+WantedBy=timers.target
