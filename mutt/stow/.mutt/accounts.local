@@ -1,0 +1,7 @@
+# Default account loaded on startup
+source "~/.mutt/michigan.account"
+
+# Switch account when navigating to a folder belonging to each account
+folder-hook "chad\.ml\.sharp@gmail" "source ~/.mutt/gmail1.account"
+folder-hook "crossroads1112@gmail"  "source ~/.mutt/gmail2.account"
+folder-hook "cmlsharp@umich"        "source ~/.mutt/michigan.account"
