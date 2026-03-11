@@ -84,10 +84,9 @@
         "format": "󰌌  {}",
         "tooltip": false
     },
-    "sway/scratchpad": {
+    "hyprland/scratchpad": {
         "format": "{icon} {count}",
         "show-empty": false,
-        "format-icons": ["", ""],
         "tooltip": true,
         "tooltip-format": "{title}"
     },
@@ -134,7 +133,7 @@
         "on-click": "kitty --class floating-btop -e btop"
     },
   "battery": {
-    "format": "{capacity}% {icon}",
+    "format": "{icon}",
     "format-discharging": "{icon}",
     "format-charging": "{icon}",
     "format-plugged": "",
@@ -199,7 +198,6 @@
       "format-disabled": "󰂲",
       "format-connected": "󰂱",
       "format-no-controller": "",
-      "tooltip-format": "Devices connected: {num_connections}",
         "tooltip-format": "Devices connected: {num_connections}",
         "on-click": "bash -c 'rfkill unblock bluetooth; kitty --class floating-tui -e bluetui'"
     },

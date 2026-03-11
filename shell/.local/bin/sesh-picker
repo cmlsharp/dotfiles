@@ -25,13 +25,15 @@ choice=$(sesh list --icons | $FZF_CMD \
 
 if [ -z "$choice" ] || [ "$choice" = "__sesh_ephemeral_session_24a7f__" ]; then
     session_name="ephemeral-$(date +%s)"
-    tmux new-session -d -s "$session_name"
     if [ -n "$TMUX" ]; then
-        tmux switch-client -t "$session_name"
+        tmux new-session -d -s "$session_name" \; \
+            set-option -t "$session_name" destroy-unattached on \; \
+            switch-client -t "$session_name"
     else
-        tmux attach-session -t "$session_name"
+        tmux new-session -d -s "$session_name" \; \
+            set-option -t "$session_name" destroy-unattached on \; \
+            attach-session -t "$session_name"
     fi
-    tmux set-option -t "$session_name" destroy-unattached on
 else
     $SESH_CONNECT "$choice"
 fi

@@ -38,20 +38,25 @@ label.greeting {
 }
 
 button {
-  background-color: #313244;
-  color: #cdd6f4;
   border-radius: 0;
   padding: 8px 16px;
   border: 1px solid #45475a;
 }
 
 button:hover {
-  background-color: #45475a;
   border: 1px solid #cba6f7;
 }
 
 button:focus {
   border: 1px solid #cba6f7;
+}
+
+button.suggested-action label {
+  color: rgba(17, 17, 27, 0.87);
+}
+
+button.destructive-action label {
+  color: rgba(17, 17, 27, 0.87);
 }
 
 combobox button {

@@ -4,6 +4,8 @@ fit = "Cover"
 
 [GTK]
 application_prefer_dark_theme = true
+theme_name = "catppuccin-mocha-mauve-standard+default"
+cursor_theme_name = "catppuccin-mocha-dark-cursors"
 
 [commands]
 reboot = ["systemctl", "reboot"]
