@@ -7,11 +7,10 @@
     "margin-right": 0,
     "spacing": 0,
     "modules-left": [
-        "sway/workspaces",
         "hyprland/workspaces",
         "hyprland/window",
         "hyprland/scratchpad",
-        "mpris"
+        //"mpris"
     ],
     "modules-center": [
         "clock",
