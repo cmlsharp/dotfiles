@@ -1,0 +1,17 @@
+# User defaults — sourced at session startup via uwsm/env.
+# Changes require a logout/login to take effect.
+
+# Terminal emulator
+export TERMINAL=kitty
+
+# Editor
+export EDITOR=nvim
+
+# Browser
+export BROWSER=zen-browser
+
+# Screenshot directory (create if using a custom path)
+# export SCREENSHOT_DIR="$HOME/Pictures/Screenshots"
+
+# Screen recording directory
+# export SCREENRECORD_DIR="$HOME/Videos/Screencasts"

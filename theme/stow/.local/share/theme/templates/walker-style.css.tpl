@@ -31,6 +31,7 @@ scrollbar {
     background: alpha(@base, 0.95);
     padding: 20px;
     border: 2px solid @border;
+    min-width: 400px;
 }
 
 .search-container {

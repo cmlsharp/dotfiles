@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# Share clipboard, file, or folder using LocalSend.
+
+MODE="$1"
+
+if [[ -z $MODE ]]; then
+  echo "Usage: share [clipboard|file|folder]"
+  exit 1
+fi
+
+if ! command -v localsend &>/dev/null; then
+  echo "LocalSend is not installed."
+  echo "Install with: paru -S localsend-bin"
+  exit 1
+fi
+
+if [[ $MODE == "clipboard" ]]; then
+  TEMP_FILE=$(mktemp --suffix=.txt)
+  wl-paste >"$TEMP_FILE"
+  FILES="$TEMP_FILE"
+else
+  if [[ $MODE == "folder" ]]; then
+    FILES=$(find "$HOME" -type d 2>/dev/null | fzf --with-shell='bash -c')
+  else
+    FILES=$(find "$HOME" -type f 2>/dev/null | fzf --with-shell='bash -c' --multi)
+  fi
+  [[ -z $FILES ]] && exit 0
+fi
+
+if echo "$FILES" | grep -q $'\n'; then
+  readarray -t FILE_ARRAY <<<"$FILES"
+  systemd-run --user --quiet --collect localsend --headless send "${FILE_ARRAY[@]}"
+else
+  systemd-run --user --quiet --collect localsend --headless send "$FILES"
+fi

@@ -1,0 +1,32 @@
+#!/bin/bash
+
+set -e
+
+ICON_DIR="$HOME/.local/share/applications/icons"
+DESKTOP_DIR="$HOME/.local/share/applications"
+
+# Find all web apps (created by webapp-install)
+WEB_APPS=()
+while IFS= read -r -d '' file; do
+    if grep -qE '^Exec=.*(zen-browser|firefox|chromium|google-chrome|brave).*--app=' "$file" 2>/dev/null; then
+        WEB_APPS+=("$(basename "${file%.desktop}")")
+    fi
+done < <(find "$DESKTOP_DIR" -name '*.desktop' -print0 2>/dev/null)
+
+if (( ${#WEB_APPS[@]} == 0 )); then
+    echo "No web apps to remove."
+    exit 0
+fi
+
+IFS=$'\n' SORTED=($(sort <<<"${WEB_APPS[*]}"))
+unset IFS
+
+selected=$(printf '%s\n' "${SORTED[@]}" | fzf --multi --header "Select web apps to remove" --color 'pointer:red,marker:red')
+
+[[ -z $selected ]] && exit 0
+
+while IFS= read -r app; do
+    rm -f "$DESKTOP_DIR/$app.desktop"
+    rm -f "$ICON_DIR/$app.png"
+    echo "Removed $app"
+done <<< "$selected"

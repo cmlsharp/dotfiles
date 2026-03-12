@@ -1,0 +1,489 @@
+#!/bin/bash
+
+# Create, launch, stop, and remove Docker-based VMs (Windows & Linux).
+# Uses dockurr/windows and dockurr/linux images with KVM acceleration.
+
+
+VM_BASE="$HOME/.config/vms"
+DESKTOP_DIR="$HOME/.local/share/applications"
+
+# --- helpers ---
+
+slug() { echo "$1" | tr '[:upper:] ' '[:lower:]-' | tr -cd 'a-z0-9-'; }
+
+vm_dir()  { echo "$VM_BASE/$1"; }
+compose() { echo "$(vm_dir "$1")/docker-compose.yml"; }
+meta()    { echo "$(vm_dir "$1")/meta"; }
+
+next_port_pair() {
+  local base=8006
+  while true; do
+    local rdp=$((base - 8006 + 3389))
+    if ! grep -rq "$base" "$VM_BASE"/*/docker-compose.yml 2>/dev/null; then
+      echo "$base $rdp"
+      return
+    fi
+    base=$((base + 1))
+  done
+}
+
+list_vms() {
+  for d in "$VM_BASE"/*/; do
+    [[ -f "$d/docker-compose.yml" ]] || continue
+    local name=$(basename "$d")
+    local container="vm-$name"
+    local status=$(docker inspect --format='{{.State.Status}}' "$container" 2>/dev/null || echo "stopped")
+    local display_name="$name"
+    [[ -f "$d/meta" ]] && display_name=$(grep "^DISPLAY=" "$d/meta" | cut -d= -f2-)
+    printf "%-20s  %s\n" "$display_name" "$status"
+  done
+}
+
+check_kvm() {
+  if [[ ! -e /dev/kvm ]]; then
+    echo "KVM virtualization not available!"
+    echo "Enable virtualization in BIOS or run:"
+    echo "  sudo modprobe kvm-intel  # Intel"
+    echo "  sudo modprobe kvm-amd    # AMD"
+    exit 1
+  fi
+}
+
+pick_resources() {
+  TOTAL_RAM_GB=$(awk 'NR==1 {printf "%d", $2/1024/1024}' /proc/meminfo)
+  TOTAL_CORES=$(nproc)
+
+  echo "System: ${TOTAL_RAM_GB}GB RAM, ${TOTAL_CORES} CPU cores"
+  echo ""
+
+  local ram_opts=""
+  for size in 1 2 4 8 16 32 64; do
+    [[ $size -le $TOTAL_RAM_GB ]] && ram_opts+="${size}G\n"
+  done
+  SELECTED_RAM=$(printf "$ram_opts" | fzf --prompt="RAM> " --height=10)
+  [[ -z $SELECTED_RAM ]] && { echo "Cancelled."; exit 1; }
+
+  read -rp "CPU cores (1-$TOTAL_CORES) [2]> " SELECTED_CORES
+  SELECTED_CORES=${SELECTED_CORES:-2}
+  if ! [[ $SELECTED_CORES =~ ^[0-9]+$ ]] || [[ $SELECTED_CORES -lt 1 ]] || [[ $SELECTED_CORES -gt $TOTAL_CORES ]]; then
+    SELECTED_CORES=2
+  fi
+
+  local avail=$(df "$HOME" | awk 'NR==2 {print int($4/1024/1024)}')
+  local max_disk=$((avail - 10))
+  if [[ $max_disk -lt 16 ]]; then
+    echo "Insufficient disk space."
+    exit 1
+  fi
+
+  local disk_opts=""
+  for size in 16 32 64 128 256 512; do
+    [[ $size -le $max_disk ]] && disk_opts+="${size}G\n"
+  done
+  SELECTED_DISK=$(printf "$disk_opts" | fzf --prompt="Disk size> " --height=10)
+  [[ -z $SELECTED_DISK ]] && { echo "Cancelled."; exit 1; }
+}
+
+# --- install ---
+
+install_vm() {
+  trap "echo ''; echo 'Cancelled.'; exit 1" INT
+
+  check_kvm
+
+  for cmd in docker docker-compose xfreerdp3; do
+    if ! command -v "$cmd" &>/dev/null; then
+      echo "Missing dependency: $cmd"
+      exit 1
+    fi
+  done
+
+  # OS selection
+  local os_options="Windows 11\nWindows 10\nUbuntu\nDebian\nFedora\nArch Linux\nAlpine\nCustom Linux ISO"
+  local os_choice
+  os_choice=$(printf "$os_options" | fzf --prompt="OS> " --height=12)
+  [[ -z $os_choice ]] && { echo "Cancelled."; exit 1; }
+
+  local docker_image="dockurr/windows"
+  local version=""
+  local iso_path=""
+  local os_type="windows"
+
+  case "$os_choice" in
+    "Windows 11")    version="11" ;;
+    "Windows 10")    version="10" ;;
+    "Ubuntu")        docker_image="dockurr/linux"; version="ubuntu"; os_type="linux" ;;
+    "Debian")        docker_image="dockurr/linux"; version="debian"; os_type="linux" ;;
+    "Fedora")        docker_image="dockurr/linux"; version="fedora"; os_type="linux" ;;
+    "Arch Linux")    docker_image="dockurr/linux"; version="archlinux"; os_type="linux" ;;
+    "Alpine")        docker_image="dockurr/linux"; version="alpine"; os_type="linux" ;;
+    "Custom Linux ISO")
+      docker_image="dockurr/linux"
+      os_type="linux"
+      read -rp "Path or URL to ISO> " iso_path
+      [[ -z $iso_path ]] && { echo "ISO path required."; exit 1; }
+      # Download URL to local file if needed
+      if [[ $iso_path =~ ^https?:// ]]; then
+        local iso_url="$iso_path"
+        mkdir -p "$VM_BASE/.isos"
+        local iso_file="$VM_BASE/.isos/$(basename "$iso_url" | tr '?' '_')"
+        if [[ ! -f $iso_file ]]; then
+          echo "Downloading ISO..."
+          if ! curl -L -o "$iso_file" "$iso_url"; then
+            echo "Failed to download ISO."
+            rm -f "$iso_file"
+            exit 1
+          fi
+        fi
+        iso_path="$iso_file"
+      fi
+      if [[ ! -f $iso_path ]]; then
+        echo "ISO not found: $iso_path"
+        exit 1
+      fi
+      iso_path=$(realpath "$iso_path")
+      ;;
+  esac
+
+  # VM name
+  local default_name
+  default_name=$(slug "$os_choice")
+  read -rp "VM name [$default_name]> " VM_NAME
+  VM_NAME=$(slug "${VM_NAME:-$default_name}")
+
+  if [[ -f "$(compose "$VM_NAME")" ]]; then
+    echo "VM '$VM_NAME' already exists."
+    exit 1
+  fi
+
+  pick_resources
+
+  # Credentials
+  read -rp "Username [user]> " USERNAME
+  USERNAME=${USERNAME:-user}
+  read -rsp "Password [admin]> " PASSWORD
+  echo
+  PASSWORD=${PASSWORD:-admin}
+
+  # Port assignment
+  read -r WEB_PORT RDP_PORT <<< "$(next_port_pair)"
+
+  local container="vm-$VM_NAME"
+  local storage="$HOME/.vms/$VM_NAME"
+  local shared="$HOME/VMs/$VM_NAME"
+
+  echo ""
+  echo "Configuration:"
+  echo "  OS:     $os_choice"
+  echo "  RAM:    $SELECTED_RAM"
+  echo "  CPU:    $SELECTED_CORES cores"
+  echo "  Disk:   $SELECTED_DISK"
+  echo "  User:   $USERNAME"
+  echo "  Web:    http://127.0.0.1:$WEB_PORT"
+  [[ -n $iso_path ]] && echo "  ISO:    $iso_path"
+  echo ""
+  read -rp "Proceed? [Y/n] " confirm
+  [[ ${confirm,,} == "n" ]] && { echo "Cancelled."; exit 1; }
+
+  mkdir -p "$(vm_dir "$VM_NAME")" "$storage" "$shared"
+
+  # Save metadata
+  cat > "$(meta "$VM_NAME")" <<EOF
+DISPLAY=$os_choice
+OS_TYPE=$os_type
+IMAGE=$docker_image
+CONTAINER=$container
+WEB_PORT=$WEB_PORT
+RDP_PORT=$RDP_PORT
+EOF
+
+  # Build volumes
+  local volumes="      - $storage:/storage\n      - $shared:/shared"
+  if [[ -n $iso_path ]]; then
+    volumes+="\n      - $iso_path:/custom.iso"
+  fi
+
+  # Build environment
+  local env_block="      RAM_SIZE: \"$SELECTED_RAM\"
+      CPU_CORES: \"$SELECTED_CORES\"
+      DISK_SIZE: \"$SELECTED_DISK\"
+      USERNAME: \"$USERNAME\"
+      PASSWORD: \"$PASSWORD\"
+      TZ: \"$(timedatectl show -p Timezone --value 2>/dev/null || echo UTC)\""
+
+  if [[ -n $version ]]; then
+    env_block="      VERSION: \"$version\"
+$env_block"
+  fi
+
+  if [[ $os_type == "windows" ]]; then
+    env_block="$env_block
+      ARGUMENTS: \"-rtc base=localtime,clock=host,driftfix=slew\""
+  fi
+
+  cat > "$(compose "$VM_NAME")" <<EOF
+services:
+  $VM_NAME:
+    image: $docker_image
+    container_name: $container
+    environment:
+$env_block
+    devices:
+      - /dev/kvm
+      - /dev/net/tun
+    cap_add:
+      - NET_ADMIN
+    ports:
+      - 127.0.0.1:$WEB_PORT:8006
+      - 127.0.0.1:$RDP_PORT:3389/tcp
+      - 127.0.0.1:$RDP_PORT:3389/udp
+    volumes:
+$(printf "$volumes")
+    restart: unless-stopped
+    stop_grace_period: 2m
+EOF
+
+  # Desktop entry
+  cat > "$DESKTOP_DIR/vm-$VM_NAME.desktop" <<EOF
+[Desktop Entry]
+Name=$os_choice
+Comment=Launch $os_choice VM
+Exec=uwsm-app -- $HOME/.config/menu/scripts/vm launch $VM_NAME
+Icon=computer
+Terminal=false
+Type=Application
+Categories=System;Virtualization;
+EOF
+
+  echo ""
+  echo "Starting VM..."
+  if ! docker-compose -f "$(compose "$VM_NAME")" up -d; then
+    echo "Failed to start VM. Check docker is running."
+    exit 1
+  fi
+
+  sleep 3
+  setsid xdg-open "http://127.0.0.1:$WEB_PORT" &>/dev/null &
+
+  echo ""
+  echo "VM is installing in the background."
+  echo "Monitor at: http://127.0.0.1:$WEB_PORT"
+  echo "Once ready, launch '$os_choice' from the app launcher."
+}
+
+# --- launch ---
+
+launch_vm() {
+  local name="$1"
+  shift || true
+  local keep_alive=false
+  [[ $1 == "--keep-alive" || $1 == "-k" ]] && keep_alive=true
+
+  if [[ -z $name ]]; then
+    name=$(pick_vm "launch")
+    [[ -z $name ]] && exit 0
+  fi
+
+  local cf
+  cf=$(compose "$name")
+  if [[ ! -f $cf ]]; then
+    echo "VM '$name' not found."
+    exit 1
+  fi
+
+  local m
+  m=$(meta "$name")
+  local container="vm-$name"
+  local rdp_port=3389
+  local web_port=8006
+  if [[ -f $m ]]; then
+    container=$(grep "^CONTAINER=" "$m" | cut -d= -f2-)
+    rdp_port=$(grep "^RDP_PORT=" "$m" | cut -d= -f2-)
+    web_port=$(grep "^WEB_PORT=" "$m" | cut -d= -f2-)
+  fi
+
+  local vm_user vm_pass
+  vm_user=$(grep "USERNAME:" "$cf" | sed 's/.*USERNAME: "\(.*\)"/\1/')
+  vm_pass=$(grep "PASSWORD:" "$cf" | sed 's/.*PASSWORD: "\(.*\)"/\1/')
+  [[ -z $vm_user ]] && vm_user="user"
+  [[ -z $vm_pass ]] && vm_pass="admin"
+
+  local status
+  status=$(docker inspect --format='{{.State.Status}}' "$container" 2>/dev/null || true)
+
+  if [[ $status != "running" ]]; then
+    echo "Starting VM..."
+    notify-send "Starting VM" "$name — this may take a few minutes on first boot" -t 30000
+    if ! docker-compose -f "$cf" up -d; then
+      echo "Failed to start VM."
+      exit 1
+    fi
+  fi
+
+  # Detect display scale
+  local scale rdp_scale=""
+  scale=$(hyprctl monitors -j | jq -r '.[] | select(.focused == true) | .scale' 2>/dev/null || echo "1")
+  local pct
+  pct=$(echo "$scale" | awk '{print int($1 * 100)}')
+  if [[ $pct -ge 170 ]]; then
+    rdp_scale="/scale:180"
+  elif [[ $pct -ge 130 ]]; then
+    rdp_scale="/scale:140"
+  fi
+
+  # Wait for VM to be fully ready
+  echo "Waiting for VM to be ready..."
+  local wait=0
+  until docker logs "$container" 2>&1 | grep -qi "started successfully\|ready for RDP"; do
+    sleep 2
+    wait=$((wait + 1))
+    if [[ $wait -gt 150 ]]; then
+      echo "Timeout. Check: http://127.0.0.1:$web_port"
+      exit 1
+    fi
+  done
+
+  xfreerdp3 /u:"$vm_user" /p:"$vm_pass" /v:127.0.0.1:"$rdp_port" -grab-keyboard /sound /microphone /clipboard /cert:ignore /title:"$name" /dynamic-resolution /gfx:AVC444 /floatbar:sticky:off,default:visible,show:fullscreen $rdp_scale
+
+  if [[ $keep_alive == "false" ]]; then
+    echo "RDP closed. Stopping VM..."
+    docker-compose -f "$cf" down
+  else
+    echo "RDP closed. VM still running. Stop with: vm stop $name"
+  fi
+}
+
+# --- stop ---
+
+stop_vm() {
+  local name="$1"
+  if [[ -z $name ]]; then
+    name=$(pick_vm "stop")
+    [[ -z $name ]] && exit 0
+  fi
+
+  local cf
+  cf=$(compose "$name")
+  [[ ! -f $cf ]] && { echo "VM '$name' not found."; exit 1; }
+
+  if ! docker-compose -f "$cf" down; then
+    echo "Failed to stop VM."
+    exit 1
+  fi
+  echo "VM '$name' stopped."
+}
+
+# --- remove ---
+
+remove_vm() {
+  local name="$1"
+  if [[ -z $name ]]; then
+    name=$(pick_vm "remove")
+    [[ -z $name ]] && exit 0
+  fi
+
+  local cf
+  cf=$(compose "$name")
+  [[ ! -f $cf ]] && { echo "VM '$name' not found."; exit 1; }
+
+  read -rp "Remove VM '$name' and delete all its data? [y/N] " confirm
+  [[ ${confirm,,} != "y" ]] && { echo "Cancelled."; exit 0; }
+
+  docker-compose -f "$cf" down 2>/dev/null || true
+
+  local image
+  image=$(grep "image:" "$cf" | awk '{print $2}')
+  # Only remove image if no other VMs use it
+  local count
+  count=$(grep -rl "image: $image" "$VM_BASE"/*/docker-compose.yml 2>/dev/null | wc -l)
+  if [[ $count -le 1 ]]; then
+    docker rmi "$image" 2>/dev/null || true
+  fi
+
+  rm -f "$DESKTOP_DIR/vm-$name.desktop"
+  rm -rf "$(vm_dir "$name")"
+  rm -rf "$HOME/.vms/$name"
+  rm -rf "$HOME/VMs/$name"
+
+  echo "VM '$name' removed."
+}
+
+# --- status ---
+
+status_vm() {
+  local name="$1"
+  if [[ -z $name ]]; then
+    echo "VMs:"
+    echo ""
+    if ! ls "$VM_BASE"/*/docker-compose.yml &>/dev/null; then
+      echo "  No VMs configured."
+    else
+      list_vms
+    fi
+    return
+  fi
+
+  local cf
+  cf=$(compose "$name")
+  [[ ! -f $cf ]] && { echo "VM '$name' not found."; exit 1; }
+
+  local m
+  m=$(meta "$name")
+  local container="vm-$name"
+  local web_port=8006
+  if [[ -f $m ]]; then
+    container=$(grep "^CONTAINER=" "$m" | cut -d= -f2-)
+    web_port=$(grep "^WEB_PORT=" "$m" | cut -d= -f2-)
+  fi
+
+  local status
+  status=$(docker inspect --format='{{.State.Status}}' "$container" 2>/dev/null || echo "not found")
+
+  echo "VM '$name': $status"
+  if [[ $status == "running" ]]; then
+    echo "  Web: http://127.0.0.1:$web_port"
+  fi
+}
+
+# --- picker ---
+
+pick_vm() {
+  local action="$1"
+  local vms=()
+  for d in "$VM_BASE"/*/; do
+    [[ -f "$d/docker-compose.yml" ]] || continue
+    vms+=("$(basename "$d")")
+  done
+
+  if [[ ${#vms[@]} -eq 0 ]]; then
+    echo "No VMs configured." >&2
+    return
+  fi
+
+  if [[ ${#vms[@]} -eq 1 ]]; then
+    echo "${vms[0]}"
+    return
+  fi
+
+  printf '%s\n' "${vms[@]}" | fzf --prompt="$action VM> " --height=10
+}
+
+# --- main ---
+
+case "${1:-help}" in
+  install|create) install_vm ;;
+  launch|start)   launch_vm "$2" "$3" ;;
+  stop|down)      stop_vm "$2" ;;
+  remove|delete)  remove_vm "$2" ;;
+  status|list)    status_vm "$2" ;;
+  help|--help|-h)
+    echo "Usage: vm {install|launch|stop|status|remove} [name]"
+    echo ""
+    echo "  install          Create a new VM (interactive)"
+    echo "  launch [name]    Start VM and connect via RDP (-k to keep alive)"
+    echo "  stop [name]      Stop a running VM"
+    echo "  status [name]    Show VM status (omit name to list all)"
+    echo "  remove [name]    Remove VM and all its data"
+    ;;
+  *) echo "Unknown command: $1" >&2; exit 1 ;;
+esac

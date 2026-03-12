@@ -3,6 +3,10 @@
   "width": 400,
   "items": [
     {
+      "label": "󰀻  Apps",
+      "exec": "~/.local/bin/launch-walker"
+    },
+    {
       "label": "  Style",
       "prompt": "Style",
       "items": [
@@ -22,7 +26,7 @@
       ]
     },
     {
-      "label": "󰍹  Display",
+      "label": "  Toggle",
       "prompt": "Display",
       "items": [
         {
@@ -52,10 +56,6 @@
         {
           "label": "󰍜  Top Bar",
           "exec": "~/.config/hypr/scripts/toggle-waybar.sh"
-        },
-        {
-          "label": "󰍹  Monitors",
-          "exec": "uwsm-app -- nwg-displays"
         }
       ]
     },
@@ -74,6 +74,26 @@
         {
           "label": "󰃉  Color Picker",
           "exec": "hyprpicker -a"
+        }
+      ]
+    },
+    {
+      "label": "  Share",
+      "prompt": "Share",
+      "items": [
+        {
+          "label": "  Clipboard",
+          "exec": "~/.config/menu/scripts/share clipboard"
+        },
+        {
+          "label": "  File",
+          "exec": "~/.config/menu/scripts/share file",
+          "terminal": true
+        },
+        {
+          "label": "  Folder",
+          "exec": "~/.config/menu/scripts/share folder",
+          "terminal": true
         }
       ]
     },
@@ -102,8 +122,50 @@
           "terminal": true
         },
         {
-          "label": "󰚰  System Update",
+          "label": "󰍲  Virtual Machine",
+          "exec": "~/.config/menu/scripts/vm install",
+          "terminal": true
+        }
+      ]
+    },
+    {
+      "label": "󰚰  Update",
+      "prompt": "Update",
+      "items": [
+        {
+          "label": "󰣇  System Update",
           "exec": "paru -Syu",
+          "terminal": true
+        },
+        {
+          "label": "  Firmware",
+          "exec": "fwupdmgr update",
+          "terminal": true
+        }
+      ]
+    },
+    {
+      "label": "  Remove",
+      "prompt": "Remove",
+      "items": [
+        {
+          "label": "  Package",
+          "exec": "~/.config/menu/scripts/pkg-remove",
+          "terminal": true
+        },
+        {
+          "label": "  Web App",
+          "exec": "~/.config/menu/scripts/webapp-remove",
+          "terminal": true
+        },
+        {
+          "label": "  TUI Shortcut",
+          "exec": "~/.config/menu/scripts/tui-remove",
+          "terminal": true
+        },
+        {
+          "label": "󰍲  Virtual Machine",
+          "exec": "~/.config/menu/scripts/vm remove",
           "terminal": true
         }
       ]
@@ -125,6 +187,10 @@
           "exec": "~/.config/hypr/scripts/toggle-launch.sh bluetui"
         },
         {
+          "label": "󰍹  Monitors",
+          "exec": "uwsm-app -- nwg-displays"
+        },
+        {
           "label": "󰇖  DNS",
           "exec": "~/.config/menu/scripts/setup-dns",
           "terminal": true
@@ -141,11 +207,6 @@
         {
           "label": "  Time Sync",
           "exec": "sudo systemctl restart systemd-timesyncd",
-          "terminal": true
-        },
-        {
-          "label": "󰌌  Key Remapping",
-          "exec": "~/.config/menu/scripts/setup-key-remap",
           "terminal": true
         },
         {
@@ -168,6 +229,10 @@
           "label": "  Config",
           "prompt": "Edit Config",
           "items": [
+            {
+              "label": "  Defaults",
+              "exec": "kitty -- nvim ~/.config/uwsm/default"
+            },
             {
               "label": "  Hyprland",
               "exec": "kitty -- nvim ~/.config/hypr/hyprland.conf"
@@ -214,19 +279,19 @@
           "items": [
             {
               "label": "  Waybar",
-              "exec": "killall waybar; setsid uwsm-app -- waybar &"
+              "exec": "sh -c 'killall waybar; sleep 0.5; setsid uwsm-app -- waybar &'"
             },
             {
               "label": "  Walker",
-              "exec": "killall walker; killall elephant; setsid uwsm-app -- elephant &; setsid uwsm-app -- walker --gapplication-service &"
+              "exec": "sh -c 'killall walker; killall elephant; setsid uwsm-app -- elephant &; setsid uwsm-app -- walker --gapplication-service &'"
             },
             {
               "label": "  SwayOSD",
-              "exec": "pkill -x swayosd-server; setsid uwsm-app -- swayosd-server &"
+              "exec": "sh -c 'pkill -x swayosd-server; setsid uwsm-app -- swayosd-server &'"
             },
             {
               "label": "  Hypridle",
-              "exec": "killall hypridle; setsid uwsm-app -- hypridle &"
+              "exec": "sh -c 'killall hypridle; setsid uwsm-app -- hypridle &'"
             },
             {
               "label": "  Hyprland",
@@ -262,16 +327,12 @@
       ]
     },
     {
-      "label": "  System",
+      "label": "  System",
       "prompt": "System",
       "items": [
         {
           "label": "  Lock",
           "exec": "hyprlock"
-        },
-        {
-          "label": "󰒲  Idle Lock",
-          "exec": "~/.config/hypr/scripts/toggle-idle.sh"
         },
         {
           "label": "󰒲  Suspend",

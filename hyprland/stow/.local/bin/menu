@@ -62,7 +62,7 @@ show_menu() {
     fi
 
     local selection
-    selection=$(echo "$labels" | walker --dmenu --width "$width" --minwidth "$width" --height 630 -p "$prompt" 2>/dev/null)
+    selection=$(echo "$labels" | walker --dmenu --width "$width" --minwidth "$width" -p "$prompt" 2>/dev/null)
 
     [[ -z "$selection" ]] && return
 

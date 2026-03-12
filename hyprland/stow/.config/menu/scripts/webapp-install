@@ -15,7 +15,7 @@ else
     echo -e "\e[32mCreate a web app shortcut for the app launcher.\n\e[0m"
     read -rp "Name> " APP_NAME
     read -rp "URL> " APP_URL
-    ICON_REF=""
+    read -rp "Icon URL (blank for auto-fetch)> " ICON_REF
 fi
 
 if [[ -z "$APP_NAME" || -z "$APP_URL" ]]; then

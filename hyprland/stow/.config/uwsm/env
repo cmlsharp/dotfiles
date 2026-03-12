@@ -1,0 +1,8 @@
+# UWSM session environment — sourced before Hyprland starts.
+# Changes require a logout/login to take effect.
+
+# Load user defaults
+source ~/.config/uwsm/default
+
+# Activate mise if present
+command -v mise &>/dev/null && eval "$(mise activate bash --shims)"

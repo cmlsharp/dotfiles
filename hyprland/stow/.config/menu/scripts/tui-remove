@@ -1,0 +1,32 @@
+#!/bin/bash
+
+set -e
+
+ICON_DIR="$HOME/.local/share/applications/icons"
+DESKTOP_DIR="$HOME/.local/share/applications"
+
+# Find all TUI shortcuts (created by tui-install)
+TUIS=()
+while IFS= read -r -d '' file; do
+    if grep -qE '^Exec=.*(kitty|xdg-terminal-exec).*-e' "$file" 2>/dev/null; then
+        TUIS+=("$(basename "${file%.desktop}")")
+    fi
+done < <(find "$DESKTOP_DIR" -name '*.desktop' -print0 2>/dev/null)
+
+if (( ${#TUIS[@]} == 0 )); then
+    echo "No TUI shortcuts to remove."
+    exit 0
+fi
+
+IFS=$'\n' SORTED=($(sort <<<"${TUIS[*]}"))
+unset IFS
+
+selected=$(printf '%s\n' "${SORTED[@]}" | fzf --multi --header "Select TUI shortcuts to remove" --color 'pointer:red,marker:red')
+
+[[ -z $selected ]] && exit 0
+
+while IFS= read -r app; do
+    rm -f "$DESKTOP_DIR/$app.desktop"
+    rm -f "$ICON_DIR/$app.png"
+    echo "Removed $app"
+done <<< "$selected"
