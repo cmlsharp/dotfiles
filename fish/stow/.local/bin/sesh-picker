@@ -9,7 +9,7 @@ if [ -n "$TMUX" ]; then
     SESH_CONNECT="sesh connect --switch"
 fi
 
-choice=$(sesh list --icons | $FZF_CMD \
+choice=$(sesh list --icons | grep -v 'ephemeral' | $FZF_CMD \
     --no-sort --ansi --border-label ' sesh ' --prompt '⚡  ' \
     --header '  ^a all ^t tmux ^g configs ^x zoxide ^f find ^d kill ^n ephemeral' \
     --bind 'tab:down,btab:up' \

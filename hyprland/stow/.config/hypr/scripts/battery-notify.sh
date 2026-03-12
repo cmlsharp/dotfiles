@@ -25,7 +25,7 @@ fi
 
 send_notify() {
     local urgency="$1" timeout="$2" title="$3" body="$4"
-    notify-send --print-id $REPLACE -u "$urgency" -t "$timeout" "$title" "$body" \
+    notify-send --print-id $REPLACE -i battery-low -u "$urgency" -t "$timeout" "$title" "$body" \
         2>/dev/null > "$STATE_FILE" || true
 }
 

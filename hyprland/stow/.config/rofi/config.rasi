@@ -7,10 +7,9 @@
 }
 
 configuration {
-  modi:                "drun,run";
+  modi:                "drun";
   show-icons:          true;
-  display-drun:        "";
-  display-run:         "";
+  display-drun:        "Applications";
   drun-display-format: "{name}";
 }
 
