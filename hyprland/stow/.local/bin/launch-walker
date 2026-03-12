@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+# Ensure elephant is running
+if ! pgrep -x elephant > /dev/null; then
+    setsid uwsm-app -- elephant &>/dev/null &
+fi
+
+# Ensure walker service is running
+if ! pgrep -f "walker --gapplication-service" > /dev/null; then
+    setsid uwsm-app -- walker --gapplication-service &>/dev/null &
+    # Wait for service to be ready
+    for i in $(seq 1 20); do
+        sleep 0.2
+        pgrep -f "walker --gapplication-service" > /dev/null && break
+    done
+fi
+
+exec walker "$@"

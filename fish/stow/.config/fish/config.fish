@@ -197,8 +197,10 @@ if command -q rustup
     set -gx RUST_SRC_PATH (rustc --print sysroot)/lib/rustlib/src/rust/src
 end
 
-# Cursor theme
-set -gx XCURSOR_THEME catppuccin-mocha-dark-cursors
+# Cursor theme (managed by theme-set)
+if test -f ~/.config/theme/current/env.fish
+    source ~/.config/theme/current/env.fish
+end
 set -gx XCURSOR_SIZE 24
 
 # Fix swaymsg inside tmux when Sway gets restarted

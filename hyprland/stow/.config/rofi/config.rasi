@@ -1,4 +1,4 @@
-@import "catppuccin-mocha"
+@import "~/.config/theme/current/rofi.rasi"
 
 * {
   background-color: transparent;
@@ -15,7 +15,7 @@ configuration {
 
 window {
   padding:          0;
-  background-color: #1e1e2ecc;
+  background-color: @base-alpha;
   border:           1;
   border-color:     @surface1;
   width:            850px;
@@ -65,16 +65,16 @@ element alternate.normal {
 element normal.active,
 element alternate.active {
   background-color: transparent;
-  text-color:       @mauve;
+  text-color:       @accent;
 }
 
 element selected.normal {
-  background-color: #45475a80;
+  background-color: @surface1-alpha;
   text-color:       @text;
 }
 
 element selected.active {
-  background-color: @mauve;
+  background-color: @accent;
   text-color:       @base;
 }
 
@@ -97,7 +97,7 @@ inputbar {
   padding:          10px 16px;
   spacing:          10px;
   text-color:       @text;
-  background-color: #31324460;
+  background-color: @surface0-alpha;
   children:         [ "prompt", "entry" ];
 }
 
@@ -111,5 +111,5 @@ entry {
 
 prompt {
   spacing:    0;
-  text-color: @mauve;
+  text-color: @accent;
 }

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Toggle single-window square aspect ratio in master layout
+
+CURRENT_VALUE=$(hyprctl getoption "layout:single_window_aspect_ratio" 2>/dev/null | head -1)
+
+if [[ $CURRENT_VALUE == *"[1, 1]"* ]]; then
+  hyprctl keyword layout:single_window_aspect_ratio "0 0"
+  notify-send "1-Window Ratio" "Disabled square aspect"
+else
+  hyprctl keyword layout:single_window_aspect_ratio "1 1"
+  notify-send "1-Window Ratio" "Enabled square aspect"
+fi

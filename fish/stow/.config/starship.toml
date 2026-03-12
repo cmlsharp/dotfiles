@@ -45,6 +45,7 @@ format = "[$symbol$status]($style) "
 symbol = " "
 style = "red"
 
+# === THEME PALETTE (auto-generated) ===
 [palettes.catppuccin_mocha]
 rosewater = "#f5e0dc"
 flamingo = "#f2cdcd"

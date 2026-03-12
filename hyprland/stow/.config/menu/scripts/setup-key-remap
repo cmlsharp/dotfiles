@@ -1,0 +1,51 @@
+#!/bin/bash
+
+# Setup makima key remapping service
+# Config lives at ~/.config/makima/
+
+CONFIG_DIR="$HOME/.config/makima"
+CONFIG_FILE="$CONFIG_DIR/AT Translated Set 2 keyboard.toml"
+
+if ! command -v makima &>/dev/null; then
+  echo "Installing makima..."
+  paru -S --needed --noconfirm makima-bin
+fi
+
+mkdir -p "$CONFIG_DIR"
+
+if [[ ! -f "$CONFIG_FILE" ]]; then
+  cat > "$CONFIG_FILE" <<'EOF'
+# Key remapping configuration
+# See: https://github.com/cyber-sushi/makima
+#
+# Format: "FROM_KEY" = "TO_KEY"
+# Example: "KEY_CAPSLOCK" = "KEY_ESCAPE"
+#
+# Find key names with: sudo libinput debug-events
+EOF
+  echo "Created config at: $CONFIG_FILE"
+fi
+
+# Setup systemd service override to run as user
+sudo mkdir -p /etc/systemd/system/makima.service.d
+sudo tee /etc/systemd/system/makima.service.d/override.conf >/dev/null <<EOF
+[Service]
+User=$USER
+Environment="MAKIMA_CONFIG=/home/$USER/.config/makima"
+EOF
+
+sudo systemctl daemon-reload
+sudo systemctl enable --now makima 2>/dev/null || true
+
+echo ""
+echo "Makima is running. Edit your config at:"
+echo "  $CONFIG_FILE"
+echo ""
+echo "After editing, restart with: sudo systemctl restart makima"
+
+# Open config in editor
+${EDITOR:-nvim} "$CONFIG_FILE"
+
+# Restart after editing
+sudo systemctl restart makima
+notify-send "Key Remapping" "Makima config reloaded"

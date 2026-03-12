@@ -1,0 +1,62 @@
+#!/bin/bash
+
+# Set system-wide monospace font across kitty, hyprlock, waybar, swayosd, fontconfig.
+# Usage: font-set [font-name]
+# Without args, opens gum filter to pick from available monospace fonts.
+
+font_list() {
+  fc-list :spacing=100 -f "%{family[0]}\n" | grep -vi -E 'emoji|signwriting' | sort -u
+}
+
+font_current() {
+  grep -oP "font_family\s+\K.*" ~/.config/kitty/kitty.conf | head -1
+}
+
+apply_font() {
+  local font_name="$1"
+
+  # Kitty
+  sed -i "s/^font_family .*/font_family $font_name/" ~/.config/kitty/kitty.conf
+  pkill -USR1 kitty 2>/dev/null
+
+  # Hyprlock
+  sed -i "s/^\\\$font = .*/\$font = $font_name/" ~/.config/hypr/hyprlock.conf
+
+  # Waybar
+  sed -i "s/font-family: .*/font-family: '$font_name', 'Noto Sans', sans-serif;/" ~/.config/waybar/style.css
+
+  # SwayOSD
+  sed -i "s/font-family: .*/font-family: '$font_name';/" ~/.config/swayosd/style.css
+
+  # Fontconfig
+  if command -v xmlstarlet &>/dev/null; then
+    xmlstarlet ed -L \
+      -u '//match[@target="pattern"][test/string="monospace"]/edit[@name="family"]/string' \
+      -v "$font_name" \
+      ~/.config/fontconfig/fonts.conf
+  fi
+
+  # Restart services
+  killall waybar 2>/dev/null; setsid uwsm-app -- waybar &>/dev/null &
+  pkill -x swayosd-server 2>/dev/null; setsid uwsm-app -- swayosd-server &>/dev/null &
+
+  notify-send "Font" "Switched to $font_name"
+}
+
+# Direct mode: apply and exit
+if [[ -n "$1" ]]; then
+  if fc-list | grep -iq "$1"; then
+    apply_font "$1"
+  else
+    echo "Font '$1' not found."
+    exit 1
+  fi
+  exit 0
+fi
+
+# Interactive mode: loop until dismissed
+while true; do
+  current=$(font_current)
+  font_name=$(font_list | fzf --height 20 --header "Current: $current" --prompt "Font> ") || break
+  apply_font "$font_name"
+done

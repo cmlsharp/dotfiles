@@ -25,8 +25,7 @@
         "battery",
         "idle_inhibitor",
         "custom/notification",
-        "tray",
-        "custom/power",
+        "tray"
     ],
     "sway/workspaces": {
         "disable-scroll": true,
@@ -122,7 +121,7 @@
         "format": "󰍛",
         "interval": 5,
         "tooltip-format": "CPU: {usage}%",
-        "on-click": "~/.config/hypr/scripts/toggle-launch.sh btop"
+        "on-click": "~/.config/hypr/scripts/toggle-launch.sh btop --class floating-tui-large"
     },
     "memory": {
         "format": "",
@@ -147,6 +146,7 @@
       "warning": 20,
       "critical": 10
     },
+    "on-click": "~/.local/bin/power-profile-cycle"
   },
     "pulseaudio": {
         "format": "{icon}",
@@ -251,11 +251,6 @@
         "on-click": "swaync-client -t -sw",
         "on-click-right": "swaync-client -d -sw",
         "escape": true
-    },
-    "custom/power": {
-        "format": "",
-        "on-click": "wlogout",
-        "tooltip": false
     },
     "tray": {
         "icon-size": 16,

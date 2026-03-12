@@ -11,9 +11,11 @@ OFFICIAL_PKGS=(
     hyprland
     hypridle
     hyprlock
-    hyprpaper
     hyprshot
     hyprtoolkit
+    hyprsunset
+    swaybg
+    gum
 
     # Bar, notifications, launcher
     waybar
@@ -27,6 +29,8 @@ OFFICIAL_PKGS=(
     # Wayland utilities
     grim
     slurp
+    hyprpicker
+    satty
     wl-clipboard
     brightnessctl
     cliphist
@@ -78,14 +82,27 @@ AUR_PKGS=(
     # Browser
     zen-browser-bin
 
+    yaru-icon-theme
+
     # Cursor & GTK themes
-    catppuccin-mocha-dark-cursors
     catppuccin-gtk-theme-mocha
-    papirus-folders-catppuccin-git
+
 
     # Bitwarden integration
     rofi-rbw-git
     rbw-pinentry-keyring
+
+    # Launcher
+    walker-bin
+    elephant-bin
+    elephant-bitwarden-bin
+    elephant-calc-bin
+    elephant-clipboard-bin
+    elephant-desktopapplications-bin
+    elephant-files-bin
+    elephant-providerlist-bin
+    elephant-symbols-bin
+    elephant-websearch-bin
 
     # Audio
     wiremix

@@ -1,0 +1,85 @@
+#!/bin/bash
+
+# Create a .desktop launcher for a web app (opens in browser --app mode).
+
+set -e
+
+ICON_DIR="$HOME/.local/share/applications/icons"
+DESKTOP_DIR="$HOME/.local/share/applications"
+
+if (( $# >= 2 )); then
+    APP_NAME="$1"
+    APP_URL="$2"
+    ICON_REF="${3:-}"
+else
+    echo -e "\e[32mCreate a web app shortcut for the app launcher.\n\e[0m"
+    read -rp "Name> " APP_NAME
+    read -rp "URL> " APP_URL
+    ICON_REF=""
+fi
+
+if [[ -z "$APP_NAME" || -z "$APP_URL" ]]; then
+    echo "Name and URL are required."
+    exit 1
+fi
+
+[[ ! "$APP_URL" =~ ^[a-zA-Z][a-zA-Z0-9+.-]*: ]] && APP_URL="https://$APP_URL"
+
+# Resolve icon — try favicon auto-fetch
+mkdir -p "$ICON_DIR"
+ICON_PATH="$ICON_DIR/$APP_NAME.png"
+
+if [[ -n "$ICON_REF" && "$ICON_REF" =~ ^https?:// ]]; then
+    curl -fsSL -o "$ICON_PATH" "$ICON_REF" || true
+elif [[ -n "$ICON_REF" && -f "$ICON_REF" ]]; then
+    ICON_PATH="$ICON_REF"
+else
+    # Try Google favicon service
+    curl -fsSL -o "$ICON_PATH" "https://www.google.com/s2/favicons?domain=${APP_URL}&sz=128" 2>/dev/null || true
+fi
+
+[[ ! -s "$ICON_PATH" ]] && ICON_PATH="web-browser"
+
+# Find browser binary
+browser=$(xdg-settings get default-web-browser 2>/dev/null || echo "")
+case "$browser" in
+    google-chrome*|brave-browser*|microsoft-edge*|opera*|vivaldi*|zen-browser*)
+        BROWSER_BIN=$(sed -n 's/^Exec=\([^ ]*\).*/\1/p' \
+            ~/.local/share/applications/"$browser" \
+            /usr/share/applications/"$browser" 2>/dev/null | head -1)
+        ;;
+    *)
+        # Fallback: try common browsers that support --app
+        for b in chromium google-chrome-stable brave-browser; do
+            if command -v "$b" &>/dev/null; then
+                BROWSER_BIN="$b"
+                break
+            fi
+        done
+        ;;
+esac
+
+if [[ -z "$BROWSER_BIN" ]]; then
+    echo "No browser found that supports --app mode."
+    exit 1
+fi
+
+DESKTOP_FILE="$DESKTOP_DIR/$APP_NAME.desktop"
+mkdir -p "$DESKTOP_DIR"
+
+cat >"$DESKTOP_FILE" <<EOF
+[Desktop Entry]
+Version=1.0
+Name=$APP_NAME
+Comment=$APP_NAME
+Exec=uwsm-app -- $BROWSER_BIN --app=$APP_URL
+Terminal=false
+Type=Application
+Icon=$ICON_PATH
+StartupNotify=true
+EOF
+
+chmod +x "$DESKTOP_FILE"
+
+echo -e "\nCreated $DESKTOP_FILE"
+echo "You can now find '$APP_NAME' in the app launcher (Super+Space)"

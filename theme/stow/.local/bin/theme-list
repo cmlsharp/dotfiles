@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+THEMES_DIR="$HOME/.local/share/theme/themes"
+CURRENT_FILE="$HOME/.config/theme/current-name"
+
+current=""
+if [[ -f "$CURRENT_FILE" ]]; then
+    current=$(cat "$CURRENT_FILE")
+fi
+
+for f in "$THEMES_DIR"/*.toml; do
+    name=$(basename "$f" .toml)
+    if [[ "$name" = "$current" ]]; then
+        echo "* $name"
+    else
+        echo "  $name"
+    fi
+done | sort

@@ -1,0 +1,10 @@
+@define-color foreground {{ foreground }};
+@define-color background {{ background }};
+@define-color crust {{ crust }};
+@define-color surface0 {{ surface0 }};
+@define-color surface1 {{ surface1 }};
+@define-color subtext0 {{ subtext0 }};
+@define-color subtext1 {{ subtext1 }};
+@define-color overlay0 {{ overlay0 }};
+@define-color red {{ red }};
+@define-color yellow {{ yellow }};

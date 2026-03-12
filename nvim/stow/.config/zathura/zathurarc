@@ -39,47 +39,11 @@ set font "JetBrainsMono Nerd Font 12"
 #   Sky:       #89dcfe    Sapphire:#74c7ec    Flamingo:#f2cdcd
 #   Rosewater: #f5e0dc
 
-set default-bg "#11111b"
-set default-fg "#cdd6f4"
-
-# Statusbar / Inputbar
-set statusbar-fg "#cdd6f4"
-set statusbar-bg "#1e1e2e"
-set inputbar-fg "#cdd6f4"
-set inputbar-bg "#1e1e2e"
-
-# Notifications
-set notification-bg "#1e1e2e"
-set notification-fg "#a6e3a1"
-set notification-error-bg "#1e1e2e"
-set notification-error-fg "#f38ba8"
-set notification-warning-bg "#1e1e2e"
-set notification-warning-fg "#f9e2af"
-
-# Completion
-set completion-bg "#313244"
-set completion-fg "#cdd6f4"
-set completion-highlight-bg "#cba6f7"
-set completion-highlight-fg "#1e1e2e"
-set completion-group-bg "#181825"
-set completion-group-fg "#cdd6f4"
-
-# Highlight (selection / search) - Catppuccin accent colors
-set highlight-color rgba(249,226,175,0.5)
-set highlight-active-color rgba(203,166,247,0.5)
-set highlight-fg "#1e1e2e"
-
-# Index (TOC sidebar)
-set index-fg "#cdd6f4"
-set index-bg "#1e1e2e"
-set index-active-fg "#cdd6f4"
-set index-active-bg "#313244"
+# Colors (managed by theme-set)
+include ~/.config/theme/current/zathura.conf
 
 # -- Recolor (dark mode) - off by default, toggle with Ctrl+R ---------------
-# When enabled, recolors pages to Catppuccin Mocha base/text colors.
 set recolor "false"
-set recolor-lightcolor "#1e1e2e"
-set recolor-darkcolor "#cdd6f4"
 set recolor-reverse-video "true"
 set recolor-keephue "true"
 

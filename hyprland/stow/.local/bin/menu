@@ -1,0 +1,115 @@
+#!/bin/bash
+
+# Modular hierarchical menu system driven by JSONC config.
+# Uses walker --dmenu for display, jq for parsing.
+
+MENU_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/menu/menu.json"
+
+MENU_JSON=""
+load_config() {
+    if [[ ! -f "$MENU_CONFIG" ]]; then
+        notify-send -u critical "Menu" "Config not found: $MENU_CONFIG"
+        exit 1
+    fi
+    MENU_JSON=$(cat "$MENU_CONFIG")
+}
+
+# Navigate to a node by dot-separated path (e.g. "toggle" or "system")
+# Searches by label match (case-insensitive, ignores icons)
+resolve_path() {
+    local node="$1"
+    local path="$2"
+
+    if [[ -z "$path" ]]; then
+        echo "$node"
+        return
+    fi
+
+    local segment="${path%%.*}"
+    local rest="${path#*.}"
+    [[ "$rest" == "$segment" ]] && rest=""
+
+    local child
+    child=$(echo "$node" | jq -r --arg s "$segment" '
+        .items // [] | map(select(
+            (.label | gsub("^[^a-zA-Z]+"; "") | ltrimstr(" ") | ascii_downcase) as $clean |
+            ($s | ascii_downcase) as $search |
+            $clean | startswith($search)
+        )) | first // empty
+    ')
+
+    if [[ -z "$child" || "$child" == "null" ]]; then
+        echo "$node"
+        return
+    fi
+
+    resolve_path "$child" "$rest"
+}
+
+show_menu() {
+    local node="$1"
+    local parent_func="$2"
+
+    local prompt width
+    prompt=$(echo "$node" | jq -r '.prompt // "Menu"')
+    width=$(echo "$node" | jq -r '.width // 295')
+
+    local labels
+    labels=$(echo "$node" | jq -r '.items[]?.label')
+
+    if [[ -z "$labels" ]]; then
+        return
+    fi
+
+    local selection
+    selection=$(echo "$labels" | walker --dmenu --width "$width" --minwidth "$width" --height 630 -p "$prompt" 2>/dev/null)
+
+    [[ -z "$selection" ]] && return
+
+    local selected
+    selected=$(echo "$node" | jq --arg sel "$selection" '.items[] | select(.label == $sel)')
+
+    if [[ -z "$selected" ]]; then
+        return
+    fi
+
+    local has_items
+    has_items=$(echo "$selected" | jq 'has("items")')
+
+    if [[ "$has_items" == "true" ]]; then
+        # Inherit parent width/prompt if not set
+        local child
+        child=$(echo "$selected" | jq --argjson w "$width" '
+            if .width == null then .width = $w else . end
+        ')
+        show_menu "$child" "show_menu '$node' '$parent_func'"
+    else
+        local cmd terminal_mode
+        cmd=$(echo "$selected" | jq -r '.exec // empty')
+        terminal_mode=$(echo "$selected" | jq -r '.terminal // false')
+
+        if [[ -n "$cmd" ]]; then
+            if [[ "$terminal_mode" == "true" ]]; then
+                kitty --class floating-tui --title "$cmd" bash -c "$cmd; echo; echo 'Press enter to close...'; read"
+            else
+                eval exec $cmd
+            fi
+        fi
+    fi
+}
+
+# Toggle: close existing menu if open
+if pgrep -f "walker.*--dmenu" >/dev/null 2>&1; then
+    walker --close >/dev/null 2>&1
+    exit 0
+fi
+
+load_config
+
+# Support direct submenu jump: menu --go toggle
+if [[ "$1" == "--go" && -n "$2" ]]; then
+    node=$(resolve_path "$(echo "$MENU_JSON")" "$2")
+    show_menu "$node"
+else
+    show_menu "$MENU_JSON"
+fi

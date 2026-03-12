@@ -1,0 +1,7 @@
+#!/bin/bash
+
+timezone=$(timedatectl list-timezones | gum filter --height 20 --header "Set timezone") || exit 1
+sudo timedatectl set-timezone "$timezone"
+notify-send "Timezone" "Set to $timezone"
+# Restart waybar to update clock
+killall waybar; setsid uwsm-app -- waybar &>/dev/null &

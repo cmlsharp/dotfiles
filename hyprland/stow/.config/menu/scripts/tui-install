@@ -1,0 +1,69 @@
+#!/bin/bash
+
+# Create a .desktop launcher for a TUI app so it shows up in the app launcher.
+# Uses fzf for selection prompts (no gum dependency).
+
+set -e
+
+ICON_DIR="$HOME/.local/share/applications/icons"
+DESKTOP_DIR="$HOME/.local/share/applications"
+
+if (( $# == 4 )); then
+    APP_NAME="$1"
+    APP_EXEC="$2"
+    WINDOW_STYLE="$3"
+    ICON_URL="$4"
+else
+    echo -e "\e[32mCreate a TUI shortcut for the app launcher.\n\e[0m"
+    read -rp "Name> " APP_NAME
+    read -rp "Launch command> " APP_EXEC
+    WINDOW_STYLE=$(printf 'float\ntile' | fzf --prompt="Window style> " --height=4)
+    read -rp "Icon URL (png/svg)> " ICON_URL
+fi
+
+if [[ -z "$APP_NAME" || -z "$APP_EXEC" ]]; then
+    echo "Name and launch command are required."
+    exit 1
+fi
+
+# Resolve icon
+if [[ -n "$ICON_URL" ]]; then
+    if [[ ! "$ICON_URL" =~ ^https?:// ]] && [[ -f "$ICON_URL" ]]; then
+        ICON_PATH="$ICON_URL"
+    else
+        ICON_PATH="$ICON_DIR/$APP_NAME.png"
+        mkdir -p "$ICON_DIR"
+        if ! curl -sL -o "$ICON_PATH" "$ICON_URL"; then
+            echo "Warning: Failed to download icon, continuing without."
+            ICON_PATH=""
+        fi
+    fi
+else
+    ICON_PATH="utilities-terminal"
+fi
+
+if [[ "$WINDOW_STYLE" == "float" ]]; then
+    APP_CLASS="floating-tui"
+else
+    APP_CLASS="tui-tile"
+fi
+
+DESKTOP_FILE="$DESKTOP_DIR/$APP_NAME.desktop"
+mkdir -p "$DESKTOP_DIR"
+
+cat >"$DESKTOP_FILE" <<EOF
+[Desktop Entry]
+Version=1.0
+Name=$APP_NAME
+Comment=$APP_NAME
+Exec=kitty --class=$APP_CLASS -e $APP_EXEC
+Terminal=false
+Type=Application
+Icon=${ICON_PATH:-utilities-terminal}
+StartupNotify=true
+EOF
+
+chmod +x "$DESKTOP_FILE"
+
+echo -e "\nCreated $DESKTOP_FILE"
+echo "You can now find '$APP_NAME' in the app launcher (Super+Space)"

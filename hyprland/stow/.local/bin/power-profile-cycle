@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Pick power profile via walker menu
+# Requires power-profiles-daemon
+
+if ! command -v powerprofilesctl &>/dev/null; then
+    notify-send -u critical "Power Profile" "power-profiles-daemon not installed"
+    exit 1
+fi
+
+current=$(powerprofilesctl get)
+
+profiles=$(powerprofilesctl list |
+    awk '/^\s*[* ]\s*[a-zA-Z0-9\-]+:$/ { gsub(/^[*[:space:]]+|:$/,""); print }' |
+    tac)
+
+# Mark current profile
+options=$(echo "$profiles" | while read -r p; do
+    if [[ "$p" == "$current" ]]; then
+        echo "$p  (active)"
+    else
+        echo "$p"
+    fi
+done)
+
+selection=$(echo "$options" | walker --dmenu -p "Power Profile" --width 295 2>/dev/null)
+[[ -z "$selection" ]] && exit 0
+
+# Strip the active marker
+profile="${selection%% *}"
+
+if [[ "$profile" != "$current" ]]; then
+    powerprofilesctl set "$profile"
+    notify-send -t 2000 "Power Profile" "$profile"
+fi
