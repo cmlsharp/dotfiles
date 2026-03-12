@@ -1,4 +1,5 @@
 {
+    "reload_style_on_change": true,
     "layer": "top",
     "position": "top",
     "height": 28,
@@ -12,10 +13,11 @@
         "hyprland/scratchpad"
     ],
     "modules-center": [
-        "clock",
-        "custom/screenrecord-indicator"
+        "clock"
     ],
     "modules-right": [
+        "custom/screenrecord-indicator",
+        "group/tray-expander",
         "custom/weather",
         "bluetooth",
         "network",
@@ -25,7 +27,7 @@
         "battery",
         "idle_inhibitor",
         "custom/notification",
-        "tray"
+        "custom/power"
     ],
     "sway/workspaces": {
         "disable-scroll": true,
@@ -252,9 +254,26 @@
         "on-click-right": "swaync-client -d -sw",
         "escape": true
     },
+    "group/tray-expander": {
+        "orientation": "inherit",
+        "drawer": {
+            "transition-duration": 600,
+            "children-class": "tray-group-item"
+        },
+        "modules": ["custom/expand-icon", "tray"]
+    },
+    "custom/expand-icon": {
+        "format": "",
+        "tooltip": false
+    },
     "tray": {
         "icon-size": 16,
         "spacing": 4
+    },
+    "custom/power": {
+        "format": "",
+        "tooltip": false,
+        "on-click": "~/.local/bin/menu --go system"
     },
     "custom/mic": {
         "exec": "printf '  %s' \"$(pactl get-source-volume @DEFAULT_SOURCE@ | grep -oP '[0-9]+%' | head -1)\"",

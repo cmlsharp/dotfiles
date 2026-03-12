@@ -3,55 +3,77 @@
   "width": 400,
   "items": [
     {
-      "label": "󰔎  Toggle",
-      "prompt": "Toggle",
-      "items": [
-        { "label": "󰔎  Nightlight", "exec": "~/.local/bin/toggle-nightlight" },
-        { "label": "󰒲  Idle Lock", "exec": "~/.config/hypr/scripts/toggle-idle.sh" },
-        { "label": "󱁐  Gaps", "exec": "~/.config/hypr/scripts/toggle-gaps.sh" },
-        { "label": "󰪏  Animations", "exec": "~/.config/hypr/scripts/toggle-animations.sh" },
-        { "label": "󱂬  Workspace Layout", "exec": "~/.config/hypr/scripts/toggle-layout.sh" },
-        { "label": "󰨤  1-Window Ratio", "exec": "~/.config/menu/scripts/toggle-aspect-ratio" },
-        { "label": "󰍹  Display Scaling", "exec": "~/.config/hypr/scripts/cycle-scale.sh" },
-        { "label": "󰍜  Top Bar", "exec": "~/.config/hypr/scripts/toggle-waybar.sh" },
-        { "label": "󰒲  Suspend", "exec": "~/.config/menu/scripts/toggle-suspend" }
-      ]
-    },
-    {
       "label": "  Style",
       "prompt": "Style",
       "items": [
-        { "label": "󰸌  Theme", "exec": "~/.local/bin/theme-set --picker" },
-        { "label": "  Background", "exec": "~/.local/bin/theme-set --bg-next" },
-        { "label": "  Font", "exec": "~/.config/menu/scripts/font-set", "terminal": true }
+        {
+          "label": "󰸌  Theme",
+          "exec": "~/.local/bin/theme-set --picker"
+        },
+        {
+          "label": "  Background",
+          "exec": "~/.local/bin/theme-set --bg-next"
+        },
+        {
+          "label": "  Font",
+          "exec": "~/.config/menu/scripts/font-set",
+          "terminal": true
+        }
       ]
     },
     {
-      "label": "  Setup",
-      "prompt": "Setup",
+      "label": "󰍹  Display",
+      "prompt": "Display",
       "items": [
-        { "label": "  Audio", "exec": "~/.config/hypr/scripts/toggle-launch.sh wiremix" },
-        { "label": "  Wifi", "exec": "~/.config/hypr/scripts/toggle-launch.sh wlctl" },
-        { "label": "󰂯  Bluetooth", "exec": "~/.config/hypr/scripts/toggle-launch.sh bluetui" },
-        { "label": "󰍹  Monitors", "exec": "uwsm-app -- wdisplays" },
-        { "label": "󱐋  Power Profile", "exec": "~/.local/bin/power-profile-cycle" },
-        { "label": "󰇖  DNS", "exec": "~/.config/menu/scripts/setup-dns", "terminal": true },
-        { "label": "  Timezone", "exec": "~/.config/menu/scripts/tz-select", "terminal": true },
-        { "label": "  Time Sync", "exec": "sudo systemctl restart systemd-timesyncd", "terminal": true },
-        { "label": "󰌌  Key Remapping", "exec": "~/.config/menu/scripts/setup-key-remap", "terminal": true },
         {
-          "label": "  Config",
-          "prompt": "Edit Config",
-          "items": [
-            { "label": "  Hyprland", "exec": "kitty -- nvim ~/.config/hypr/hyprland.conf" },
-            { "label": "  Keybinds", "exec": "kitty -- nvim ~/.config/hypr/keybinds.conf" },
-            { "label": "  Waybar", "exec": "kitty -- nvim ~/.config/waybar/config.jsonc" },
-            { "label": "  Walker", "exec": "kitty -- nvim ~/.config/walker/config.toml" },
-            { "label": "  Menu", "exec": "kitty -- nvim ~/.config/menu/menu.json" },
-            { "label": "  Kitty", "exec": "kitty -- nvim ~/.config/kitty/kitty.conf" },
-            { "label": "  Fish", "exec": "kitty -- nvim ~/.config/fish/config.fish" },
-            { "label": "  Starship", "exec": "kitty -- nvim ~/.config/starship.toml" }
-          ]
+          "label": "󰔎  Nightlight",
+          "exec": "~/.local/bin/toggle-nightlight"
+        },
+        {
+          "label": "󱁐  Gaps",
+          "exec": "~/.config/hypr/scripts/toggle-gaps.sh"
+        },
+        {
+          "label": "󰪏  Animations",
+          "exec": "~/.config/hypr/scripts/toggle-animations.sh"
+        },
+        {
+          "label": "󱂬  Workspace Layout",
+          "exec": "~/.config/hypr/scripts/toggle-layout.sh"
+        },
+        {
+          "label": "󰨤  1-Window Ratio",
+          "exec": "~/.config/menu/scripts/toggle-aspect-ratio"
+        },
+        {
+          "label": "󰍹  Display Scaling",
+          "exec": "~/.config/hypr/scripts/cycle-scale.sh"
+        },
+        {
+          "label": "󰍜  Top Bar",
+          "exec": "~/.config/hypr/scripts/toggle-waybar.sh"
+        },
+        {
+          "label": "󰍹  Monitors",
+          "exec": "uwsm-app -- nwg-displays"
+        }
+      ]
+    },
+    {
+      "label": "  Capture",
+      "prompt": "Capture",
+      "items": [
+        {
+          "label": "󰹑  Screenshot",
+          "exec": "~/.local/bin/screenshot"
+        },
+        {
+          "label": "  Screen Record",
+          "exec": "~/.config/hypr/scripts/screenrecord.sh"
+        },
+        {
+          "label": "󰃉  Color Picker",
+          "exec": "hyprpicker -a"
         }
       ]
     },
@@ -59,67 +81,218 @@
       "label": "󰉉  Install",
       "prompt": "Install",
       "items": [
-        { "label": "󰣇  Package", "exec": "~/.config/menu/scripts/pkg-install", "terminal": true },
-        { "label": "󰣇  AUR", "exec": "~/.config/menu/scripts/pkg-install-aur", "terminal": true },
-        { "label": "  TUI Shortcut", "exec": "~/.config/menu/scripts/tui-install", "terminal": true },
-        { "label": "  Web App", "exec": "~/.config/menu/scripts/webapp-install", "terminal": true }
+        {
+          "label": "󰣇  Package",
+          "exec": "~/.config/menu/scripts/pkg-install",
+          "terminal": true
+        },
+        {
+          "label": "󰣇  AUR",
+          "exec": "~/.config/menu/scripts/pkg-install-aur",
+          "terminal": true
+        },
+        {
+          "label": "  TUI Shortcut",
+          "exec": "~/.config/menu/scripts/tui-install",
+          "terminal": true
+        },
+        {
+          "label": "  Web App",
+          "exec": "~/.config/menu/scripts/webapp-install",
+          "terminal": true
+        },
+        {
+          "label": "󰚰  System Update",
+          "exec": "paru -Syu",
+          "terminal": true
+        }
       ]
     },
     {
-      "label": "  Capture",
-      "prompt": "Capture",
+      "label": "  Settings",
+      "prompt": "Settings",
       "items": [
-        { "label": "󰹑  Screenshot", "exec": "~/.local/bin/screenshot" },
-        { "label": "  Screen Record", "exec": "~/.config/hypr/scripts/screenrecord.sh" },
-        { "label": "󰃉  Color Picker", "exec": "hyprpicker -a" }
+        {
+          "label": "  Audio",
+          "exec": "~/.config/hypr/scripts/toggle-launch.sh wiremix"
+        },
+        {
+          "label": "  Wifi",
+          "exec": "~/.config/hypr/scripts/toggle-launch.sh wlctl"
+        },
+        {
+          "label": "󰂯  Bluetooth",
+          "exec": "~/.config/hypr/scripts/toggle-launch.sh bluetui"
+        },
+        {
+          "label": "󰇖  DNS",
+          "exec": "~/.config/menu/scripts/setup-dns",
+          "terminal": true
+        },
+        {
+          "label": "󱐋  Power Profile",
+          "exec": "~/.local/bin/power-profile-cycle"
+        },
+        {
+          "label": "  Timezone",
+          "exec": "~/.config/menu/scripts/tz-select",
+          "terminal": true
+        },
+        {
+          "label": "  Time Sync",
+          "exec": "sudo systemctl restart systemd-timesyncd",
+          "terminal": true
+        },
+        {
+          "label": "󰌌  Key Remapping",
+          "exec": "~/.config/menu/scripts/setup-key-remap",
+          "terminal": true
+        },
+        {
+          "label": "󰟵  Password",
+          "prompt": "Change Password",
+          "items": [
+            {
+              "label": "󰟵  User Password",
+              "exec": "passwd",
+              "terminal": true
+            },
+            {
+              "label": "  Drive Encryption",
+              "exec": "~/.config/menu/scripts/drive-set-password",
+              "terminal": true
+            }
+          ]
+        },
+        {
+          "label": "  Config",
+          "prompt": "Edit Config",
+          "items": [
+            {
+              "label": "  Hyprland",
+              "exec": "kitty -- nvim ~/.config/hypr/hyprland.conf"
+            },
+            {
+              "label": "  Keybinds",
+              "exec": "kitty -- nvim ~/.config/hypr/keybinds.conf"
+            },
+            {
+              "label": "  Waybar",
+              "exec": "kitty -- nvim ~/.config/waybar/config.jsonc"
+            },
+            {
+              "label": "  Walker",
+              "exec": "kitty -- nvim ~/.config/walker/config.toml"
+            },
+            {
+              "label": "  Menu",
+              "exec": "kitty -- nvim ~/.config/menu/menu.json"
+            },
+            {
+              "label": "  Kitty",
+              "exec": "kitty -- nvim ~/.config/kitty/kitty.conf"
+            },
+            {
+              "label": "  Fish",
+              "exec": "kitty -- nvim ~/.config/fish/config.fish"
+            },
+            {
+              "label": "  Starship",
+              "exec": "kitty -- nvim ~/.config/starship.toml"
+            }
+          ]
+        }
       ]
     },
     {
-      "label": "󰚰  Update",
-      "prompt": "Update",
+      "label": "󰚰  Troubleshoot",
+      "prompt": "Troubleshoot",
       "items": [
-        { "label": "󰚰  System Update", "exec": "paru -Syu", "terminal": true },
         {
           "label": "󰜉  Restart Process",
           "prompt": "Restart",
           "items": [
-            { "label": "  Waybar", "exec": "killall waybar; setsid uwsm-app -- waybar &" },
-            { "label": "  Walker", "exec": "killall walker; killall elephant; setsid uwsm-app -- elephant &; setsid uwsm-app -- walker --gapplication-service &" },
-            { "label": "  SwayOSD", "exec": "pkill -x swayosd-server; setsid uwsm-app -- swayosd-server &" },
-            { "label": "  Hypridle", "exec": "killall hypridle; setsid uwsm-app -- hypridle &" },
-            { "label": "  Hyprland", "exec": "hyprctl reload" }
+            {
+              "label": "  Waybar",
+              "exec": "killall waybar; setsid uwsm-app -- waybar &"
+            },
+            {
+              "label": "  Walker",
+              "exec": "killall walker; killall elephant; setsid uwsm-app -- elephant &; setsid uwsm-app -- walker --gapplication-service &"
+            },
+            {
+              "label": "  SwayOSD",
+              "exec": "pkill -x swayosd-server; setsid uwsm-app -- swayosd-server &"
+            },
+            {
+              "label": "  Hypridle",
+              "exec": "killall hypridle; setsid uwsm-app -- hypridle &"
+            },
+            {
+              "label": "  Hyprland",
+              "exec": "hyprctl reload"
+            }
           ]
         },
         {
           "label": "󰇅  Restart Hardware",
           "prompt": "Restart",
           "items": [
-            { "label": "  Audio", "exec": "systemctl --user restart pipewire.service", "terminal": true },
-            { "label": "  Wi-Fi", "exec": "sudo systemctl restart NetworkManager", "terminal": true },
-            { "label": "󰂯  Bluetooth", "exec": "sudo systemctl restart bluetooth", "terminal": true }
+            {
+              "label": "  Audio",
+              "exec": "systemctl --user restart pipewire.service",
+              "terminal": true
+            },
+            {
+              "label": "  Wi-Fi",
+              "exec": "sudo systemctl restart NetworkManager",
+              "terminal": true
+            },
+            {
+              "label": "󰂯  Bluetooth",
+              "exec": "sudo systemctl restart bluetooth",
+              "terminal": true
+            }
           ]
         },
         {
-          "label": "  Password",
-          "prompt": "Change Password",
-          "items": [
-            { "label": "󰟵  User Password", "exec": "passwd", "terminal": true },
-            { "label": "  Drive Encryption", "exec": "~/.config/menu/scripts/drive-set-password", "terminal": true }
-          ]
-        },
-        { "label": "  Close All Windows", "exec": "~/.config/hypr/scripts/close-all.sh" }
+          "label": "  Close All Windows",
+          "exec": "~/.config/hypr/scripts/close-all.sh"
+        }
       ]
     },
     {
-      "label": "  System",
+      "label": "  System",
       "prompt": "System",
       "items": [
-        { "label": "  Lock", "exec": "hyprlock" },
-        { "label": "󰒲  Suspend", "exec": "systemctl suspend" },
-        { "label": "󰤁  Hibernate", "exec": "systemctl hibernate" },
-        { "label": "󰍃  Logout", "exec": "hyprctl dispatch exit" },
-        { "label": "󰜉  Restart", "exec": "systemctl reboot" },
-        { "label": "󰐥  Shutdown", "exec": "systemctl poweroff" }
+        {
+          "label": "  Lock",
+          "exec": "hyprlock"
+        },
+        {
+          "label": "󰒲  Idle Lock",
+          "exec": "~/.config/hypr/scripts/toggle-idle.sh"
+        },
+        {
+          "label": "󰒲  Suspend",
+          "exec": "systemctl suspend"
+        },
+        {
+          "label": "󰤁  Hibernate",
+          "exec": "systemctl hibernate"
+        },
+        {
+          "label": "󰍃  Logout",
+          "exec": "hyprctl dispatch exit"
+        },
+        {
+          "label": "󰜉  Restart",
+          "exec": "systemctl reboot"
+        },
+        {
+          "label": "󰐥  Shutdown",
+          "exec": "systemctl poweroff"
+        }
       ]
     }
   ]

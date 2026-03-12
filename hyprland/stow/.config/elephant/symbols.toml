@@ -1,0 +1,5 @@
+command = "wtype -- %VALUE%"
+copy_command = "wl-copy -- %VALUE%"
+
+[Config]
+hide_from_providerlist = false

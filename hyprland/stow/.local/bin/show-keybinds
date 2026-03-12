@@ -57,7 +57,7 @@ parse_keycodes() {
 
 dynamic_bindings() {
     hyprctl -j binds |
-        jq -r '.[] | "\(.modmask),\(.key)@\(.keycode),\(.description),\(.dispatcher),\(.arg)"' |
+        jq -r '.[] | select(.submap == "") | "\(.modmask),\(.key)@\(.keycode),\(.description),\(.dispatcher),\(.arg)"' |
         sed -r \
             -e 's/null//' \
             -e 's,uwsm-app -- ,,' \

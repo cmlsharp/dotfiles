@@ -3,6 +3,9 @@ selection_wrap = true
 theme = "omarchy"
 hide_action_hints = false
 
+[keybinds]
+quick_activate = ["alt 1", "alt 2", "alt 3", "alt 4", "alt 5", "alt 6", "alt 7", "alt 8", "alt 9"]
+
 [placeholders]
 "default" = { input = " Search...", list = "No Results" }
 
@@ -41,11 +44,14 @@ prefix = "$"
 provider = "clipboard"
 
 [providers.actions]
+symbols = [
+    { action = "run_cmd", label = "Type", bind = "Return", default = true },
+]
 bitwarden = [
-    { action = "copypassword", label = "Copy Password", bind = "Return", default = true },
-    { action = "copyusername", label = "Copy Username", bind = "ctrl u" },
+    { action = "typepassword", label = "Type Password", bind = "Return", default = true },
+    { action = "typeusername", label = "Type Username", bind = "ctrl u" },
+    { action = "copypassword", label = "Copy Password", bind = "ctrl Return" },
+    { action = "copyusername", label = "Copy Username", bind = "ctrl shift u" },
     { action = "copytotp", label = "Copy TOTP", bind = "ctrl t" },
-    { action = "typepassword", label = "Type Password", bind = "ctrl Return" },
-    { action = "typeusername", label = "Type Username", bind = "ctrl shift u" },
     { action = "syncvault", label = "Sync Vault", bind = "ctrl s", global = true },
 ]

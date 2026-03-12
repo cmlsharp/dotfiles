@@ -4,8 +4,9 @@
 # Multi-select with tab, preview with alt-p, PKGBUILD with alt-b
 
 pkg_names=$(yay -Slqa | fzf \
+    --with-shell='bash -c' \
     --multi \
-    --preview 'yay -Siia {1}' \
+    --preview 'yay -Si {1} 2>/dev/null' \
     --preview-label='alt-p: toggle preview, alt-b: PKGBUILD, alt-j/k: scroll, tab: multi-select' \
     --preview-label-pos='bottom' \
     --preview-window 'down:65%:wrap' \

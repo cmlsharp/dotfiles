@@ -4,6 +4,7 @@
 # Multi-select with tab, preview with alt-p, scroll with alt-j/k
 
 pkg_names=$(paru -Slq | fzf \
+    --with-shell='bash -c' \
     --multi \
     --preview 'paru -Sii {1} 2>/dev/null || paru -Si {1}' \
     --preview-label='alt-p: toggle preview, alt-j/k: scroll, tab: multi-select' \

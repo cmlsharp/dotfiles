@@ -35,7 +35,8 @@ OFFICIAL_PKGS=(
     brightnessctl
     cliphist
     playerctl
-    wf-recorder
+    fzf
+    imv
     libnotify
     xdg-utils
 
@@ -77,7 +78,10 @@ AUR_PKGS=(
     snappy-switcher
 
     # Display config
-    wdisplays-persistent
+    nwg-displays
+
+    # Screen recording
+    gpu-screen-recorder
 
     # Browser
     zen-browser-bin

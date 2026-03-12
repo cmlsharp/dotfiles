@@ -1,5 +1,5 @@
 @define-color foreground {{ foreground }};
-@define-color background {{ background }};
+@define-color background {{ mantle }};
 @define-color crust {{ crust }};
 @define-color surface0 {{ surface0 }};
 @define-color surface1 {{ surface1 }};
