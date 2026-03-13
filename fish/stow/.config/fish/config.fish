@@ -88,7 +88,7 @@ else if command -q exa
 end
 alias l 'ls -lh'
 alias ll 'ls -lh'
-alias la 'ls -lAFh'
+alias la 'ls -lAh'
 alias lt 'ls -ltFh'
 alias sl ls
 

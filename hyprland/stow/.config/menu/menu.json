@@ -26,74 +26,139 @@
       ]
     },
     {
-      "label": "  Toggle",
-      "prompt": "Display",
+      "label": "  Trigger",
+      "prompt": "Trigger",
       "items": [
         {
-          "label": "󰔎  Nightlight",
-          "exec": "~/.local/bin/toggle-nightlight"
+          "label": "  Toggle",
+          "prompt": "Display",
+          "items": [
+            {
+              "label": "󰔎  Nightlight",
+              "exec": "~/.local/bin/toggle-nightlight"
+            },
+            {
+              "label": "󱁐  Gaps",
+              "exec": "~/.config/hypr/scripts/toggle-gaps.sh"
+            },
+            {
+              "label": "󰪏  Animations",
+              "exec": "~/.config/hypr/scripts/toggle-animations.sh"
+            },
+            {
+              "label": "󱂬  Workspace Layout",
+              "exec": "~/.config/hypr/scripts/toggle-layout.sh"
+            },
+            {
+              "label": "󰨤  1-Window Ratio",
+              "exec": "~/.config/menu/scripts/toggle-aspect-ratio"
+            },
+            {
+              "label": "󰍹  Display Scaling",
+              "exec": "~/.config/hypr/scripts/cycle-scale.sh"
+            },
+            {
+              "label": "󰍜  Top Bar",
+              "exec": "~/.config/hypr/scripts/toggle-waybar.sh"
+            }
+          ]
         },
         {
-          "label": "󱁐  Gaps",
-          "exec": "~/.config/hypr/scripts/toggle-gaps.sh"
+          "label": "  Clipboard History",
+          "exec": "~/.local/bin/launch-walker -m clipboard"
         },
         {
-          "label": "󰪏  Animations",
-          "exec": "~/.config/hypr/scripts/toggle-animations.sh"
+          "label": "󰂛  Do Not Disturb",
+          "exec": "swaync-client -d"
         },
         {
-          "label": "󱂬  Workspace Layout",
-          "exec": "~/.config/hypr/scripts/toggle-layout.sh"
+          "label": "  Capture",
+          "prompt": "Capture",
+          "items": [
+            {
+              "label": "󰹑  Screenshot",
+              "exec": "~/.local/bin/screenshot"
+            },
+            {
+              "label": "  Screen Record",
+              "exec": "~/.config/hypr/scripts/screenrecord.sh"
+            },
+            {
+              "label": "󰃉  Color Picker",
+              "exec": "hyprpicker -a"
+            }
+          ]
         },
         {
-          "label": "󰨤  1-Window Ratio",
-          "exec": "~/.config/menu/scripts/toggle-aspect-ratio"
+          "label": "  Share",
+          "prompt": "Share",
+          "items": [
+            {
+              "label": "  Clipboard",
+              "exec": "~/.config/menu/scripts/share clipboard"
+            },
+            {
+              "label": "  File",
+              "exec": "~/.config/menu/scripts/share file",
+              "terminal": true
+            },
+            {
+              "label": "  Folder",
+              "exec": "~/.config/menu/scripts/share folder",
+              "terminal": true
+            }
+          ]
         },
         {
-          "label": "󰍹  Display Scaling",
-          "exec": "~/.config/hypr/scripts/cycle-scale.sh"
+          "label": "󰜉  Restart Process",
+          "prompt": "Restart",
+          "items": [
+            {
+              "label": "  Waybar",
+              "exec": "sh -c 'killall waybar; sleep 0.5; setsid uwsm-app -- waybar &'"
+            },
+            {
+              "label": "  Walker",
+              "exec": "sh -c 'killall walker; killall elephant; setsid uwsm-app -- elephant &; setsid uwsm-app -- walker --gapplication-service &'"
+            },
+            {
+              "label": "  SwayOSD",
+              "exec": "sh -c 'pkill -x swayosd-server; setsid uwsm-app -- swayosd-server &'"
+            },
+            {
+              "label": "  Hypridle",
+              "exec": "sh -c 'killall hypridle; setsid uwsm-app -- hypridle &'"
+            },
+            {
+              "label": "  Hyprland",
+              "exec": "hyprctl reload"
+            }
+          ]
         },
         {
-          "label": "󰍜  Top Bar",
-          "exec": "~/.config/hypr/scripts/toggle-waybar.sh"
-        }
-      ]
-    },
-    {
-      "label": "  Capture",
-      "prompt": "Capture",
-      "items": [
-        {
-          "label": "󰹑  Screenshot",
-          "exec": "~/.local/bin/screenshot"
+          "label": "󰇅  Restart Hardware",
+          "prompt": "Restart",
+          "items": [
+            {
+              "label": "  Audio",
+              "exec": "systemctl --user restart pipewire.service",
+              "terminal": true
+            },
+            {
+              "label": "  Wi-Fi",
+              "exec": "sudo systemctl restart NetworkManager",
+              "terminal": true
+            },
+            {
+              "label": "󰂯  Bluetooth",
+              "exec": "sudo systemctl restart bluetooth",
+              "terminal": true
+            }
+          ]
         },
         {
-          "label": "  Screen Record",
-          "exec": "~/.config/hypr/scripts/screenrecord.sh"
-        },
-        {
-          "label": "󰃉  Color Picker",
-          "exec": "hyprpicker -a"
-        }
-      ]
-    },
-    {
-      "label": "  Share",
-      "prompt": "Share",
-      "items": [
-        {
-          "label": "  Clipboard",
-          "exec": "~/.config/menu/scripts/share clipboard"
-        },
-        {
-          "label": "  File",
-          "exec": "~/.config/menu/scripts/share file",
-          "terminal": true
-        },
-        {
-          "label": "  Folder",
-          "exec": "~/.config/menu/scripts/share folder",
-          "terminal": true
+          "label": "  Close All Windows",
+          "exec": "~/.config/hypr/scripts/close-all.sh"
         }
       ]
     },
@@ -270,61 +335,14 @@
       ]
     },
     {
-      "label": "󰚰  Troubleshoot",
-      "prompt": "Troubleshoot",
-      "items": [
-        {
-          "label": "󰜉  Restart Process",
-          "prompt": "Restart",
-          "items": [
-            {
-              "label": "  Waybar",
-              "exec": "sh -c 'killall waybar; sleep 0.5; setsid uwsm-app -- waybar &'"
-            },
-            {
-              "label": "  Walker",
-              "exec": "sh -c 'killall walker; killall elephant; setsid uwsm-app -- elephant &; setsid uwsm-app -- walker --gapplication-service &'"
-            },
-            {
-              "label": "  SwayOSD",
-              "exec": "sh -c 'pkill -x swayosd-server; setsid uwsm-app -- swayosd-server &'"
-            },
-            {
-              "label": "  Hypridle",
-              "exec": "sh -c 'killall hypridle; setsid uwsm-app -- hypridle &'"
-            },
-            {
-              "label": "  Hyprland",
-              "exec": "hyprctl reload"
-            }
-          ]
-        },
-        {
-          "label": "󰇅  Restart Hardware",
-          "prompt": "Restart",
-          "items": [
-            {
-              "label": "  Audio",
-              "exec": "systemctl --user restart pipewire.service",
-              "terminal": true
-            },
-            {
-              "label": "  Wi-Fi",
-              "exec": "sudo systemctl restart NetworkManager",
-              "terminal": true
-            },
-            {
-              "label": "󰂯  Bluetooth",
-              "exec": "sudo systemctl restart bluetooth",
-              "terminal": true
-            }
-          ]
-        },
-        {
-          "label": "  Close All Windows",
-          "exec": "~/.config/hypr/scripts/close-all.sh"
-        }
-      ]
+      "label": "  Dotfiles Sync",
+      "exec": "~/.config/menu/scripts/dotfiles-sync",
+      "terminal": true
+    },
+    {
+      "label": "󰋼  About",
+      "exec": "fastfetch",
+      "terminal": true
     },
     {
       "label": "  System",

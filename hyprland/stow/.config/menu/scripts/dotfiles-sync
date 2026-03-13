@@ -1,0 +1,23 @@
+#!/bin/bash
+
+# Sync dotfiles: re-stow all packages and optionally commit + push
+
+set -e
+
+DOTFILES="$HOME/.dotfiles"
+cd "$DOTFILES"
+
+echo "==> Re-stowing packages..."
+for pkg in */stow; do
+    name=$(dirname "$pkg")
+    stow -R -d "$DOTFILES/$name" -t "$HOME" stow 2>&1 | grep -v "BUG" || true
+    echo "  $name"
+done
+
+echo ""
+
+if git diff --quiet && git diff --cached --quiet && [ -z "$(git ls-files --others --exclude-standard)" ]; then
+    echo "No changes to commit."
+else
+    lazygit
+fi

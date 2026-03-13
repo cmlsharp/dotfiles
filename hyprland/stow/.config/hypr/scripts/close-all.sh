@@ -6,4 +6,5 @@ hyprctl clients -j | jq -r '.[].address' | while read -r addr; do
     hyprctl dispatch closewindow "address:$addr"
 done
 
-hyprctl dispatch workspace 1
+active=$(hyprctl activeworkspace -j | jq -r '.id')
+[ "$active" != "1" ] && hyprctl dispatch workspace 1
