@@ -7,6 +7,10 @@
       "exec": "~/.local/bin/launch-walker"
     },
     {
+      "label": "  Clipboard History",
+      "exec": "~/.local/bin/launch-walker -m clipboard"
+    },
+    {
       "label": "  Style",
       "prompt": "Style",
       "items": [
@@ -26,212 +30,151 @@
       ]
     },
     {
-      "label": "  Trigger",
-      "prompt": "Trigger",
+      "label": "  Capture",
+      "prompt": "Capture",
       "items": [
         {
-          "label": "  Toggle",
-          "prompt": "Display",
-          "items": [
-            {
-              "label": "󰔎  Nightlight",
-              "exec": "~/.local/bin/toggle-nightlight"
-            },
-            {
-              "label": "󱁐  Gaps",
-              "exec": "~/.config/hypr/scripts/toggle-gaps.sh"
-            },
-            {
-              "label": "󰪏  Animations",
-              "exec": "~/.config/hypr/scripts/toggle-animations.sh"
-            },
-            {
-              "label": "󱂬  Workspace Layout",
-              "exec": "~/.config/hypr/scripts/toggle-layout.sh"
-            },
-            {
-              "label": "󰨤  1-Window Ratio",
-              "exec": "~/.config/menu/scripts/toggle-aspect-ratio"
-            },
-            {
-              "label": "󰍹  Display Scaling",
-              "exec": "~/.config/hypr/scripts/cycle-scale.sh"
-            },
-            {
-              "label": "󰍜  Top Bar",
-              "exec": "~/.config/hypr/scripts/toggle-waybar.sh"
-            }
-          ]
+          "label": "󰹑  Screenshot",
+          "exec": "~/.local/bin/screenshot"
         },
         {
-          "label": "  Clipboard History",
-          "exec": "~/.local/bin/launch-walker -m clipboard"
+          "label": "  Screen Record",
+          "exec": "~/.config/hypr/scripts/screenrecord.sh"
+        },
+        {
+          "label": "󰃉  Color Picker",
+          "exec": "hyprpicker -a"
+        },
+        {
+          "label": "  Clipboard",
+          "exec": "~/.config/menu/scripts/share clipboard"
+        },
+        {
+          "label": "  File",
+          "exec": "~/.config/menu/scripts/share file",
+          "terminal": true
+        },
+        {
+          "label": "  Folder",
+          "exec": "~/.config/menu/scripts/share folder",
+          "terminal": true
+        }
+      ]
+    },
+    {
+      "label": "  Toggle",
+      "prompt": "Display",
+      "items": [
+        {
+          "label": "󰔎  Nightlight",
+          "exec": "~/.local/bin/toggle-nightlight"
+        },
+        {
+          "label": "󱁐  Gaps",
+          "exec": "~/.config/hypr/scripts/toggle-gaps.sh"
+        },
+        {
+          "label": "󰪏  Animations",
+          "exec": "~/.config/hypr/scripts/toggle-animations.sh"
+        },
+        {
+          "label": "󱂬  Workspace Layout",
+          "exec": "~/.config/hypr/scripts/toggle-layout.sh"
+        },
+        {
+          "label": "󰨤  1-Window Ratio",
+          "exec": "~/.config/menu/scripts/toggle-aspect-ratio"
+        },
+        {
+          "label": "󰍹  Display Scaling",
+          "exec": "~/.config/hypr/scripts/cycle-scale.sh"
+        },
+        {
+          "label": "󰍜  Top Bar",
+          "exec": "~/.config/hypr/scripts/toggle-waybar.sh"
         },
         {
           "label": "󰂛  Do Not Disturb",
           "exec": "swaync-client -d"
-        },
-        {
-          "label": "  Capture",
-          "prompt": "Capture",
-          "items": [
-            {
-              "label": "󰹑  Screenshot",
-              "exec": "~/.local/bin/screenshot"
-            },
-            {
-              "label": "  Screen Record",
-              "exec": "~/.config/hypr/scripts/screenrecord.sh"
-            },
-            {
-              "label": "󰃉  Color Picker",
-              "exec": "hyprpicker -a"
-            }
-          ]
-        },
-        {
-          "label": "  Share",
-          "prompt": "Share",
-          "items": [
-            {
-              "label": "  Clipboard",
-              "exec": "~/.config/menu/scripts/share clipboard"
-            },
-            {
-              "label": "  File",
-              "exec": "~/.config/menu/scripts/share file",
-              "terminal": true
-            },
-            {
-              "label": "  Folder",
-              "exec": "~/.config/menu/scripts/share folder",
-              "terminal": true
-            }
-          ]
-        },
-        {
-          "label": "󰜉  Restart Process",
-          "prompt": "Restart",
-          "items": [
-            {
-              "label": "  Waybar",
-              "exec": "sh -c 'killall waybar; sleep 0.5; setsid uwsm-app -- waybar &'"
-            },
-            {
-              "label": "  Walker",
-              "exec": "sh -c 'killall walker; killall elephant; setsid uwsm-app -- elephant &; setsid uwsm-app -- walker --gapplication-service &'"
-            },
-            {
-              "label": "  SwayOSD",
-              "exec": "sh -c 'pkill -x swayosd-server; setsid uwsm-app -- swayosd-server &'"
-            },
-            {
-              "label": "  Hypridle",
-              "exec": "sh -c 'killall hypridle; setsid uwsm-app -- hypridle &'"
-            },
-            {
-              "label": "  Hyprland",
-              "exec": "hyprctl reload"
-            }
-          ]
-        },
-        {
-          "label": "󰇅  Restart Hardware",
-          "prompt": "Restart",
-          "items": [
-            {
-              "label": "  Audio",
-              "exec": "systemctl --user restart pipewire.service",
-              "terminal": true
-            },
-            {
-              "label": "  Wi-Fi",
-              "exec": "sudo systemctl restart NetworkManager",
-              "terminal": true
-            },
-            {
-              "label": "󰂯  Bluetooth",
-              "exec": "sudo systemctl restart bluetooth",
-              "terminal": true
-            }
-          ]
-        },
-        {
-          "label": "  Close All Windows",
-          "exec": "~/.config/hypr/scripts/close-all.sh"
         }
       ]
     },
     {
-      "label": "󰉉  Install",
-      "prompt": "Install",
+      "label": "󰏗  Packages",
+      "prompt": "Packages",
       "items": [
         {
-          "label": "󰣇  Package",
-          "exec": "~/.config/menu/scripts/pkg-install",
-          "terminal": true
+          "label": "󰉉  Install",
+          "prompt": "Install",
+          "items": [
+            {
+              "label": "󰣇  Package",
+              "exec": "~/.config/menu/scripts/pkg-install",
+              "terminal": true
+            },
+            {
+              "label": "󰣇  AUR",
+              "exec": "~/.config/menu/scripts/pkg-install-aur",
+              "terminal": true
+            },
+            {
+              "label": "  TUI Shortcut",
+              "exec": "~/.config/menu/scripts/tui-install",
+              "terminal": true
+            },
+            {
+              "label": "  Web App",
+              "exec": "~/.config/menu/scripts/webapp-install",
+              "terminal": true
+            },
+            {
+              "label": "󰍲  Virtual Machine",
+              "exec": "~/.config/menu/scripts/vm install",
+              "terminal": true
+            }
+          ]
         },
         {
-          "label": "󰣇  AUR",
-          "exec": "~/.config/menu/scripts/pkg-install-aur",
-          "terminal": true
+          "label": "󰚰  Update",
+          "prompt": "Update",
+          "items": [
+            {
+              "label": "󰣇  System Update",
+              "exec": "paru -Syu",
+              "terminal": true
+            },
+            {
+              "label": "  Firmware",
+              "exec": "fwupdmgr update",
+              "terminal": true
+            }
+          ]
         },
         {
-          "label": "  TUI Shortcut",
-          "exec": "~/.config/menu/scripts/tui-install",
-          "terminal": true
-        },
-        {
-          "label": "  Web App",
-          "exec": "~/.config/menu/scripts/webapp-install",
-          "terminal": true
-        },
-        {
-          "label": "󰍲  Virtual Machine",
-          "exec": "~/.config/menu/scripts/vm install",
-          "terminal": true
-        }
-      ]
-    },
-    {
-      "label": "󰚰  Update",
-      "prompt": "Update",
-      "items": [
-        {
-          "label": "󰣇  System Update",
-          "exec": "paru -Syu",
-          "terminal": true
-        },
-        {
-          "label": "  Firmware",
-          "exec": "fwupdmgr update",
-          "terminal": true
-        }
-      ]
-    },
-    {
-      "label": "  Remove",
-      "prompt": "Remove",
-      "items": [
-        {
-          "label": "  Package",
-          "exec": "~/.config/menu/scripts/pkg-remove",
-          "terminal": true
-        },
-        {
-          "label": "  Web App",
-          "exec": "~/.config/menu/scripts/webapp-remove",
-          "terminal": true
-        },
-        {
-          "label": "  TUI Shortcut",
-          "exec": "~/.config/menu/scripts/tui-remove",
-          "terminal": true
-        },
-        {
-          "label": "󰍲  Virtual Machine",
-          "exec": "~/.config/menu/scripts/vm remove",
-          "terminal": true
+          "label": "  Remove",
+          "prompt": "Remove",
+          "items": [
+            {
+              "label": "  Package",
+              "exec": "~/.config/menu/scripts/pkg-remove",
+              "terminal": true
+            },
+            {
+              "label": "  Web App",
+              "exec": "~/.config/menu/scripts/webapp-remove",
+              "terminal": true
+            },
+            {
+              "label": "  TUI Shortcut",
+              "exec": "~/.config/menu/scripts/tui-remove",
+              "terminal": true
+            },
+            {
+              "label": "󰍲  Virtual Machine",
+              "exec": "~/.config/menu/scripts/vm remove",
+              "terminal": true
+            }
+          ]
         }
       ]
     },
@@ -295,39 +238,39 @@
           "prompt": "Edit Config",
           "items": [
             {
-              "label": "  Defaults",
+              "label": "Defaults",
               "exec": "kitty -- nvim ~/.config/uwsm/default"
             },
             {
-              "label": "  Hyprland",
+              "label": "Hyprland",
               "exec": "kitty -- nvim ~/.config/hypr/hyprland.conf"
             },
             {
-              "label": "  Keybinds",
+              "label": "Keybinds",
               "exec": "kitty -- nvim ~/.config/hypr/keybinds.conf"
             },
             {
-              "label": "  Waybar",
+              "label": "Waybar",
               "exec": "kitty -- nvim ~/.config/waybar/config.jsonc"
             },
             {
-              "label": "  Walker",
+              "label": "Walker",
               "exec": "kitty -- nvim ~/.config/walker/config.toml"
             },
             {
-              "label": "  Menu",
+              "label": "Menu",
               "exec": "kitty -- nvim ~/.config/menu/menu.json"
             },
             {
-              "label": "  Kitty",
+              "label": "Kitty",
               "exec": "kitty -- nvim ~/.config/kitty/kitty.conf"
             },
             {
-              "label": "  Fish",
+              "label": "Fish",
               "exec": "kitty -- nvim ~/.config/fish/config.fish"
             },
             {
-              "label": "  Starship",
+              "label": "Starship",
               "exec": "kitty -- nvim ~/.config/starship.toml"
             }
           ]
@@ -338,6 +281,63 @@
       "label": "  Dotfiles Sync",
       "exec": "~/.config/menu/scripts/dotfiles-sync",
       "terminal": true
+    },
+    {
+      "label": "󰋖  Troubleshoot",
+      "prompt": "Troubleshoot",
+      "items": [
+        {
+          "label": "󰜉  Restart Process",
+          "prompt": "Restart",
+          "items": [
+            {
+              "label": "Waybar",
+              "exec": "sh -c 'killall waybar; sleep 0.5; setsid uwsm-app -- waybar &'"
+            },
+            {
+              "label": "Walker",
+              "exec": "sh -c 'killall walker; killall elephant; setsid uwsm-app -- elephant &; setsid uwsm-app -- walker --gapplication-service &'"
+            },
+            {
+              "label": "SwayOSD",
+              "exec": "sh -c 'pkill -x swayosd-server; setsid uwsm-app -- swayosd-server &'"
+            },
+            {
+              "label": "Hypridle",
+              "exec": "sh -c 'killall hypridle; setsid uwsm-app -- hypridle &'"
+            },
+            {
+              "label": "Hyprland",
+              "exec": "hyprctl reload"
+            }
+          ]
+        },
+        {
+          "label": "󰇅  Restart Hardware",
+          "prompt": "Restart",
+          "items": [
+            {
+              "label": "  Audio",
+              "exec": "systemctl --user restart pipewire.service",
+              "terminal": true
+            },
+            {
+              "label": "  Wi-Fi",
+              "exec": "sudo systemctl restart NetworkManager",
+              "terminal": true
+            },
+            {
+              "label": "󰂯  Bluetooth",
+              "exec": "sudo systemctl restart bluetooth",
+              "terminal": true
+            }
+          ]
+        },
+        {
+          "label": "  Close All Windows",
+          "exec": "~/.config/hypr/scripts/close-all.sh"
+        }
+      ]
     },
     {
       "label": "󰋼  About",
