@@ -20,7 +20,7 @@ check_aur_helper() {
 }
 
 fzf_pick() {
-  local preview_cmd="${1:-$helper -Qi {1}}"; shift
+  local preview_cmd="$1"; shift
   fzf --multi \
     --preview "$preview_cmd" \
     --preview-window 'right:50%:wrap:border-bold' \
@@ -58,10 +58,15 @@ pack_install() {
 }
 
 pack_remove() {
-  local source="$1"  # command to generate the package list
   local pkgs
-  pkgs=$($source | fzf_pick)
+  pkgs=$($1 | fzf_pick "$helper -Qi {1}")
   [[ -n $pkgs ]] && $helper -Rns $pkgs
+}
+
+pack_update() {
+  echo -e "Updating system packages...\n"
+  $helper -Syu
+  echo
 }
 
 check_aur_helper
@@ -69,5 +74,6 @@ check_aur_helper
 case $1 in
   install)          pack_install ;;
   remove|uninstall) pack_remove "$helper -Qq" ;;
-  *) echo "Usage: pack install | remove | uninstall | update" ;;
+  update)           pack_update ;;
+  *)                echo "Usage: pack install | remove | uninstall | update" ;;
 esac
