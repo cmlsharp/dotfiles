@@ -1,162 +1,211 @@
-#!/bin/bash
+#!/usr/bin/env python3
+"""Modular hierarchical menu system driven by JSONC config.
 
-# Modular hierarchical menu system driven by JSONC config.
-# Uses walker --dmenu for display, jq for parsing.
+Uses walker --dmenu for display.
+"""
 
-MENU_CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}/menu/menu.json"
-ALLOW_REPEAT=true
+from __future__ import annotations
 
-MENU_JSON=""
-load_config() {
-    if [[ ! -f "$MENU_CONFIG" ]]; then
-        notify-send -u critical "Menu" "Config not found: $MENU_CONFIG"
-        exit 1
-    fi
-    MENU_JSON=$(cat "$MENU_CONFIG")
-}
+import json
+import os
+import re
+import shlex
+import subprocess
+import sys
+from pathlib import Path
+from typing import Any
 
-# Navigate to a node by dot-separated path (e.g. "toggle" or "system")
-# Searches by label match (case-insensitive, ignores icons)
-resolve_path() {
-    local node="$1"
-    local path="$2"
+CONFIG_PATH = Path(os.environ.get("XDG_CONFIG_HOME", Path.home() / ".config")) / "menu" / "menu.json"
 
-    if [[ -z "$path" ]]; then
-        echo "$node"
+
+def load_config(path: Path) -> Any:
+    if not path.exists():
+        subprocess.run(
+            ["notify-send", "-u", "critical", "Menu", f"Config not found: {path}"],
+            check=False,
+        )
+        sys.exit(1)
+    return json.loads(path.read_text())
+
+
+def _label_key(label: str) -> str:
+    """Strip leading non-alpha chars and icons, lowercase."""
+    return re.sub(r"^[^a-zA-Z]+", "", label).lstrip().lower()
+
+
+def resolve_path(node: Any, path: str) -> Any:
+    """Navigate to a node by dot-separated path, matching on label prefixes."""
+    if not path:
+        return node
+
+    segment, _, rest = path.partition(".")
+    segment_lower = segment.lower()
+
+    for item in (node.get("items") or []):
+        if isinstance(item, dict) and _label_key(item.get("label", "")).startswith(segment_lower):
+            return resolve_path(item, rest)
+
+    return node  # no match → return current node
+
+
+def walker_dmenu(labels: list[str], prompt: str, width: int, preselect: int | None = None) -> str | None:
+    """Show walker --dmenu and return the selected label, or None."""
+    cmd = ["walker", "--dmenu", "--minwidth", str(width), "-p", prompt]
+    if preselect is not None:
+        cmd += ["-c", str(preselect)]
+
+    result = subprocess.run(
+        cmd,
+        input="\n".join(labels),
+        text=True,
+        capture_output=True,
+    )
+    selected = result.stdout.strip()
+    return selected if selected else None
+
+
+def resolve_items(node: dict) -> list[dict] | None:
+    """Return the item list, evaluating shell commands for dynamic menus."""
+    items = node.get("items")
+    if items is None:
+        return None
+    if isinstance(items, str):
+        result = subprocess.run(items, shell=True, text=True, capture_output=True)
+        if result.returncode != 0 or not result.stdout.strip():
+            return None
+        return json.loads(result.stdout)
+    return items  # already a list
+
+
+def _terminal_class(large: bool) -> str:
+    return "floating-tui-large" if large else "floating-tui"
+
+
+def run_command(cmd: str, terminal: bool | dict, repeat: bool) -> None:
+    if terminal:
+        large = isinstance(terminal, dict) and terminal.get("large", False)
+        cls = _terminal_class(large)
+        subprocess.Popen([
+            "kitty", "--class", cls, "--title", cmd,
+            "bash", "-c", f'{cmd}; echo; echo -n "Press enter to close..."; read',
+        ])
+    elif repeat:
+        subprocess.run(cmd, shell=True)
+    else:
+        # Replace current process
+        os.execvp("bash", ["bash", "-c", f"exec {cmd}"])
+
+
+def show_menu(
+    node: Any,
+    parent_node: Any = None,
+    allow_repeat: bool = True,
+) -> None:
+    if not isinstance(node, dict):
         return
-    fi
 
-    local segment="${path%%.*}"
-    local rest="${path#*.}"
-    [[ "$rest" == "$segment" ]] && rest=""
+    prompt: str = node.get("prompt", "Menu")
+    width: int = node.get("width", 295)
 
-    local child
-    child=$(echo "$node" | jq -r --arg s "$segment" '
-        .items // [] | map(select(
-            (.label | gsub("^[^a-zA-Z]+"; "") | ltrimstr(" ") | ascii_downcase) as $clean |
-            ($s | ascii_downcase) as $search |
-            $clean | startswith($search)
-        )) | first // empty
-    ')
-
-    if [[ -z "$child" || "$child" == "null" ]]; then
-        echo "$node"
+    items = resolve_items(node)
+    if not items:
         return
-    fi
 
-    resolve_path "$child" "$rest"
-}
-
-show_menu() {
-    local node="$1"
-    local parent_node="$2"
-
-    local prompt width
-    prompt=$(echo "$node" | jq -r '.prompt // "Menu"')
-    width=$(echo "$node" | jq -r '.width // 295')
-
-    # Dynamic items: if items is a string, run it as a command to get JSON array
-    local items_type
-    items_type=$(echo "$node" | jq -r '.items | type // "null"')
-    if [[ "$items_type" == "string" ]]; then
-        local items_cmd
-        items_cmd=$(echo "$node" | jq -r '.items')
-        local dynamic_items
-        dynamic_items=$(eval "$items_cmd" 2>/dev/null)
-        [[ -z "$dynamic_items" ]] && return
-        node=$(echo "$node" | jq --argjson items "$dynamic_items" '.items = $items')
-    fi
-
-    local labels
-    labels=$(echo "$node" | jq -r '.items[]?.label')
-
-    if [[ -z "$labels" ]]; then
+    labels = [item.get("label", "") for item in items if isinstance(item, dict)]
+    if not labels:
         return
-    fi
 
-    # Preselect current value if a "current" command is defined
-    local walker_args=()
-    local current_cmd
-    current_cmd=$(echo "$node" | jq -r '.current // empty')
-    if [[ -n "$current_cmd" ]]; then
-        local current_val
-        current_val=$(eval "$current_cmd" 2>/dev/null)
-        if [[ -n "$current_val" ]]; then
-            local idx
-            idx=$(echo "$labels" | grep -nxF "$current_val" | head -1 | cut -d: -f1)
-            [[ -n "$idx" ]] && walker_args+=(-c "$idx")
-        fi
-    fi
+    # Preselect the current value if a "current" command is defined
+    preselect: int | None = None
+    current_cmd: str | None = node.get("current")
+    if current_cmd:
+        result = subprocess.run(current_cmd, shell=True, text=True, capture_output=True)
+        current_val = result.stdout.strip()
+        if current_val and current_val in labels:
+            preselect = labels.index(current_val)
 
-    local selection
-    selection=$(echo "$labels" | walker --dmenu --minwidth "$width" -p "$prompt" "${walker_args[@]}" 2>/dev/null)
+    selection = walker_dmenu(labels, prompt, width, preselect)
 
-    if [[ -z "$selection" ]]; then
-        [[ -n "$parent_node" ]] && show_menu "$parent_node"
+    if selection is None:
+        if parent_node is not None:
+            show_menu(parent_node, allow_repeat=allow_repeat)
         return
-    fi
 
-    local selected
-    selected=$(echo "$node" | jq --arg sel "$selection" '.items[] | select(.label == $sel)')
+    selected = next((item for item in items if item.get("label") == selection), None)
 
-    if [[ -z "$selected" ]]; then
-        show_menu "$node" "$parent_node"
-    fi
+    if selected is None:
+        show_menu(node, parent_node, allow_repeat)
+        return
 
-    local has_items
-    has_items=$(echo "$selected" | jq 'has("items")')
+    if "items" in selected:
+        child = dict(selected)
+        child.setdefault("width", width)
+        show_menu(child, node, allow_repeat)
+    else:
+        cmd: str | None = selected.get("exec")
 
-    if [[ "$has_items" == "true" ]]; then
-        # Inherit parent width/prompt if not set
-        local child
-        child=$(echo "$selected" | jq --argjson w "$width" '
-            if .width == null then .width = $w else . end
-        ')
-        show_menu "$child" "$node"
-    else
-        local cmd terminal_mode repeat
-        cmd=$(echo "$selected" | jq -r '.exec // empty')
-        terminal_mode=$(echo "$selected" | jq -r '.terminal // false')
-        repeat=$([[ "$ALLOW_REPEAT" == "true" ]] && echo "$node" | jq -r '.repeat // false' || echo false)
+        terminal = selected.get("terminal", False)
+        if not isinstance(terminal, (bool, dict)):
+            terminal = False
 
-        if [[ -n "$cmd" ]]; then
-            if [[ "$terminal_mode" == "true" ]]; then
-                kitty --class floating-tui --title "$cmd" bash -c "$cmd; echo; echo -n 'Press enter to close...'; read"
-            elif [[ "$repeat" == "true" ]]; then
-                eval "$cmd"
-            else
-                eval exec $cmd
-            fi
-        fi
+        repeat = allow_repeat and bool(node.get("repeat", False))
 
-        if [[ "$repeat" == "true" ]]; then
-            show_menu "$node" "$parent_node"
-        fi
-    fi
-}
+        if cmd:
+            run_command(cmd, terminal, repeat)
 
-# Toggle: close existing menu if open
-if pgrep -f "walker.*--dmenu" >/dev/null 2>&1; then
-    # Kill other menu instances so back-navigation doesn't reopen walker
-    pgrep -f "bash.*/.config/menu/menu" | grep -v "^$$\$" | xargs -r kill 2>/dev/null
-    walker --close >/dev/null 2>&1
-    exit 0
-fi
+        if repeat:
+            show_menu(node, parent_node, allow_repeat)
 
-load_config
+def kill_existing() -> bool:
+    """Return True if an existing walker --dmenu was found and killed."""
+    result = subprocess.run(
+        ["pgrep", "-f", "walker.*--dmenu"],
+        capture_output=True, text=True,
+    )
+    if not result.stdout.strip():
+        return False
 
-# Parse arguments
-while [[ $# -gt 0 ]]; do
-    case "$1" in
-        --no-repeat) ALLOW_REPEAT=false; shift ;;
-        --go) GO_PATH="$2"; shift 2 ;;
-        *) shift ;;
-    esac
-done
+    # Kill other menu script instances
+    my_pid = str(os.getpid())
+    procs = subprocess.run(
+        ["pgrep", "-f", r"python.*menu\.py"],
+        capture_output=True, text=True,
+    ).stdout.splitlines()
+    for pid in procs:
+        if pid.strip() and pid.strip() != my_pid:
+            subprocess.run(["kill", pid.strip()], check=False)
 
-if [[ -n "${GO_PATH:-}" ]]; then
-    node=$(resolve_path "$(echo "$MENU_JSON")" "$GO_PATH")
-    show_menu "$node"
-else
-    show_menu "$MENU_JSON"
-fi
+    subprocess.run(["walker", "--close"], capture_output=True)
+    return True
+
+
+def parse_args(argv: list[str]) -> tuple[bool, str | None]:
+    allow_repeat = True
+    go_path: str | None = None
+    i = 0
+    while i < len(argv):
+        if argv[i] == "--no-repeat":
+            allow_repeat = False
+        elif argv[i] == "--go" and i + 1 < len(argv):
+            go_path = argv[i + 1]
+            i += 1
+        i += 1
+    return allow_repeat, go_path
+
+
+def main() -> None:
+    if kill_existing():
+        sys.exit(0)
+
+    config = load_config(CONFIG_PATH)
+    allow_repeat, go_path = parse_args(sys.argv[1:])
+
+    if go_path:
+        node = resolve_path(config, go_path)
+        show_menu(node, allow_repeat=allow_repeat)
+    else:
+        show_menu(config, allow_repeat=allow_repeat)
+
+
+if __name__ == "__main__":
+    main()

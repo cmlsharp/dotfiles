@@ -1,0 +1,73 @@
+#!/bin/bash
+# modified version of https://github.com/elrondforwin/pack
+
+cache_dir="${XDG_CACHE_HOME:-$HOME/.cache}/pack"
+mkdir -p "$cache_dir"
+cache_file="$cache_dir/cache"
+
+check_aur_helper() {
+  if command -v paru &>/dev/null; then
+    helper="paru"
+  elif command -v yay &>/dev/null; then
+    helper="yay"
+  else
+    echo "Error: pack requires 'paru' or 'yay' for AUR operations."
+    echo "Please install one manually:"
+    echo "  yay:  git clone https://aur.archlinux.org/yay.git  && cd yay  && makepkg -si"
+    echo "  paru: git clone https://aur.archlinux.org/paru.git && cd paru && makepkg -si"
+    exit 1
+  fi
+}
+
+fzf_pick() {
+  local preview_cmd="${1:-$helper -Qi {1}}"; shift
+  fzf --multi \
+    --preview "$preview_cmd" \
+    --preview-window 'right:50%:wrap:border-bold' \
+    --bind 'alt-p:toggle-preview' \
+    --bind 'alt-d:preview-half-page-down,alt-u:preview-half-page-up' \
+    --bind 'alt-k:preview-up,alt-j:preview-down' \
+    --padding 2% \
+    "$@"
+}
+
+check_aur_cache() {
+  local ttl=432000  # 5 days
+  local age=$(( $(date +%s) - $(stat -c %Y "$cache_file" 2>/dev/null || echo 0) ))
+  [[ ! -f "$cache_file" || $age -gt $ttl ]] && create_aur_cache
+}
+
+create_aur_cache() {
+  echo "Creating cache..."
+  if $helper -Sl | awk '{print $1"/"$2}' >"$cache_file.tmp" 2>/dev/null; then
+    mv "$cache_file.tmp" "$cache_file"
+    echo "Successfully created cache."
+  else
+    echo "Failed to fetch package list. Is AUR down?"
+    rm -f "$cache_file.tmp"
+    return 1
+  fi
+}
+
+pack_install() {
+  check_aur_cache
+  local pkgs
+  pkgs=$(fzf_pick "echo 'alt-p: toggle description, alt-j/k: scroll'; echo; $helper -Sii {1}" \
+    --header "Select packages to install" < "$cache_file")
+  [[ -n $pkgs ]] && $helper -S $pkgs
+}
+
+pack_remove() {
+  local source="$1"  # command to generate the package list
+  local pkgs
+  pkgs=$($source | fzf_pick)
+  [[ -n $pkgs ]] && $helper -Rns $pkgs
+}
+
+check_aur_helper
+
+case $1 in
+  install)          pack_install ;;
+  remove|uninstall) pack_remove "$helper -Qq" ;;
+  *) echo "Usage: pack install | remove | uninstall | update" ;;
+esac

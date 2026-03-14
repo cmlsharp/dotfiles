@@ -130,13 +130,8 @@
           "items": [
             {
               "label": "󰣇  Package",
-              "exec": "~/.local/bin/pkg-install",
-              "terminal": true
-            },
-            {
-              "label": "󰣇  AUR",
-              "exec": "~/.local/bin/pkg-install-aur",
-              "terminal": true
+              "exec": "~/.local/bin/pack install",
+              "terminal": {"large": true}
             },
             {
               "label": "  TUI Shortcut",
@@ -177,8 +172,8 @@
           "items": [
             {
               "label": "  Package",
-              "exec": "~/.local/bin/pkg-remove",
-              "terminal": true
+              "exec": "~/.local/bin/pack remove",
+              "terminal": {"large": true}
             },
             {
               "label": "  Web App",
