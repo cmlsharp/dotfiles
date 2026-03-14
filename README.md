@@ -1,6 +1,6 @@
 # dotfiles
 
-Personal dotfiles for Arch Linux with Sway/Wayland, managed with [GNU Stow](https://www.gnu.org/software/stow/).
+Personal dotfiles for Arch Linux with Hyprland/Wayland, managed with [GNU Stow](https://www.gnu.org/software/stow/) using `--dotfiles` mode (`dot-` prefix maps to `.` when stowed).
 
 ## Stow packages
 
@@ -8,17 +8,17 @@ Each top-level directory is a stow package whose contents mirror `$HOME`.
 
 | Package | Contents |
 |---------|----------|
-| `zsh` | `.zshrc` |
-| `fish` | `.config/fish/` |
-| `tmux` | `.tmux.conf` |
-| `nvim` | `.config/nvim/`, `.config/zathura/` |
+| `fish` | Fish shell config, Starship prompt, tmux, sesh-picker |
 | `gdb` | `.gdbinit` |
-| `mutt` | `.muttrc`, `.mailcap`, `.mutt/`, `.abookrc` |
-| `sway` | `.config/sway/`, `.config/waybar/`, `.config/swaync/`, `.config/swaylock/`, `.config/swayr/`, `.config/wlogout/`, `.config/foot/`, `.config/kitty/`, `.config/btop/`, `.config/environment.d/`, `.config/mako/`, `.config/systemd/` |
+| `git` | Git config |
+| `hyprland` | Hyprland, Waybar, SwayNC, kitty, rofi, walker, btop, menu system, theming engine, screen recording, scripts |
+| `mutt` | Neomutt, mailcap, abook |
+| `nvim` | Neovim config (lazy.nvim), zathura |
+| `zsh` | Zsh config, Powerlevel10k |
 
 Non-stow directories:
 - `greetd/` — copied to `/etc/greetd/` with sudo (stow can't target `/etc`)
-- `grub/` — GRUB configuration
+- `grub/` — GRUB theme, copied with sudo
 
 ## Installation
 
@@ -28,22 +28,21 @@ cd ~/.dotfiles
 ./setup.sh
 ```
 
-The setup script installs packages (pacman + AUR), stows all dotfile packages, configures greetd, and sets up systemd user services.
+The setup script installs packages (pacman + AUR), stows all dotfile packages, configures greetd, GTK/Qt theming, and sets up systemd user services.
 
 ## Usage
 
 Stow a single package:
 ```bash
-cd ~/.dotfiles
-stow -t ~ <package>
+stow --dotfiles -d ~/.dotfiles/<package> -t ~ stow
 ```
 
 Restow (repair symlinks):
 ```bash
-stow -t ~ -R <package>
+stow --dotfiles -R -d ~/.dotfiles/<package> -t ~ stow
 ```
 
 Unstow:
 ```bash
-stow -t ~ -D <package>
+stow --dotfiles -D -d ~/.dotfiles/<package> -t ~ stow
 ```
