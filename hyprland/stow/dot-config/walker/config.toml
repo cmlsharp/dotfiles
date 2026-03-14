@@ -1,0 +1,57 @@
+force_keyboard_focus = true
+selection_wrap = true
+theme = "omarchy"
+hide_action_hints = false
+
+[placeholders]
+"default" = { input = " Search...", list = "No Results" } # placeholders for input and empty list, key is the providers name, so f.e. "desktopapplications" or "menus:other"
+
+[keybinds]
+quick_activate = []
+
+[columns]
+symbols = 1
+
+[providers]
+max_results = 256
+default = [
+    "desktopapplications",
+    "websearch",
+]
+
+[[providers.prefixes]]
+prefix = "/"
+provider = "providerlist"
+
+[[providers.prefixes]]
+prefix = "."
+provider = "files"
+
+[[providers.prefixes]]
+prefix = ":"
+provider = "symbols"
+
+[[providers.prefixes]]
+prefix = "="
+provider = "calc"
+
+[[providers.prefixes]]
+prefix = "@"
+provider = "websearch"
+
+[[providers.prefixes]]
+prefix = "$"
+provider = "clipboard"
+
+[providers.actions]
+symbols = [
+    { action = "run_cmd", label = "Type", bind = "Return", default = true },
+]
+bitwarden = [
+    { action = "typepassword", label = "Type Password", bind = "Return", default = true },
+    { action = "typeusername", label = "Type Username", bind = "ctrl u" },
+    { action = "copypassword", label = "Copy Password", bind = "ctrl Return" },
+    { action = "copyusername", label = "Copy Username", bind = "ctrl shift u" },
+    { action = "copytotp", label = "Copy TOTP", bind = "ctrl t" },
+    { action = "syncvault", label = "Sync Vault", bind = "ctrl s", global = true },
+]

@@ -1,0 +1,3 @@
+#!/bin/bash
+~/.local/bin/theme-set --list | jq -R --arg cmd "~/.local/bin/theme-set" \
+    '[., {"label": ., "exec": "\($cmd) \(.)"}] | .[1]' | jq -s '.'

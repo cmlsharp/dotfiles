@@ -1,0 +1,26 @@
+@import url("/home/chad/.config/theme/current/colors.css");
+
+window {
+    border-radius: 0;
+    opacity: 0.97;
+    border: 2px solid @accent;
+    background-color: @background;
+}
+
+label {
+    font-family: 'JetBrainsMono Nerd Font';
+    font-size: 11pt;
+    color: @foreground;
+}
+
+image {
+    color: @foreground;
+}
+
+progressbar {
+    border-radius: 0;
+}
+
+progress {
+    background-color: @accent;
+}

@@ -30,4 +30,4 @@ install_official "${OFFICIAL_PKGS[@]}"
 # Pre-create directory so stow symlinks files, not directories
 mkdir -p ~/.config/nvim
 
-stow -d "$PKG_DIR" -t "$HOME" stow
+stow --dotfiles -d "$PKG_DIR" -t "$HOME" stow

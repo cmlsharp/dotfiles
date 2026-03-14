@@ -1,0 +1,210 @@
+
+if [[ -z "$TMUX" &&  -n "$DISPLAY" ]] && command -v sesh &> /dev/null; then
+    exec sesh-picker
+elif [[ -z "$TMUX" ]] && command -v tmux &>/dev/null; then
+    exec tmux
+fi
+
+
+if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+fi
+
+
+ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
+
+if [[ ! -d "$ZINIT_HOME" ]]; then
+    mkdir -p "$(dirname "$ZINIT_HOME")"
+    git clone https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
+fi
+
+source "${ZINIT_HOME}/zinit.zsh"
+
+
+zinit ice depth=1; zinit light romkatv/powerlevel10k
+zinit light zsh-users/zsh-syntax-highlighting
+zinit light zsh-users/zsh-completions
+zinit light zsh-users/zsh-autosuggestions
+zinit light Aloxaf/fzf-tab
+ZVM_SYSTEM_CLIPBOARD_ENABLED=true
+ZVM_VI_INSERT_ESCAPE_BINDKEY=jk
+zinit ice depth=1; zinit light jeffreytse/zsh-vi-mode
+
+zinit snippet OMZP::command-not-found
+
+autoload -Uz compinit && compinit
+
+zinit cdreplay -q
+
+
+HISTSIZE=50000
+HISTFILE=~/.zsh_history
+SAVEHIST=$HISTSIZE
+setopt appendhistory
+setopt sharehistory
+setopt hist_ignore_space
+setopt hist_ignore_all_dups
+setopt hist_save_no_dups
+setopt hist_ignore_dups
+setopt hist_find_no_dups
+setopt hist_expire_dups_first
+setopt auto_cd
+
+if command -v eza &> /dev/null; then
+    alias ls='eza -F --group-directories-first'
+else
+    alias ls='ls --color -F --group-directories-first'
+fi
+
+
+typeset -U path
+
+path=(
+  $HOME/.cargo/bin
+  $HOME/.cabal/bin
+  $HOME/.local/bin
+  $HOME/bin
+  $HOME/.ghcup/bin
+  /usr/local/texlive/2025/bin/x86_64-linux
+  $path
+)
+
+# Completion styling
+zstyle ':completion:*' matcher-list 'm:{a-z}={A-Za-z}'
+zstyle ':completion:*' list-colors "${(s.:.)LS_COLORS}"
+zstyle ':completion:*' menu no
+zstyle ':fzf-tab:complete:cd:*' fzf-preview 'eza --color=always $realpath'
+zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'eza --color=always $realpath'
+zstyle ':completion:*' use-cache on
+zstyle ':completion:*' cache-path ~/.cache/zsh
+
+
+if [[ -z "$SSH_AUTH_SOCK" || ! -S "$SSH_AUTH_SOCK" ]] && [[ -n "$DISPLAY" || -n "$WAYLAND_DISPLAY" ]]; then
+    eval "$(gnome-keyring-daemon --start --components=ssh 2>/dev/null)"
+fi
+
+if command -v nvim &> /dev/null; then
+    export EDITOR=nvim
+    alias vim=nvim
+    alias vi=nvim
+elif command -v vim &> /dev/null; then
+    export EDITOR=vim
+    alias vi=vim
+else
+    export EDITOR=vi
+fi
+
+alias ivm=vim
+alias svim=sudoedit
+alias claude='CLAUDE_CONFIG_DIR=~/.claude-personal CLAUDE_ACCOUNT=personal command claude'
+alias claude-work='CLAUDE_CONFIG_DIR=~/.claude-work CLAUDE_ACCOUNT=work command claude'
+
+
+if command -v zen-browser &> /dev/null; then
+    export BROWSER=zen-browser
+else
+    export BROWSER=firefox
+fi
+
+alias r='source ~/.zshrc'
+alias l='ls -lh'
+alias ll='ls -lh'
+alias la='ls -lAh'
+alias sl=ls
+
+alias mutt="TERM=xterm-direct neomutt"
+
+alias pacupg='sudo pacman -Syu'
+alias pacreps='pacman -Ss'
+alias pacre='sudo pacman -R'
+alias pacrem='sudo pacman -Rns'
+alias pacremc='sudo pacman -Rnsc'
+alias pacloc='pacman -Qi'
+alias paclocs='pacman -Qs'
+alias pacfile='pacman -Ql'
+alias paclo='pacman -Qdt'
+alias pacc='sudo pacman -Sc'
+alias pacin='sudo pacman -S'
+
+up() {
+    local n=${1:-1}
+    local dir=""
+    for ((i=0;i<n;i++)); do
+        dir+="../"
+    done
+    cd "$dir" || return
+}
+
+open() {
+    if (( $# == 0 )); then
+        echo "At least one argument required"
+        return 1
+    fi
+
+    local arg
+    for arg in "$@"; do
+        if [[ -e "$arg" ]]; then
+            xdg-open "$arg" >/dev/null 2>&1 &
+        else
+            echo "Argument '$arg' does not exist"
+        fi
+    done
+}
+
+extract() {
+    if (( $# == 0 )); then
+        echo "Usage: extract [file ...]"
+        return 1
+    fi
+
+    local file
+    for file in "$@"; do
+        if [[ ! -f "$file" ]]; then
+            echo "extract: '$file' is not a valid file"
+            continue
+        fi
+
+        case "$file" in
+            *.tar.gz|*.tgz)       tar xvzf "$file" ;;
+            *.tar.bz2|*.tbz|*.tbz2) tar xvjf "$file" ;;
+            *.tar.xz|*.txz)       tar --xz -xvf "$file" ;;
+            *.tar.zst)            tar -I zstd -xvf "$file" ;;
+            *.tar)                tar xvf "$file" ;;
+            *.gz)                 gunzip "$file" ;;
+            *.bz2)                bunzip2 "$file" ;;
+            *.xz)                 unxz "$file" ;;
+            *.zip|*.war|*.jar)    unzip "$file" ;;
+            *.rar)                unrar x -ad "$file" ;;
+            *.7z)                 7za x "$file" ;;
+            *)                    echo "extract: '$file' cannot be extracted" ;;
+        esac
+    done
+}
+
+alias x='extract'
+alias c='clear'
+alias zshrc="$EDITOR ~/.zshrc"
+
+if command -v fzf &>/dev/null; then
+    export FZF_DEFAULT_OPTS='--height 40% --border top'
+    export FZF_CTRL_T_COMMAND='fd --type f --hidden --follow --exclude .git'
+    export FZF_CTRL_T_OPTS='--preview "bat --color=always --style=numbers {}"'
+    export FZF_ALT_C_COMMAND='fd --type d --hidden --follow --exclude .git'
+fi
+
+fzf-edit-widget() {
+    local file
+    file=$(fd --type f --hidden --follow --exclude .git | fzf) && ${EDITOR:-vim} "$file"
+    zle reset-prompt
+}
+zle -N fzf-edit-widget
+
+function zvm_after_init() {
+    eval "$(fzf --zsh)"
+    bindkey '^e' fzf-edit-widget
+}
+
+eval "$(zoxide init --cmd cd zsh)"
+
+# To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
+[[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh

@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:blog.diovani.com)",
+      "WebFetch(domain:github.com)",
+      "WebFetch(domain:tecosaur.github.io)",
+      "WebSearch"
+    ]
+  }
+}

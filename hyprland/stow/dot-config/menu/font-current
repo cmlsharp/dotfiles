@@ -1,0 +1,2 @@
+#!/bin/bash
+grep -oP 'font_family\s+\K.*' ~/.config/kitty/kitty.conf | head -1

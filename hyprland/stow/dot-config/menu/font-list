@@ -1,0 +1,8 @@
+#!/bin/bash
+
+# Outputs available monospace fonts as JSON menu items for the menu system.
+
+fc-list :spacing=100 -f "%{family[0]}\n" | grep -vi -E 'emoji|signwriting' | sort -u | \
+    jq -R --arg exec "~/.config/hypr/scripts/font-set" \
+    '[., {"label": ., "exec": "\($exec) \(. | @sh)"}] | .[1]' | \
+    jq -s '.'

@@ -1,0 +1,152 @@
+@import url("/home/chad/.config/theme/current/colors.css");
+
+* {
+    border: none;
+    border-radius: 0;
+    font-family: monospace;
+    font-size: 13px;
+    box-shadow: none;
+    text-shadow: none;
+    transition-duration: 0s;
+    min-height: 0;
+}
+
+window {
+    color: @foreground;
+    background: @mantle;
+}
+
+tooltip {
+    background: @mantle;
+    border: 1px solid @surface1;
+    color: @foreground;
+}
+
+tooltip label {
+    color: @foreground;
+    padding: 2px 4px;
+}
+
+#workspaces {
+    margin: 0 5px;
+}
+
+#workspaces button {
+    padding: 0 5px;
+    margin-right: 1px;
+    color: alpha(@subtext0, 0.4);
+}
+
+#workspaces button:not(.empty) {
+    border-top: 3px solid alpha(@subtext0, 0.4);
+}
+
+#workspaces button.visible {
+    color: @subtext1;
+}
+
+#workspaces button.focused,
+#workspaces button.active {
+    color: @foreground;
+    border-top: 3px solid @foreground;
+}
+
+#workspaces button.urgent {
+    color: @red;
+    border-top: 3px solid @red;
+}
+
+#cpu,
+#battery,
+#pulseaudio,
+#custom-power,
+#custom-weather,
+#idle_inhibitor,
+#backlight,
+#memory,
+#bluetooth,
+#network,
+#custom-notification,
+#custom-screenrecord-indicator,
+#custom-expand-icon,
+#tray,
+#mode {
+    min-width: 40px;
+    -GtkLabel-align: center;
+    margin: 0;
+    color: @foreground;
+}
+
+#custom-weather {
+    margin-right: 10px;
+    margin-left: 14px;
+}
+
+#clock {
+    margin: 0px 16px 0px 10px;
+    min-width: 140px;
+}
+
+#window {
+    color: @foreground;
+    font-style: italic;
+}
+
+#window.empty {
+    padding: 0;
+    margin: 0;
+    min-width: 0;
+}
+
+#scratchpad {
+    margin: 0px 6px 0px 10px;
+    color: @overlay0;
+}
+
+#mpris {
+    margin: 0px 6px 0px 10px;
+    color: @foreground;
+}
+
+#battery.warning {
+    color: @yellow;
+}
+
+#battery.critical {
+    color: @red;
+}
+
+#network.disconnected,
+#pulseaudio.muted,
+#idle_inhibitor.deactivated,
+#bluetooth.disabled {
+    color: @overlay0;
+}
+
+#idle_inhibitor.activated {
+    color: @foreground;
+}
+
+#custom-power {
+    color: @foreground;
+}
+
+#custom-screenrecord-indicator {
+    min-width: 12px;
+    margin-left: 5px;
+    margin-right: 0;
+    font-size: 10px;
+    padding-bottom: 1px;
+}
+
+#custom-screenrecord-indicator.active {
+    color: @red;
+}
+
+#tray>.passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray>.needs-attention {
+    -gtk-icon-effect: highlight;
+}

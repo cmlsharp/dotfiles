@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# Set system-wide monospace font across kitty, hyprlock, waybar, swayosd, fontconfig.
+# Usage: font-set <font-name>
+
+apply_font() {
+  local font_name="$1"
+
+  # Kitty
+  sed -i "s/^font_family .*/font_family $font_name/" ~/.config/kitty/kitty.conf
+  pkill -USR1 kitty 2>/dev/null
+
+  # Hyprlock
+  sed -i "s/^\\\$font = .*/\$font = $font_name/" ~/.config/hypr/hyprlock.conf
+
+  # SwayOSD
+  sed -i "s/font-family: .*/font-family: '$font_name';/" ~/.config/swayosd/style.css
+
+  # Fontconfig
+  if command -v xmlstarlet &>/dev/null; then
+    xmlstarlet ed -L \
+      -u '//match[@target="pattern"][test/string="monospace"]/edit[@name="family"]/string' \
+      -v "$font_name" \
+      ~/.config/fontconfig/fonts.conf
+  fi
+
+  # Restart services
+  killall waybar 2>/dev/null; setsid uwsm-app -- waybar &>/dev/null &
+  pkill -x swayosd-server 2>/dev/null; setsid uwsm-app -- swayosd-server &>/dev/null &
+  swaync-client --reload-config && swaync-client -rs
+
+  notify-send "Font" "Switched to $font_name"
+}
+
+if [[ -z "$1" ]]; then
+  echo "Usage: font-set <font-name>"
+  exit 1
+fi
+
+if fc-list | grep -iq "$1"; then
+  apply_font "$1"
+else
+  echo "Font '$1' not found."
+  exit 1
+fi

@@ -16,4 +16,4 @@ OFFICIAL_PKGS=(
 
 install_official "${OFFICIAL_PKGS[@]}"
 
-stow -d "$PKG_DIR" -t "$HOME" stow
+stow --dotfiles -d "$PKG_DIR" -t "$HOME" stow

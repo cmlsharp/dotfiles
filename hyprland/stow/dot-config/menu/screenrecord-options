@@ -1,0 +1,24 @@
+#!/bin/bash
+
+# Outputs JSON menu items for available webcam devices.
+# Used as a dynamic items source in menu.json.
+
+devices=$(v4l2-ctl --list-devices 2>/dev/null | while IFS= read -r line; do
+    if [[ $line != $'\t'* && -n $line ]]; then
+        name="$line"
+        IFS= read -r device || break
+        device=$(echo "$device" | tr -d '\t' | head -1)
+        [[ -n $device ]] && printf '%s\t%s\n' "$device" "$name"
+    fi
+done)
+
+[[ -z "$devices" ]] && exit 0
+
+items="[]"
+while IFS=$'\t' read -r dev name; do
+    [[ -z $dev ]] && continue
+    items=$(echo "$items" | jq --arg label "  $name" --arg dev "$dev" \
+        '. + [{"label": $label, "exec": "~/.config/hypr/scripts/screenrecord.sh --with-desktop-audio --with-microphone-audio --with-webcam --webcam-device=\($dev)"}]')
+done <<< "$devices"
+
+echo "$items"

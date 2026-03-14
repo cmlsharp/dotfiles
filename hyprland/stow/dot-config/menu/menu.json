@@ -1,0 +1,394 @@
+{
+  "prompt": "Menu",
+  "width": 400,
+  "items": [
+    {
+      "label": "󰀻  Launcher",
+      "exec": "~/.config/hypr/scripts/launch-walker"
+    },
+    {
+      "label": "  Style",
+      "prompt": "Style",
+      "items": [
+        {
+          "label": "󰸌  Theme",
+          "prompt": "Theme",
+          "current": "~/.config/menu/theme-current",
+          "repeat": true,
+          "items": "~/.config/menu/theme-list"
+        },
+        {
+          "label": "  Background",
+          "exec": "~/.local/bin/theme-set --bg-next"
+        },
+        {
+          "label": "  Font",
+          "prompt": "Font",
+          "current": "~/.config/menu/font-current",
+          "repeat": true,
+          "width": 350,
+          "items": "~/.config/menu/font-list"
+        }
+      ]
+    },
+    {
+      "label": "  Capture",
+      "prompt": "Capture",
+      "items": [
+        {
+          "label": "󰹑  Screenshot",
+          "exec": "~/.local/bin/screenshot"
+        },
+        {
+          "label": "  Screen Record",
+          "prompt": "Screen Record",
+          "items": [
+            {
+              "label": "No audio",
+              "exec": "~/.config/hypr/scripts/screenrecord.sh"
+            },
+            {
+              "label": "Desktop audio",
+              "exec": "~/.config/hypr/scripts/screenrecord.sh --with-desktop-audio"
+            },
+            {
+              "label": "Desktop + microphone",
+              "exec": "~/.config/hypr/scripts/screenrecord.sh --with-desktop-audio --with-microphone-audio"
+            },
+            {
+              "label": "Desktop + mic + webcam",
+              "prompt": "Select Webcam",
+              "items": "~/.config/menu/screenrecord-options"
+            }
+          ]
+        },
+        {
+          "label": "󰃉  Color Picker",
+          "exec": "hyprpicker -a"
+        },
+        {
+          "label": "  Share Clipboard",
+          "exec": "~/.config/hypr/scripts/share clipboard"
+        },
+        {
+          "label": "  Share File",
+          "exec": "~/.config/hypr/scripts/share file",
+          "terminal": true
+        },
+        {
+          "label": "  Share Folder",
+          "exec": "~/.config/hypr/scripts/share folder",
+          "terminal": true
+        }
+      ]
+    },
+    {
+      "label": "  Toggle",
+      "prompt": "Display",
+      "items": [
+        {
+          "label": "󰔎  Nightlight",
+          "exec": "~/.local/bin/toggle-nightlight"
+        },
+        {
+          "label": "󱁐  Gaps",
+          "exec": "~/.config/hypr/scripts/toggle-gaps.sh"
+        },
+        {
+          "label": "󰪏  Animations",
+          "exec": "~/.config/hypr/scripts/toggle-animations.sh"
+        },
+        {
+          "label": "󱂬  Workspace Layout",
+          "exec": "~/.config/hypr/scripts/toggle-layout.sh"
+        },
+        {
+          "label": "󰨤  1-Window Ratio",
+          "exec": "~/.config/hypr/scripts/toggle-aspect-ratio"
+        },
+        {
+          "label": "󰍹  Display Scaling",
+          "exec": "~/.config/hypr/scripts/cycle-scale.sh"
+        },
+        {
+          "label": "󰍜  Top Bar",
+          "exec": "~/.config/hypr/scripts/toggle-waybar.sh"
+        },
+        {
+          "label": "󰂛  Do Not Disturb",
+          "exec": "swaync-client -d"
+        }
+      ]
+    },
+    {
+      "label": "󰏗  Packages",
+      "prompt": "Packages",
+      "items": [
+        {
+          "label": "󰉉  Install",
+          "prompt": "Install",
+          "items": [
+            {
+              "label": "󰣇  Package",
+              "exec": "~/.local/bin/pkg-install",
+              "terminal": true
+            },
+            {
+              "label": "󰣇  AUR",
+              "exec": "~/.local/bin/pkg-install-aur",
+              "terminal": true
+            },
+            {
+              "label": "  TUI Shortcut",
+              "exec": "~/.config/hypr/scripts/tui-install",
+              "terminal": true
+            },
+            {
+              "label": "  Web App",
+              "exec": "~/.config/hypr/scripts/webapp-install",
+              "terminal": true
+            },
+            {
+              "label": "󰍲  Virtual Machine",
+              "exec": "~/.local/bin/vmmgr install",
+              "terminal": true
+            }
+          ]
+        },
+        {
+          "label": "󰚰  Update",
+          "prompt": "Update",
+          "items": [
+            {
+              "label": "󰣇  System Update",
+              "exec": "paru -Syu",
+              "terminal": true
+            },
+            {
+              "label": "  Firmware",
+              "exec": "fwupdmgr update",
+              "terminal": true
+            }
+          ]
+        },
+        {
+          "label": "  Remove",
+          "prompt": "Remove",
+          "items": [
+            {
+              "label": "  Package",
+              "exec": "~/.local/bin/pkg-remove",
+              "terminal": true
+            },
+            {
+              "label": "  Web App",
+              "exec": "~/.config/hypr/scripts/webapp-remove",
+              "terminal": true
+            },
+            {
+              "label": "  TUI Shortcut",
+              "exec": "~/.config/hypr/scripts/tui-remove",
+              "terminal": true
+            },
+            {
+              "label": "󰍲  Virtual Machine",
+              "exec": "~/.local/bin/vmmgr remove",
+              "terminal": true
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "  Settings",
+      "prompt": "Settings",
+      "items": [
+        {
+          "label": "  Audio",
+          "exec": "~/.config/hypr/scripts/toggle-launch.sh wiremix"
+        },
+        {
+          "label": "  Wifi",
+          "exec": "~/.config/hypr/scripts/toggle-launch.sh wlctl"
+        },
+        {
+          "label": "󰂯  Bluetooth",
+          "exec": "~/.config/hypr/scripts/toggle-launch.sh bluetui"
+        },
+        {
+          "label": "󰍹  Monitors",
+          "exec": "uwsm-app -- nwg-displays"
+        },
+        {
+          "label": "󰇖  DNS",
+          "exec": "~/.config/hypr/scripts/setup-dns",
+          "terminal": true
+        },
+        {
+          "label": "󱐋  Power Profile",
+          "exec": "~/.config/hypr/scripts/power-profile-cycle"
+        },
+        {
+          "label": "  Timezone",
+          "exec": "~/.config/hypr/scripts/tz-select",
+          "terminal": true
+        },
+        {
+          "label": "  Time Sync",
+          "exec": "sudo systemctl restart systemd-timesyncd",
+          "terminal": true
+        },
+        {
+          "label": "󰟵  Password",
+          "prompt": "Change Password",
+          "items": [
+            {
+              "label": "󰟵  User Password",
+              "exec": "passwd",
+              "terminal": true
+            },
+            {
+              "label": "  Drive Encryption",
+              "exec": "~/.config/hypr/scripts/drive-set-password",
+              "terminal": true
+            }
+          ]
+        },
+        {
+          "label": "  Config",
+          "prompt": "Edit Config",
+          "items": [
+            {
+              "label": "Defaults",
+              "exec": "kitty -- nvim ~/.config/uwsm/default"
+            },
+            {
+              "label": "Hyprland",
+              "exec": "kitty -- nvim ~/.config/hypr/hyprland.conf"
+            },
+            {
+              "label": "Keybinds",
+              "exec": "kitty -- nvim ~/.config/hypr/keybinds.conf"
+            },
+            {
+              "label": "Waybar",
+              "exec": "kitty -- nvim ~/.config/waybar/config.jsonc"
+            },
+            {
+              "label": "Walker",
+              "exec": "kitty -- nvim ~/.config/walker/config.toml"
+            },
+            {
+              "label": "Menu",
+              "exec": "kitty -- nvim ~/.config/menu/menu.json"
+            },
+            {
+              "label": "Kitty",
+              "exec": "kitty -- nvim ~/.config/kitty/kitty.conf"
+            },
+            {
+              "label": "Fish",
+              "exec": "kitty -- nvim ~/.config/fish/config.fish"
+            },
+            {
+              "label": "Starship",
+              "exec": "kitty -- nvim ~/.config/starship.toml"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "󰋖  Troubleshoot",
+      "prompt": "Troubleshoot",
+      "items": [
+        {
+          "label": "󰜉  Restart Process",
+          "prompt": "Restart",
+          "items": [
+            {
+              "label": "Waybar",
+              "exec": "sh -c 'killall waybar; sleep 0.5; setsid uwsm-app -- waybar &'"
+            },
+            {
+              "label": "Walker",
+              "exec": "sh -c 'killall walker; killall elephant; setsid uwsm-app -- elephant &; setsid uwsm-app -- walker --gapplication-service &'"
+            },
+            {
+              "label": "SwayOSD",
+              "exec": "sh -c 'pkill -x swayosd-server; setsid uwsm-app -- swayosd-server &'"
+            },
+            {
+              "label": "Hypridle",
+              "exec": "sh -c 'killall hypridle; setsid uwsm-app -- hypridle &'"
+            },
+            {
+              "label": "Hyprland",
+              "exec": "hyprctl reload"
+            }
+          ]
+        },
+        {
+          "label": "󰇅  Restart Hardware",
+          "prompt": "Restart",
+          "items": [
+            {
+              "label": "  Audio",
+              "exec": "systemctl --user restart pipewire.service",
+              "terminal": true
+            },
+            {
+              "label": "  Wi-Fi",
+              "exec": "sudo systemctl restart NetworkManager",
+              "terminal": true
+            },
+            {
+              "label": "󰂯  Bluetooth",
+              "exec": "sudo systemctl restart bluetooth",
+              "terminal": true
+            }
+          ]
+        },
+        {
+          "label": "  Close All Windows",
+          "exec": "~/.config/hypr/scripts/close-all.sh"
+        }
+      ]
+    },
+    {
+      "label": "󰋼  About",
+      "exec": "fastfetch",
+      "terminal": true
+    },
+    {
+      "label": "  System",
+      "prompt": "System",
+      "items": [
+        {
+          "label": "  Lock",
+          "exec": "hyprlock"
+        },
+        {
+          "label": "󰒲  Suspend",
+          "exec": "systemctl suspend"
+        },
+        {
+          "label": "󰤁  Hibernate",
+          "exec": "systemctl hibernate"
+        },
+        {
+          "label": "󰍃  Logout",
+          "exec": "hyprctl dispatch exit"
+        },
+        {
+          "label": "󰜉  Restart",
+          "exec": "systemctl reboot"
+        },
+        {
+          "label": "󰐥  Shutdown",
+          "exec": "systemctl poweroff"
+        }
+      ]
+    }
+  ]
+}
