@@ -8,12 +8,13 @@ Each top-level directory is a stow package whose contents mirror `$HOME`.
 
 | Package | Contents |
 |---------|----------|
-| `fish` | Fish shell config, Starship prompt, tmux, sesh-picker |
+| `fish` | Fish shell config, Starship prompt |
 | `gdb` | `.gdbinit` |
 | `git` | Git config |
 | `hyprland` | Hyprland, Waybar, SwayNC, kitty, rofi, walker, btop, menu system, theming engine, screen recording, scripts |
 | `mutt` | Neomutt, mailcap, abook |
 | `nvim` | Neovim config (lazy.nvim), zathura |
+| `tmux` | tmux config, sesh-picker |
 | `zsh` | Zsh config, Powerlevel10k |
 
 Non-stow directories:
