@@ -196,6 +196,8 @@ EOF
 bold "==> Enabling systemd user services..."
 systemctl --user daemon-reload
 systemctl --user enable --now battery-notify.timer || warn "battery-notify.timer failed to enable"
+systemctl --user enable --now hypridle.service || warn "hypridle.service failed to enable"
+systemctl --user enable --now elephant.service || warn "elephant.service failed to enable"
 
 # ── Fetch theme backgrounds from omarchy ─────────────────────────
 BG_DIR="$HOME/.config/theme/backgrounds"
