@@ -1,6 +1,6 @@
 # dotfiles
 
-Personal dotfiles for Arch Linux with Hyprland/Wayland, managed with [GNU Stow](https://www.gnu.org/software/stow/) using `--dotfiles` mode (`dot-` prefix maps to `.` when stowed).
+Personal dotfiles for Arch Linux with Hyprland/Wayland, managed with [GNU Stow](https://www.gnu.org/software/stow/)
 
 ## Stow packages
 
