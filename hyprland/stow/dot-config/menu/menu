@@ -122,7 +122,7 @@ def show_menu(
         result = subprocess.run(current_cmd, shell=True, text=True, capture_output=True)
         current_val = result.stdout.strip()
         if current_val and current_val in labels:
-            preselect = labels.index(current_val)
+            preselect = labels.index(current_val) + 1
 
     selection = walker_dmenu(labels, prompt, width, preselect)
 
