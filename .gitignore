@@ -1,13 +1,2 @@
-# Local account configuration (contains sensitive info)
-mutt/.mutt/accounts.local
-mutt/.mutt/*.account
-
-# Fish plugin-generated files (reinstall via `fisher update`)
-fish/.config/fish/completions/
-fish/.config/fish/conf.d/
-fish/.config/fish/functions/
-fish/.config/fish/themes/
-fish/.config/fish/fish_variables
-fish/.config/fish/conf
-
+tmux/stow/dot-config/tmux/plugins/*
 .claude*

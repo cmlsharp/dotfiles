@@ -14,7 +14,7 @@ AUR_PKGS=(
     sesh-bin
     tmux-mem-cpu-load
 )
-
+git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm
 install_official "${OFFICIAL_PKGS[@]}"
 install_aur "${AUR_PKGS[@]}"
 
