@@ -20,7 +20,10 @@ fi
 # Install stow (needed by all packages)
 sudo pacman -S --needed --noconfirm stow
 
-ALL_PKGS=(fish nvim gdb mutt hyprland greetd grub)
+ALL_PKGS=()
+for setup in "$DOTFILES_DIR"/*/setup.sh; do
+    ALL_PKGS+=("$(basename "$(dirname "$setup")")")
+done
 
 if [ $# -gt 0 ]; then
     PKGS=("$@")
