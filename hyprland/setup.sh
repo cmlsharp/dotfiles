@@ -41,6 +41,8 @@ OFFICIAL_PKGS=(
     xdg-utils
     udiskie
 
+    python-pyaml
+
     # Audio
     pipewire-pulse
     pavucontrol

@@ -1,21 +1,14 @@
 #!/usr/bin/env python3
-"""Modular hierarchical menu system driven by JSONC config.
-
-Uses walker --dmenu for display.
-"""
-
-from __future__ import annotations
-
-import json
 import os
 import re
-import shlex
 import subprocess
 import sys
 from pathlib import Path
 from typing import Any
 
-CONFIG_PATH = Path(os.environ.get("XDG_CONFIG_HOME", Path.home() / ".config")) / "menu" / "menu.json"
+import yaml
+
+CONFIG_PATH = Path(os.environ.get("XDG_CONFIG_HOME", Path.home() / ".config")) / "menu" / "menu.yml"
 
 
 def load_config(path: Path) -> Any:
@@ -25,16 +18,14 @@ def load_config(path: Path) -> Any:
             check=False,
         )
         sys.exit(1)
-    return json.loads(path.read_text())
+    return yaml.safe_load(path.read_text())
 
 
 def _label_key(label: str) -> str:
-    """Strip leading non-alpha chars and icons, lowercase."""
     return re.sub(r"^[^a-zA-Z]+", "", label).lstrip().lower()
 
 
 def resolve_path(node: Any, path: str) -> Any:
-    """Navigate to a node by dot-separated path, matching on label prefixes."""
     if not path:
         return node
 
@@ -45,27 +36,20 @@ def resolve_path(node: Any, path: str) -> Any:
         if isinstance(item, dict) and _label_key(item.get("label", "")).startswith(segment_lower):
             return resolve_path(item, rest)
 
-    return node  # no match → return current node
+    return node
 
 
 def walker_dmenu(labels: list[str], prompt: str, width: int, preselect: int | None = None) -> str | None:
-    """Show walker --dmenu and return the selected label, or None."""
     cmd = ["walker", "--dmenu", "--minwidth", str(width), "-p", prompt]
     if preselect is not None:
         cmd += ["-c", str(preselect)]
 
-    result = subprocess.run(
-        cmd,
-        input="\n".join(labels),
-        text=True,
-        capture_output=True,
-    )
+    result = subprocess.run(cmd, input="\n".join(labels), text=True, capture_output=True)
     selected = result.stdout.strip()
     return selected if selected else None
 
 
 def resolve_items(node: dict) -> list[dict] | None:
-    """Return the item list, evaluating shell commands for dynamic menus."""
     items = node.get("items")
     if items is None:
         return None
@@ -73,8 +57,8 @@ def resolve_items(node: dict) -> list[dict] | None:
         result = subprocess.run(items, shell=True, text=True, capture_output=True)
         if result.returncode != 0 or not result.stdout.strip():
             return None
-        return json.loads(result.stdout)
-    return items  # already a list
+        return yaml.safe_load(result.stdout)
+    return items
 
 
 def _terminal_class(large: bool) -> str:
@@ -92,15 +76,10 @@ def run_command(cmd: str, terminal: bool | dict, repeat: bool) -> None:
     elif repeat:
         subprocess.run(cmd, shell=True)
     else:
-        # Replace current process
         os.execvp("bash", ["bash", "-c", f"exec {cmd}"])
 
 
-def show_menu(
-    node: Any,
-    parent_node: Any = None,
-    allow_repeat: bool = True,
-) -> None:
+def show_menu(node: Any, parent_node: Any = None, allow_repeat: bool = True) -> None:
     if not isinstance(node, dict):
         return
 
@@ -111,18 +90,18 @@ def show_menu(
     if not items:
         return
 
-    labels = [item.get("label", "") for item in items if isinstance(item, dict)]
+    items_by_label = {item.get("label", ""): item for item in items if isinstance(item, dict)}
+    labels = list(items_by_label.keys())
     if not labels:
         return
 
-    # Preselect the current value if a "current" command is defined
     preselect: int | None = None
     current_cmd: str | None = node.get("current")
     if current_cmd:
         result = subprocess.run(current_cmd, shell=True, text=True, capture_output=True)
         current_val = result.stdout.strip()
         if current_val and current_val in labels:
-            preselect = labels.index(current_val) + 1
+            preselect = labels.index(current_val) + 1  # walker -c is 1-based
 
     selection = walker_dmenu(labels, prompt, width, preselect)
 
@@ -131,7 +110,7 @@ def show_menu(
             show_menu(parent_node, allow_repeat=allow_repeat)
         return
 
-    selected = next((item for item in items if item.get("label") == selection), None)
+    selected = items_by_label.get(selection)
 
     if selected is None:
         show_menu(node, parent_node, allow_repeat)
@@ -143,33 +122,24 @@ def show_menu(
         show_menu(child, node, allow_repeat)
     else:
         cmd: str | None = selected.get("exec")
-
         terminal = selected.get("terminal", False)
         if not isinstance(terminal, (bool, dict)):
             terminal = False
-
         repeat = allow_repeat and bool(node.get("repeat", False))
-
         if cmd:
             run_command(cmd, terminal, repeat)
-
         if repeat:
             show_menu(node, parent_node, allow_repeat)
 
+
 def kill_existing() -> bool:
-    """Return True if an existing walker --dmenu was found and killed."""
-    result = subprocess.run(
-        ["pgrep", "-f", "walker.*--dmenu"],
-        capture_output=True, text=True,
-    )
+    result = subprocess.run(["pgrep", "-f", "walker.*--dmenu"], capture_output=True, text=True)
     if not result.stdout.strip():
         return False
 
-    # Kill other menu script instances
     my_pid = str(os.getpid())
     procs = subprocess.run(
-        ["pgrep", "-f", r"python.*menu\.py"],
-        capture_output=True, text=True,
+        ["pgrep", "-f", r"python.*menu\.py"], capture_output=True, text=True,
     ).stdout.splitlines()
     for pid in procs:
         if pid.strip() and pid.strip() != my_pid:
